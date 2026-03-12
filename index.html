@@ -1,282 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navneet Personal Website</title>
-    <!--Linking External CSS-->
-    <link rel="stylesheet" href="CSS/style.css" />
-  </head>
-  <body>
-    <!--Header>Nav>Logo & Menu-->
-    <header>
-      <nav>
-        <div class="logo">
-          <a href="https://github.com/NMcoder07">Navneet </a>
-        </div>
-        <div class="nav-menu">
-          <ul>
-              <li class="nav-item active"><a href="#home">Home</a></li>
-              <li class="nav-item"><a href="#Projects">Projects</a></li>
-              <li class="nav-item"><a href="#skills">Skills</a></li>
-              <li class="nav-item"><a href="#contact">Contact</a></li>
-          </ul>
-      </div>
-  </nav>
-    </header>
-    <!--home section-->
-    <section id="home">
-      <div class="left">
-        <div class="content">
-          <h2>Hi,I am <span class="stroke-text">Navneet Mallick</span></h2>
-          <p>Computer Engineering Student</p>
-          <p>Passionate about Web Development</p>
-          <br />
-          <br />
-          <a href="#" class="btn">Hire Me</a>
-        </div>
-      </div>
-      <div class="right">
-        <div class="card-container">
-          <div class="card">
-              <div class="rotate-45"></div>
-          </div>
-          <div class="card">
-              <div class="rotate-minus-45"></div>
-          </div>
-          <div class="card">
-        <img
-          src="./images/developer.jpg"          
-          alt="Developer at work"
-          height="50px"
-          width="50px"  
-        />
-        </div>
-        </div>
-        </div>
-      </section>
-<section id="Projects">
-<div class="header">
-  <h1>My Projects</h1>
-  <p>Here are some of my projects. I have worked on various projects. I have experience in web design and development.
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navneet Portfolio</title>
 
-          </p>
-        </div>
-        </div>
-        <div class="project-list">
-          <div class="project">
-            <div class="project-image">
+<link rel="stylesheet" href="CSS/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+<nav class="navbar">
+
+<h2 class="logo">Navneet</h2>
+
+<ul class="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+</header>
+
+
+<!-- HERO -->
+<section id="home" class="hero">
+
+<div class="hero-left">
+
+<h1>Hi, I'm <span>Navneet Mallick</span></h1>
+
+<h3>Computer Engineering Student</h3>
+
+<p>Web Developer • Machine Learning Enthusiast • Problem Solver</p>
+
+<a href="#contact" class="btn">Hire Me</a>
+
+</div>
+
+<div class="hero-right">
+
+<img src="./images/developer.jpg">
+
+</div>
+
+</section>
+
+
+<!-- PROJECTS -->
+<section id="projects">
+
+<h1 class="section-title">My Projects</h1>
+
+<div class="project-container">
+
+<div class="project-card">
 <img src="books-2463779_1280.jpg">
-            </div>
-            <div class="project-info">
-              <h2 class="project-title">LMS using C</h2>
+<h3>Library Management System</h3>
+<p>C Programming Project</p>
+<a href="https://github.com/NMcoder07/Library-Management-System" class="btn">View</a>
+</div>
 
-              <p class="project-desc">This is my Project</p>
-              <div class="status">
-                <a href="https://github.com/NMcoder07/Library-Management-System.git" class="view-more-btn">View Project</a>
+<div class="project-card">
+<img src="img2.jpg">
+<h3>Quiz Game</h3>
+<p>Interactive Quiz Game</p>
+<a href="#" class="btn">View</a>
+</div>
 
-                
-                <span class="count">200+</span>
-              </div>
-            </div>
-          </div>
-          <div class="project">
-            <div class="project-image">
-<img src="DALL·E 2024-08-26 14.16.04 - A Renaissance-style painting of a Mars rover exploring a rocky Martian landscape. The rover is depicted with classical Renaissance artistic techniques.webp"              height="350px" width="350px">
+<div class="project-card">
+<img src="./images/developer.jpg">
+<h3>Portfolio Website</h3>
+<p>Personal Portfolio using HTML CSS JS</p>
+<a href="https://navneet-mallick.github.io/Web-dev-Project-" class="btn">View</a>
+</div>
 
-            </div>
-            <div class="project-info">
-              <h2 class="project-title">Quiz Game</h2>
+</div>
 
-              <p class="project-desc">This is my Project</p>
-              <div class="status">
-                <a href=""class="view-more-btn">View Project</a>
+</section>
 
-                
-                <span class="count">200+</span>
-              </div>
-            </div>
-          </div>
-        <div class="project">
-          <div class="project-image">
-<img src="DALL·E 2024-08-26 14.16.00 - A detailed painting of a teenage passionate coder in a modern workspace, depicted in a warm, inviting environment. The teenager is intensely focused o.webp"            height="350px" width="350px">
 
-          </div>
-          <div class="project-info">
-            <h2 class="project-title">Portfolio Website</h2>
+<!-- SKILLS -->
+<section id="skills">
 
-            <p class="project-desc">This is my Project</p>
-            <div class="status">
-              <a href="https://navneet-mallick.github.io/Web-dev-Project-/" class="view-more-btn">View Project</a>
+<h1 class="section-title">My Skills</h1>
 
-              
-              <span class="count">200+</span>
-            </div>
-          </div>
-        </div>
-        <div class="project">
-          <div class="project-image">
-            <img src="./images/developer.jpg" alt="Project 1"
-            height="350px" width="350px">
+<div class="skills-container">
 
-          </div>
-          <div class="project-info">
-            <h2 class="project-title">Project 4</h2>
+<div class="skill">
+<i class="fab fa-html5"></i>
+<p>HTML</p>
+</div>
 
-            <p class="project-desc">This is my Project</p>
-            <div class="status">
-              <a href="#" class="view-more-btn">View Project</a>
+<div class="skill">
+<i class="fab fa-css3-alt"></i>
+<p>CSS</p>
+</div>
 
-              
-              <span class="count">200+</span>
-            </div>
-          </div>
-        </div>
-        <div class="project">
-          <div class="project-image">
-<img src="img2.jpg"            height="350px" width="350px">
+<div class="skill">
+<i class="fab fa-js"></i>
+<p>JavaScript</p>
+</div>
 
-          </div>
-          <div class="project-info">
-            <h2 class="project-title">Project 5</h2>
+<div class="skill">
+<i class="fab fa-node-js"></i>
+<p>Node.js</p>
+</div>
 
-            <p class="project-desc">This is my Project</p>
-            <div class="status">
-              <a href="#" class="view-more-btn">View Project</a>
+<div class="skill">
+<i class="fab fa-python"></i>
+<p>Python</p>
+</div>
 
-              
-              <span class="count">200+</span>
-            </div>
-          </div>
-        </div>
-        <div class="project">
-          <div class="project-image">
-<img src="joystick1.jpg.png"            height="350px" width="350px">
+<div class="skill">
+<i class="fas fa-database"></i>
+<p>SQL</p>
+</div>
 
-          </div>
-          <div class="project-info">
-            <h2 class="project-title">Project 6</h2>
+<div class="skill">
+<i class="fas fa-brain"></i>
+<p>Machine Learning</p>
+</div>
 
-            <p class="project-desc">This is my Project</p>
-            <div class="status">
-              <a href="#" class="view-more-btn">View Project</a>
+<div class="skill">
+<i class="fas fa-chart-line"></i>
+<p>Data Science</p>
+</div>
 
-              
-              <span class="count">200+</span>
-              </div>
-              </div>
-              </div>
+<div class="skill">
+<i class="fas fa-server"></i>
+<p>Django</p>
+</div>
 
-        </div>
-        <br>
-        <br>
-        <br>
-        <!--skills section-->
-        <section id="skills">
-          <div class="header">
-              <h1>My Skills</h1>
-              <p>
-                  Here are some of my skills. I have experience in web design and development.
-              </p>
-          </div>
-          <div class="my-skills">
-              <div class="skill">
-                  <i class="fa fa-html5" aria-hidden="true"></i>
-                  <p>HTML5</p>
-              </div>
-              <div class="skill">
-                  <i class="fa fa-css3" aria-hidden="true"></i>
-                  <p>CSS3</p>
-              </div>
-              <div class="skill">
-                  <i class="fa-brands fa-js"></i>
-                  <p>JavaScript</p>
-              </div>
-              <div class="skill">
-                  <i class="fa-brands fa-react"></i>
-                  <p>React.js</p>
-              </div>
-              <div class="skill">
-                  <i class="fa-brands fa-angular"></i>
-                  <p>Angular</p>
-              </div>
-              <div class="skill">
-                  <i class="fa-brands fa-vuejs"></i>
-                  <p>Vue.js</p>
-              </div>
-              <div class="skill">
-                  <i class="fa-brands fa-node"></i>
-                  <p>Node.js</p>
-              </div>
-              <div class="skill">
-                  <i class="fa-brands fa-docker"></i>
-                  <p>Docker</p>
-              </div>
-          </div>
-      </section>
-           <div class="hero">
-          <video
-            src="Assets/video.mp4"
-            loop=""
-            muted=""
-            poster="public/hero-bg.png"
-            preload="auto"
-            autoplay=""
-            playsinline=""
-            class="home-video"
-            height="400px"></video>
-           </div>
-        
-        <br>
-        <br>
-        <br>
-        <section id="contact">
-          <div class="map">
-              <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d28488.157738371727!2d87.2906752!3d26.807500799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1715795825848!5m2!1sen!2snp"
-                  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-          <div class="contact-form">
-              <h1>Contact Me</h1>
-              <form >
-                  <div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" id="name" name="name" placeholder="Enter your name">
-                  </div>
-                  <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" id="email" name="email" placeholder="Enter your email">
-                  </div>
-                  <div class="form-group">
-                      <label for="message">Message</label>
-                      <textarea name="message" id="message" cols="30" rows="10"
-                          placeholder="Enter your message"></textarea>
-                  </div>
-                  <div class="form-group">
-                      <button class="btn" type="submit">Send Message</button>
-                  </div>
-              </form>
-          </div>
-      </section>
-  
-      <footer>
-          <div class="footer-content">
-              <p>&copy; 2021 Portfolio. All Rights Reserved.</p>
-              <div class="social-icons">
-                  <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
-                  <a href="https://www.x.com"><i class="fa-brands fa-twitter"></i></a>
-                  <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
-                  <a href="https://www.linkedin.com/in/"><i class="fa-brands fa-linkedin"></i></a>
-              </div>
-          </div>
-      </footer>
-  
-  
-  
-      <script src="js/scripts.js"></script>
-      <script src="https://kit.fontawesome.com/ff93a9b414.js" crossorigin="anonymous"></script>
-  </body>
-  
-  </html>
-  
+</div>
+
+</section>
+
+
+
+<!-- CONTACT -->
+<section id="contact">
+
+<h1 class="section-title">Contact Me</h1>
+
+<form class="contact-form">
+
+<input type="text" placeholder="Your Name">
+
+<input type="email" placeholder="Your Email">
+
+<textarea placeholder="Message"></textarea>
+
+<button class="btn">Send</button>
+
+</form>
+
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+
+<p>© 2026 Navneet Mallick</p>
+
+<div class="socials">
+
+<a href="#"><i class="fab fa-github"></i></a>
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+
+</div>
+
+</footer>
+
+</body>
+</html>
