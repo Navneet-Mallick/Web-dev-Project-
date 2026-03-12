@@ -14,6 +14,8 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+<!-- Particles.js -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 </head>
 <body>
 
@@ -23,25 +25,58 @@
     <div class="logo">Navneet</div>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="./cv/NavneetCV.pdf" download class="btn">Download CV</a></li>
     </ul>
     <div class="hamburger"><i class="fas fa-bars"></i></div>
   </nav>
 </header>
 
+<!-- DRAGGABLE 3 DOT MENU -->
+<div id="dot-menu">
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
+
 <!-- HERO -->
 <section id="home" class="hero">
-  <div class="hero-left">
-    <h1>Hi, I'm <span>Navneet Mallick</span></h1>
-    <h3 class="typed-text"></h3>
-    <p>Computer Engineering Student | Web & ML Enthusiast</p>
-    <a href="#contact" class="btn">Hire Me</a>
+  <div id="particles-js"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <h1>Hi, I'm <span>Navneet Mallick</span></h1>
+      <h3 class="typed-text"></h3>
+      <p>Computer Engineering Student | Web & ML Enthusiast</p>
+      <a href="#contact" class="btn">Hire Me</a>
+    </div>
+    <div class="hero-right">
+      <img src="./images/developer.jpg" alt="Developer Image">
+    </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-image">
-      <img src="./images/developer.jpg" alt="Developer">
+</section>
+
+<!-- ABOUT ME -->
+<section id="about">
+  <h1 class="section-title">About Me</h1>
+  <div class="about-container">
+    <p>I am a passionate computer engineering student with expertise in web development, data science, and machine learning. I love creating dynamic web applications and solving complex problems.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="year">2020</span>
+        <p>Started Bachelor of Computer Engineering</p>
+      </div>
+      <div class="timeline-item">
+        <span class="year">2022</span>
+        <p>Completed first major Web Dev Project</p>
+      </div>
+      <div class="timeline-item">
+        <span class="year">2023</span>
+        <p>Worked on Machine Learning & Data Science Projects</p>
+      </div>
     </div>
   </div>
 </section>
@@ -50,12 +85,11 @@
 <section id="projects">
   <h1 class="section-title">Projects</h1>
   <div class="project-container">
-
     <div class="project-card">
       <img src="books-2463779_1280.jpg" alt="LMS Project">
       <div class="overlay">
         <h3>LMS Project</h3>
-        <p>C Programming Project</p>
+        <p>C Programming</p>
         <a href="https://github.com/NMcoder07/Library-Management-System" class="btn">View</a>
       </div>
     </div>
@@ -78,6 +112,16 @@
       </div>
     </div>
 
+    <div class="project-card">
+      <img src="joystick1.jpg.png" alt="Game Project">
+      <div class="overlay">
+        <h3>Game Project</h3>
+        <p>JavaScript / HTML</p>
+        <a href="#" class="btn">View</a>
+      </div>
+    </div>
+    
+    <!-- Add more projects as needed -->
   </div>
 </section>
 
@@ -85,61 +129,70 @@
 <section id="skills">
   <h1 class="section-title">My Skills</h1>
   <div class="skills-container">
-
     <div class="skill">
       <i class="fab fa-html5"></i>
       <p>HTML</p>
       <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fab fa-css3-alt"></i>
       <p>CSS</p>
       <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fab fa-js"></i>
       <p>JavaScript</p>
       <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fab fa-node-js"></i>
       <p>Node.js</p>
       <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fab fa-python"></i>
       <p>Python</p>
       <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fas fa-database"></i>
       <p>SQL</p>
       <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fas fa-brain"></i>
       <p>Machine Learning</p>
       <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fas fa-chart-line"></i>
       <p>Data Science</p>
       <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
     </div>
-
     <div class="skill">
       <i class="fas fa-server"></i>
       <p>Django</p>
       <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
     </div>
+  </div>
+</section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <h1 class="section-title">Testimonials</h1>
+  <div class="testimonial-container">
+    <div class="testimonial-card">
+      <p>"Navneet delivered an amazing project with excellent quality!"</p>
+      <h4>- Client A</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>"Highly professional and skilled in web development."</p>
+      <h4>- Client B</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>"Creative, reliable, and great problem solver."</p>
+      <h4>- Mentor C</h4>
+    </div>
   </div>
 </section>
 
@@ -164,35 +217,48 @@
   </div>
 </footer>
 
-<!-- Scripts -->
+<!-- SCRIPTS -->
+<script src="js/script.js"></script>
 <script>
-  // Hamburger Menu
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+/* Hamburger */
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+hamburger.addEventListener('click', ()=> navLinks.classList.toggle('open'));
 
-  // Typing Effect
-  const typedText = document.querySelector('.typed-text');
-  const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
-  let i = 0, j = 0;
-  let currentPhrase = '';
-  let isDeleting = false;
-  function type() {
-    if(i < phrases.length){
-      if(!isDeleting && j <= phrases[i].length){
-        currentPhrase = phrases[i].slice(0, j++);
-        typedText.textContent = currentPhrase;
-      } else if(isDeleting && j >= 0){
-        currentPhrase = phrases[i].slice(0, j--);
-        typedText.textContent = currentPhrase;
-      }
-
-      if(j === phrases[i].length){ isDeleting = true; setTimeout(type, 1000); return;}
-      if(j === 0 && isDeleting){ isDeleting = false; i++; if(i===phrases.length)i=0;}
+/* Typing Effect */
+const typedText = document.querySelector('.typed-text');
+const phrases = ["Web Developer","Machine Learning Enthusiast","Problem Solver"];
+let i=0,j=0,current='',isDeleting=false;
+function type(){
+  if(i<phrases.length){
+    if(!isDeleting && j<=phrases[i].length){
+      current=phrases[i].slice(0,j++);
+      typedText.textContent=current;
+    } else if(isDeleting && j>=0){
+      current=phrases[i].slice(0,j--);
+      typedText.textContent=current;
     }
-    setTimeout(type, isDeleting ? 50 : 150);
+    if(j===phrases[i].length){isDeleting=true;setTimeout(type,1000);return;}
+    if(j===0 && isDeleting){isDeleting=false;i++;if(i===phrases.length)i=0;}
   }
-  type();
+  setTimeout(type,isDeleting?50:150);
+}
+type();
+
+/* Particles */
+particlesJS.load('particles-js','js/particles.json', function(){console.log('particles loaded');});
+
+/* Drag 3-dot menu */
+const dotMenu=document.getElementById('dot-menu');
+dotMenu.onmousedown=function(e){
+  let shiftX=e.clientX-dotMenu.getBoundingClientRect().left;
+  let shiftY=e.clientY-dotMenu.getBoundingClientRect().top;
+  function moveAt(pageX,pageY){dotMenu.style.left=pageX-shiftX+'px';dotMenu.style.top=pageY-shiftY+'px';}
+  function onMouseMove(e){moveAt(e.pageX,e.pageY);}
+  document.addEventListener('mousemove',onMouseMove);
+  dotMenu.onmouseup=function(){document.removeEventListener('mousemove',onMouseMove);dotMenu.onmouseup=null;}
+}
+dotMenu.ondragstart=function(){return false;}
 </script>
 
 </body>
