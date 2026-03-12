@@ -33,12 +33,18 @@
 
 <!-- HERO -->
 <section id="home" class="hero">
-  <div class="hero-left">
-    <h1>Hi, I'm <span>Navneet Mallick</span></h1>
-    <h3 class="typed-text"></h3>
-    <p>Computer Engineering Student | Web & ML Enthusiast</p>
+ <div class="hero-left">
+  <h1>Hi, I'm <span>Navneet Mallick</span></h1>
+  <h3 class="typed-text"></h3>
+  <p>Computer Engineering Student | Web & ML Enthusiast</p>
+  
+  <div class="hero-buttons">
     <a href="#contact" class="btn">Hire Me</a>
+    <a href="./Assets/Navneet _CV.pdf" download class="btn btn-cv">
+      <i class="fas fa-download"></i> Download CV
+    </a>
   </div>
+</div>
   <div class="hero-right">
     <div class="hero-image">
       <img src="./images/developer.jpg" alt="Developer">
@@ -166,33 +172,45 @@
 
 <!-- Scripts -->
 <script>
-  // Hamburger Menu
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+const typedText = document.querySelector(".typed-text");
+const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
+let i = 0; // phrase index
+let j = 0; // letter index
+let current = "";
+let isDeleting = false;
+let speed = 150; // typing speed
 
-  // Typing Effect
-  const typedText = document.querySelector('.typed-text');
-  const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
-  let i = 0, j = 0;
-  let currentPhrase = '';
-  let isDeleting = false;
-  function type() {
-    if(i < phrases.length){
-      if(!isDeleting && j <= phrases[i].length){
-        currentPhrase = phrases[i].slice(0, j++);
-        typedText.textContent = currentPhrase;
-      } else if(isDeleting && j >= 0){
-        currentPhrase = phrases[i].slice(0, j--);
-        typedText.textContent = currentPhrase;
-      }
+function typeEffect() {
+  const fullText = phrases[i];
 
-      if(j === phrases[i].length){ isDeleting = true; setTimeout(type, 1000); return;}
-      if(j === 0 && isDeleting){ isDeleting = false; i++; if(i===phrases.length)i=0;}
+  if (!isDeleting) {
+    current = fullText.slice(0, j + 1);
+    typedText.textContent = current;
+    j++;
+    if (j === fullText.length) {
+      isDeleting = true;
+      speed = 1000; // pause at full word
+    } else {
+      speed = 150;
     }
-    setTimeout(type, isDeleting ? 50 : 150);
+  } else {
+    current = fullText.slice(0, j - 1);
+    typedText.textContent = current;
+    j--;
+    if (j === 0) {
+      isDeleting = false;
+      i = (i + 1) % phrases.length; // next phrase
+      speed = 500; // pause before typing next word
+    } else {
+      speed = 100;
+    }
   }
-  type();
+
+  setTimeout(typeEffect, speed);
+}
+
+// start typing
+typeEffect();
 </script>
 
 </body>

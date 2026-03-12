@@ -17,7 +17,28 @@ body{
   background:var(--dark);
   color:var(--text);
 }
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
+.btn-cv {
+  background: linear-gradient(135deg, #00ffe7, #00c3ff);
+  color: var(--dark);
+  padding: 10px 25px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-cv:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0,255,255,0.5);
+}
 /* LINKS */
 a{text-decoration:none;color:var(--text);transition:var(--transition);}
 a:hover{color:var(--accent);}
