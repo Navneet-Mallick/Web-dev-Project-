@@ -1,273 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navneet Mallick | Portfolio</title>
 
-<title>Navneet Mallick | Developer Portfolio</title>
-
+<!-- CSS -->
 <link rel="stylesheet" href="CSS/style.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 </head>
-
 <body>
 
-<div class="gradient-bg"></div>
-
-<div id="particles-js"></div>
-
+<!-- NAVBAR -->
 <header>
-
-<nav class="navbar">
-
-<h2 class="logo">Navneet</h2>
-
-<ul class="nav-links">
-
-<li><a href="#home">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#testimonials">Testimonials</a></li>
-<li><a href="#github">GitHub</a></li>
-<li><a href="#contact">Contact</a></li>
-
-</ul>
-
-<div class="hamburger">
-<i class="fas fa-bars"></i>
-</div>
-
-</nav>
-
+  <nav class="navbar">
+    <div class="logo">Navneet</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+  </nav>
 </header>
 
-<section id="home" class="hero reveal">
-
-<div class="hero-left">
-
-<h1>Hi, I'm <span>Navneet Mallick</span></h1>
-
-<h3 class="typed"></h3>
-
-<p>
-Computer Engineering Student passionate about Web Development and Machine Learning.
-</p>
-
-<a href="#contact" class="btn">Hire Me</a>
-
-</div>
-
-<div class="hero-right">
-
-<img src="images/developer.jpg">
-
-</div>
-
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-left">
+    <h1>Hi, I'm <span>Navneet Mallick</span></h1>
+    <h3 class="typed-text"></h3>
+    <p>Computer Engineering Student | Web & ML Enthusiast</p>
+    <a href="#contact" class="btn">Hire Me</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image">
+      <img src="./images/developer.jpg" alt="Developer">
+    </div>
+  </div>
 </section>
 
-<section id="about" class="reveal">
+<!-- PROJECTS -->
+<section id="projects">
+  <h1 class="section-title">Projects</h1>
+  <div class="project-container">
 
-<h1 class="section-title">About Me</h1>
+    <div class="project-card">
+      <img src="books-2463779_1280.jpg" alt="LMS Project">
+      <div class="overlay">
+        <h3>LMS Project</h3>
+        <p>C Programming Project</p>
+        <a href="https://github.com/NMcoder07/Library-Management-System" class="btn">View</a>
+      </div>
+    </div>
 
-<p class="about-text">
+    <div class="project-card">
+      <img src="img2.jpg" alt="Quiz Game">
+      <div class="overlay">
+        <h3>Quiz Game</h3>
+        <p>Interactive Quiz Game</p>
+        <a href="#" class="btn">View</a>
+      </div>
+    </div>
 
-I build modern websites and explore Machine Learning and Data Science.
+    <div class="project-card">
+      <img src="./images/developer.jpg" alt="Portfolio Website">
+      <div class="overlay">
+        <h3>Portfolio Website</h3>
+        <p>HTML, CSS, JS</p>
+        <a href="https://navneet-mallick.github.io/Web-dev-Project-" class="btn">View</a>
+      </div>
+    </div>
 
-</p>
-
+  </div>
 </section>
 
-<section id="projects" class="reveal">
+<!-- SKILLS -->
+<section id="skills">
+  <h1 class="section-title">My Skills</h1>
+  <div class="skills-container">
 
-<h1 class="section-title">Projects</h1>
+    <div class="skill">
+      <i class="fab fa-html5"></i>
+      <p>HTML</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+    </div>
 
-<div class="projects">
+    <div class="skill">
+      <i class="fab fa-css3-alt"></i>
+      <p>CSS</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
 
-<div class="project-card">
-<img src="images/project1.jpg">
-<div class="overlay">
-<h3>Library Management</h3>
-<a href="https://github.com/NMcoder07/Library-Management-System" class="btn">View</a>
-</div>
-</div>
+    <div class="skill">
+      <i class="fab fa-js"></i>
+      <p>JavaScript</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
 
-<div class="project-card">
-<img src="images/project2.jpg">
-<div class="overlay">
-<h3>Quiz Game</h3>
-<a href="#" class="btn">View</a>
-</div>
-</div>
+    <div class="skill">
+      <i class="fab fa-node-js"></i>
+      <p>Node.js</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
 
-<div class="project-card">
-<img src="images/project3.jpg">
-<div class="overlay">
-<h3>Portfolio</h3>
-<a href="#" class="btn">View</a>
-</div>
-</div>
+    <div class="skill">
+      <i class="fab fa-python"></i>
+      <p>Python</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
 
-</div>
+    <div class="skill">
+      <i class="fas fa-database"></i>
+      <p>SQL</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
 
+    <div class="skill">
+      <i class="fas fa-brain"></i>
+      <p>Machine Learning</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+
+    <div class="skill">
+      <i class="fas fa-chart-line"></i>
+      <p>Data Science</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+    </div>
+
+    <div class="skill">
+      <i class="fas fa-server"></i>
+      <p>Django</p>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+
+  </div>
 </section>
 
-<section id="skills" class="reveal">
-
-<h1 class="section-title">Skills</h1>
-
-<div class="skills">
-
-<div class="skill">
-<p>HTML</p>
-<div class="bar"><span data-width="95%"></span></div>
-</div>
-
-<div class="skill">
-<p>CSS</p>
-<div class="bar"><span data-width="90%"></span></div>
-</div>
-
-<div class="skill">
-<p>JavaScript</p>
-<div class="bar"><span data-width="85%"></span></div>
-</div>
-
-<div class="skill">
-<p>Python</p>
-<div class="bar"><span data-width="80%"></span></div>
-</div>
-
-</div>
-
+<!-- CONTACT -->
+<section id="contact">
+  <h1 class="section-title">Contact Me</h1>
+  <form class="contact-form">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" required></textarea>
+    <button type="submit" class="btn">Send</button>
+  </form>
 </section>
 
-<section id="testimonials" class="reveal">
-
-<h1 class="section-title">Testimonials</h1>
-
-<div class="testimonial-slider">
-
-<div class="testimonial active">
-<p>"Amazing developer."</p>
-<h4>- Client</h4>
-</div>
-
-<div class="testimonial">
-<p>"Very professional."</p>
-<h4>- Mentor</h4>
-</div>
-
-<div class="testimonial">
-<p>"Great problem solver."</p>
-<h4>- Teammate</h4>
-</div>
-
-</div>
-
-</section>
-
-<section id="github" class="reveal">
-
-<h1 class="section-title">GitHub Stats</h1>
-
-<img src="https://github-readme-stats.vercel.app/api?username=NMcoder07&show_icons=true&theme=tokyonight">
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=NMcoder07&layout=compact&theme=tokyonight">
-
-</section>
-
-<section id="contact" class="reveal">
-
-<h1 class="section-title">Contact</h1>
-
-<form action="https://formspree.io/f/yourID" method="POST" class="contact-form">
-
-<input type="text" name="name" placeholder="Name" required>
-
-<input type="email" name="email" placeholder="Email" required>
-
-<textarea name="message" placeholder="Message"></textarea>
-
-<button class="btn">Send</button>
-
-</form>
-
-</section>
-
+<!-- FOOTER -->
 <footer>
-
-<p>© 2026 Navneet Mallick</p>
-
+  <p>© 2026 Navneet Mallick</p>
+  <div class="socials">
+    <a href="#"><i class="fab fa-github"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </div>
 </footer>
 
+<!-- Scripts -->
 <script>
+  // Hamburger Menu
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
 
-particlesJS.load('particles-js','particles.json')
+  // Typing Effect
+  const typedText = document.querySelector('.typed-text');
+  const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
+  let i = 0, j = 0;
+  let currentPhrase = '';
+  let isDeleting = false;
+  function type() {
+    if(i < phrases.length){
+      if(!isDeleting && j <= phrases[i].length){
+        currentPhrase = phrases[i].slice(0, j++);
+        typedText.textContent = currentPhrase;
+      } else if(isDeleting && j >= 0){
+        currentPhrase = phrases[i].slice(0, j--);
+        typedText.textContent = currentPhrase;
+      }
 
-const hamburger=document.querySelector(".hamburger")
-const nav=document.querySelector(".nav-links")
-
-hamburger.onclick=()=>nav.classList.toggle("open")
-
-const reveal=document.querySelectorAll(".reveal")
-
-window.addEventListener("scroll",()=>{
-
-reveal.forEach(el=>{
-
-const top=el.getBoundingClientRect().top
-
-if(top<window.innerHeight-100){
-el.classList.add("active")
-}
-
-})
-
-})
-
-VanillaTilt.init(document.querySelectorAll(".project-card"),{
-max:15,
-speed:400
-})
-
-const skills=document.querySelectorAll(".bar span")
-
-window.addEventListener("scroll",()=>{
-
-skills.forEach(skill=>{
-skill.style.width=skill.dataset.width
-})
-
-})
-
-let i=0
-const t=document.querySelectorAll(".testimonial")
-
-function slide(){
-
-t.forEach(e=>e.classList.remove("active"))
-
-t[i].classList.add("active")
-
-i++
-
-if(i>=t.length)i=0
-
-}
-
-setInterval(slide,3000)
-
+      if(j === phrases[i].length){ isDeleting = true; setTimeout(type, 1000); return;}
+      if(j === 0 && isDeleting){ isDeleting = false; i++; if(i===phrases.length)i=0;}
+    }
+    setTimeout(type, isDeleting ? 50 : 150);
+  }
+  type();
 </script>
 
 </body>
