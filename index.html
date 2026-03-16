@@ -221,6 +221,7 @@
 
 <!-- Scripts -->
 <script>
+  
 const typedText = document.querySelector(".typed-text");
 const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
 let i = 0; // phrase index
@@ -260,6 +261,35 @@ function typeEffect() {
 
 // start typing
 typeEffect();
+  // DARK / LIGHT MODE TOGGLE
+const themeToggle = document.getElementById("theme-toggle");
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+  // Switch icon
+  if(document.body.classList.contains("light-mode")){
+    themeToggle.textContent = "☀️";
+  } else {
+    themeToggle.textContent = "🌙";
+  }
+});
+  // LOAD PREVIOUS THEME
+if(localStorage.getItem("theme") === "light"){
+  document.body.classList.add("light-mode");
+  themeToggle.textContent = "☀️";
+}
+
+// SAVE ON TOGGLE
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+  if(document.body.classList.contains("light-mode")){
+    themeToggle.textContent = "☀️";
+    localStorage.setItem("theme", "light");
+  } else {
+    themeToggle.textContent = "🌙";
+    localStorage.setItem("theme", "dark");
+  }
+});
   // NAVBAR TOGGLE
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
