@@ -18,8 +18,7 @@
 <body>
 <!-- NAVBAR -->
 <header>
-<nav class="navbar">
-  <a href="https://github.com/Navneet-Mallick/">
+  <nav class="navbar">
     <div class="logo">Navneet</div>
   </a>
 
@@ -54,14 +53,6 @@
   </div>
 </nav>
 </header>
-
-
-
-
-
-
-
-<!-- Script to make dropdown work -->
 
 <!-- HERO -->
 <section id="home" class="hero">
@@ -282,80 +273,6 @@
 <!-- Scripts -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function() {
-    // Replace with your actual Public Key from EmailJS
-    emailjs.init("YOUR_PUBLIC_KEY");
-})();
-
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. THEME TOGGLE ---
-    const themeBtn = document.querySelector('.theme-toggle');
-    const themeIcon = themeBtn.querySelector('i');
-
-    themeBtn.addEventListener('click', () => {
-        document.body.classList.toggle('light-mode');
-        // Toggle icon between moon and sun
-        if (document.body.classList.contains('light-mode')) {
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-        }
-    });
-
-    // --- 2. MOBILE DROPDOWN ---
-    const hamburger = document.querySelector('.hamburger');
-    const dropdown = document.querySelector('.dropdown-menu');
-
-    hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdown.classList.toggle('active');
-    });
-
-    // Close dropdown when a link is clicked
-    document.querySelectorAll('.dropdown-menu a').forEach(link => {
-        link.addEventListener('click', () => dropdown.classList.remove('active'));
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target) && !hamburger.contains(e.target)) {
-            dropdown.classList.remove('active');
-        }
-    });
-
-    // --- 3. EMAILJS FORM SUBMISSION ---
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const submitBtn = contactForm.querySelector('button');
-            const originalBtnText = submitBtn.innerHTML;
-            
-            // Visual feedback
-            submitBtn.innerText = 'Sending...';
-            submitBtn.disabled = true;
-
-            // Use your Service ID and Template ID
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                .then(() => {
-                    alert('Message sent successfully!');
-                    contactForm.reset();
-                })
-                .catch((error) => {
-                    alert('Failed to send message. Please check console.');
-                    console.error('EmailJS Error:', error);
-                })
-                .finally(() => {
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                });
-        });
-    }
-});
-
 const typedText = document.querySelector(".typed-text");
 const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
 let i = 0; // phrase index
@@ -415,79 +332,6 @@ toggle.addEventListener("click", () => {
 // });
 // start typing
 typeEffect();
-// Add "Experience" to the scroll reveal list if not already there
-const revealElements = document.querySelectorAll(".reveal");
-
-function revealOnScroll() {
-  const windowHeight = window.innerHeight;
-  revealElements.forEach(el => {
-    const elementTop = el.getBoundingClientRect().top;
-    if(elementTop < windowHeight - 100){
-      el.classList.add("active");
-    }
-  });
-}
-window.addEventListener("scroll", revealOnScroll);
-const scrollElements = document.querySelectorAll(".reveal");
-
-function revealOnScroll() {
-  const windowHeight = window.innerHeight;
-  scrollElements.forEach(el => {
-    const elementTop = el.getBoundingClientRect().top;
-    if(elementTop < windowHeight - 100){
-      el.classList.add("active");
-    }
-  });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-
-// Initial trigger
-revealOnScroll();
-const hamburger = document.querySelector(".hamburger");
-const dropdownMenu = document.querySelector(".dropdown-menu");
-const navbar = document.querySelector(".navbar");
-
-// Function to position dropdown below navbar
-function positionDropdown() {
-  const rect = navbar.getBoundingClientRect();
-  dropdownMenu.style.top = rect.bottom + "px";
-  dropdownMenu.style.right = "20px";
-}
-
-// Mobile: Toggle dropdown
-hamburger.addEventListener("click", () => {
-  dropdownMenu.classList.toggle("active");
-  positionDropdown();
-});
-
-// Desktop: Show dropdown on hover
-navbar.addEventListener("mouseenter", () => {
-  if (window.innerWidth > 700) {
-    dropdownMenu.classList.add("active");
-    positionDropdown();
-  }
-});
-navbar.addEventListener("mouseleave", () => {
-  if (window.innerWidth > 700) {
-    dropdownMenu.classList.remove("active");
-  }
-});
-
-// Close dropdown when clicking outside (mobile)
-document.addEventListener("click", (e) => {
-  if (!hamburger.contains(e.target) && !dropdownMenu.contains(e.target)) {
-    dropdownMenu.classList.remove("active");
-  }
-});
-
-// Adjust dropdown on window resize
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 700) {
-    dropdownMenu.classList.remove("active");
-  }
-});
-</script>
 </script>
 
 </body>
