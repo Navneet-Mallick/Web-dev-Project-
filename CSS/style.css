@@ -286,40 +286,84 @@ section {
 /* ======================= CONTACT ======================= */
 .contact-form {
   max-width: 500px;
-  margin: auto;
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-}
-.contact-form input,
-.contact-form textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  background: var(--dark-200);
-  color: var(--text);
-  font-size: 16px;
-  transition: background 0.3s;
-}
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: 2px solid var(--accent);
-  background: var(--dark-100);
-}
-.contact-form button {
-  padding: 12px;
-  font-weight: 600;
-  background: var(--accent);
-  color: var(--dark);
-  border-radius: 25px;
-  cursor: pointer;
-  transition: transform 0.3s, background 0.3s;
-}
-.contact-form button:hover {
-  transform: scale(1.05);
-  background: var(--secondary);
+  gap: 20px;
 }
 
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 10px;
+  /* Add a subtle border for Light Mode definition */
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  background: var(--dark-100); /* Slightly darker than the main background */
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical; /* Allow users to resize vertically only */
+}
+
+/* Light Mode Input Fix */
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
+  background: var(--dark-200); /* Use the light grey variable */
+  border: 1px solid #ddd;
+  color: #1a1a1a;
+}
+
+/* Hover & Focus States */
+.contact-form input:hover,
+.contact-form textarea:hover {
+  background: var(--dark-200);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+  background: var(--dark-100);
+}
+
+/* Button Styling */
+.contact-form button {
+  padding: 14px;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--accent);
+  color: var(--btn-text); /* Use the specific variable we fixed earlier */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-form button:hover {
+  transform: translateY(-3px);
+  background: var(--secondary);
+  box-shadow: 0 10px 20px var(--shadow);
+}
+
+.contact-form button:active {
+  transform: scale(0.98);
+}
+
+/* Handle "Sending..." state from JS */
+.contact-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
 /* NAVBAR */
 header{position:sticky;top:0;z-index:100;background:var(--dark-100);}
 .navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;}
