@@ -34,7 +34,16 @@ a {
 a:hover {
   color: var(--accent);
 }
-
+/* LIGHT MODE VARIABLES */
+body.light-mode {
+  --dark: #ffffff;
+  --dark-100: #f5f5f5;
+  --dark-200: #e0e0e0;
+  --text: #111111;
+  --accent: #00c3ff;
+  --secondary: #0077b6;
+  --shadow: rgba(0,0,0,0.15);
+}
 /* ======================= BUTTONS ======================= */
 .btn,
 .btn-cv {
