@@ -16,19 +16,42 @@
 
 </head>
 <body>
-
 <!-- NAVBAR -->
 <header>
   <nav class="navbar">
     <div class="logo">Navneet</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="hamburger"><i class="fas fa-bars"></i></div>
-  </nav>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#experience">Experience</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="theme-toggle">
+      <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="dropdown-menu">
+      <!-- <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a> -->
+      <a href="./Assets/Navneet _CV.pdf" download>Resume</a>
+      <a href="https://github.com/Navneet-Mallick/" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank">LinkedIn</a>
+        
+
+    </div>
+  </div>
+</nav>
 </header>
 
 <!-- HERO -->
@@ -40,9 +63,9 @@
   
   <div class="hero-buttons">
     <a href="#contact" class="btn">Hire Me</a>
-    <a href="./Assets/Navneet _CV.pdf" download class="btn btn-cv">
+    <!-- <a href="./Assets/Navneet _CV.pdf" download class="btn btn-cv">
       <i class="fas fa-download"></i> Download CV
-    </a>
+    </a> -->
   </div>
 </div>
   <div class="hero-right">
@@ -53,7 +76,7 @@
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="projects" class="reveal">
   <h1 class="section-title">Projects</h1>
   <div class="project-container">
 
@@ -134,9 +157,41 @@
       
   </div>
 </section>
+<section id="experience" class="reveal">
+  <h1 class="section-title">Experience & Education</h1>
+  <div class="timeline-container">
+    
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2023 - Present</div>
+      <div class="timeline-content">
+        <h3>Computer Engineering Student</h3>
+        <p>Gaining core knowledge in Data Structures, Algorithms, and Software Engineering principles.</p>
+      </div>
+    </div>
 
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2024 - 2025</div>
+      <div class="timeline-content">
+        <h3>Web & ML Project Lead</h3>
+        <p>Developed "XENOM" (Waste Management) and various ML Predictors using Python and JavaScript.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2024</div>
+      <div class="timeline-content">
+        <h3>Self-Taught Developer</h3>
+        <p>Mastered MERN stack and Machine Learning fundamentals through hands-on projects and certifications.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
 <!-- SKILLS -->
-<section id="skills">
+<section id="skills" class="reveal">
   <h1 class="section-title">My Skills</h1>
   <div class="skills-container">
 
@@ -155,59 +210,56 @@
     <div class="skill">
       <i class="fab fa-js"></i>
       <p>JavaScript</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
     </div>
 
     <div class="skill">
       <i class="fab fa-node-js"></i>
       <p>Node.js</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
     </div>
 
     <div class="skill">
       <i class="fab fa-python"></i>
       <p>Python</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
     </div>
 
     <div class="skill">
       <i class="fas fa-database"></i>
       <p>SQL</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
     </div>
 
     <div class="skill">
       <i class="fas fa-brain"></i>
       <p>Machine Learning</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
     </div>
 
     <div class="skill">
       <i class="fas fa-chart-line"></i>
       <p>Data Science</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
     </div>
 
     <div class="skill">
       <i class="fas fa-server"></i>
       <p>Django</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
     </div>
 
   </div>
 </section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <h1 class="section-title">Contact Me</h1>
-  <form class="contact-form">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea placeholder="Your Message" required></textarea>
-    <button type="submit" class="btn">Send</button>
-  </form>
 </section>
 
+<form id="contact-form">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message" required></textarea>
+  
+  <button type="submit" class="btn">Send Message</button>
+</form>
 <!-- FOOTER -->
 <footer>
   <p>© 2026 Navneet Mallick</p>
@@ -219,6 +271,7 @@
 </footer>
 
 <!-- Scripts -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 const typedText = document.querySelector(".typed-text");
 const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
@@ -256,7 +309,27 @@ function typeEffect() {
 
   setTimeout(typeEffect, speed);
 }
+const toggle = document.querySelector(".theme-toggle");
+const icon = toggle.querySelector("i");
 
+if(localStorage.getItem("theme") === "light"){
+  document.body.classList.add("light-mode");
+  icon.classList.replace("fa-moon","fa-sun");
+}
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+
+  if(document.body.classList.contains("light-mode")){
+    icon.classList.replace("fa-moon","fa-sun");
+    localStorage.setItem("theme","light");
+  }else{
+    icon.classList.replace("fa-sun","fa-moon");
+    localStorage.setItem("theme","dark");
+  }
+});
+
+// });
 // start typing
 typeEffect();
 </script>
