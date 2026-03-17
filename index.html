@@ -46,7 +46,12 @@
 </header>
 
 
-
+<input type="text" name="honeypot" style="display:none">
+  <script>
+    if(this.honeypot.value){
+  return; // bot detected
+}
+  </script>
 <!-- HERO -->
 <section id="home" class="hero">
  <div class="hero-left">
