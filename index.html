@@ -327,12 +327,12 @@
 
 <section id="contact" class="reveal">
   <h1 class="section-title">Get In Touch</h1>
-  <form id="contact-form" class="contact-form">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button type="submit" class="btn">Send Message</button>
-  </form>
+ <form class="contact-form">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
 </section>
 <!-- FOOTER -->
 <footer>
@@ -349,9 +349,11 @@
     <a href="https://www.instagram.com/navneet_nm07/"><i class="fab fa-instagram"></i></a>
   </div>
 </footer>
-
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="script.js"></script>
 <!-- Scripts -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script>
 const typedText = document.querySelector(".typed-text");
 const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
@@ -413,25 +415,30 @@ toggle.addEventListener("click", () => {
 // start typing
 typeEffect();
 // --- EMAILJS ---
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const btn = this.querySelector('button');
-    btn.innerText = 'Sending...';
+emailjs.init(CONFIG.PUBLIC_KEY);
 
-    // REPLACE THESE WITH YOUR ACTUAL KEYS
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-      .then(() => {
-        alert('Message Sent!');
-        btn.innerText = 'Send Message';
-        this.reset();
-      }, (err) => {
-        alert('Send failed...');
-        btn.innerText = 'Send Message';
-      });
-  });
-}
+const contactForm = document.querySelector(".contact-form");
+
+contactForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const templateParams = {
+    name: this.name.value,
+    email: this.email.value,
+    message: this.message.value,
+    time: new Date().toLocaleString()
+  };
+
+  emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, templateParams)
+    .then(() => {
+      alert("Message sent successfully!");
+      contactForm.reset();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Failed to send message.");
+    });
+});
 // Get the elements
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger');
