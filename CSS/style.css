@@ -42,15 +42,6 @@ a { text-decoration: none; color: inherit; transition: var(--transition); }
 a:hover { color: var(--accent); }
 ul { list-style: none; }
 
-/* ======================= NAVBAR & DROPDOWN ======================= */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--dark-100);
-  box-shadow: 0 2px 10px var(--shadow);
-  transition: background var(--transition);
-}
 
 .navbar {
   display: flex;
@@ -98,8 +89,71 @@ header {
 .dropdown-menu a {
   padding: 12px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+} */
+/* Ensure Navbar stays on top of everything */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 9000;
+    background: var(--dark-100);
 }
 
+.dropdown-menu {
+    position: absolute;
+    top: 60px; /* Adjust based on navbar height */
+    right: 0;
+    width: 250px;
+    background: var(--dark-100);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    display: none; /* JS will toggle this */
+    flex-direction: column;
+    box-shadow: 0 10px 30px var(--shadow);
+    z-index: 9999; /* Higher than hero image */
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+/* Active Class for JS */
+.dropdown-menu.active {
+    display: flex !important;
+}
+
+.dropdown-menu a {
+    padding: 15px 25px;
+    font-weight: 500;
+    transition: 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-menu a:hover {
+    background: rgba(0, 255, 231, 0.1);
+    color: var(--accent);
+}
+
+/* Menu Socials Styling */
+.menu-socials hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 10px 20px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 20px;
+}
+
+.social-icons a {
+    border: none !important;
+    font-size: 22px;
+    padding: 10px !important;
+}
+
+.social-icons a:hover {
+    background: transparent !important;
+    transform: translateY(-3px);
+}
 /* ======================= HERO ======================= */
 .hero {
   display: flex;
