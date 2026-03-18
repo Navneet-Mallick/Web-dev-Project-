@@ -1,28 +1,46 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Navneet Mallick | Portfolio</title>
 
+
+
 <!-- CSS -->
+
 <link rel="stylesheet" href="CSS/style.css">
 
+
+
 <!-- Font Awesome -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+
 <!-- Google Fonts -->
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+
+
 </head>
+
 <body>
+
 <!-- NAVBAR -->
+
 <header>
-  <!-- <nav class="navbar">
+
+  <nav class="navbar">
+
     <a href="https://github.com/Navneet-Mallick/" class="logo-link">
-      <div class="logo" align="left">Navneet's Portfolio</div>
-    </a> -->
-   <a href="https://github.com/Navneet-Mallick/" class="logo-link">
 
       <div class="logo" align="left">Navneet's Portfolio</div>
 
@@ -70,328 +88,856 @@
 
   </nav>
 
-   <!-- <header>
-    <nav class="navbar"> -->
-        <a href="#" class="logo">Navneet</a>
-        
-        <div class="nav-actions">
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
-            </div>
-            <div class="hamburger" id="hamburger-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-            
-            <div class="dropdown-menu" id="nav-dropdown">
-                <a href="#home">Home</a>
-                <a href="#experience">Experience</a>
-                <a href="#education">Education</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
-                <a href="#contact">Contact</a>
-                
-                <div class="menu-socials">
-                    <hr>
-                    <div class="social-icons">
-                        <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-  </nav>
 </header>
 
 
+
+
+
 <input type="text" name="honeypot" style="display:none">
+
   <script>
+
     if(this.honeypot.value){
+
   return; // bot detected
+
 }
+
   </script>
+
 <!-- HERO -->
+
 <section id="home" class="hero">
+
  <div class="hero-left">
+
   <h1>Hi, I'm <span>Navneet Mallick</span></h1>
+
   <h3 class="typed-text"></h3>
+
   <p>Computer Engineering Student | Web & ML Enthusiast</p>
+
   
+
   <div class="hero-buttons">
+
     <a href="#contact" class="btn">Hire Me</a>
+
     <a href="./Assets/Navneet _CV.pdf" class="btn btn-cv" download 
+
      style="display: inline-block; color: inherit; text-decoration: none;"
+
      onclick="
+
        event.preventDefault(); 
+
        if(confirm('Would you like to download and print Navneet\'s CV?')) {
+
          const status = document.getElementById('resume-status-inline');
+
          const link = this;
+
          status.innerText = 'Preparing PDF...';
+
          status.style.opacity = '1';
+
          
+
          setTimeout(() => {
+
            status.innerText = 'Printing / Downloading...';
+
            const hiddenLink = document.createElement('a');
+
            hiddenLink.href = link.href;
+
            hiddenLink.download = 'Navneet_CV.pdf';
+
            hiddenLink.click();
+
            
+
            setTimeout(() => { 
+
              status.innerText = 'Success!';
+
              setTimeout(() => { status.style.opacity = '0'; }, 2000);
+
            }, 1000);
+
          }, 1000);
+
        }
+
      ">
+
       <i class="fas fa-download"></i> Download CV
+
     </a>
+
   </div>
+
   <div style="display: flex; flex-direction: column; align-items: flex-start; padding: 5px 20px;">
+
  
+
   <span id="resume-status-inline" 
+
         style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-top: 2px; font-weight: bold; letter-spacing: 1px;">
+
   </span>
+
 </div>
+
 </div>
+
    <div class="hero-right">
+
     <div class="hero-image">
+
       <img src="./images/KURTA.jpeg" alt="Developer">
+
     </div>
+
   </div>
+
 </section>
+
+
 
 <!-- PROJECTS -->
+
 <section id="projects" class="reveal">
+
   <h1 class="section-title">Projects</h1>
+
   <div class="project-container">
 
+
+
            <div class="project-card">
+
       <img src="./images/developer.jpg" alt="game">
+
       <div class="overlay">
+
         <h3>Hackathon Project</h3>
+
         <p>Waste Management Website</p>
+
         <a href="https://github.com/Navneet-Mallick/XENOM.git" class="btn">View</a>
+
       </div>
+
     </div>
+
     <div class="project-card">
+
       <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg?semt=ais_rp_progressive&w=740&q=80" alt="Movie Recommender System">
+
       <div class="overlay">
+
         <h3>Content Based Movie Recommender</h3>
+
         <p>ML Project</p>
+
         <a href="https://movie-recommender-navneet.streamlit.app/" class="btn">View</a>
+
       </div>
+
     </div>
 
+
+
   
+
+
 
     <div class="project-card">
+
       <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg?t=2023-12-23-07-14-44">
+
       <div class="overlay">
+
         <h3>Car Price Predictor </h3>
+
         <p>Regression Project</p>
+
         <a href="https://carpredictor-navneet.streamlit.app/" class="btn">View</a>
+
       </div>
+
     </div>
+
             
+
   
+
           <div class="project-card">
+
       <img src="weather.png">
+
       <div class="overlay">
+
         <h3>Weather App </h3>
+
         <p>Provides Real Time Weather data </p>
+
         <a href="https://navneet-mallick.github.io/Weather-App-/" class="btn">View</a>
+
       </div>
+
     </div>
+
   
+
+
 
          <div class="project-card">
+
       <img src="m_akin-game-7217379_1920.png" alt="Tic-Tac-Toe">
+
       <div class="overlay">
+
         <h3>Game</h3>
+
         <p>Interactive Tic-Tac-Toe Game</p>
+
         <a href="https://navneet-mallick.github.io/Tic-Tac-Toe/" class="btn">View</a>
+
       </div>
+
     </div>
+
     
+
            <div class="project-card">
+
       <img src="quiz.png" alt="Quiz Game">
+
       <div class="overlay">
+
         <h3>Quiz Game</h3>
+
         <p>Interactive Quiz Game</p>
+
         <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game.git" class="btn">View</a>
+
       </div>
+
     </div>
+
      <div class="project-card">
+
       <img src="rock.png" alt="game">
+
       <div class="overlay">
+
         <h3>Game</h3>
+
         <p>Rock Paper Scissors</p>
+
         <a href="https://navneet-mallick.github.io/Rock-Paper-Scissors/" class="btn">View</a>
+
       </div>
+
     </div>
+
        <div class="project-card">
+
       <img src="books-2463779_1280.jpg" alt="game">
+
       <div class="overlay">
+
         <h3>LMS</h3>
+
         <p>Library Management System</p>
+
         <a href="https://github.com/Navneet-Mallick/Library-Management-System.git" class="btn">View</a>
+
       </div>
+
     </div>
+
   </div>
+
   </div>
+
+
 
       
+
   </div>
+
   
+
   
+
   
-</section>
-<!-- SKILLS -->
-<section id="experience">
-    <h1 class="section-title">Experience</h1>
-    <div class="exp-container">
-        <div class="exp-card">
-            <div class="exp-header">
-                <h3>Intern Supervisor</h3>
-                <span class="date">Feb 2026 - Present</span>
-            </div>
-            <h4>CODE IT, Dharan</h4>
-            <p>Supervising interns on Data Science and Machine Learning projects.</p>
-        </div>
-        <div class="exp-card blue-border">
-            <div class="exp-header">
-                <h3>Graphics Designer</h3>
-                <span class="date">Feb 2026 - Present</span>
-            </div>
-            <h4>ACES ERC, Dharan</h4>
-            <p>Designing visual materials and posters for tech events.</p>
-        </div>
-    </div>
+
 </section>
 
-<section id="education">
-    <h1 class="section-title">Education</h1>
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>Bachelor in Computer Engineering</h3>
-                <p class="institution">IOE Purwanchal Campus</p>
-                <span class="timeline-date">2024 - Present</span>
+<!-- SKILLS -->
+
+<section id="experience" style="padding: 100px 50px; max-width: 1200px; margin: auto; font-family: 'Poppins', sans-serif;">
+
+    <h1 style="text-align: center; font-size: 36px; margin-bottom: 50px; font-weight: 700; color: #00ffe7;">
+
+        Experience & Education
+
+    </h1>
+
+
+
+    <div style="display: flex; flex-direction: column; gap: 25px;">
+
+        
+
+        <div style="background: #1b1f2b; padding: 25px; border-radius: 15px; border-left: 5px solid #00ffe7; transition: 0.3s;"
+
+             onmouseover="this.style.transform='translateX(10px)'"
+
+             onmouseout="this.style.transform='translateX(0)'">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+
+                <h3 style="color: #00ffe7; margin: 0;">Intern Supervisor</h3>
+
+                <span style="font-size: 14px; color: #00c3ff; font-weight: 600;">Feb, 2026 - Present</span>
+
             </div>
+
+            <h4 style="color: #ffffff; margin-bottom: 10px; font-size: 16px;">CODE IT, Dharan</h4>
+
+            <p style="color: #ffffff; opacity: 0.8; font-size: 14px; margin: 0;">
+
+                Supervising interns on Data Science and Machine Learning projects, coordinating tasks, and monitoring progress. [cite: 10, 11, 13, 14]
+
+            </p>
+
         </div>
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>Higher Secondary (+2 Science)</h3>
-                <p class="institution">Your College Name</p>
-                <span class="timeline-date">2021 - 2023</span>
+
+
+
+        <div style="background: #1b1f2b; padding: 25px; border-radius: 15px; border-left: 5px solid #00c3ff; transition: 0.3s;"
+
+             onmouseover="this.style.transform='translateX(10px)'"
+
+             onmouseout="this.style.transform='translateX(0)'">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+
+                <h3 style="color: #00ffe7; margin: 0;">Graphics Designer</h3>
+
+                <span style="font-size: 14px; color: #00c3ff; font-weight: 600;">Feb, 2026 - Present</span>
+
             </div>
+
+            <h4 style="color: #ffffff; margin-bottom: 10px; font-size: 16px;">ACES ERC, Dharan</h4>
+
+            <p style="color: #ffffff; opacity: 0.8; font-size: 14px; margin: 0;">
+
+                Designing visual materials and posters for events to support committee communication. [cite: 15, 16, 18, 19]
+
+            </p>
+
         </div>
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>Secondary School (SEE)</h3>
-                <p class="institution">Your School Name</p>
-                <span class="timeline-date">Completed 2021</span>
+
+
+
+        <div style="background: #1b1f2b; padding: 25px; border-radius: 15px; border-left: 5px solid #ffffff; transition: 0.3s;"
+
+             onmouseover="this.style.transform='translateX(10px)'"
+
+             onmouseout="this.style.transform='translateX(0)'">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+
+                <h3 style="color: #00ffe7; margin: 0;">Bachelor of Computer Engineering</h3>
+
+                <span style="font-size: 14px; color: #00c3ff; font-weight: 600;">Jan, 2024 - Present</span>
+
             </div>
+
+            <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 16px;">IOE Purwanchal Campus</h4>
+
+            <p style="color: #ffffff; opacity: 0.8; font-size: 14px; margin: 0;">Currently a 3rd-year student with a focus on AI and Machine Learning. [cite: 7, 21, 22, 26]</p>
+
         </div>
+
+
+
     </div>
+
 </section>
+
+  <section id="achievements-section" style="padding: 100px 50px; max-width: 1200px; margin: auto; font-family: 'Poppins', sans-serif;">
+
+    <h1 style="text-align: center; font-size: 36px; margin-bottom: 50px; font-weight: 700; color: #00ffe7; text-transform: uppercase; letter-spacing: 2px;">
+
+        Hackathons & Certifications
+
+    </h1>
+
+
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+
+        
+
+        <div style="background: linear-gradient(145deg, #1b1f2b, #252931); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 255, 231, 0.3); position: relative; overflow: hidden; transition: 0.4s;"
+
+             onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='#00ffe7'; this.style.boxShadow='0 10px 30px rgba(0, 255, 231, 0.2)';"
+
+             onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 255, 231, 0.3)'; this.style.boxShadow='none';">
+
+            
+
+            <div style="font-size: 40px; margin-bottom: 15px;">🚀</div>
+
+            <h3 style="color: #00ffe7; margin-bottom: 10px; font-size: 22px;">Hackathon Participation</h3>
+
+            <p style="color: #ffffff; opacity: 0.8; font-size: 15px; line-height: 1.6;">
+
+                Actively participated in the <strong>CS50 AI Hackathon</strong> and <strong>ACES TechFest 7.0</strong>. Gained hands-on experience in rapid prototyping and collaborative problem-solving[cite: 40, 41].
+
+            </p>
+
+        </div>
+
+
+
+        <div style="background: linear-gradient(145deg, #1b1f2b, #252931); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 195, 255, 0.3); transition: 0.4s;"
+
+             onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='#00c3ff'; this.style.boxShadow='0 10px 30px rgba(0, 195, 255, 0.2)';"
+
+             onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(0, 195, 255, 0.3)'; this.style.boxShadow='none';">
+
+            
+
+            <div style="font-size: 40px; margin-bottom: 15px;">🤖</div>
+
+            <h3 style="color: #00c3ff; margin-bottom: 5px; font-size: 22px;">CS50x AI Certification</h3>
+
+            <div style="font-size: 13px; color: #ffffff; opacity: 0.6; margin-bottom: 15px; font-weight: 600;">2025 | IOE Purwanchal Campus [cite: 48, 49, 50]</div>
+
+            <p style="color: #ffffff; opacity: 0.8; font-size: 15px; line-height: 1.6;">
+
+                Mastered foundational AI concepts including search algorithms, knowledge representation, optimization, and machine learning techniques[cite: 51].
+
+            </p>
+
+        </div>
+
+
+
+    </div>
+
+</section>
+
   <!-- SKILLS -->
+
 <section id="skills" class="reveal">
+
   <h1 class="section-title">My Skills</h1>
+
   <div class="skills-container">
 
+
+
     <div class="skill">
+
       <i class="fab fa-html5"></i>
+
       <p>HTML</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fab fa-css3-alt"></i>
+
       <p>CSS</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fab fa-js"></i>
+
       <p>JavaScript</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fab fa-node-js"></i>
+
       <p>Node.js</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fab fa-python"></i>
+
       <p>Python</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fas fa-database"></i>
+
       <p>SQL</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fas fa-brain"></i>
+
       <p>Machine Learning</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fas fa-chart-line"></i>
+
       <p>Data Science</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+
     </div>
 
+
+
     <div class="skill">
+
       <i class="fas fa-server"></i>
+
       <p>Django</p>
+
       <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
+
     </div>
+
+
 
   </div>
+
 </section>
+
 </section>
+
+
 
 <section id="contact" class="reveal">
+
   <h1 class="section-title">Get In Touch</h1>
+
  <form class="contact-form">
+
   <input type="text" name="name" placeholder="Your Name" required>
+
   <input type="email" name="email" placeholder="Your Email" required>
+
   <textarea name="message" placeholder="Your Message" required></textarea>
+
   <button type="submit">Send Message</button>
+
 </form>
+
 </section>
+
 <!-- FOOTER -->
+
 <footer>
+
   <p>© 2026 Navneet Mallick</p>
+
   <!-- <div class="socials">
+
         <div class="dropdown-menu">
+
         <a href="./Assets/Navneet _CV.pdf" download>Resume</a>
+
         <a href="https://github.com/Navneet-Mallick/" target="_blank">GitHub</a>
+
         <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank">LinkedIn</a>
+
     </div>
+
 </div> -->
+
     <a href="https://github.com/Navneet-Mallick/"><i class="fab fa-github"></i></a>
+
     <a href="https://www.linkedin.com/in/navneet-mallick-313829279"><i class="fab fa-linkedin"></i></a>
+
     <a href="https://www.instagram.com/navneet_nm07/"><i class="fab fa-instagram"></i></a>
+
   </div>
+
 </footer>
+
 <script src="config.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script src="./script/script.js"></script>
+
+<script src="script.js"></script>
+
 <!-- Scripts -->
 
 
 
+<script>
+
+const typedText = document.querySelector(".typed-text");
+
+const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
+
+let i = 0; // phrase index
+
+let j = 0; // letter index
+
+let current = "";
+
+let isDeleting = false;
+
+let speed = 150; // typing speed
+
+
+
+function typeEffect() {
+
+  const fullText = phrases[i];
+
+
+
+  if (!isDeleting) {
+
+    current = fullText.slice(0, j + 1);
+
+    typedText.textContent = current;
+
+    j++;
+
+    if (j === fullText.length) {
+
+      isDeleting = true;
+
+      speed = 1000; // pause at full word
+
+    } else {
+
+      speed = 150;
+
+    }
+
+  } else {
+
+    current = fullText.slice(0, j - 1);
+
+    typedText.textContent = current;
+
+    j--;
+
+    if (j === 0) {
+
+      isDeleting = false;
+
+      i = (i + 1) % phrases.length; // next phrase
+
+      speed = 500; // pause before typing next word
+
+    } else {
+
+      speed = 100;
+
+    }
+
+  }
+
+
+
+  setTimeout(typeEffect, speed);
+
+}
+
+const toggle = document.querySelector(".theme-toggle");
+
+const icon = toggle.querySelector("i");
+
+
+
+if(localStorage.getItem("theme") === "light"){
+
+  document.body.classList.add("light-mode");
+
+  icon.classList.replace("fa-moon","fa-sun");
+
+}
+
+
+
+toggle.addEventListener("click", () => {
+
+  document.body.classList.toggle("light-mode");
+
+
+
+  if(document.body.classList.contains("light-mode")){
+
+    icon.classList.replace("fa-moon","fa-sun");
+
+    localStorage.setItem("theme","light");
+
+  }else{
+
+    icon.classList.replace("fa-sun","fa-moon");
+
+    localStorage.setItem("theme","dark");
+
+  }
+
+});
+
+
+
+// });
+
+// start typing
+
+typeEffect();
+
+// --- EMAILJS ---
+
+emailjs.init(CONFIG.PUBLIC_KEY);
+
+
+
+const contactForm = document.querySelector(".contact-form");
+
+
+
+contactForm.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+
+
+  const templateParams = {
+
+    name: this.name.value,
+
+    email: this.email.value,
+
+    message: this.message.value,
+
+    time: new Date().toLocaleString()
+
+  };
+
+
+
+  emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, templateParams)
+
+    .then(() => {
+
+      alert("Message sent successfully!");
+
+      contactForm.reset();
+
+    })
+
+    .catch((error) => {
+
+      console.error("Error:", error);
+
+      alert("Failed to send message.");
+
+    });
+
+});
+
+// Get the elements
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const hamburger = document.querySelector('.hamburger');
+
+    const dropdown = document.querySelector('.dropdown-menu');
+
+
+
+    if (hamburger && dropdown) {
+
+        hamburger.addEventListener('click', (e) => {
+
+            e.stopPropagation(); // Prevents the click from closing the menu immediately
+
+            dropdown.classList.toggle('active');
+
+            console.log("Menu Toggled. Current classes:", dropdown.className); // Debugging line
+
+        });
+
+
+
+        // Close menu when clicking anywhere else
+
+        document.addEventListener('click', (e) => {
+
+            if (!dropdown.contains(e.target) && !hamburger.contains(e.target)) {
+
+                dropdown.classList.remove('active');
+
+            }
+
+        });
+
+    } else {
+
+        console.error("Hamburger or Dropdown not found in HTML!");
+
+    }
+
+});
+
+</script>
+
+
+
 </body>
+
 </html>
