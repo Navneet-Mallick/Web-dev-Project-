@@ -106,30 +106,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// document.addEventListener('DOMContentLoaded', () => {
+//     const hamburger = document.getElementById('hamburger-btn');
+//     const dropdown = document.getElementById('nav-dropdown');
+
+//     // 1. Toggle Dropdown on Click
+//     hamburger.addEventListener('click', (e) => {
+//         e.stopPropagation();
+//         dropdown.classList.toggle('active');
+//     });
+
+//     // 2. Close dropdown when clicking any link inside it
+//     const navLinks = dropdown.querySelectorAll('a');
+//     navLinks.forEach(link => {
+//         link.addEventListener('click', () => {
+//             dropdown.classList.remove('active');
+//         });
+//     });
+
+//     // 3. Close dropdown when clicking anywhere outside
+//     document.addEventListener('click', (e) => {
+//         if (!dropdown.contains(e.target) && !hamburger.contains(e.target)) {
+//             dropdown.classList.remove('active');
+//         }
+//     });
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger-btn');
     const dropdown = document.getElementById('nav-dropdown');
 
-    // 1. Toggle Dropdown on Click
+    // 1. Toggle Menu
     hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); // Prevents click from bubbling to document
         dropdown.classList.toggle('active');
     });
 
-    // 2. Close dropdown when clicking any link inside it
-    const navLinks = dropdown.querySelectorAll('a');
-    navLinks.forEach(link => {
+    // 2. Close Menu when clicking any link inside
+    const menuLinks = dropdown.querySelectorAll('a');
+    menuLinks.forEach(link => {
         link.addEventListener('click', () => {
             dropdown.classList.remove('active');
         });
     });
 
-    // 3. Close dropdown when clicking anywhere outside
+    // 3. Close Menu when clicking anywhere else on the screen
     document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target) && !hamburger.contains(e.target)) {
             dropdown.classList.remove('active');
         }
     });
+
+    // --- Keep your Theme Toggle and Typing Effect below this ---
+});
 
     // 4. Typing Effect for Hero Section
     const typedText = document.querySelector(".typed-text");
