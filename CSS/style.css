@@ -25,6 +25,138 @@ body.light-mode {
   --secondary: #0077b6;
   --shadow: rgba(0,0,0,0.15);
 }
+/* ======================= EXPERIENCE SECTION ======================= */
+#experience {
+    padding: 100px 5%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.exp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.exp-card {
+    background: var(--dark-100);
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid var(--accent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exp-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(0, 255, 231, 0.1);
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.exp-header h3 { color: var(--accent); font-size: 22px; }
+.exp-header .date { color: var(--secondary); font-weight: 600; font-size: 14px; }
+.exp-card h4 { color: #ccc; margin-bottom: 15px; font-style: italic; }
+
+/* ======================= EDUCATION TIMELINE ======================= */
+#education {
+    padding: 100px 5%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 40px; /* Space for the vertical line */
+}
+
+/* The Vertical Line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--accent);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+/* The Timeline Dot */
+.timeline-dot {
+    position: absolute;
+    left: -40px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: var(--dark);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.timeline-content {
+    background: var(--dark-100);
+    padding: 20px 25px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.timeline-content:hover {
+    background: var(--dark-200);
+}
+
+.timeline-content h3 { color: var(--accent); margin-bottom: 5px; }
+.timeline-content .inst { color: var(--secondary); font-weight: 600; margin-bottom: 10px; }
+.timeline-content .time-date { font-size: 13px; opacity: 0.7; display: block; }
+
+/* ======================= DROPDOWN FOR ALL DEVICES ======================= */
+/* Force hamburger and dropdown to show on Laptop/Desktop */
+.hamburger {
+    display: block !important; /* Visible on all screens */
+}
+
+.nav-links {
+    display: none !important; /* Hide horizontal links on all screens */
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 220px;
+    background: var(--dark-100);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    display: none; /* Controlled by JS */
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 2000;
+}
+
+.dropdown-menu.active {
+    display: flex;
+}
+
+.dropdown-menu a {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(0, 255, 231, 0.1);
+    color: var(--accent);
+}
 /* ======================= BODY ======================= */
 body {
   font-family: 'Poppins', sans-serif;
