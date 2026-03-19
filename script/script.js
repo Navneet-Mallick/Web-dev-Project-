@@ -1,4 +1,13 @@
 // ================= DOM READY =================
+// Hide loader after page load
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    loader.style.opacity = '0';
+    loader.style.transition = 'opacity 0.5s ease';
+    setTimeout(() => {
+        loader.style.display = 'none';
+    }, 500); // wait for fade out
+});
 document.addEventListener("DOMContentLoaded", () => {
 
   // ================= DROPDOWN MENU =================
