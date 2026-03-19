@@ -259,53 +259,113 @@ downloadBtn.addEventListener('click', function(e) {
       </div>
     </div>
 
-  </div>
+  </div><div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; color: #333;">
 
-</section>
-<!-- ================= EXPERIENCE ================= -->
-<section id="experience">
-  <h1 class="section-title">Experience</h1>
+  <style>
+    /* Experience Card Hover Effects */
+    .exp-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      border-left: 5px solid #4f46e5;
+      cursor: pointer;
+    }
+    .exp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(79, 70, 229, 0.15);
+      background: #f8faff;
+    }
 
-  <div class="exp-container">
-    <div class="exp-card">
-      <h3>Intern Supervisor</h3>
-      <span>Feb 2026 - Present</span>
-      <p>CODE IT, Dharan</p>
-    </div>
+    /* Timeline Styling */
+    .timeline-container {
+      position: relative;
+      padding-left: 30px;
+      margin-top: 30px;
+    }
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 20px;
+      transition: all 0.3s ease;
+    }
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      background: #4f46e5;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px #4f46e5;
+      transition: transform 0.3s ease;
+    }
+    .timeline-item:hover::after {
+      transform: scale(1.3);
+      background: #10b981; /* Changes color to green on hover */
+    }
+    .section-title {
+      font-size: 2rem;
+      border-bottom: 3px solid #4f46e5;
+      display: inline-block;
+      margin-bottom: 30px;
+      padding-bottom: 5px;
+    }
+  </style>
 
-    <div class="exp-card">
-      <h3>Graphics Designer</h3>
-      <span>Feb 2026 - Present</span>
-      <p>ACES ERC, Dharan</p>
-    </div>
-  </div>
-</section>
+  <section id="experience" style="margin-bottom: 50px;">
+    <h1 class="section-title">Experience</h1>
 
-<!-- ================= EDUCATION ================= -->
-<section id="education">
-  <h1 class="section-title">Education</h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+      <div class="exp-card" style="flex: 1 1 calc(50% - 20px); min-width: 280px;">
+        <h3 style="margin: 0 0 5px 0; color: #1e293b;">Intern Supervisor</h3>
+        <span style="font-size: 0.9rem; color: #4f46e5; font-weight: bold;">Feb 2026 - Present</span>
+        <p style="margin: 10px 0 0 0; color: #64748b; font-weight: 500;">CODE IT, Dharan</p>
+      </div>
 
-  <div class="timeline">
-
-    <div class="timeline-item">
-      <div class="timeline-content">
-        <h3>Computer Engineering</h3>
-        <p>IOE Purwanchal Campus</p>
-        <span>2024 - Present</span>
+      <div class="exp-card" style="flex: 1 1 calc(50% - 20px); min-width: 280px;">
+        <h3 style="margin: 0 0 5px 0; color: #1e293b;">Graphics Designer</h3>
+        <span style="font-size: 0.9rem; color: #4f46e5; font-weight: bold;">Feb 2026 - Present</span>
+        <p style="margin: 10px 0 0 0; color: #64748b; font-weight: 500;">ACES ERC, Dharan</p>
       </div>
     </div>
+  </section>
 
-    <div class="timeline-item">
-      <div class="timeline-content">
-        <h3>+2 Science</h3>
-        <span>2021 - 2023</span>
+  <section id="education">
+    <h1 class="section-title">Education</h1>
+
+    <div class="timeline-container">
+      <div class="timeline-item">
+        <h3 style="margin: 0; color: #1e293b;">Bachelor in Computer Engineering</h3>
+        <p style="margin: 5px 0; color: #64748b;">IOE Purwanchal Campus</p>
+        <span style="display: inline-block; background: #ede9fe; color: #4f46e5; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">2024 - Present</span>
+      </div>
+
+      <div class="timeline-item">
+        <h3 style="margin: 0; color: #1e293b;">+2 Science - NEB</h3>
+        <h4 style="margin: 5px 0; font-size: 1rem; color: #64748b; font-weight: normal;">DAV College, Lalitpur</h4>
+        <span style="display: inline-block; background: #f1f5f9; color: #475569; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">2021 - 2023</span>
       </div>
     </div>
+  </section>
 
-  </div>
+</div>
+
 </section>
-
-
 
 <!-- ================= SKILLS ================= -->
 <section id="skills" class="reveal">
