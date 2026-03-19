@@ -48,9 +48,45 @@
   <div class="menu-label">Quick Actions</div>
   <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
   <!-- <a href="./Assets/Navneet_CV.pdf" class="btn btn-cv" class="fas fa-file"download id="downloadBtn"> -->
-    <a href="./Assets/Navneet_Mallick_CV.pdf" target="_blank" class="btn" class="fas fa-file"download id="downloadBtn">
-  View / Download CV
+<!-- Download CV Button -->
+<a href="./Assets/Navneet_CV.pdf" 
+   class="btn btn-cv" 
+   id="download-cv" 
+   download>
+   <i class="fas fa-download"></i> Download CV
 </a>
+
+<span id="resume-status-inline" 
+      style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;">
+</span>
+
+<!-- Inline JS -->
+<script>
+const downloadBtn = document.getElementById('download-cv');
+const statusSpan = document.getElementById('resume-status-inline');
+
+downloadBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Show preparing message
+    statusSpan.style.opacity = 1;
+    statusSpan.innerText = 'Preparing PDF...';
+
+    setTimeout(() => {
+        // Trigger download
+        const link = document.createElement('a');
+        link.href = downloadBtn.href;
+        link.download = 'Navneet_CV.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success
+        statusSpan.innerText = 'Downloaded!';
+        setTimeout(() => { statusSpan.style.opacity = 0; }, 2000);
+    }, 500);
+});
+</script>
   <a href="#contact"><i class="fas fa-envelope"></i> Contact Me</a>
 
   <hr>
@@ -89,9 +125,48 @@
     <div class="hero-buttons">
       <a href="#contact" class="btn">Hire Me</a>
 
-         <a href="./Assets/Navneet_Mallick_CV.pdf" target="_blank" class="btn" class="fas fa-file"download id="downloadBtn">
+         <!-- <a href="./Assets/Navneet_Mallick_CV.pdf" target="_blank" class="btn" class="fas fa-file"download id="downloadBtn">
   View / Download CV
+</a> -->
+      <!-- Download CV Button -->
+<a href="./Assets/Navneet_CV.pdf" 
+   class="btn btn-cv" 
+   id="download-cv" 
+   download>
+   <i class="fas fa-download"></i> Download CV
 </a>
+
+<span id="resume-status-inline" 
+      style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;">
+</span>
+
+<!-- Inline JS -->
+<script>
+const downloadBtn = document.getElementById('download-cv');
+const statusSpan = document.getElementById('resume-status-inline');
+
+downloadBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Show preparing message
+    statusSpan.style.opacity = 1;
+    statusSpan.innerText = 'Preparing PDF...';
+
+    setTimeout(() => {
+        // Trigger download
+        const link = document.createElement('a');
+        link.href = downloadBtn.href;
+        link.download = 'Navneet_CV.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success
+        statusSpan.innerText = 'Downloaded!';
+        setTimeout(() => { statusSpan.style.opacity = 0; }, 2000);
+    }, 500);
+});
+</script>
         <i class="fas fa-download"></i> Download CV
       </a>
     </div>
