@@ -26,7 +26,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loader');
+  if (loader) {
+    // fade out loader after 1 second max
+    setTimeout(() => {
+      loader.style.opacity = 0;
+      loader.style.pointerEvents = 'none';
+      loader.style.transition = 'opacity 0.5s ease';
+      loader.style.display = 'none';
+    }, 500); // 0.5s delay
+  }
+});
   // ================= TYPING EFFECT =================
   const typedText = document.querySelector(".typed-text");
 
