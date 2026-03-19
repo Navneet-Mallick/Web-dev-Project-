@@ -69,6 +69,12 @@ header {
   gap: 25px;
 }
 
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .nav-links a:hover {
   color: var(--accent);
 }
@@ -76,57 +82,58 @@ header {
 .nav-actions {
   display: flex;
   gap: 20px;
+  position: relative;
 }
 
 .hamburger {
-  display: none;
   font-size: 22px;
   cursor: pointer;
 }
 
-/* ================= MOBILE MENU ================= */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 100%;
-  height: 100vh;
-  background: var(--dark);
-  display: flex;
+/* ================= DROPDOWN MENU ================= */
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 260px;
+  background: var(--dark-100);
+  border-radius: 12px;
+  display: none;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  transition: 0.4s;
+  box-shadow: 0 10px 30px var(--shadow);
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
   z-index: 9999;
 }
 
-.mobile-menu.active {
-  right: 0;
+.dropdown-menu.active {
+  display: flex;
 }
 
-.mobile-menu a {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.mobile-menu a:hover {
-  color: var(--accent);
-  transform: scale(1.1);
-}
-
-.menu-title {
-  margin-top: 20px;
+.dropdown-menu a {
+  padding: 14px 20px;
   font-size: 14px;
-  color: var(--secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
 }
 
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 35px;
-  cursor: pointer;
+.dropdown-menu a:hover {
+  background: rgba(0,255,231,0.1);
+  color: var(--accent);
+}
+
+.dropdown-menu hr {
+  border: none;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 5px 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
 /* ================= HERO ================= */
@@ -347,32 +354,10 @@ footer a {
   font-size: 20px;
 }
 
-/* ================= CERTIFICATES ================= */
-.certificates {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-}
-
-.cert-card {
-  background: var(--dark-100);
-  padding: 20px;
-  border-radius: var(--radius);
-  transition: 0.3s;
-}
-
-.cert-card:hover {
-  transform: translateY(-10px);
-}
-
 /* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
   .nav-links {
     display: none;
-  }
-
-  .hamburger {
-    display: block;
   }
 
   .hero {
