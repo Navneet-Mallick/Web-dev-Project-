@@ -69,28 +69,7 @@ ul { list-style: none; }
   color: var(--text);
 }
 
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 200px;
-  background: var(--dark-100);
-  border-radius: 12px;
-  box-shadow: 0 10px 30px var(--shadow);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px 0;
-  display: none;
-  flex-direction: column;
-  z-index: 2000;
-}
 
-.dropdown-menu.active { display: flex; }
-
-.dropdown-menu a {
-  padding: 12px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-} */
-/* Ensure Navbar stays on top of everything */
 header {
     position: sticky;
     top: 0;
