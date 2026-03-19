@@ -38,6 +38,10 @@ body {
   color: var(--text);
   transition: 0.3s;
 }
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
 /* ===== LOADER ===== */
 #loader {
   position: fixed;
