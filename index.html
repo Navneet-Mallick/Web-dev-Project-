@@ -6,262 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navneet Mallick | Portfolio</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="CSS/style.css">
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
 
-<body>
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script> -->
-<!-- ================= NAVBAR ================= -->
-<header>
-  <nav class="navbar">
-
-    <div class="logo">Navneet</div>
-
-    <ul class="nav-links" >
-      <li><a href="#home" style="color:orange;"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="#projects" style="color:orange;"><i class="fas fa-code"></i> Projects</a></li>
-      <li><a href="#skills" style="color:orange;"><i class="fas fa-brain"></i> Skills</a></li>
-      <li><a href="#experience" style="color:orange;"><i class="fas fa-briefcase"></i> Experience</a></li>
-      <li><a href="#education" style="color:orange;"><i class="fas fa-graduation-cap"></i> Education</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <div class="theme-toggle">
-        <i class="fas fa-moon"></i>
-      </div>
-
-      <div class="hamburger" id="hamburger-btn">
-        <i class="fas fa-bars"></i>
-      </div>
-
-      <!-- Dropdown -->
-      <div class="dropdown-menu" id="nav-dropdown">
-
-  <!-- Quick Actions -->
-  <div class="menu-label">Quick Actions</div>
-  <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
-  <!-- <a href="./Assets/Navneet_CV.pdf" class="btn btn-cv" class="fas fa-file"download id="downloadBtn"> -->
-<!-- Download CV Button -->
-<a href="./Assets/Navneet _CV.pdf" 
-   class="btn btn-cv" 
-   id="download-cv" 
-   download>
-   <i class="fas fa-download"></i> Download CV
-</a>
-
-<span id="resume-status-inline" 
-      style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;">
-</span>
-
-<!-- Inline JS -->
-<script>
-const downloadBtn = document.getElementById('download-cv');
-const statusSpan = document.getElementById('resume-status-inline');
-
-downloadBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    // Show preparing message
-    statusSpan.style.opacity = 1;
-    statusSpan.innerText = 'Preparing PDF...';
-
-    setTimeout(() => {
-        // Trigger download
-        const link = document.createElement('a');
-        link.href = downloadBtn.href;
-        link.download = 'Navneet _CV.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        // Show success
-        statusSpan.innerText = 'Downloaded!';
-        setTimeout(() => { statusSpan.style.opacity = 0; }, 2000);
-    }, 500);
-});
-</script>
-  <a href="#contact"><i class="fas fa-envelope"></i> Contact Me</a>
-
-  <hr>
-
-  <!-- Navigation -->
-  <div class="menu-label">Navigation</div>
-  <!-- <a href="#home"><i class="fas fa-home"></i> Home</a> -->
-  <a href="#skills"><i class="fas fa-brain"></i> Skills</a>
-  <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
-  <!-- <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a> -->
-
-  <hr>
-
-  <!-- Profiles -->
-  <div class="menu-label">Profiles</div>
-  <a href="https://github.com/Navneet-Mallick/" target="_blank">
-    <i class="fab fa-github"></i> GitHub
-  </a>
-
-  <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank">
-    <i class="fab fa-linkedin"></i> LinkedIn
-  </a>
-
-</div>
-  </nav>
-</header>
-
-<!-- ================= HERO ================= -->
-<section id="home" class="hero">
-
-  <div class="hero-left">
-    <h1>Hi, I'm <span>Navneet Mallick</span></h1>
-    <h3 class="typed-text"></h3>
-    <p>Computer Engineering Student | Web & ML Enthusiast</p>
-
-    <div class="hero-buttons">
-      <a href="#contact" class="btn">Hire Me</a>
-
-         <!-- <a href="./Assets/Navneet_Mallick_CV.pdf" target="_blank" class="btn" class="fas fa-file"download id="downloadBtn">
-  View / Download CV
-</a> -->
-      <!-- Download CV Button -->
-<a href="./Assets/Navneet _CV.pdf" 
-   class="btn btn-cv" 
-   id="download-cv" 
-   download>
-   <i class="fas fa-download"></i> Download CV
-</a>
-      
-
-<span id="resume-status-inline" 
-      style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;">
-</span>
-
-<!-- Inline JS -->
-<script>
-const downloadBtn = document.getElementById('download-cv');
-const statusSpan = document.getElementById('resume-status-inline');
-
-downloadBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    // Show preparing message
-    statusSpan.style.opacity = 1;
-    statusSpan.innerText = 'Preparing PDF...';
-
-    setTimeout(() => {
-        // Trigger download
-        const link = document.createElement('a');
-        link.href = downloadBtn.href;
-        link.download = 'Navneet _CV.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        // Show success
-        statusSpan.innerText = 'Downloaded!';
-        setTimeout(() => { statusSpan.style.opacity = 0; }, 2000);
-    }, 500);
-});
-</script>
-        <i class="fas fa-download"></i> Download CV
-      </a>
-    </div>
-
-    <span id="resume-status-inline"></span>
-  </div>
-
-  <div class="hero-right">
-    <img src="nm.jpeg" alt="Navneet Mallick">
-  </div>
-
-</section>
-
-<!-- ================= PROJECTS ================= -->
-<section id="projects" class="reveal">
-
-  <h1 class="section-title">Projects</h1>
-
-  <div class="project-container">
-
-    <div class="project-card">
-      <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender System">
-      <div class="overlay">
-        <h3>Content Based Movie Recommender</h3>
-        <p>ML Project</p>
-        <a href="https://movie-recommender-navneet.streamlit.app/" class="btn">View</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor">
-      <div class="overlay">
-        <h3>Car Price Predictor</h3>
-        <p>Regression Project</p>
-        <a href="https://carpredictor-navneet.streamlit.app/" class="btn">View</a>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <img src="weather.png" alt="Weather App">
-      <div class="overlay">
-        <h3>Weather App</h3>
-        <p>Provides Real Time Weather Data</p>
-        <a href="https://navneet-mallick.github.io/Weather-App-/" class="btn">View</a>
-      </div>
-    </div>
-    <div class="project-card">
-      <img src="rock.png" alt="Rock Paper Scissors">
-      <div class="overlay">
-        <h3>Game</h3>
-        <p>Rock Paper Scissors</p>
-        <a href="https://navneet-mallick.github.io/Rock-Paper-Scissors/" class="btn">View</a>
-      </div>
-    </div>
-    <!-- <div class="project-card">
-      <img src="m_akin-game-7217379_1920.png" alt="Tic Tac Toe Game">
-      <div class="overlay">
-        <h3>Game</h3>
-        <p>Interactive Tic-Tac-Toe Game</p>
-        <a href="https://navneet-mallick.github.io/Tic-Tac-Toe/" class="btn">View</a>
-      </div>
-    </div> -->
-
-    <div class="project-card">
-      <img src="quiz.png" alt="Quiz Game">
-      <div class="overlay">
-        <h3>Quiz Game</h3>
-        <p>Interactive Quiz Game</p>
-        <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game.git" class="btn">View</a>
-      </div>
-    </div>
-
-
-<!-- 
-    <div class="project-card">
-      <img src=".books-2463779_1280.jpg" alt="Library Management System">
-      <div class="overlay">
-        <h3>LMS</h3>
-        <p>Library Management System</p>
-        <a href="https://github.com/Navneet-Mallick/Library-Management-System.git" class="btn">View</a>
-      </div>
-    </div> -->
-   <div class="project-card">
-      <img src="./images/developer.jpg" alt="Hackathon Project">
-      <div class="overlay">
-        <h3>Hackathon Project</h3>
-        <p>Waste Management Website</p>
-        <a href="https://github.com/Navneet-Mallick/XENOM.git" class="btn">View</a>
-      </div>
-    </div>
-
-  </div><div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; color: #333;">
-
-<div class="portfolio-theme-wrapper">
   <style>
     :root {
       --dark: #0f111a;
@@ -272,6 +22,14 @@ downloadBtn.addEventListener('click', function(e) {
       --text: #e6fefe;
       --radius: 15px;
       --transition: 0.3s ease;
+    }
+
+    .theme-wrapper-container {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
     }
 
     .portfolio-theme-wrapper {
@@ -425,167 +183,314 @@ downloadBtn.addEventListener('click', function(e) {
       }
     }
   </style>
+</head>
 
-  <section id="experience">
-    <h1 class="section-title">Experience</h1>
-    <div class="exp-container">
+<body>
+  <header>
+    <nav class="navbar">
+
+      <div class="logo">Navneet</div>
+
+      <ul class="nav-links">
+        <li><a href="#home" style="color:orange;"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#projects" style="color:orange;"><i class="fas fa-code"></i> Projects</a></li>
+        <li><a href="#skills" style="color:orange;"><i class="fas fa-brain"></i> Skills</a></li>
+        <li><a href="#experience" style="color:orange;"><i class="fas fa-briefcase"></i> Experience</a></li>
+        <li><a href="#education" style="color:orange;"><i class="fas fa-graduation-cap"></i> Education</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="theme-toggle">
+          <i class="fas fa-moon"></i>
+        </div>
+
+        <div class="hamburger" id="hamburger-btn">
+          <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="dropdown-menu" id="nav-dropdown">
+
+          <div class="menu-label">Quick Actions</div>
+          <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
+          
+          <a href="./Assets/Navneet _CV.pdf" class="btn btn-cv download-cv-btn" download>
+            <i class="fas fa-download"></i> Download CV
+          </a>
+          <span class="resume-status-inline" style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;"></span>
+
+          <a href="#contact"><i class="fas fa-envelope"></i> Contact Me</a>
+
+          <hr>
+
+          <div class="menu-label">Navigation</div>
+          <a href="#skills"><i class="fas fa-brain"></i> Skills</a>
+          <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+          <hr>
+
+          <div class="menu-label">Profiles</div>
+          <a href="https://github.com/Navneet-Mallick/" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+
+          <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+
+    <div class="hero-left">
+      <h1>Hi, I'm <span>Navneet Mallick</span></h1>
+      <h3 class="typed-text"></h3>
+      <p>Computer Engineering Student | Web & ML Enthusiast</p>
+
+      <div class="hero-buttons">
+        <a href="#contact" class="btn">Hire Me</a>
+
+        <a href="./Assets/Navneet _CV.pdf" class="btn btn-cv download-cv-btn" download>
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        <span class="resume-status-inline" style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;"></span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="nm.jpeg" alt="Navneet Mallick">
+    </div>
+
+  </section>
+
+  <section id="projects" class="reveal">
+
+    <h1 class="section-title">Projects</h1>
+
+    <div class="project-container">
+
+      <div class="project-card">
+        <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender System">
+        <div class="overlay">
+          <h3>Content Based Movie Recommender</h3>
+          <p>ML Project</p>
+          <a href="https://movie-recommender-navneet.streamlit.app/" class="btn">View</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor">
+        <div class="overlay">
+          <h3>Car Price Predictor</h3>
+          <p>Regression Project</p>
+          <a href="https://carpredictor-navneet.streamlit.app/" class="btn">View</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="weather.png" alt="Weather App">
+        <div class="overlay">
+          <h3>Weather App</h3>
+          <p>Provides Real Time Weather Data</p>
+          <a href="https://navneet-mallick.github.io/Weather-App-/" class="btn">View</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="rock.png" alt="Rock Paper Scissors">
+        <div class="overlay">
+          <h3>Game</h3>
+          <p>Rock Paper Scissors</p>
+          <a href="https://navneet-mallick.github.io/Rock-Paper-Scissors/" class="btn">View</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="quiz.png" alt="Quiz Game">
+        <div class="overlay">
+          <h3>Quiz Game</h3>
+          <p>Interactive Quiz Game</p>
+          <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game.git" class="btn">View</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="./images/developer.jpg" alt="Hackathon Project">
+        <div class="overlay">
+          <h3>Hackathon Project</h3>
+          <p>Waste Management Website</p>
+          <a href="https://github.com/Navneet-Mallick/XENOM.git" class="btn">View</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="theme-wrapper-container">
+    <div class="portfolio-theme-wrapper">
       
-      <div class="exp-card">
-        <div class="exp-header">
-          <h3>Intern Supervisor</h3>
-          <span class="date-tag">Feb 2026 - Present</span>
+      <section id="experience">
+        <h1 class="section-title">Experience</h1>
+        <div class="exp-container">
+          
+          <div class="exp-card">
+            <div class="exp-header">
+              <h3>Intern Supervisor</h3>
+              <span class="date-tag">Feb 2026 - Present</span>
+            </div>
+            <p class="company-name">CODE IT, Dharan</p>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-header">
+              <h3>Graphics Designer</h3>
+              <span class="date-tag">Feb 2026 - Present</span>
+            </div>
+            <p class="company-name">ACES ERC, Dharan</p>
+          </div>
+
         </div>
-        <p class="company-name">CODE IT, Dharan</p>
-      </div>
+      </section>
 
-      <div class="exp-card">
-        <div class="exp-header">
-          <h3>Graphics Designer</h3>
-          <span class="date-tag">Feb 2026 - Present</span>
-        </div>
-        <p class="company-name">ACES ERC, Dharan</p>
-      </div>
+      <section id="education">
+        <h1 class="section-title">Education</h1>
+        <div class="education-wrapper">
+          <div class="timeline">
 
-    </div>
-  </section>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <span class="timeline-date">2024 - Present</span>
+                <h3>Bachelor in Computer Engineering</h3>
+                <p class="inst">IOE Purwanchal Campus</p>
+              </div>
+            </div>
 
-  <section id="education">
-    <h1 class="section-title">Education</h1>
-    <div class="education-wrapper">
-      <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <span class="timeline-date">2021 - 2023</span>
+                <h3>+2 Science - NEB</h3>
+                <p class="inst">DAV College, Lalitpur</p>
+              </div>
+            </div>
 
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <span class="timeline-date">2024 - Present</span>
-            <h3>Bachelor in Computer Engineering</h3>
-            <p class="inst">IOE Purwanchal Campus</p>
           </div>
         </div>
+      </section>
 
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <span class="timeline-date">2021 - 2023</span>
-            <h3>+2 Science - NEB</h3>
-            <p class="inst">DAV College, Lalitpur</p>
-          </div>
-        </div>
-
-      </div>
     </div>
-  </section>
-</div>
-
-<!-- ================= SKILLS ================= -->
-<section id="skills" class="reveal">
-
-  <h1 class="section-title">My Skills</h1>
-
-  <div class="skills-container">
-
-    <div class="skill">
-      <i class="fab fa-html5"></i>
-      <p>HTML</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fab fa-css3-alt"></i>
-      <p>CSS</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fab fa-js"></i>
-      <p>JavaScript</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fab fa-node-js"></i>
-      <p>Node.js</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fab fa-python"></i>
-      <p>Python</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fas fa-database"></i>
-      <p>SQL</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fas fa-brain"></i>
-      <p>Machine Learning</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fas fa-chart-line"></i>
-      <p>Data Science</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
-    </div>
-
-    <div class="skill">
-      <i class="fas fa-server"></i>
-      <p>Django</p>
-      <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
-    </div>
-
   </div>
 
-</section>
-  <!-- ================= CONTACT ================= -->
-<section id="contact" class="reveal">
+  <section id="skills" class="reveal">
 
-  <h1 class="section-title">Get In Touch</h1>
+    <h1 class="section-title">My Skills</h1>
 
-  <form class="contact-form">
+    <div class="skills-container">
 
-    <input type="text" name="name" placeholder="Your Name" required>
+      <div class="skill">
+        <i class="fab fa-html5"></i>
+        <p>HTML</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
 
-    <input type="email" name="email" placeholder="Your Email" required>
+      <div class="skill">
+        <i class="fab fa-css3-alt"></i>
+        <p>CSS</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
 
-    <textarea name="message" placeholder="Your Message" required></textarea>
+      <div class="skill">
+        <i class="fab fa-js"></i>
+        <p>JavaScript</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
 
-    <button type="submit">Send Message</button>
+      <div class="skill">
+        <i class="fab fa-node-js"></i>
+        <p>Node.js</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
 
-  </form>
+      <div class="skill">
+        <i class="fab fa-python"></i>
+        <p>Python</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
 
-</section>
-<!-- ================= FOOTER ================= -->
-<footer>
-  <p>© 2026 Navneet Mallick</p>
+      <div class="skill">
+        <i class="fas fa-database"></i>
+        <p>SQL</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
 
-  <a href="https://github.com/Navneet-Mallick/"><i class="fab fa-github"></i></a>
-  <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a>
-  <a href="#"><i class="fab fa-instagram"></i></a>
-</footer>
+      <div class="skill">
+        <i class="fas fa-brain"></i>
+        <p>Machine Learning</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
 
-<!-- JS -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+      <div class="skill">
+        <i class="fas fa-chart-line"></i>
+        <p>Data Science</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+      </div>
 
-<script src="config.js"></script>
+      <div class="skill">
+        <i class="fas fa-server"></i>
+        <p>Django</p>
+        <div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div>
+      </div>
 
-<script src="./script/script.js"></script>
-<script>
-document.getElementById("downloadBtn").addEventListener("click", function(e){
-  e.preventDefault();
-  const status = document.getElementById("resume-status-inline");
+    </div>
 
-  status.innerText = "Preparing...";
-  status.style.opacity = "1";
+  </section>
+  
+  <section id="contact" class="reveal">
 
-  setTimeout(() => {
-    window.location.href = this.href;
-    status.innerText = "Downloaded!";
-  }, 1000);
-});
-</script>
+    <h1 class="section-title">Get In Touch</h1>
+
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+  </section>
+
+  <footer>
+    <p>© 2026 Navneet Mallick</p>
+    <a href="https://github.com/Navneet-Mallick/"><i class="fab fa-github"></i></a>
+    <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+  </footer>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="config.js"></script>
+  <script src="./script/script.js"></script>
+  
+  <script>
+    document.querySelectorAll('.download-cv-btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        // Find the specific status span that comes right after the clicked button
+        const statusSpan = this.nextElementSibling;
+        
+        if (statusSpan && statusSpan.classList.contains('resume-status-inline')) {
+          // Show preparing message
+          statusSpan.style.opacity = 1;
+          statusSpan.innerText = 'Preparing PDF...';
+
+          setTimeout(() => {
+            // Show success (download is natively handled by the 'download' attribute on the <a> tag)
+            statusSpan.innerText = 'Downloaded!';
+            setTimeout(() => { 
+              statusSpan.style.opacity = 0; 
+            }, 2000);
+          }, 1000);
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
