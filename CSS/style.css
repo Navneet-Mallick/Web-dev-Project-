@@ -5,7 +5,13 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-
+.menu-label {
+  font-size: 11px;
+  opacity: 0.6;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 /* ================= VARIABLES ================= */
 :root {
   --dark: #0f111a;
