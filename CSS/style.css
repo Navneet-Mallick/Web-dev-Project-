@@ -13,7 +13,122 @@ body {
   line-height: 1.6;
   transition: var(--transition);
 }
+/* ================= SECTIONS ================= */
+section {
+  padding: 120px 8% !important; /* more top/bottom spacing */
+}
 
+/* Section titles */
+h1.section-title {
+  text-align: center !important;
+  font-size: 2.4rem !important;
+  margin-bottom: 50px !important;
+  color: var(--accent) !important;
+}
+
+/* ================= PROJECTS ================= */
+.project-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 40px !important; /* increased gap */
+  margin-top: 30px !important;
+}
+
+.project-card {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: var(--radius) !important;
+  padding: 15px !important;
+  background: var(--dark-200) !important;
+  transition: var(--transition) !important;
+}
+
+.project-card img {
+  width: 100% !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  border-radius: var(--radius) !important;
+  transition: 0.4s !important;
+}
+
+.project-card:hover img {
+  transform: scale(1.08) !important;
+}
+
+.overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  opacity: 0 !important;
+  transition: var(--transition) !important;
+  text-align: center !important;
+}
+
+.project-card:hover .overlay {
+  opacity: 1 !important;
+}
+
+.overlay h3 {
+  color: var(--accent) !important;
+  margin-bottom: 8px !important;
+}
+
+.overlay p {
+  color: var(--text) !important;
+  margin-bottom: 12px !important;
+}
+
+/* ================= EXPERIENCE ================= */
+.exp-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 35px !important; /* increased gap */
+}
+
+.exp-card {
+  padding: 25px !important; /* increased padding */
+  border-radius: var(--radius) !important;
+  background: var(--dark-100) !important;
+  transition: var(--transition) !important;
+}
+
+.exp-card:hover {
+  transform: translateX(5px) !important;
+}
+
+.exp-card .exp-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-bottom: 10px !important;
+}
+
+.date-tag {
+  color: var(--secondary) !important;
+  font-size: 14px !important;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .project-container {
+    gap: 25px !important;
+  }
+  section {
+    padding: 80px 5% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .project-container {
+    grid-template-columns: 1fr !important;
+  }
+  .exp-card {
+    padding: 20px !important;
+  }
+}
 a {
   text-decoration: none;
   color: inherit;
