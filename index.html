@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script> -->
 <!-- ================= NAVBAR ================= -->
 <header>
   <nav class="navbar">
@@ -567,8 +567,11 @@ downloadBtn.addEventListener('click', function(e) {
 </footer>
 
 <!-- JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script src="config.js"></script>
+
 <script src="./script/script.js"></script>
-<script src="config.js"><script/>
 <script>
 document.getElementById("downloadBtn").addEventListener("click", function(e){
   e.preventDefault();
