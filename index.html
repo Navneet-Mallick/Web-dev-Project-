@@ -76,11 +76,28 @@
 
 
 
-    <div class="hamburger">
+    <!-- <div class="hamburger">
 
         <i class="fas fa-bars"></i>
 
-    </div>
+    </div> -->
+   <div class="hamburger" id="hamburger-btn">
+   <div class="dropdown-menu" id="nav-dropdown">
+  <a href="#home">Home</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+
+  <div class="menu-section">Events</div>
+  <a href="#">CS50x AI Nepal Course</a>
+  <a href="#">ACES TechFest 7.0</a>
+  <a href="#">X-Hack 3.0</a>
+
+  <div class="menu-section">Connect</div>
+  <a href="https://github.com/Navneet-Mallick/" target="_blank">GitHub</a>
+  <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank">LinkedIn</a>
+</div>
 
 
 
@@ -535,7 +552,7 @@
     </div>
 
 </section> -->
-section id="experience">
+<section id="experience">
     <h1 class="section-title">Professional Experience</h1>
     <div class="exp-container">
         <div class="exp-card highlight-cyan">
@@ -777,223 +794,109 @@ section id="experience">
 
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
 
-const typedText = document.querySelector(".typed-text");
+  // ===== Typing Effect =====
+  const typedText = document.querySelector(".typed-text");
+  const phrases = ["Web Developer", "ML Enthusiast", "Problem Solver"];
 
-const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
+  let i = 0, j = 0, isDeleting = false;
 
-let i = 0; // phrase index
+  function typeEffect() {
+    const fullText = phrases[i];
 
-let j = 0; // letter index
-
-let current = "";
-
-let isDeleting = false;
-
-let speed = 150; // typing speed
-
-
-
-function typeEffect() {
-
-  const fullText = phrases[i];
-
-
-
-  if (!isDeleting) {
-
-    current = fullText.slice(0, j + 1);
-
-    typedText.textContent = current;
-
-    j++;
-
-    if (j === fullText.length) {
-
-      isDeleting = true;
-
-      speed = 1000; // pause at full word
-
+    if (!isDeleting) {
+      typedText.textContent = fullText.substring(0, j++);
+      if (j > fullText.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1000);
+        return;
+      }
     } else {
-
-      speed = 150;
-
+      typedText.textContent = fullText.substring(0, j--);
+      if (j < 0) {
+        isDeleting = false;
+        i = (i + 1) % phrases.length;
+      }
     }
-
-  } else {
-
-    current = fullText.slice(0, j - 1);
-
-    typedText.textContent = current;
-
-    j--;
-
-    if (j === 0) {
-
-      isDeleting = false;
-
-      i = (i + 1) % phrases.length; // next phrase
-
-      speed = 500; // pause before typing next word
-
-    } else {
-
-      speed = 100;
-
-    }
-
+    setTimeout(typeEffect, isDeleting ? 80 : 120);
   }
 
+  if (typedText) typeEffect();
 
 
-  setTimeout(typeEffect, speed);
+  // ===== Theme Toggle =====
+  const toggle = document.querySelector(".theme-toggle");
+  const icon = toggle.querySelector("i");
 
-}
-
-const toggle = document.querySelector(".theme-toggle");
-
-const icon = toggle.querySelector("i");
-
-
-
-if(localStorage.getItem("theme") === "light"){
-
-  document.body.classList.add("light-mode");
-
-  icon.classList.replace("fa-moon","fa-sun");
-
-}
-
-
-
-toggle.addEventListener("click", () => {
-
-  document.body.classList.toggle("light-mode");
-
-
-
-  if(document.body.classList.contains("light-mode")){
-
+  if(localStorage.getItem("theme") === "light"){
+    document.body.classList.add("light-mode");
     icon.classList.replace("fa-moon","fa-sun");
-
-    localStorage.setItem("theme","light");
-
-  }else{
-
-    icon.classList.replace("fa-sun","fa-moon");
-
-    localStorage.setItem("theme","dark");
-
   }
 
-});
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
 
-
-
-// });
-
-// start typing
-
-typeEffect();
-
-// --- EMAILJS ---
-
-emailjs.init(CONFIG.PUBLIC_KEY);
-
-
-
-const contactForm = document.querySelector(".contact-form");
-
-
-
-contactForm.addEventListener("submit", function(e) {
-
-  e.preventDefault();
-
-
-
-  const templateParams = {
-
-    name: this.name.value,
-
-    email: this.email.value,
-
-    message: this.message.value,
-
-    time: new Date().toLocaleString()
-
-  };
-
-
-
-  emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, templateParams)
-
-    .then(() => {
-
-      alert("Message sent successfully!");
-
-      contactForm.reset();
-
-    })
-
-    .catch((error) => {
-
-      console.error("Error:", error);
-
-      alert("Failed to send message.");
-
-    });
-
-});
-
-// Get the elements
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const hamburger = document.querySelector('.hamburger');
-
-    const dropdown = document.querySelector('.dropdown-menu');
-
-
-
-    if (hamburger && dropdown) {
-
-        hamburger.addEventListener('click', (e) => {
-
-            e.stopPropagation(); // Prevents the click from closing the menu immediately
-
-            dropdown.classList.toggle('active');
-
-            console.log("Menu Toggled. Current classes:", dropdown.className); // Debugging line
-
-        });
-
-
-
-        // Close menu when clicking anywhere else
-
-        document.addEventListener('click', (e) => {
-
-            if (!dropdown.contains(e.target) && !hamburger.contains(e.target)) {
-
-                dropdown.classList.remove('active');
-
-            }
-
-        });
-
+    if(document.body.classList.contains("light-mode")){
+      icon.classList.replace("fa-moon","fa-sun");
+      localStorage.setItem("theme","light");
     } else {
-
-        console.error("Hamburger or Dropdown not found in HTML!");
-
+      icon.classList.replace("fa-sun","fa-moon");
+      localStorage.setItem("theme","dark");
     }
+  });
+
+
+  // ===== Dropdown Menu =====
+  const hamburger = document.getElementById("hamburger-btn");
+  const dropdown = document.getElementById("nav-dropdown");
+
+  hamburger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("active");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target) && !hamburger.contains(e.target)) {
+      dropdown.classList.remove("active");
+    }
+  });
+
+  // Close when clicking link
+  dropdown.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      dropdown.classList.remove("active");
+    });
+  });
+
+
+  // ===== EmailJS =====
+  emailjs.init(CONFIG.PUBLIC_KEY);
+
+  const form = document.querySelector(".contact-form");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = {
+      name: this.name.value,
+      email: this.email.value,
+      message: this.message.value,
+      time: new Date().toLocaleString()
+    };
+
+    emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, data)
+      .then(() => {
+        alert("Message sent successfully!");
+        form.reset();
+      })
+      .catch(() => {
+        alert("Failed to send message.");
+      });
+  });
 
 });
-
 </script>
-
-
-
 </body>
 
 </html>
