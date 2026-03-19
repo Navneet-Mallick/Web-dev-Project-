@@ -15,10 +15,13 @@
 .nav-links a:hover {
   color: var(--accent);
 }
-
+.dropdown-menu{
+  color: #e6fefe;
+}
 .dropdown-menu a:hover {
-  background: rgba(0, 255, 231, 0.1);
-  color: var(--accent);
+  text-shadow: 0 0 8px rgba(0, 255, 231, 0.6);
+  color: #00ffe7; /* your accent cyan */
+  background: rgba(0, 255, 231, 0.12);
 }
 header {
   background: rgba(15, 17, 26, 0.9);
