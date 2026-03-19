@@ -1,4 +1,4 @@
-<script>
+
 document.addEventListener("DOMContentLoaded", () => {
 
   // ===== MOBILE MENU =====
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
-</script>
+
 
 
 
