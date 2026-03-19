@@ -36,7 +36,8 @@ header {
   letter-spacing: 1px;
 }
 /* ================= VARIABLES ================= */
-:root {
+:root { --dark: #0f111a; --dark-100: #1b1f2b; --dark-200: #252931; --accent: #00ffe7; --secondary: #00c3ff; --text: #ffffff; --btn-text: #0f111a; --shadow: rgba(0,0,0,0.5); --radius: 15px; --transition: 0.3s ease; }
+/* :root {
   --dark: #0f111a;
   --dark-100: #1b1f2b;
   --dark-200: #252931;
@@ -47,7 +48,7 @@ header {
   --shadow: rgba(0, 0, 0, 0.5);
   --radius: 16px;
   --transition: 0.3s ease;
-}
+} */
 
 /* LIGHT MODE */
 body.light-mode {
