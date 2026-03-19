@@ -17,8 +17,10 @@
   --dark: #0f111a;
   --dark-100: #1b1f2b;
   --dark-200: #252931;
-  --accent: #00ffe7;
-  --secondary: #00c3ff;
+    --accent: #00ffe7;     /* primary neon cyan */
+  --secondary: #00e0ff;
+  /* --accent: #00ffe7;
+  --secondary: #00c3ff; */
   --text: #ffffff;
   --btn-text: #0f111a;
   --shadow: rgba(0, 0, 0, 0.5);
