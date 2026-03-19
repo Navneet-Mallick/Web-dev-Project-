@@ -158,30 +158,52 @@ section { padding: 80px 8%; }
 
 .exp-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
 .exp-header h3 { color: var(--accent); }
-
 .timeline {
   position: relative;
-  padding-left: 40px;
-  border-left: 2px solid var(--accent);
-  margin-left: 20px;
+  margin: auto;
+  max-width: 800px;
+  padding-left: 20px;
+  border-left: 3px solid var(--accent);
 }
 
-.timeline-item { position: relative; margin-bottom: 40px; }
+.timeline-item {
+  margin-bottom: 40px;
+  position: relative;
+}
 
 .timeline-dot {
   position: absolute;
-  left: -49px;
-  top: 5px;
-  width: 16px;
-  height: 16px;
-  background: var(--dark);
-  border: 3px solid var(--accent);
+  left: -12px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+  background: var(--accent);
   border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
 }
 
-.timeline-content { background: var(--dark-100); padding: 20px; border-radius: 12px; }
+.timeline-content {
+  background: var(--dark-100);
+  padding: 20px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
 
-/* ======================= PROJECTS & SKILLS ======================= */
+.timeline-content:hover {
+  transform: translateX(10px);
+}
+
+.timeline-date {
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.inst {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
 .project-container, .skills-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
