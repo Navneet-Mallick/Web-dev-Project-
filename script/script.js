@@ -9,7 +9,12 @@ window.addEventListener('load', () => {
     }, 500); // wait for fade out
 });
 document.addEventListener("DOMContentLoaded", () => {
-
+// Force hide loader after 3 seconds
+setTimeout(() => {
+    const loader = document.getElementById('loader');
+    loader.style.opacity = '0';
+    setTimeout(() => { loader.style.display = 'none'; }, 500);
+}, 3000);
   // ================= DROPDOWN MENU =================
   const hamburger = document.getElementById("hamburger-btn");
   const dropdown = document.getElementById("nav-dropdown");
