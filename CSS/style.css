@@ -16,7 +16,7 @@
   color: var(--accent);
 }
 .dropdown-menu{
-  color: #e6fefe;
+  color: aqua;
 }
 .dropdown-menu a:hover {
   text-shadow: 0 0 8px rgba(0, 255, 231, 0.6);
