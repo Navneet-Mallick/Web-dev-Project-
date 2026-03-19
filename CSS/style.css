@@ -5,6 +5,29 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+.navbar i {
+  color: var(--text);
+}
+
+.navbar a:hover i {
+  color: var(--accent);
+}
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.dropdown-menu a:hover {
+  background: rgba(0, 255, 231, 0.1);
+  color: var(--accent);
+}
+header {
+  background: rgba(15, 17, 26, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 255, 231, 0.1);
+}
+.logo {
+  text-shadow: 0 0 10px rgba(0, 255, 231, 0.5);
+}
 .menu-label {
   font-size: 11px;
   opacity: 0.6;
