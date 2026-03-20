@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
         typedText.textContent = current.substring(0, j++);
         if (j > current.length) {
           isDeleting = true;
-          setTimeout(typeEffect, 1000);
+          setTimeout(typeEffect, 45);
           return;
         }
       } else {
