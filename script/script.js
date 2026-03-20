@@ -56,7 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const typedText = document.querySelector(".typed-text");
 
   if (typedText) {
-    const phrases = ["Web Developer", "Machine Learning Enthusiast", "Problem Solver"];
+    const phrases = ["3rd Year CSE ","Web Developer", "Interested in Backend Systems","Machine Learning Enthusiast", "Problem Solver","Exploring Data Science "];
     let i = 0, j = 0, isDeleting = false;
 
     function typeEffect() {
