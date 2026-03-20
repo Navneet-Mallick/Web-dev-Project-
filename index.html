@@ -189,13 +189,21 @@
   <header>
     <nav class="navbar">
 <a href="#home" 
-   style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 5px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(0, 255, 231, 0.1); transition: all 0.3s ease;" 
-   onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 0 15px rgba(0, 255, 231, 0.4)'; this.style.borderColor='rgba(0, 255, 231, 0.5)';" 
-   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'; this.style.borderColor='rgba(0, 255, 231, 0.1)';"
+   style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; 
+          padding: 8px 24px; /* Wider horizontal padding for a rectangle shape */
+          background: rgba(255, 255, 255, 0.03); 
+          border-radius: 4px; /* Sharper corners for a more industrial feel */
+          border: 1px solid rgba(0, 255, 231, 0.15); 
+          transition: all 0.3s ease; 
+          min-width: 160px; /* Ensures it stays a rectangle even if the image is small */
+          height: 50px; /* Fixed height to match common navbars */" 
+   onmouseover="this.style.background='rgba(0, 255, 231, 0.05)'; this.style.borderColor='rgba(0, 255, 231, 0.6)'; this.style.boxShadow='0 0 20px rgba(0, 255, 231, 0.2)';" 
+   onmouseout="this.style.background='rgba(255, 255, 255, 0.03)'; this.style.borderColor='rgba(0, 255, 231, 0.15)'; this.style.boxShadow='none';"
    title="Navneet Mallick">
    
   <img src="logo1.png" alt="Navneet Mallick Logo" 
-       style="height: 65px; width: auto; display: block; filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 5px rgba(0, 255, 231, 0.6));">
+       style="height: 100%; width: auto; max-height: 40px; display: block; 
+              filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 3px rgba(0, 255, 231, 0.5));">
        
 </a>
 
