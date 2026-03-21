@@ -342,9 +342,48 @@
       </div>
     </div>
 
-    <div class="hero-right">
-      <img src="pp.jpg" alt="Navneet Mallick">
-    </div>
+<style>
+  @keyframes ppPulse {
+    0% {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 0px rgba(255, 165, 0, 0.5);
+    }
+    70% {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 15px rgba(255, 165, 0, 0);
+    }
+    100% {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 0px rgba(255, 165, 0, 0);
+    }
+  }
+
+  /* Target the image for hover states using a temporary class */
+  .pp-img:hover {
+    transform: scale(1.03); /* Subtle magnification */
+    animation: ppPulse 1.5s infinite; /* Start the pulse */
+  }
+</style>
+
+<div class="hero-right" style="
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex: 1; /* Allows it to occupy its space properly */
+    padding: 20px;
+    z-index: 1;">
+    
+    <img class="pp-img" src="pp.jpg" alt="Navneet Mallick" style="
+        width: 100%; /* Responsive scaling */
+        max-width: 350px; /* Limits size on large screens */
+        height: auto; /* Maintains aspect ratio */
+        aspect-ratio: 1 / 1; /* Guarantees a perfect square before border-radius */
+        object-fit: cover; /* Ensures face isn't stretched */
+        border-radius: 50%; /* Makes it circular */
+        border: 4px solid #fff; /* Crisp professional border */
+        background-color: #f0f0f0; /* Pre-loader or fallback background color */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft, realistic depth shadow */
+        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out; /* Super smooth state change */
+        cursor: pointer;
+        display: block; /* Removes image base padding gap */">
+</div>
 
   </section>
 
