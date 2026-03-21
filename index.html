@@ -233,19 +233,43 @@
       
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<div class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #444; width: fit-content; box-shadow: 0 0 10px rgba(0,0,0,0.5); user-select: none;">
+<div class="nav-actions" style="
+    display: flex; 
+    align-items: center; 
+    gap: 14px; 
+    background: #2a2a2a; /* Lighter charcoal so it sits 'on top' of black */
+    padding: 6px 16px; 
+    border-radius: 50px; 
+    border: 1px solid #555; /* Visible grey border */
+    width: fit-content; 
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); /* Subtle gold outer glow */
+    user-select: none;">
     
-    <div class="theme-toggle" id="theme-btn" style="color: #FFA500; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold; filter: drop-shadow(0 0 2px rgba(255, 165, 0, 0.4));">
-        <i id="theme-icon" class="fas fa-moon" style="font-size: 16px; width: 20px; text-align: center;"></i>
+    <div class="theme-toggle" id="theme-btn" style="
+        color: #FFD700; /* Bright Gold for maximum contrast */
+        cursor: pointer; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px; 
+        font-family: Arial, sans-serif; 
+        font-size: 14px; 
+        font-weight: 800; 
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);">
+        
+        <i id="theme-icon" class="fas fa-moon" style="font-size: 18px; width: 20px; text-align: center;"></i>
         <span id="theme-text">Light</span>
     </div>
 
-    <div style="width: 1px; height: 18px; background: #555;"></div>
+    <div style="width: 2px; height: 20px; background: #444; border-radius: 2px;"></div>
 
-    <div class="hamburger" id="hamburger-btn" style="color: #FFA500; cursor: pointer; display: flex; align-items: center; filter: drop-shadow(0 0 2px rgba(255, 165, 0, 0.4));">
-        <i class="fas fa-bars" style="font-size: 20px; width: 20px; text-align: center;"></i>
+    <div class="hamburger" id="hamburger-btn" style="
+        color: #FFD700; 
+        cursor: pointer; 
+        display: flex; 
+        align-items: center; 
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);">
+        <i class="fas fa-bars" style="font-size: 22px; width: 20px; text-align: center;"></i>
     </div>
-    
 </div>
 
 <script>
@@ -254,27 +278,23 @@
     const themeText = document.getElementById('theme-text');
 
     themeBtn.addEventListener('click', () => {
-        // Current state is Light -> Switch to Dark UI
         if (themeText.innerText === "Light") {
             themeText.innerText = "Dark";
             themeIcon.className = "fas fa-sun";
             
-            // Your logic to turn the site DARK
+            // Site-wide Dark Mode (Logic can be added here)
             document.body.style.backgroundColor = "#121212";
             document.body.style.color = "#ffffff";
-        } 
-        // Current state is Dark -> Switch to Light UI
-        else {
+        } else {
             themeText.innerText = "Light";
             themeIcon.className = "fas fa-moon";
             
-            // Your logic to turn the site LIGHT
+            // Site-wide Light Mode (Logic can be added here)
             document.body.style.backgroundColor = "#ffffff";
             document.body.style.color = "#000000";
         }
     });
 </script>
-
         <div class="dropdown-menu" id="nav-dropdown">
 
           <div class="menu-label">Quick Actions</div>
