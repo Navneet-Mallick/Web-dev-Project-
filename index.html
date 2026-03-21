@@ -230,14 +230,46 @@
         <li><a href="#education" style="color:orange;"><i class="fas fa-graduation-cap"></i> Education</a></li>
       </ul>
 
-      <div class="nav-actions" style="color:orange;" >
-        <div class="theme-toggle">
-          <i class="fas fa-moon">Light</i>
-        </div>
+      
+      <div class="nav-actions" style="display: flex; align-items: center; gap: 15px; background: #1a1a1a; padding: 5px 12px; border-radius: 20px; border: 1px solid #333; width: fit-content;">
+    
+    <div class="theme-toggle" id="theme-btn" style="color: orange; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: sans-serif; font-size: 14px;">
+        <i id="theme-icon" class="fas fa-moon"></i>
+        <span id="theme-text">Light</span>
+    </div>
 
-        <div class="hamburger" id="hamburger-btn" style="color:orange; ">
-          <i class="fas fa-bars"></i>
-        </div>
+    <div class="hamburger" id="hamburger-btn" style="color: orange; cursor: pointer; display: flex; align-items: center; font-size: 18px;">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+</div>
+
+<script>
+  const themeBtn = document.getElementById('theme-btn');
+  const themeIcon = document.getElementById('theme-icon');
+  const themeText = document.getElementById('theme-text');
+
+  themeBtn.addEventListener('click', () => {
+    // Check current state based on the text
+    if (themeText.innerText === "Light") {
+      // Switch to DARK MODE UI
+      themeText.innerText = "Dark";
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+      
+      // Apply your dark mode logic to the body/site here
+      document.body.style.backgroundColor = "#121212";
+      document.body.style.color = "#ffffff";
+    } else {
+      // Switch to LIGHT MODE UI
+      themeText.innerText = "Light";
+      themeIcon.classList.replace('fa-sun', 'fa-moon');
+      
+      // Apply your light mode logic to the body/site here
+      document.body.style.backgroundColor = "#ffffff";
+      document.body.style.color = "#000000";
+    }
+  });
+</script>
 
         <div class="dropdown-menu" id="nav-dropdown">
 
