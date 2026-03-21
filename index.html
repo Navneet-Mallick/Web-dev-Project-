@@ -231,17 +231,17 @@
       </ul>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<div id="nav-container" class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #555; width: fit-content; user-select: none; transition: all 0.3s ease;">
+<div class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #555; width: fit-content; user-select: none; z-index: 1000;">
     
-    <div class="theme-toggle" id="theme-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold;">
+    <div class="theme-toggle" id="theme-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);">
         <i id="theme-icon" class="fas fa-moon" style="font-size: 16px; width: 20px; text-align: center;"></i>
         <span id="theme-text">Light</span>
     </div>
 
-    <div id="nav-divider" style="width: 1px; height: 18px; background: #444;"></div>
+    <div style="width: 1px; height: 18px; background: #444;"></div>
 
     <div class="hamburger" id="hamburger-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center;">
-        <i id="ham-icon" class="fas fa-bars" style="font-size: 20px; width: 20px; text-align: center;"></i>
+        <i class="fas fa-bars" style="font-size: 20px; width: 20px; text-align: center;"></i>
     </div>
 </div>
 
@@ -249,46 +249,46 @@
     const themeBtn = document.getElementById('theme-btn');
     const themeIcon = document.getElementById('theme-icon');
     const themeText = document.getElementById('theme-text');
-    const hamIcon = document.getElementById('ham-icon');
-    const navContainer = document.getElementById('nav-container');
-    const navDivider = document.getElementById('nav-divider');
     const navbar = document.querySelector('.navbar');
-    const navLinks = document.querySelectorAll('.navbar a, .navbar label, .navbar span');
+    
+    // Selects links, labels, and the dropdown container itself
+    const navItems = document.querySelectorAll('.navbar a, .navbar label, .navbar span, .dropdown-content, .menu-items'); 
 
     themeBtn.addEventListener('click', () => {
+        if (!navbar) return;
+
         if (themeText.innerText === "Light") {
-            // --- SWITCHING TO DARK MODE UI ---
+            // --- DARK MODE ---
             themeText.innerText = "Dark";
             themeIcon.className = "fas fa-sun";
             
-            // Colors for Dark Mode
-            navbar.style.backgroundColor = "#000";
-            navContainer.style.background = "#222";
-            navContainer.style.borderColor = "#555";
-            navDivider.style.background = "#444";
+            navbar.style.backgroundColor = "#000000"; 
             
-            // Text & Icon Colors (Gold for visibility on black)
-            themeBtn.style.color = "#FFD700";
-            hamIcon.parentElement.style.color = "#FFD700";
-            
-            navLinks.forEach(link => link.style.color = "#fff");
+            navItems.forEach(item => {
+                // Change text color to white
+                if(item.tagName !== 'DIV') item.style.color = "#ffffff";
+                // If it's the dropdown background, make it dark
+                if(item.classList.contains('dropdown-content') || item.classList.contains('menu-items')) {
+                    item.style.backgroundColor = "#111";
+                }
+            });
 
         } else {
-            // --- SWITCHING TO LIGHT MODE UI ---
+            // --- LIGHT MODE ---
             themeText.innerText = "Light";
             themeIcon.className = "fas fa-moon";
             
-            // Colors for Light Mode
             navbar.style.backgroundColor = "#ffffff"; 
-            navContainer.style.background = "#f0f0f0"; // Light gray box
-            navContainer.style.borderColor = "#ccc";
-            navDivider.style.background = "#ccc";
             
-            // Text & Icon Colors (Dark Charcoal for visibility on white)
-            themeBtn.style.color = "#222";
-            hamIcon.parentElement.style.color = "#222";
-            
-            navLinks.forEach(link => link.style.color = "#222");
+            navItems.forEach(item => {
+                // Change text color to dark charcoal
+                if(item.tagName !== 'DIV') item.style.color = "#222222";
+                // If it's the dropdown background, make it white/light
+                if(item.classList.contains('dropdown-content') || item.classList.contains('menu-items')) {
+                    item.style.backgroundColor = "#f9f9f9";
+                    item.style.border = "1px solid #ddd";
+                }
+            });
         }
     });
 </script>
