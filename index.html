@@ -232,7 +232,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<div class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #555; width: fit-content; box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); user-select: none;">
+<div class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #555; width: fit-content; user-select: none;">
     
     <div class="theme-toggle" id="theme-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);">
         <i id="theme-icon" class="fas fa-moon" style="font-size: 16px; width: 20px; text-align: center;"></i>
@@ -241,7 +241,7 @@
 
     <div style="width: 1px; height: 18px; background: #444;"></div>
 
-    <div class="hamburger" id="hamburger-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);">
+    <div class="hamburger" id="hamburger-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center;">
         <i class="fas fa-bars" style="font-size: 20px; width: 20px; text-align: center;"></i>
     </div>
 </div>
@@ -250,29 +250,35 @@
     const themeBtn = document.getElementById('theme-btn');
     const themeIcon = document.getElementById('theme-icon');
     const themeText = document.getElementById('theme-text');
-    const navbar = document.querySelector('.navbar'); // Targets your existing navbar class
+    const navbar = document.querySelector('.navbar');
+    
+    // This selects all the links in your menu bar
+    const navLinks = document.querySelectorAll('.navbar a'); 
 
     themeBtn.addEventListener('click', () => {
         if (themeText.innerText === "Light") {
-            // SWITCH TO DARK MODE UI
+            // --- SWITCHING TO DARK MODE ---
             themeText.innerText = "Dark";
             themeIcon.className = "fas fa-sun";
             
-            // Navbar & Body Colors (Dark)
             navbar.style.backgroundColor = "#000000"; 
-            navbar.style.color = "#ffffff";
             document.body.style.backgroundColor = "#121212";
             document.body.style.color = "#ffffff";
+
+            // Make menu fonts white for the black navbar
+            navLinks.forEach(link => link.style.color = "#ffffff");
+
         } else {
-            // SWITCH TO LIGHT MODE UI
+            // --- SWITCHING TO LIGHT MODE ---
             themeText.innerText = "Light";
             themeIcon.className = "fas fa-moon";
             
-            // Navbar & Body Colors (Light)
-            navbar.style.backgroundColor = "#f0f0f0"; // Light gray navbar
-            navbar.style.color = "#000000";
+            navbar.style.backgroundColor = "#fdfdfd"; // Clean white/light-gray
             document.body.style.backgroundColor = "#ffffff";
             document.body.style.color = "#000000";
+
+            // Make menu fonts dark-grey/black for the light navbar
+            navLinks.forEach(link => link.style.color = "#333333");
         }
     });
 </script>
