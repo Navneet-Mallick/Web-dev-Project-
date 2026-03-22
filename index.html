@@ -231,19 +231,98 @@
       </ul>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<div id="nav-actions-box" class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #444; width: fit-content; user-select: none; z-index: 1000; transition: all 0.3s ease;">
-    
-    <div class="theme-toggle" id="theme-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold; transition: color 0.3s ease;">
-        <i id="theme-icon" class="fas fa-moon" style="font-size: 16px; width: 20px; text-align: center;"></i>
-        <span id="theme-text">Light</span>
+<style>
+    /* Essential Styles for Dropdown */
+    #nav-dropdown {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 70px; 
+        right: 20px;
+        background: #111;
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 15px;
+        min-width: 220px;
+        z-index: 2000;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        flex-direction: column;
+    }
+
+    #nav-dropdown a {
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: sans-serif;
+        font-size: 14px;
+        transition: 0.2s;
+    }
+
+    #nav-dropdown a:hover {
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 6px;
+    }
+
+    .menu-label {
+        font-family: sans-serif;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #888;
+        margin: 10px 0 5px 12px;
+        letter-spacing: 1px;
+    }
+
+    hr {
+        border: 0;
+        border-top: 1px solid #333;
+        margin: 10px 0;
+    }
+
+    /* Navbar base styling */
+    .navbar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 20px;
+        position: relative;
+    }
+</style>
+
+<nav class="navbar">
+    <div id="nav-actions-box" class="nav-actions" style="display: flex; align-items: center; gap: 12px; background: #222; padding: 6px 14px; border-radius: 30px; border: 1px solid #444; width: fit-content; user-select: none; z-index: 1000; transition: all 0.3s ease;">
+        
+        <div class="theme-toggle" id="theme-btn" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold; transition: color 0.3s ease;">
+            <i id="theme-icon" class="fas fa-moon" style="font-size: 16px; width: 20px; text-align: center;"></i>
+            <span id="theme-text">Light</span>
+        </div>
+
+        <div id="nav-divider" style="width: 1px; height: 18px; background: #444; transition: background 0.3s;"></div>
+
+        <div id="hamburger-wrap" class="hamburger" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; transition: color 0.3s ease;">
+            <i class="fas fa-bars" style="font-size: 20px; width: 20px; text-align: center;"></i>
+        </div>
     </div>
 
-    <div id="nav-divider" style="width: 1px; height: 18px; background: #444; transition: background 0.3s;"></div>
-
-    <div id="hamburger-wrap" class="hamburger" style="color: #FFD700; cursor: pointer; display: flex; align-items: center; transition: color 0.3s ease;">
-        <i class="fas fa-bars" style="font-size: 20px; width: 20px; text-align: center;"></i>
+    <div class="dropdown-menu" id="nav-dropdown">
+        <div class="menu-label">Quick Actions</div>
+        <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
+        <a href="./Assets/Navneet _CV.pdf" class="btn btn-cv download-cv-btn" download>
+            <i class="fas fa-download"></i> Download CV
+        </a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact Me</a>
+        <hr>
+        <div class="menu-label">Navigation</div>
+        <a href="#skills"><i class="fas fa-brain"></i> Skills</a>
+        <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+        <hr>
+        <div class="menu-label">Profiles</div>
+        <a href="https://github.com/Navneet-Mallick/" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
     </div>
-</div>
+</nav>
 
 <script>
     const themeBtn = document.getElementById('theme-btn');
@@ -252,102 +331,60 @@
     const navBox = document.getElementById('nav-actions-box');
     const navDiv = document.getElementById('nav-divider');
     const hamWrap = document.getElementById('hamburger-wrap');
-    
+    const dropdown = document.getElementById('nav-dropdown');
     const navbar = document.querySelector('.navbar');
-    // Targets links, labels, and dropdown containers
-    const navItems = document.querySelectorAll('.navbar a, .navbar label, .navbar span, .dropdown-content, .menu-items'); 
 
+    // --- TOGGLE DROPDOWN ---
+    hamWrap.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevents immediate closing
+        const isVisible = dropdown.style.display === 'flex';
+        dropdown.style.display = isVisible ? 'none' : 'flex';
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        dropdown.style.display = 'none';
+    });
+
+    // --- THEME TOGGLE LOGIC ---
     themeBtn.addEventListener('click', () => {
         if (!navbar) return;
-
-        // Add smooth transition to navbar
         navbar.style.transition = "background-color 0.4s ease";
 
         if (themeText.innerText === "Light") {
-            // ================= DARK MODE =================
+            // DARK MODE
             themeText.innerText = "Dark";
             themeIcon.className = "fas fa-sun";
-            
-            // 1. Update Navbar
-            navbar.style.backgroundColor = "#0b0b0b"; // Deep black
-            
-            // 2. Update Toggle Container (The "Island")
+            navbar.style.backgroundColor = "#0b0b0b";
             navBox.style.background = "#222";
             navBox.style.borderColor = "#444";
             navDiv.style.background = "#444";
-            
-            // 3. Update Toggle & Hamburger Colors (Back to Gold)
             themeBtn.style.color = "#FFD700";
             hamWrap.style.color = "#FFD700";
             
-            // 4. Update All Nav Items
-            navItems.forEach(item => {
-                if(item.tagName !== 'DIV') item.style.color = "#ffffff";
-                if(item.classList.contains('dropdown-content') || item.classList.contains('menu-items')) {
-                    item.style.backgroundColor = "#111";
-                    item.style.borderColor = "#333";
-                }
-            });
+            // Update Dropdown for Dark
+            dropdown.style.backgroundColor = "#111";
+            dropdown.style.borderColor = "#333";
+            dropdown.querySelectorAll('a').forEach(a => a.style.color = "#fff");
 
         } else {
-            // ================= LIGHT MODE =================
+            // LIGHT MODE
             themeText.innerText = "Light";
             themeIcon.className = "fas fa-moon";
-            
-            // 1. Update Navbar
-            navbar.style.backgroundColor = "#f8f9fa"; // Soft white
-            
-            // 2. Update Toggle Container (Make it light so it's visible)
+            navbar.style.backgroundColor = "#f8f9fa";
             navBox.style.background = "#ffffff";
             navBox.style.borderColor = "#ddd";
             navDiv.style.background = "#ddd";
-            
-            // 3. Update Toggle & Hamburger Colors (Dark for visibility)
-            themeBtn.style.color = "#222222";
-            hamWrap.style.color = "#222222";
-            
-            // 4. Update All Nav Items
-            navItems.forEach(item => {
-                if(item.tagName !== 'DIV') item.style.color = "#222222";
-                if(item.classList.contains('dropdown-content') || item.classList.contains('menu-items')) {
-                    item.style.backgroundColor = "#ffffff";
-                    item.style.borderColor = "#ddd";
-                }
-            });
+            themeBtn.style.color = "#222";
+            hamWrap.style.color = "#222";
+
+            // Update Dropdown for Light
+            dropdown.style.backgroundColor = "#fff";
+            dropdown.style.borderColor = "#ddd";
+            dropdown.querySelectorAll('a').forEach(a => a.style.color = "#222");
         }
     });
 </script>
-        <div class="dropdown-menu" id="nav-dropdown">
-
-          <div class="menu-label">Quick Actions</div>
-          <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
-          
-          <a href="./Assets/Navneet _CV.pdf" class="btn btn-cv download-cv-btn" download>
-            <i class="fas fa-download"></i> Download CV
-          </a>
-          <span class="resume-status-inline" style="font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.3s; margin-left:10px; font-weight:bold;"></span>
-
-          <a href="#contact"><i class="fas fa-envelope"></i> Contact Me</a>
-
-          <hr>
-
-          <div class="menu-label">Navigation</div>
-          <a href="#skills"><i class="fas fa-brain"></i> Skills</a>
-          <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
-          <hr>
-
-          <div class="menu-label">Profiles</div>
-          <a href="https://github.com/Navneet-Mallick/" target="_blank">
-            <i class="fab fa-github"></i> GitHub
-          </a>
-
-          <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank">
-            <i class="fab fa-linkedin"></i> LinkedIn
-          </a>
-
-        </div>
-      </div>
-    </nav>
   </header>
 
   <section id="home" class="hero">
