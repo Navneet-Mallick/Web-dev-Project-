@@ -187,7 +187,7 @@
 
 <body>
   <header>
-    <nav class="navbar">
+    <!-- <nav class="navbar">
 <div style="display: inline-block; position: relative; font-family: sans-serif;">
   <input type="checkbox" id="logo-toggle" style="display: none;">
 
@@ -202,7 +202,7 @@
          id="nav-logo-img"
          style="height: 45px; width: auto; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
                 filter: brightness(1.2) drop-shadow(0 0 5px rgba(0, 255, 231, 0.5));">
-  </label>
+  </label> -->
 
   <style>
     /* When checkbox is checked, make image huge and bring to front */
@@ -232,95 +232,92 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <style>
-    /* 1. Navbar Container Alignment */
+    /* 1. Navbar Setup */
     .navbar {
-        height: 70px;
+        height: 80px;
         display: flex;
         align-items: center;
-        justify-content: flex-end; /* Pushes items to the right */
-        padding: 0 40px;
-        position: fixed; /* Keeps it at the top */
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background-color: #0b0b0b; /* Default Dark */
-        transition: background-color 0.4s ease;
-    }
-
-    /* 2. Wrapper to keep Dropdown attached to the Toggle */
-    .nav-wrapper {
+        justify-content: flex-end; 
+        padding: 0 5%;
+        background-color: #0b0b0b;
         position: relative;
-        display: inline-block;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* 3. The "Island" Toggle Styling */
+    .nav-wrapper {
+        position: relative; /* Crucial for dropdown positioning */
+    }
+
+    /* 2. The Navigation Control "Island" */
     #nav-actions-box {
-        display: flex; 
-        align-items: center; 
-        gap: 12px; 
-        background: #222; 
-        padding: 8px 18px; 
-        border-radius: 30px; 
-        border: 1px solid #444; 
-        user-select: none; 
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    /* 4. Dropdown Alignment (Fixed positioning relative to wrapper) */
-    #nav-dropdown {
-        display: none; 
-        position: absolute;
-        top: calc(100% + 12px); /* Perfectly spaced below the toggle */
-        right: 0; /* Aligns edge-to-edge with the right side of the toggle */
-        background: #111;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: #1a1a1a;
+        padding: 10px 20px;
+        border-radius: 40px;
         border: 1px solid #333;
-        border-radius: 16px;
-        padding: 12px;
-        min-width: 220px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* 3. The Dropdown Menu (Fixed visibility) */
+    #nav-dropdown {
+        display: none; /* Toggle this to 'flex' via JS */
+        position: absolute;
+        top: 65px; 
+        right: 0;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 15px;
+        padding: 15px;
+        min-width: 240px;
         flex-direction: column;
-        z-index: 2000;
-        animation: fadeIn 0.2s ease-out;
+        gap: 5px;
+        z-index: 9999;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+    /* Visibility Class for JS */
+    #nav-dropdown.active {
+        display: flex !important;
     }
 
+    /* 4. Dropdown Item Styling */
     #nav-dropdown a {
-        color: #fff;
+        color: #eeeeee;
         text-decoration: none;
-        padding: 10px 14px;
+        padding: 12px 15px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         gap: 12px;
-        font-family: 'Segoe UI', sans-serif;
         font-size: 14px;
-        border-radius: 8px;
         transition: 0.2s;
     }
 
     #nav-dropdown a:hover {
-        background: rgba(255, 215, 0, 0.1);
-        color: #FFD700 !important;
+        background: #252525;
+        color: #FFD700;
+    }
+
+    #nav-dropdown i {
+        width: 20px;
+        text-align: center;
+        color: #FFD700;
     }
 
     .menu-label {
-        font-family: sans-serif;
-        font-size: 10px;
-        text-transform: uppercase;
+        font-size: 11px;
         color: #666;
-        margin: 10px 0 5px 14px;
-        letter-spacing: 1.5px;
-        font-weight: bold;
+        text-transform: uppercase;
+        margin: 10px 0 5px 15px;
+        letter-spacing: 1px;
     }
 
     hr {
         border: 0;
-        border-top: 1px solid #222;
+        border-top: 1px solid #333;
         margin: 8px 0;
     }
 </style>
@@ -329,19 +326,19 @@
     <div class="nav-wrapper">
         
         <div id="nav-actions-box">
-            <div class="theme-toggle" id="theme-btn" style="color: #FFD700; display: flex; align-items: center; gap: 8px; font-family: sans-serif; font-size: 13px; font-weight: bold;">
-                <i id="theme-icon" class="fas fa-moon" style="font-size: 16px; width: 20px; text-align: center;"></i>
+            <div id="theme-btn" style="cursor: pointer; display: flex; align-items: center; gap: 8px; color: #FFD700; font-weight: bold; font-size: 14px;">
+                <i id="theme-icon" class="fas fa-moon"></i>
                 <span id="theme-text">Dark</span>
             </div>
 
-            <div id="nav-divider" style="width: 1px; height: 18px; background: #444;"></div>
+            <div style="width: 1px; height: 20px; background: #333;"></div>
 
-            <div id="hamburger-wrap" style="color: #FFD700; display: flex; align-items: center;">
-                <i class="fas fa-bars" style="font-size: 18px;"></i>
+            <div id="hamburger-wrap" style="cursor: pointer; color: #FFD700;">
+                <i class="fas fa-bars" style="font-size: 20px;"></i>
             </div>
         </div>
 
-        <div class="dropdown-menu" id="nav-dropdown">
+        <div id="nav-dropdown">
             <div class="menu-label">Quick Actions</div>
             <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
             <a href="./Assets/Navneet _CV.pdf" download><i class="fas fa-download"></i> Download CV</a>
@@ -349,7 +346,7 @@
             
             <hr>
             
-            <div class="menu-label">Profiles</div>
+            <div class="menu-label">Socials</div>
             <a href="https://github.com/Navneet-Mallick/" target="_blank"><i class="fab fa-github"></i> GitHub</a>
             <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
         </div>
@@ -358,56 +355,55 @@
 </nav>
 
 <script>
-    const themeBtn = document.getElementById('theme-btn');
-    const themeIcon = document.getElementById('theme-icon');
-    const themeText = document.getElementById('theme-text');
-    const navBox = document.getElementById('nav-actions-box');
-    const navDiv = document.getElementById('nav-divider');
-    const hamWrap = document.getElementById('hamburger-wrap');
+    const hamBtn = document.getElementById('hamburger-wrap');
     const dropdown = document.getElementById('nav-dropdown');
+    const themeBtn = document.getElementById('theme-btn');
+    const themeText = document.getElementById('theme-text');
+    const themeIcon = document.getElementById('theme-icon');
+    const navBox = document.getElementById('nav-actions-box');
     const navbar = document.querySelector('.navbar');
 
-    // Toggle Dropdown on Hamburger Click
-    hamWrap.addEventListener('click', (e) => {
+    // 1. Toggle Menu Visibility
+    hamBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const isOpen = dropdown.style.display === 'flex';
-        dropdown.style.display = isOpen ? 'none' : 'flex';
+        dropdown.classList.toggle('active');
     });
 
-    // Close on outside click
-    document.addEventListener('click', () => { dropdown.style.display = 'none'; });
+    // 2. Close Menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target) && !hamBtn.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
 
-    // Theme Switcher
-    themeBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Keep menu from closing when toggling theme
+    // 3. Theme Toggle Logic
+    themeBtn.addEventListener('click', () => {
         const isDark = themeText.innerText === "Dark";
-
+        
         if (isDark) {
-            // Switch to Light
             themeText.innerText = "Light";
             themeIcon.className = "fas fa-sun";
+            // Light Mode Styles
             navbar.style.backgroundColor = "#f8f9fa";
-            navBox.style.background = "#ffffff";
+            navBox.style.backgroundColor = "#ffffff";
             navBox.style.borderColor = "#ddd";
-            navDiv.style.background = "#ddd";
-            themeBtn.style.color = "#222";
-            hamWrap.style.color = "#222";
-            dropdown.style.background = "#fff";
+            dropdown.style.backgroundColor = "#ffffff";
             dropdown.style.borderColor = "#ddd";
-            dropdown.querySelectorAll('a').forEach(a => a.style.color = "#222");
+            document.querySelectorAll('#nav-dropdown a').forEach(a => a.style.color = "#333");
+            themeBtn.style.color = "#333";
+            hamBtn.style.color = "#333";
         } else {
-            // Switch to Dark
             themeText.innerText = "Dark";
             themeIcon.className = "fas fa-moon";
+            // Dark Mode Styles
             navbar.style.backgroundColor = "#0b0b0b";
-            navBox.style.background = "#222";
-            navBox.style.borderColor = "#444";
-            navDiv.style.background = "#444";
-            themeBtn.style.color = "#FFD700";
-            hamWrap.style.color = "#FFD700";
-            dropdown.style.background = "#111";
+            navBox.style.backgroundColor = "#1a1a1a";
+            navBox.style.borderColor = "#333";
+            dropdown.style.backgroundColor = "#1a1a1a";
             dropdown.style.borderColor = "#333";
-            dropdown.querySelectorAll('a').forEach(a => a.style.color = "#fff");
+            document.querySelectorAll('#nav-dropdown a').forEach(a => a.style.color = "#eee");
+            themeBtn.style.color = "#FFD700";
+            hamBtn.style.color = "#FFD700";
         }
     });
 </script>
