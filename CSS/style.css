@@ -1115,3 +1115,151 @@ footer a:hover {
     min-width: 120px;
   }
 }
+
+/* ===============================================
+   EXTRA ANIMATIONS & DESIGN ENHANCEMENTS
+   =============================================== */
+
+/* Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--secondary), var(--tertiary));
+  z-index: 99999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Cursor Trail */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, opacity 0.3s ease;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-glow);
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, opacity 0.3s ease;
+  opacity: 0.5;
+}
+
+.cursor-ring.hovered {
+  width: 56px;
+  height: 56px;
+  opacity: 0.8;
+  border-color: var(--secondary);
+}
+
+/* Section title glow pulse */
+.section-title {
+  animation: titleGlow 4s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.3)); }
+  50% { filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.7)) drop-shadow(0 0 40px rgba(124, 58, 237, 0.4)); }
+}
+
+/* 3D Tilt on project cards - handled via JS, CSS perspective setup */
+.project-container {
+  perspective: 1000px;
+}
+
+.project-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Staggered hero entrance */
+.hero-left h1 {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.hero-left p {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-buttons {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.hero-right {
+  animation: fadeInRight 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Exp & education cards stagger */
+.exp-card:nth-child(1) { animation: fadeInUp 0.6s ease-out 0.1s both; }
+.exp-card:nth-child(2) { animation: fadeInUp 0.6s ease-out 0.25s both; }
+.timeline-item:nth-child(1) .timeline-content { animation: fadeInUp 0.6s ease-out 0.1s both; }
+.timeline-item:nth-child(2) .timeline-content { animation: fadeInUp 0.6s ease-out 0.25s both; }
+
+/* Glowing border on contact inputs */
+.contact-form input,
+.contact-form textarea {
+  background-color: var(--bg-gradient-1);
+  background-image: var(--card-bg);
+}
+
+/* Footer social icon bounce */
+footer a:hover {
+  animation: iconBounce 0.4s ease;
+}
+
+@keyframes iconBounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-8px); }
+  70%  { transform: translateY(-4px); }
+  100% { transform: translateY(-3px); }
+}
+
+/* Skill badge pop-in */
+.skill.animated {
+  animation: skillPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes skillPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Navbar logo spin on load */
+@keyframes logoSpin {
+  from { transform: rotate(-10deg) scale(0.8); opacity: 0; }
+  to   { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+#nav-logo-img {
+  animation: logoSpin 0.6s ease-out both;
+}
+
+/* Glowing timeline dot pulse */
+.timeline-item::before {
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 217, 255, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 217, 255, 0); }
+}
