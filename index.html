@@ -203,12 +203,12 @@
             <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
         </ul>
 
-        <!-- <div class="nav-wrapper">
+        <div class="nav-wrapper">
             <div id="nav-actions-box">
                 <div id="theme-btn">
                     <i id="theme-icon" class="fas fa-moon"></i>
                     <span id="theme-text">Dark</span>
-                </div> -->
+                </div>
                 <div class="divider"></div>
                 <div id="hamburger-wrap">
                     <i class="fas fa-bars"></i>
@@ -361,7 +361,7 @@
     }
 </style>
 
-<script>
+<!-- <script>
     const hamBtn = document.getElementById('hamburger-wrap');
     const dropdown = document.getElementById('nav-dropdown');
     const themeBtn = document.getElementById('theme-btn');
@@ -435,7 +435,72 @@ themeBtn.addEventListener('click', () => {
 });
   
  
-</script>
+</script> -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const hamBtn = document.getElementById('hamburger-wrap');
+  const dropdown = document.getElementById('nav-dropdown');
+  const themeBtn = document.getElementById('theme-btn');
+  const themeText = document.getElementById('theme-text');
+  const themeIcon = document.getElementById('theme-icon');
+  const navBox = document.getElementById('nav-actions-box');
+  const navbar = document.querySelector('.navbar');
+
+  // Toggle Dropdown
+  hamBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
+  });
+
+  // Close on Outside Click
+  document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target) && !hamBtn.contains(e.target)) {
+          dropdown.classList.remove('active');
+      }
+  });
+
+  // Theme Toggle
+  themeBtn.addEventListener('click', () => {
+      const isDark = themeText.innerText === "Dark";
+      const centerLinks = document.querySelectorAll('.nav-links a');
+      const dropdownLinks = document.querySelectorAll('#nav-dropdown a');
+
+      if (isDark) {
+          // Light Mode
+          themeText.innerText = "Light";
+          themeIcon.className = "fas fa-sun";
+
+          navbar.style.backgroundColor = "#f8f9fa";
+          navBox.style.backgroundColor = "#ffffff";
+          navBox.style.borderColor = "#ddd";
+          dropdown.style.backgroundColor = "#ffffff";
+          dropdown.style.borderColor = "#ddd";
+
+          centerLinks.forEach(link => link.style.color = "#222");
+          dropdownLinks.forEach(a => a.style.color = "#333");
+
+          themeBtn.style.color = "#222";
+          hamBtn.style.color = "#222";
+      } else {
+          // Dark Mode
+          themeText.innerText = "Dark";
+          themeIcon.className = "fas fa-moon";
+
+          navbar.style.backgroundColor = "#0b0b0b";
+          navBox.style.backgroundColor = "#1a1a1a";
+          navBox.style.borderColor = "#333";
+          dropdown.style.backgroundColor = "#1a1a1a";
+          dropdown.style.borderColor = "#333";
+
+          centerLinks.forEach(link => link.style.color = "orange");
+          dropdownLinks.forEach(a => a.style.color = "#eee");
+
+          themeBtn.style.color = "#FFD700";
+          hamBtn.style.color = "#FFD700";
+      }
+  });
+});
+  </script>
 </header>
 
   <section id="home" class="hero">
