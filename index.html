@@ -426,50 +426,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ✅ Theme Toggle (Safe)
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
+    
 
-            const isDark = themeText.innerText === "Dark";
+themeBtn.addEventListener('click', () => {
+    const isDark = themeText.innerText === "Dark";
 
-            if (isDark) {
-                // 🌞 LIGHT MODE
-                themeText.innerText = "Light";
-                themeIcon.className = "fas fa-sun";
-
-                navbar.style.backgroundColor = "#f8f9fa";
-                navBox.style.backgroundColor = "#ffffff";
-                navBox.style.borderColor = "#ddd";
-                dropdown.style.backgroundColor = "#ffffff";
-                dropdown.style.borderColor = "#ddd";
-
-                centerLinks.forEach(link => link.style.color = "#222");
-                dropdownLinks.forEach(a => a.style.color = "#333");
-
-                themeBtn.style.color = "#222";
-                hamBtn.style.color = "#222";
-
-            } else {
-                // 🌙 DARK MODE
-                themeText.innerText = "Dark";
-                themeIcon.className = "fas fa-moon";
-
-                navbar.style.backgroundColor = "#0b0b0b";
-                navBox.style.backgroundColor = "#1a1a1a";
-                navBox.style.borderColor = "#333";
-                dropdown.style.backgroundColor = "#1a1a1a";
-                dropdown.style.borderColor = "#333";
-
-                centerLinks.forEach(link => link.style.color = "orange");
-                dropdownLinks.forEach(a => a.style.color = "#eee");
-
-                themeBtn.style.color = "#FFD700";
-                hamBtn.style.color = "#FFD700";
-            }
-
-        });
+    if (isDark) {
+        // Switch to light mode
+        themeText.innerText = "Light";
+        themeIcon.className = "fas fa-sun";
+        document.body.classList.add('light-mode');
+    } else {
+        // Switch to dark mode
+        themeText.innerText = "Dark";
+        themeIcon.className = "fas fa-moon";
+        document.body.classList.remove('light-mode');
     }
-
 });
 </script>
 
