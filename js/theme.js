@@ -38,10 +38,10 @@ const ThemeManager = {
   updateIcon(isLight) {
     if (this.themeIcon && this.themeText) {
       if (isLight) {
-        this.themeIcon.classList.replace('fa-moon', 'fa-sun');
+        this.themeIcon.className = 'fas fa-sun';
         this.themeText.innerText = 'Light';
       } else {
-        this.themeIcon.classList.replace('fa-sun', 'fa-moon');
+        this.themeIcon.className = 'fas fa-moon';
         this.themeText.innerText = 'Dark';
       }
     }
