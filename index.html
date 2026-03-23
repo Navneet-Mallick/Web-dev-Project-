@@ -399,50 +399,9 @@ body.light-mode #hamburger-wrap {
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const hamBtn = document.getElementById('hamburger-wrap');
-    const dropdown = document.getElementById('nav-dropdown');
-    const themeBtn = document.getElementById('theme-btn');
-    const themeText = document.getElementById('theme-text');
-    const themeIcon = document.getElementById('theme-icon');
-    const navBox = document.getElementById('nav-actions-box');
-    const navbar = document.querySelector('.navbar');
-
-    const centerLinks = document.querySelectorAll('.nav-links a');
-    const dropdownLinks = document.querySelectorAll('#nav-dropdown a');
-
-    // ✅ Toggle Dropdown
-    if (hamBtn && dropdown) {
-        hamBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdown.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target) && !hamBtn.contains(e.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-    }
-
-    
-
-themeBtn.addEventListener('click', () => {
-    const isDark = themeText.innerText === "Dark";
-
-    if (isDark) {
-        // Switch to light mode
-        themeText.innerText = "Light";
-        themeIcon.className = "fas fa-sun";
-        document.body.classList.add('light-mode');
-    } else {
-        // Switch to dark mode
-        themeText.innerText = "Dark";
-        themeIcon.className = "fas fa-moon";
-        document.body.classList.remove('light-mode');
-    }
-});
+  document.addEventListener("DOMContentLoaded", () => { const hamBtn = document.getElementById('hamburger-wrap'); const dropdown = document.getElementById('nav-dropdown'); const themeBtn = document.getElementById('theme-btn'); const themeText = document.getElementById('theme-text'); const themeIcon = document.getElementById('theme-icon'); const navBox = document.getElementById('nav-actions-box'); const navbar = document.querySelector('.navbar'); const centerLinks = document.querySelectorAll('.nav-links a'); const dropdownLinks = document.querySelectorAll('#nav-dropdown a'); 
+                                                       
+                                                       if (hamBtn && dropdown) { hamBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('active'); }); document.addEventListener('click', (e) => { if (!dropdown.contains(e.target) && !hamBtn.contains(e.target)) { dropdown.classList.remove('active'); } }); } themeBtn.addEventListener('click', () => { const isDark = themeText.innerText === "Dark"; if (isDark) {  themeText.innerText = "Light"; themeIcon.className = "fas fa-sun"; document.body.classList.add('light-mode'); } else { themeText.innerText = "Dark"; themeIcon.className = "fas fa-moon"; document.body.classList.remove('light-mode'); } });
 </script>
 
   <section id="home" class="hero">
