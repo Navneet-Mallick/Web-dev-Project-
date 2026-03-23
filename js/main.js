@@ -35,13 +35,11 @@ const App = {
   },
 
   logPerformance() {
-    // Log page load performance
     window.addEventListener('load', () => {
-      if (window.performance) {
-        const perfData = window.performance.timing;
-        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-        console.log(`⚡ Page loaded in ${pageLoadTime}ms`);
-      }
+      setTimeout(() => {
+        const [entry] = performance.getEntriesByType('navigation');
+        if (entry) console.log(`⚡ Page loaded in ${Math.round(entry.duration)}ms`);
+      }, 0);
     });
   }
 };
