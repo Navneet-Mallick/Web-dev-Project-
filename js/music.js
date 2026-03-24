@@ -9,7 +9,7 @@
   if (!toggleBtn) return;
 
   // Just replace this path with any audio file you want
-  const TRACK = "Assets/demons_phonk.mp3";
+  const TRACK = "Assets/eagles.mp3";
 
   const audio = new Audio(TRACK);
   audio.loop = true;
@@ -55,3 +55,4 @@
     document.removeEventListener("click", autoPlay);
   });
 })();
+
