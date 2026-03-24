@@ -21,12 +21,17 @@
 <!-- Floating Particles -->
 <div class="particles" id="particles"></div>
 
-<!-- Ambient Music Player -->
-<div id="music-player">
+<!-- Music Player -->
+<div id="music-player" data-mode="phonk">
   <button id="music-toggle" aria-label="Toggle music">
     <i class="fas fa-music" id="music-icon"></i>
   </button>
-  <span id="music-label">Ambient On</span>
+  <span id="music-label">Music Off</span>
+  <div class="music-divider"></div>
+  <button id="music-mode-btn" title="Switch mode" aria-label="Switch music mode">
+    <i class="fas fa-shuffle"></i>
+    <span id="music-mode-label">Ambient</span>
+  </button>
 </div>
 
 <header>
