@@ -18,6 +18,27 @@
 
 <body>
 
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress"></div>
+
+<!-- Matrix Rain Canvas -->
+<canvas id="matrix-canvas"></canvas>
+
+<!-- Scanlines overlay -->
+<div class="scanlines"></div>
+
+<!-- Boot Overlay -->
+<div id="boot-overlay">
+  <div class="boot-content">
+    <div class="boot-logo">NM</div>
+    <div class="boot-text" id="boot-text"></div>
+    <div class="boot-bar-wrap">
+      <div class="boot-bar" id="boot-bar"></div>
+    </div>
+    <div class="boot-hint">click anywhere to enter</div>
+  </div>
+</div>
+
 <!-- Floating Particles -->
 <div class="particles" id="particles"></div>
 
@@ -305,6 +326,19 @@
     <section>
       <br>
       <br>
+      <!-- Terminal Widget -->
+      <div class="terminal-wrapper">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="t-btn t-red"></span>
+            <span class="t-btn t-yellow"></span>
+            <span class="t-btn t-green"></span>
+            <span class="terminal-title">navneet@portfolio ~ bash</span>
+          </div>
+          <div class="terminal-body" id="terminal-body"></div>
+        </div>
+      </div>
+      <br>
       
 <div class="map" style="width: 100%; margin: 0; padding: 0; overflow: hidden;">
   <iframe 
@@ -329,6 +363,9 @@
   <!-- <footer style="padding:15px 20px; background:#222; color:#fff;"> <p>© 2026 Navneet Mallick</p> <a href="https://github.com/Navneet-Mallick/"><i class="fab fa-github"></i></a> <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a> <a href="https://www.instagram.com/navneet_nm07"><i class="fab fa-instagram"></i></a> </footer> -->
 
   <footer>
+  <!-- Audio Visualizer -->
+  <div id="audio-viz" style="display:flex;justify-content:center;align-items:flex-end;gap:3px;height:40px;margin-bottom:20px;"></div>
+
   <p>© 2026 Navneet Mallick. All Rights Reserved.</p>
   <div>
     <a href="https://github.com/Navneet-Mallick/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
