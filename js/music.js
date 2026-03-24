@@ -8,9 +8,16 @@
 
   if (!toggleBtn) return;
 
-  const audio = new Audio("Assets/demons_phonk.mp3");
+  // Just replace this path with any audio file you want
+  const TRACK = "Assets/demons_phonk.mp3";
+
+  const audio = new Audio(TRACK);
   audio.loop = true;
   audio.volume = volumeSlider ? parseFloat(volumeSlider.value) : 0.6;
+
+  // Show filename as track name (strip path + extension)
+  const name = TRACK.split("/").pop().replace(/\.[^.]+$/, "").replace(/_/g, " ");
+  if (trackName) trackName.textContent = name;
 
   let playing = false;
 
@@ -23,7 +30,7 @@
   function setUI(state) {
     playing = state;
     icon.className = state ? "fas fa-pause" : "fas fa-play";
-    if (trackName) trackName.textContent = state ? "Demons Phonk - Playing" : "Demons Phonk";
+    if (trackName) trackName.textContent = state ? name + " ▶" : name;
     if (player) player.setAttribute("data-playing", state ? "true" : "false");
   }
 
