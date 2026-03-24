@@ -2146,3 +2146,16 @@ img[data-src] {
 img[data-src].loaded {
   filter: blur(0);
 }
+
+/* ===============================================
+   TERMINAL + MAP SECTION SPACING
+   =============================================== */
+
+.terminal-map-section {
+  padding: 60px 0 0;
+}
+
+/* Override hardcoded map iframe border */
+.map iframe {
+  border-color: var(--accent) !important;
+}
