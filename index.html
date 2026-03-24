@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Navneet Mallick - Computer Engineering Student specializing in Web Development, Machine Learning, and Data Science">
+  <meta name="keywords" content="Navneet Mallick, Web Developer, ML Engineer, Portfolio, Computer Engineering">
+  <meta name="author" content="Navneet Mallick">
+  <title>Navneet Mallick | Portfolio</title>
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- External Styles & Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- Floating Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Ambient Music Player -->
+<div id="music-player">
+  <button id="music-toggle" aria-label="Toggle music">
+    <i class="fas fa-music" id="music-icon"></i>
+  </button>
+  <span id="music-label">Ambient On</span>
+</div>
+
+<header>
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="#home">
+                <img src="logo.png" alt="Logo" id="nav-logo-img" style="height:40px; transition: transform 0.3s ease;">
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#projects"><i class="fas fa-code"></i> Projects</a></li>
+            <li><a href="#skills"><i class="fas fa-brain"></i> Skills</a></li>
+            <li><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+            <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+        </ul>
+
+        <div class="nav-wrapper">
+            <div id="nav-actions-box">
+                <div id="theme-btn">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                    <span id="theme-text">Dark</span>
+                </div>
+                <div class="divider"></div>
+                <div id="hamburger-wrap">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+
+            <div id="nav-dropdown">
+                <div style="font-size: 10px; opacity: 0.6; margin-bottom: 10px;">QUICK ACTIONS</div>
+                <a href="#projects"><i class="fas fa-rocket"></i> View Projects</a>
+                <a href="./Assets/Navneet _CV.pdf" download><i class="fas fa-download"></i> Download CV</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact Me</a>
+                <hr style="margin: 10px 0; border: 0; border-top: 1px solid var(--border-color);">
+                <div style="font-size: 10px; opacity: 0.6; margin-bottom: 10px;">SOCIALS</div>
+                <a href="https://github.com/Navneet-Mallick/" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section id="home" class="hero">
+    <div class="hero-left">
+      <h1>Hi, I'm <span>Navneet Mallick</span></h1>
+      <!-- <p style="font-size: 1.2rem; margin: 10px 0;">Computer Engineering Student | Web & ML Enthusiast</p> -->
+      <p style="font-size: 1.5rem; margin: 10px 0; height: 1.6em;">
+  I am  <span id="typing-text" style="color: var(--secondary); font-weight: 600;"></span><span class="cursor">|</span>
+</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn">Hire Me</a>
+        <a href="./Assets/Navneet _CV.pdf" class="btn btn-cv download-cv-btn" download>
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        <span class="resume-status-inline" style="font-size: 10px; color: var(--accent); opacity: 0; margin-left:10px;"></span>
+      </div>
+    </div>
+    <div class="hero-right">
+        <img class="pp-img" src="pp.jpg" alt="Navneet Mallick">
+    </div>
+</section>
+<section id="projects" class="reveal">
+
+    <h1 class="section-title">Projects</h1>
+
+    <!-- Project Tabs -->
+    <div class="project-tabs">
+      <button class="project-tab active" data-tab="live">
+        <i class="fas fa-rocket"></i> Live Projects
+      </button>
+      <button class="project-tab" data-tab="repo">
+        <i class="fab fa-github"></i> Repo Projects
+      </button>
+    </div>
+
+    <!-- Live Projects -->
+    <div class="project-container" id="tab-live">
+
+      <div class="project-card">
+        <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender System">
+        <div class="overlay">
+          <h3>Content Based Movie Recommender</h3>
+          <p>ML Project</p>
+          <a href="https://movie-recommender-navneet.streamlit.app/" target="_blank" class="btn">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor">
+        <div class="overlay">
+          <h3>Car Price Predictor</h3>
+          <p>Regression Project</p>
+          <a href="https://carpredictor-navneet.streamlit.app/" target="_blank" class="btn">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="weather.png" alt="Weather App">
+        <div class="overlay">
+          <h3>Weather App</h3>
+          <p>Provides Real Time Weather Data</p>
+          <a href="https://navneet-mallick.github.io/Weather-App-/" target="_blank" class="btn">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="rock.png" alt="Rock Paper Scissors">
+        <div class="overlay">
+          <h3>Rock Paper Scissors</h3>
+          <p>Interactive Browser Game</p>
+          <a href="https://navneet-mallick.github.io/Rock-Paper-Scissors/" target="_blank" class="btn">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Repo Projects -->
+    <div class="project-container" id="tab-repo" style="display:none;">
+
+      <div class="project-card">
+        <img src="quiz.png" alt="Quiz Game">
+        <div class="overlay">
+          <h3>Quiz Master Game</h3>
+          <p>Interactive C++ Quiz Game</p>
+          <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game.git" target="_blank" class="btn">
+            <i class="fab fa-github"></i> View Repo
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <img src="./images/developer.jpg" alt="Hackathon Project">
+        <div class="overlay">
+          <h3>Hackathon Project</h3>
+          <p>Waste Management Website</p>
+          <a href="https://github.com/Navneet-Mallick/XENOM.git" target="_blank" class="btn">
+            <i class="fab fa-github"></i> View Repo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+<div class="theme-wrapper-container">
+    <section id="experience">
+      <h1 class="section-title">Experience</h1>
+      <div class="exp-card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3>Intern Supervisor</h3>
+              <span class="date-tag">Feb 2026 - Present</span>
+          </div>
+          <p class="company-name">CODE IT, Dharan</p>
+          <p>Mentored students on Data Science and ML topics.</p>
+      </div>
+      <div class="exp-card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+              <h3>Graphics Designer</h3>
+              <span class="date-tag">Feb 2026 - Present</span>
+          </div>
+          <p class="company-name">ACES ERC, Dharan</p>
+          <p>Creating visual assets for the technical club.</p>
+      </div>
+    </section>
+
+    <section id="education">
+      <h1 class="section-title">Education</h1>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="timeline-date">2024 - Present</span>
+            <h3>Bachelor in Computer Engineering</h3>
+            <p class="inst">IOE Purwanchal Campus</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="timeline-date">2021 - 2023</span>
+            <h3>+2 Science - NEB</h3>
+            <p class="inst">DAV College, Lalitpur</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+
+        
+ <section id="skills" class="reveal">
+  <h1 class="section-title">My Skills</h1>
+
+  <div class="skills-container" style="display: flex; flex-direction: column; gap: 20px; max-width: 1000px; margin: 0 auto;">
+
+    <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px; border-bottom: 1px solid rgba(255, 165, 0, 0.1); padding-bottom: 15px;">
+      <h2 style="color: orange; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0;">Web Dev</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fab fa-html5"></i> <p style="display: inline; margin-left: 5px;">HTML</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="95%" style="width:0%"></div></div>
+        </div>
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fab fa-css3-alt"></i> <p style="display: inline; margin-left: 5px;">CSS</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="90%" style="width:0%"></div></div>
+        </div>
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fab fa-js"></i> <p style="display: inline; margin-left: 5px;">JS</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="90%" style="width:0%"></div></div>
+        </div>
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fab fa-node-js"></i> <p style="display: inline; margin-left: 5px;">Node</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="85%" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px; border-bottom: 1px solid rgba(255, 165, 0, 0.1); padding-bottom: 15px;">
+      <h2 style="color: orange; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0;">ML & AI</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fab fa-python"></i> <p style="display: inline; margin-left: 5px;">Python</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="90%" style="width:0%"></div></div>
+        </div>
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fas fa-brain"></i> <p style="display: inline; margin-left: 5px;">ML</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="70%" style="width:0%"></div></div>
+        </div>
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fas fa-chart-line"></i> <p style="display: inline; margin-left: 5px;">Data Sci</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="65%" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 15px;">
+      <h2 style="color: orange; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0;">Backend</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fas fa-database"></i> <p style="display: inline; margin-left: 5px;">SQL</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="85%" style="width:0%"></div></div>
+        </div>
+        <div class="skill" style="margin: 0; padding: 5px 10px; min-width: 140px;">
+          <i class="fas fa-server"></i> <p style="display: inline; margin-left: 5px;">Django</p>
+          <div class="skill-bar" style="height: 6px;"><div class="skill-fill" data-width="50%" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+    <section>
+      <br>
+      <br>
+      
+<div class="map" style="width: 100%; margin: 0; padding: 0; overflow: hidden;">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d28488.157738371727!2d87.2906752!3d26.807500799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1715795825848!5m2!1sen!2snp" 
+    width="100%" 
+    height="450" 
+    style="border: 2px solid aqua; border-radius: 25px; display: block; width: 100%;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+  </section>
+<section id="contact" class="reveal"> 
+  <h1 class="section-title">Get In Touch</h1> 
+  <form class="contact-form"> 
+    <input type="text" name="name" placeholder="Your Name" required> 
+    <input type="email" name="email" placeholder="Your Email" required> 
+    <textarea name="message" placeholder="Your Message" required></textarea> 
+    <button type="submit">Send Message</button> </form> </section> 
+
+  <!-- <footer style="padding:15px 20px; background:#222; color:#fff;"> <p>© 2026 Navneet Mallick</p> <a href="https://github.com/Navneet-Mallick/"><i class="fab fa-github"></i></a> <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a> <a href="https://www.instagram.com/navneet_nm07"><i class="fab fa-instagram"></i></a> </footer> -->
+
+  <footer>
+  <p>© 2026 Navneet Mallick. All Rights Reserved.</p>
+  <div>
+    <a href="https://github.com/Navneet-Mallick/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/navneet_nm07" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+  <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.7;">Built with passion and code by Navneet❤️</p>
+</footer>
+
+<!-- External Scripts -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- Application Scripts (Load in order) -->
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/typing.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/contact.js"></script>
+<script src="js/music.js"></script>
+<script>
+  // Project tab switching
+  document.querySelectorAll('.project-tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const target = this.dataset.tab;
+      document.getElementById('tab-live').style.display = target === 'live' ? 'grid' : 'none';
+      document.getElementById('tab-repo').style.display = target === 'repo' ? 'grid' : 'none';
+      // Re-trigger card reveal for newly shown cards
+      setTimeout(() => {
+        document.querySelectorAll('#tab-' + target + ' .project-card').forEach((card, i) => {
+          card.classList.remove('reveal-card');
+          setTimeout(() => card.classList.add('reveal-card'), i * 100);
+        });
+      }, 50);
+    });
+  });
+</script>
+
+</body>
+</html>
