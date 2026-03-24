@@ -1888,3 +1888,261 @@ body.light-mode #music-player {
   background: var(--accent-glow);
   transform: rotate(20deg);
 }
+
+/* ===============================================
+   STATS SECTION
+   =============================================== */
+
+.stats-section {
+  padding: 60px 10%;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px var(--accent-glow);
+}
+
+.stat-card:hover::before { opacity: 1; }
+
+.stat-card i {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===============================================
+   BACK TO TOP
+   =============================================== */
+
+#back-to-top {
+  position: fixed;
+  bottom: 90px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: var(--nav-bg);
+  color: var(--accent);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+#back-to-top:hover {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-4px);
+}
+
+/* ===============================================
+   TOAST NOTIFICATIONS
+   =============================================== */
+
+#toast-container {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: all;
+  max-width: 320px;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-success {
+  background: rgba(40, 200, 64, 0.15);
+  border-color: #28c840;
+  color: #28c840;
+}
+
+.toast-error {
+  background: rgba(255, 95, 87, 0.15);
+  border-color: #ff5f57;
+  color: #ff5f57;
+}
+
+.toast-info {
+  background: rgba(0, 217, 255, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toast-warning {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--tertiary);
+  color: var(--tertiary);
+}
+
+/* ===============================================
+   BOOT PERCENT
+   =============================================== */
+
+.boot-percent {
+  font-size: 13px;
+  color: rgba(0, 217, 255, 0.7);
+  margin-top: 8px;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ===============================================
+   MOBILE BOTTOM NAV
+   =============================================== */
+
+#mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--border-color);
+  backdrop-filter: blur(20px);
+  z-index: 9990;
+  padding: 8px 0 env(safe-area-inset-bottom, 8px);
+}
+
+#mobile-bottom-nav a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--text-color);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+  padding: 4px 0;
+}
+
+#mobile-bottom-nav a i {
+  font-size: 18px;
+}
+
+#mobile-bottom-nav a.active,
+#mobile-bottom-nav a:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  #mobile-bottom-nav {
+    display: flex;
+  }
+
+  /* Push footer up so it's not hidden behind mobile nav */
+  footer {
+    padding-bottom: 80px;
+  }
+
+  /* Music player above mobile nav */
+  #music-player {
+    bottom: 72px;
+  }
+
+  #back-to-top {
+    bottom: 160px;
+  }
+}
+
+/* ===============================================
+   LAZY IMAGE BLUR-UP
+   =============================================== */
+
+img[data-src] {
+  filter: blur(8px);
+  transition: filter 0.5s ease;
+}
+
+img[data-src].loaded {
+  filter: blur(0);
+}

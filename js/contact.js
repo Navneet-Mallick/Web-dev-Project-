@@ -39,12 +39,12 @@ const ContactForm = {
 
       emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, templateParams)
         .then(() => {
-          alert('Message sent successfully! I\'ll get back to you soon.');
+          showToast('Message sent! I\'ll get back to you soon. 🚀', 'success');
           this.form.reset();
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert('Failed to send message. Please try again or contact me directly via email.');
+          showToast('Failed to send. Please try again or email me directly.', 'error');
         })
         .finally(() => {
           submitBtn.textContent = originalText;

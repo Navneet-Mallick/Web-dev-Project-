@@ -35,6 +35,7 @@
     <div class="boot-bar-wrap">
       <div class="boot-bar" id="boot-bar"></div>
     </div>
+    <div class="boot-percent" id="boot-percent">0%</div>
     <div class="boot-hint">click anywhere to enter</div>
   </div>
 </div>
@@ -65,6 +66,14 @@
     <i class="fas fa-moon" id="music-mode-icon"></i>
   </button>
 </div>
+
+<!-- Toast Notifications -->
+<div id="toast-container"></div>
+
+<!-- Back to Top -->
+<button id="back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
 
 <header>
     <nav class="navbar">
@@ -127,6 +136,33 @@
         <img class="pp-img" src="pp.jpg" alt="Navneet Mallick">
     </div>
 </section>
+
+<!-- Stats Counter -->
+<section id="stats" class="stats-section reveal">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <i class="fas fa-code"></i>
+      <span class="stat-number" data-target="6" data-suffix="+">0+</span>
+      <p>Projects Built</p>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-briefcase"></i>
+      <span class="stat-number" data-target="2" data-suffix="+">0+</span>
+      <p>Roles Held</p>
+    </div>
+    <div class="stat-card">
+      <i class="fab fa-github"></i>
+      <span class="stat-number" data-target="100" data-suffix="+">0+</span>
+      <p>GitHub Commits</p>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-mug-hot"></i>
+      <span class="stat-number" data-target="500" data-suffix="+">0+</span>
+      <p>Cups of Tea</p>
+    </div>
+  </div>
+</section>
+
 <section id="projects" class="reveal">
 
     <h1 class="section-title">Projects</h1>
@@ -375,6 +411,15 @@
   <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.7;">Built with passion and code by Navneet❤️</p>
 </footer>
 
+<!-- Mobile Bottom Nav -->
+<nav id="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="#home" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="#projects"><i class="fas fa-code"></i><span>Projects</span></a>
+  <a href="#skills"><i class="fas fa-brain"></i><span>Skills</span></a>
+  <a href="#experience"><i class="fas fa-briefcase"></i><span>Exp</span></a>
+  <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+</nav>
+
 <!-- External Scripts -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -387,6 +432,7 @@
 <script src="js/animations.js"></script>
 <script src="js/contact.js"></script>
 <script src="js/music.js"></script>
+<script src="js/extras.js"></script>
 <script>
   // Project tab switching
   document.querySelectorAll('.project-tab').forEach(tab => {

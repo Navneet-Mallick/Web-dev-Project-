@@ -110,6 +110,7 @@
   }
 
   function dismissOverlay() {
+    if (overlay.classList.contains('boot-exit')) return;
     playBootSound();
     overlay.classList.add('boot-exit');
     setTimeout(() => {
@@ -124,13 +125,23 @@
   // Start typing after short delay
   setTimeout(() => {
     typeMessages(0, () => {
-      animateBar(() => {
-        // Ready - wait for click
-      });
+      animateBar(() => {});
     });
   }, 400);
 
-  overlay.addEventListener('click', dismissOverlay);
+  // Auto-dismiss after 5s even if user doesn't interact
+  const autoDismissTimer = setTimeout(dismissOverlay, 5000);
+
+  // Dismiss on click anywhere OR any keypress — immediately
+  document.addEventListener('click', () => {
+    clearTimeout(autoDismissTimer);
+    dismissOverlay();
+  }, { once: true });
+
+  document.addEventListener('keydown', () => {
+    clearTimeout(autoDismissTimer);
+    dismissOverlay();
+  }, { once: true });
 
   // --- Global click sound ---
   document.addEventListener('click', (e) => {
