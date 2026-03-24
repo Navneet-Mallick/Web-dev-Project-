@@ -2159,3 +2159,88 @@ img[data-src].loaded {
 .map iframe {
   border-color: var(--accent) !important;
 }
+
+/* ===============================================
+   GITHUB STATS SECTION
+   =============================================== */
+
+#github-stats {
+  padding: 0 10% 60px;
+  text-align: center;
+}
+
+.github-stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.github-stat-card {
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
+}
+
+.github-stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.github-activity-graph {
+  margin-bottom: 24px;
+}
+
+.github-activity-graph img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.github-activity-graph img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.github-sub-label {
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.github-sub-label i {
+  margin-right: 6px;
+}
+
+.github-snake picture,
+.github-snake img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+body.light-mode .github-snake img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  #github-stats {
+    padding: 0 5% 40px;
+  }
+
+  .github-stats-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}
