@@ -12,10 +12,11 @@
 
   // ── MODES ──────────────────────────────────────────────
   const MODES = [
-    { id: 'eagles',  label: 'Eagles',       type: 'file', src: 'Assets/eagles.mp3',        icon: 'fas fa-music' },
-    { id: 'phonk',   label: 'Demons Phonk', type: 'file', src: 'Assets/demons_phonk.mp3',  icon: 'fas fa-fire' },
-    { id: 'ambient', label: 'Ambient',      type: 'synth', style: 'ambient',                icon: 'fas fa-moon' },
     { id: 'lofi',    label: 'Lo-Fi',        type: 'synth', style: 'lofi',                   icon: 'fas fa-headphones' },
+     { id: 'ambient', label: 'Ambient',      type: 'synth', style: 'ambient',                icon: 'fas fa-moon' },
+    { id: 'phonk',   label: 'Demons Phonk', type: 'file', src: 'Assets/demons_phonk.mp3',  icon: 'fas fa-fire' },
+    { id: 'eagles',  label: 'Eagles',       type: 'file', src: 'Assets/eagles.mp3',        icon: 'fas fa-music' },
+   
   ];
 
   let modeIndex = 0;
