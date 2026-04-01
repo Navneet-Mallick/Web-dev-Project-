@@ -1,4 +1,4 @@
-﻿/* ===============================================
+/* ===============================================
    NAVNEET MALLICK - PORTFOLIO STYLESHEET
    Modern, Responsive Design with Animations
    =============================================== */
@@ -1023,7 +1023,7 @@ header {
   gap: 20px;
 }
 
-/* Skill row grid — replaces inline styles */
+/* Skill row grid � replaces inline styles */
 .skill-row-grid {
   display: grid;
   grid-template-columns: 140px 1fr;
@@ -1436,7 +1436,7 @@ footer a:hover {
     height: 220px;
   }
 
-  /* On touch devices — show label at bottom, image stays visible */
+  /* On touch devices � show label at bottom, image stays visible */
   .overlay {
     opacity: 1;
     background: linear-gradient(
@@ -2008,7 +2008,7 @@ footer a:hover {
   100% { letter-spacing: 3px; }
 }
 
-/* Floating badge on profile pic — removed (unprofessional) */
+/* Floating badge on profile pic � removed (unprofessional) */
 .hero-right::after {
   display: none;
 }
@@ -2301,7 +2301,7 @@ body.boot-active {
 }
 
 /* ===============================================
-   MUSIC PLAYER — refined
+   MUSIC PLAYER � refined
    =============================================== */
 
 #music-player {
@@ -2865,7 +2865,7 @@ body.light-mode .github-snake img {
 }
 
 /* ===============================================
-   ACCESSIBILITY — REDUCED MOTION
+   ACCESSIBILITY � REDUCED MOTION
    =============================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -2889,7 +2889,7 @@ body.light-mode .github-snake img {
     scroll-behavior: auto;
   }
 }
-/* Section title — keep gradient while typewriter runs */
+/* Section title � keep gradient while typewriter runs */
 .section-title {
   display: inline-block;
   width: 100%;
@@ -2955,7 +2955,7 @@ body.light-mode .github-snake img {
   color: var(--accent);
 }
 
-/* Section title — keep gradient while typewriter runs */
+/* Section title � keep gradient while typewriter runs */
 .section-title {
   display: inline-block;
   width: 100%;
@@ -3294,7 +3294,7 @@ body.light-mode .nav-links a {
   font-size: 15px;
 }
 
-/* Expert badges — cyan tint on hover */
+/* Expert badges � cyan tint on hover */
 .skill-level-group:nth-child(1) .skill-badge:hover {
   border-color: #00d9ff;
   box-shadow: 0 4px 16px rgba(0,217,255,0.2);
@@ -3303,7 +3303,7 @@ body.light-mode .nav-links a {
 
 .skill-level-group:nth-child(1) .skill-badge i { color: #00d9ff; }
 
-/* Intermediate badges — purple tint on hover */
+/* Intermediate badges � purple tint on hover */
 .skill-level-group:nth-child(2) .skill-badge:hover {
   border-color: #7c3aed;
   box-shadow: 0 4px 16px rgba(124,58,237,0.2);
@@ -3312,7 +3312,7 @@ body.light-mode .nav-links a {
 
 .skill-level-group:nth-child(2) .skill-badge i { color: #7c3aed; }
 
-/* Beginner badges — amber tint on hover */
+/* Beginner badges � amber tint on hover */
 .skill-level-group:nth-child(3) .skill-badge:hover {
   border-color: #f59e0b;
   box-shadow: 0 4px 16px rgba(245,158,11,0.2);
@@ -3349,7 +3349,7 @@ body.light-mode .skill-badge {
 }
 
 /* ===============================================
-   PROJECT CARD — ENHANCED ANIMATIONS
+   PROJECT CARD � ENHANCED ANIMATIONS
    =============================================== */
 
 /* Staggered entrance per card position */
@@ -3418,7 +3418,7 @@ body.light-mode .skill-badge {
   opacity: 1;
 }
 
-/* Mobile — overlay always visible, no transform needed */
+/* Mobile � overlay always visible, no transform needed */
 @media (max-width: 600px) {
   .overlay {
     transform: none;
