@@ -16,9 +16,11 @@
     { id: 'ambient', label: 'Ambient Chill',             type: 'synth', style: 'ambient', icon: 'fas fa-moon' },
     { id: 'phonk',   label: 'Demons — Phonk',            type: 'file',  src: 'Assets/demons_phonk.mp3', icon: 'fas fa-fire' },
     { id: 'eagles',  label: 'Hotel California — Eagles', type: 'file',  src: 'Assets/eagles.mp3',       icon: 'fas fa-music' },
+     { id: 'interstellar',  label: 'Hotel California — Eagles', type: 'file',  src: 'interstellar_chase_2.mp3',       icon: 'fas fa-music' },
+ 
   ];
 
-  let modeIndex = 0; // Start on Lo-Fi
+  let modeIndex = 4; // Start on Lo-Fi
   let isPlaying = false;
 
   // ── FILE AUDIO ─────────────────────────────────────────
