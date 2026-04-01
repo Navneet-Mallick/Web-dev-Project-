@@ -285,7 +285,7 @@
 
   const st = document.createElement('style');
   st.textContent = `
-    @keyframes termSweep { 0%{top:0%;opacity:1} 100%{top:100%;opacity:0} }
+    .t-line { opacity: 1 !important; animation: none !important; }
     @keyframes hintPulse {
       0%,100% { opacity:0.8; transform:translateY(0); }
       50%     { opacity:1;   transform:translateY(-3px); }
