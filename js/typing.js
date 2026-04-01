@@ -1,10 +1,9 @@
 /**
- * Typing Effect — clean rewrite
+ * Typing Effect — smooth edition
  */
 
 (function () {
   const el = document.getElementById('typing-text');
-  const cursor = document.querySelector('.cursor');
   if (!el) return;
 
   const phrases = [
@@ -15,44 +14,39 @@
   ];
 
   let phraseIndex = 0;
-  let charIndex    = 0;
-  let deleting     = false;
-  let paused       = false;
+  let charIndex   = 0;
+  let deleting    = false;
 
   function tick() {
-    if (paused) return;
-
     const current = phrases[phraseIndex];
 
     if (!deleting) {
-      // Type forward
       charIndex++;
       el.textContent = current.slice(0, charIndex);
 
       if (charIndex === current.length) {
-        // Finished typing — pause then start deleting
-        paused = true;
-        setTimeout(() => { paused = false; deleting = true; tick(); }, 1800);
+        // Pause at end before deleting
+        setTimeout(() => { deleting = true; tick(); }, 2000);
         return;
       }
-      setTimeout(tick, 90 + Math.random() * 40); // slight human variance
+      // Typing: smooth base speed with tiny natural variance
+      setTimeout(tick, 70 + Math.random() * 30);
+
     } else {
-      // Delete backward
       charIndex--;
       el.textContent = current.slice(0, charIndex);
 
       if (charIndex === 0) {
-        // Finished deleting — move to next phrase
         deleting = false;
         phraseIndex = (phraseIndex + 1) % phrases.length;
-        paused = true;
-        setTimeout(() => { paused = false; tick(); }, 400);
+        // Brief pause before typing next phrase
+        setTimeout(tick, 500);
         return;
       }
-      setTimeout(tick, 45);
+      // Deleting: faster than typing, feels snappy
+      setTimeout(tick, 35 + Math.random() * 15);
     }
   }
 
-  // Start after a short delay so page loads first
-  setTimeout(tick, 800);
+  setTimeout(tick, 1000);
 })();

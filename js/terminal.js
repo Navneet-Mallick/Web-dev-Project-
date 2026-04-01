@@ -113,7 +113,7 @@
         cmd.textContent = text; clearInterval(iv); cur.remove();
         glitch(cmd); setTimeout(done, 160);
       }
-    }, 36);
+    }, 80);
   }
 
   function glitch(el) {
@@ -151,7 +151,7 @@
         const el = outLine(line.parts); body.appendChild(el); show(el);
         body.scrollTop = body.scrollHeight;
         runIntro(body, idx + 1, done);
-      }, 220);
+      }, 350);
     }
   }
 
@@ -170,10 +170,10 @@
     const hint = document.createElement('div');
     hint.id = 't-hint-pulse';
     hint.style.cssText = 'text-align:center;padding:10px 0 4px;font-size:12px;letter-spacing:2px;animation:hintPulse 1.8s ease-in-out infinite;';
-    hint.innerHTML = '<span style="color:#00d9ff;opacity:0.7">⌨  type something... try \'help\'</span>';
+    hint.innerHTML = '<span style="color:#00d9ff;opacity:1">⌨  type something... try \'help\'</span>';
     body.appendChild(hint);
     body.scrollTop = body.scrollHeight;
-    document.addEventListener('keydown', () => hint.remove(), { once: true });
+    document.addEventListener('keydown', (e) => { if (e.key !== 'Enter') hint.remove(); }, { once: true });
   }
 
   function spawnInput(body) {
@@ -187,7 +187,7 @@
     inp.setAttribute('aria-label', 'Terminal input');
     wrap.appendChild(inp); body.appendChild(wrap);
     body.scrollTop = body.scrollHeight;
-    setTimeout(() => inp.focus(), 80);
+    setTimeout(() => inp.focus(), 150);
 
     inp.addEventListener('keydown', e => {
       // Arrow key history
@@ -264,9 +264,6 @@
 
   function boot(body, termEl) {
     body.innerHTML = '';
-    const sw = document.createElement('div');
-    sw.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,rgba(0,217,255,0.6),transparent);pointer-events:none;z-index:10;animation:termSweep 1.2s ease forwards';
-    termEl.appendChild(sw); setTimeout(() => sw.remove(), 1300);
 
     const init = document.createElement('div');
     init.className = 't-line';
@@ -290,7 +287,7 @@
   st.textContent = `
     @keyframes termSweep { 0%{top:0%;opacity:1} 100%{top:100%;opacity:0} }
     @keyframes hintPulse {
-      0%,100% { opacity:0.4; transform:translateY(0); }
+      0%,100% { opacity:0.8; transform:translateY(0); }
       50%     { opacity:1;   transform:translateY(-3px); }
     }
     .t-cursor { animation: blink 0.7s infinite, tCP 3s ease-in-out infinite !important; }
@@ -311,6 +308,11 @@
     const termEl = document.querySelector('.terminal');
     if (!body || !termEl) return;
     boot(body, termEl);
+    // Click anywhere in terminal to refocus input
+    termEl.addEventListener('click', () => {
+      const inp = termEl.querySelector('.t-input:not(:disabled)');
+      if (inp) inp.focus();
+    });
     termEl.addEventListener('mouseenter', () => {
       termEl.style.transform = 'translateY(-5px)';
       termEl.style.boxShadow = '0 0 50px rgba(0,217,255,0.25),0 25px 70px rgba(0,0,0,0.6)';
