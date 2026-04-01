@@ -228,7 +228,7 @@
 
       if (cmd === 'music') {
         const track = document.getElementById('music-track-name');
-        const t = track ? track.textContent : 'Hotel California — Eagles';
+        const t = track ? track.textContent : 'Interstellar — Hans Zimmer';
         printLines(body, [{ cls: 't-accent', text: '  🎵 Now playing: ' + t }], () => spawnInput(body)); return;
       }
 
@@ -237,7 +237,7 @@
           { cls: '', text: '  [sudo] password for navneet: ' },
           { cls: 't-val', text: '  Deleting everything...' },
           { cls: '', text: '  ████████████████░░░░  80%' },
-          { cls: 't-green', text: '  Just kidding 😈 Nice try tho.' },
+          { cls: 't-val', text: '  Just kidding 😈 Nice try tho.' },
         ];
         printLines(body, lines, () => spawnInput(body)); return;
       }

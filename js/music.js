@@ -12,7 +12,7 @@
 
   // ── MODES ──────────────────────────────────────────────
   const MODES = [
-    { id: 'lofi',    label: 'Interstellar — Hans Zimmer',  type: 'synth', style: 'lofi',    icon: 'fas fa-headphones' },
+    { id: 'lofi',    label: 'Interstellar — Hans Zimmer',  type: 'file',  src: 'Assets/interstellar.mp3', icon: 'fas fa-headphones' },
     { id: 'ambient', label: 'Ambient Chill',             type: 'synth', style: 'ambient', icon: 'fas fa-moon' },
     { id: 'phonk',   label: 'Demons — Phonk',            type: 'file',  src: 'Assets/demons_phonk.mp3', icon: 'fas fa-fire' },
     { id: 'eagles',  label: 'Hotel California — Eagles', type: 'file',  src: 'Assets/eagles.mp3',       icon: 'fas fa-music' },
