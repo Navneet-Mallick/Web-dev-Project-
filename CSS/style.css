@@ -1081,10 +1081,8 @@ header {
   min-width: 130px;
   border: 2px solid var(--border-color);
   transition: all 0.4s ease;
-.contact-form input,
-.contact-form textarea {
-  padding: 15px;
-  border-radius: 8px;5s;
+  position: relative;
+  overflow: hidden;
 }
 
 .skill:hover::before {
@@ -3157,13 +3155,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
-} margin: -20px 0 40px;
-
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
   max-width: 600px;
   margin: 0 auto;
   padding: 0 20px;
@@ -3274,7 +3265,7 @@ body.light-mode .skill-bar {
 
 /* Fix light mode nav links */
 body.light-mode .nav-links a {
-  color: #4a5568;0;
+  color: #4a5568;
   text-transform: uppercase;
   letter-spacing: 2px;
   opacity: 0.5;
