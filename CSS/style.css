@@ -3416,4 +3416,76 @@ body.light-mode .about-info {
   .skills-grid-wrap {
     grid-template-columns: 1fr;
   }
-}
+}
+
+/* ===============================================
+   FINAL LIGHT MODE & POLISH REFINEMENTS
+   =============================================== */
+body.light-mode .hero-bio {
+  color: #334155;
+  opacity: 0.9;
+}
+
+body.light-mode .availability-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+body.light-mode .avail-dot {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+body.light-mode .section-title::after {
+  background: linear-gradient(90deg, #0066ff, #7c3aed, #f59e0b);
+  box-shadow: 0 0 10px rgba(0, 102, 255, 0.2);
+}
+
+body.light-mode .exp-card, 
+body.light-mode .timeline-content, 
+body.light-mode .cert-card, 
+body.light-mode .stat-card {
+  border-color: rgba(0, 102, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.05);
+}
+
+body.light-mode .exp-card:hover, 
+body.light-mode .timeline-content:hover {
+  border-color: #0066ff;
+  box-shadow: 0 12px 40px rgba(0, 102, 255, 0.15);
+}
+
+body.light-mode .btn-cv {
+  border-color: #0066ff;
+  color: #0066ff;
+}
+
+body.light-mode .btn-cv:hover {
+  background: #0066ff;
+  color: #fff;
+}
+
+body.light-mode .scroll-indicator {
+  color: #0066ff;
+}
+
+/* Fix mobile bottom nav for light mode */
+body.light-mode #mobile-bottom-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-top-color: rgba(0, 102, 255, 0.1);
+}
+
+body.light-mode #mobile-bottom-nav a {
+  color: #64748b;
+}
+
+body.light-mode #mobile-bottom-nav a.active {
+  color: #0066ff;
+}
+
+/* Ensure matrix canvas doesn't muddy the light mode too much */
+body.light-mode #matrix-canvas {
+  opacity: 0.04;
+}
+

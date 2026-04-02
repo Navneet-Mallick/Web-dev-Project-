@@ -47,8 +47,30 @@ function startRunnerGame() {
 
   // ── State ──
   let score = 0, hiScore = parseInt(localStorage.getItem('nm_runner_hi') || '0');
-  let speed = 5, frame = 0, dead = false, started = false;
+  let speed = 5.5, frame = 0, dead = false, started = false;
   let particles = [], obstacles = [], stars = [];
+  const hiDisplay = document.getElementById('game-hi-display');
+  const personalityMsg = document.getElementById('game-personality-msg');
+  if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
+
+  const flavorMsgs = [
+    { score: 0, msg: "INITIATING..." },
+    { score: 50, msg: "NOT BAD" },
+    { score: 100, msg: "STAY SHARP" },
+    { score: 200, msg: "OPTIMIZING..." },
+    { score: 350, msg: "OVERCLOCKING" },
+    { score: 500, msg: "GOD MODE?" }
+  ];
+
+  function updatePersonality(s) {
+    const active = flavorMsgs.slice().reverse().find(m => s >= m.score);
+    if (active && personalityMsg && personalityMsg.textContent !== active.msg) {
+      personalityMsg.textContent = active.msg;
+      personalityMsg.style.animation = 'none';
+      personalityMsg.offsetHeight; // trigger reflow
+      personalityMsg.style.animation = 'learningPulse 0.5s ease-in-out';
+    }
+  }
 
   // ── Player ──
   const player = {
@@ -57,7 +79,7 @@ function startRunnerGame() {
     trail: [],
     jump() {
       if (this.jumps < this.maxJumps) {
-        this.vy = JUMP_V * (this.jumps === 1 ? 0.8 : 1);
+        this.vy = JUMP_V * (this.jumps === 1 ? 0.85 : 1);
         this.jumps++;
         spawnJumpParticles(this.x + this.w / 2, this.y + this.h);
       }
@@ -85,7 +107,7 @@ function startRunnerGame() {
       ctx.shadowBlur  = 10;
 
       // legs (animated)
-      const legOff = Math.sin(frame * 0.3) * 5;
+      const legOff = dead ? 0 : Math.sin(frame * 0.3) * 5;
       ctx.fillRect(this.x + 4,  this.y + this.h - 10 + legOff,  8, 10);
       ctx.fillRect(this.x + 16, this.y + this.h - 10 - legOff, 8, 10);
       // torso
@@ -132,6 +154,7 @@ function startRunnerGame() {
   }
 
   function spawnDeathParticles() {
+    if (personalityMsg) personalityMsg.textContent = "CRASH_DUMPED";
     for (let i = 0; i < 30; i++) {
       const angle = (i / 30) * Math.PI * 2;
       particles.push({
@@ -153,7 +176,7 @@ function startRunnerGame() {
 
   // ── Input ──
   function onJump() {
-    if (!started) { started = true; return; }
+    if (!started) { started = true; if(personalityMsg) personalityMsg.textContent = "RUNNING..."; return; }
     if (dead) { resetGame(); return; }
     player.jump();
   }
@@ -164,10 +187,11 @@ function startRunnerGame() {
   canvas.addEventListener('pointerdown', tapHandler);
 
   function resetGame() {
-    score = 0; speed = 5; frame = 0; dead = false; started = true;
+    score = 0; speed = 5.5; frame = 0; dead = false; started = true;
     obstacles = []; particles = [];
     player.x = 60; player.y = GROUND_Y; player.vy = 0; player.jumps = 0; player.trail = [];
     document.getElementById('game-score-display').textContent = 'SCORE: 0';
+    if(personalityMsg) personalityMsg.textContent = "REBOOTING...";
   }
 
   // ── Main loop ──
@@ -225,11 +249,11 @@ function startRunnerGame() {
     if (!dead) {
       frame++;
       score++;
-      speed = 5 + Math.floor(score / 300) * 0.5;
+      speed = 5.5 + Math.floor(score / 300) * 0.5;
 
       // Spawn obstacles
       obstacleTimer++;
-      const gap = Math.max(60, 110 - Math.floor(score / 200) * 5);
+      const gap = Math.max(55, 105 - Math.floor(score / 200) * 5);
       if (obstacleTimer > gap) {
         spawnObstacle();
         obstacleTimer = 0;
@@ -248,9 +272,11 @@ function startRunnerGame() {
       // Score display
       const displayScore = Math.floor(score / 6);
       document.getElementById('game-score-display').textContent = `SCORE: ${displayScore}`;
+      updatePersonality(displayScore);
       if (displayScore > hiScore) {
         hiScore = displayScore;
         localStorage.setItem('nm_runner_hi', hiScore);
+        if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
       }
     }
 
@@ -278,11 +304,6 @@ function startRunnerGame() {
 
     player.draw();
 
-    // HUD
-    ctx.fillStyle = 'rgba(0,217,255,0.25)';
-    ctx.font = '11px monospace';
-    ctx.fillText(`HI: ${hiScore}`, W - 80, 18);
-
     // Death screen
     if (dead) {
       ctx.fillStyle = 'rgba(0,0,0,0.55)';
@@ -290,7 +311,7 @@ function startRunnerGame() {
       ctx.fillStyle = CLR.dead;
       ctx.font = 'bold 20px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('GAME OVER', W / 2, H / 2 - 14);
+      ctx.fillText('SYSTEM CRASH', W / 2, H / 2 - 14);
       ctx.fillStyle = '#fff';
       ctx.font = '13px monospace';
       ctx.fillText(`SCORE: ${Math.floor(score / 6)}   HI: ${hiScore}`, W / 2, H / 2 + 10);
