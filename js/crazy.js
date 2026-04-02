@@ -9,7 +9,41 @@
  * 7. Section skew warp reveal
  */
 
-// ── 1. GLITCH EFFECT ON HERO NAME — disabled ─────────────────────────────────
+// ── EASTER EGG MODAL HELPER ───────────────────────────────────────────────────
+function showEggModal(emoji, title, msg) {
+  const modal = document.getElementById('egg-modal');
+  if (!modal) return;
+  document.getElementById('egg-emoji').textContent = emoji;
+  document.getElementById('egg-title').textContent = title;
+  document.getElementById('egg-msg').textContent   = msg;
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.getElementById('egg-close').onclick = () => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+  };
+  modal.onclick = e => { if (e.target === modal) { modal.classList.remove('active'); modal.setAttribute('aria-hidden', 'true'); } };
+}
+
+// ── 1. GLITCH EFFECT ON HERO NAME ────────────────────────────────────────────
+(function setupHeroGlitch() {
+  const span = document.querySelector('h1 span[data-text]');
+  if (!span) return;
+
+  const text = span.getAttribute('data-text');
+
+  // Build: before/after pseudo via a wrapper with CSS class
+  span.classList.add('hero-glitch');
+
+  // Trigger a brief glitch burst every 4-7 seconds
+  function glitchBurst() {
+    span.classList.add('glitching');
+    setTimeout(() => span.classList.remove('glitching'), 400);
+    setTimeout(glitchBurst, 4000 + Math.random() * 3000);
+  }
+
+  setTimeout(glitchBurst, 2000);
+})();
 
 
 // ── 2. 3D TILT ON PROFILE PICTURE ────────────────────────────────────────────
@@ -110,10 +144,12 @@
       setTimeout(() => c.remove(), 1800);
     }
 
-    // Secret message toast
-    if (window.showToast) {
-      showToast('🔓 Secret unlocked! You found the logo egg 🥚 — You\'re curious, I like that.', 'info', 5000);
-    }
+    // Secret message
+    showEggModal(
+      '🥚',
+      'You found the Logo Egg!',
+      'Clicking the logo 5 times? That\'s the kind of curiosity that makes a great developer. Navneet approves. 👀'
+    );
 
     // Logo spin
     logo.style.transition = 'transform 0.8s cubic-bezier(0.34,1.56,0.64,1)';
@@ -129,7 +165,7 @@
 (function setupSkillSparks() {
   if (window.matchMedia('(hover: none)').matches) return;
 
-  document.querySelectorAll('.skill-badge').forEach(badge => {
+  document.querySelectorAll('.skill-badge, .chip').forEach(badge => {
     badge.addEventListener('mouseenter', function() {
       const r = this.getBoundingClientRect();
       const cx = r.left + r.width  / 2;

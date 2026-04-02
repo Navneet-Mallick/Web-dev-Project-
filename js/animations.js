@@ -272,8 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
   titles.forEach(el => {
     const text = el.textContent.trim();
     el.setAttribute('data-text', text);
-    // Wrap in a span so gradient CSS on .section-title still applies
-    el.innerHTML = '<span class="title-typewriter"></span>';
+    el.style.visibility = 'hidden';
   });
 
   const observer = new IntersectionObserver(entries => {
@@ -281,13 +280,14 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!entry.isIntersecting || seen.has(entry.target)) return;
       seen.add(entry.target);
       const el = entry.target;
-      const span = el.querySelector('.title-typewriter');
       const original = el.getAttribute('data-text') || '';
+      el.textContent = '';
+      el.style.visibility = 'visible';
       let i = 0;
       const iv = setInterval(() => {
-        span.textContent += original[i++];
+        el.textContent += original[i++];
         if (i >= original.length) clearInterval(iv);
-      }, 50);
+      }, 45);
     });
   }, { threshold: 0.5 });
 
@@ -424,4 +424,20 @@ document.addEventListener('DOMContentLoaded', function () {
   }, { threshold: 0.3 });
 
   cards.forEach(card => observer.observe(card));
+})();
+
+// 9. Skills table rows stagger in on scroll
+(function setupSkillsTableReveal() {
+  const rows = document.querySelectorAll('.skills-table tbody tr');
+  if (!rows.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('row-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+
+  rows.forEach(row => observer.observe(row));
 })();

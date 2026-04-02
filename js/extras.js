@@ -141,7 +141,15 @@ function initKonami() {
 }
 
 function triggerEasterEgg() {
-  showToast('🎮 KONAMI CODE! You found the easter egg!', 'info', 4000);
+  if (window.showToast) {
+    showToast('🎮 KONAMI CODE! You found the easter egg!', 'info', 4000);
+  }
+
+  showEggModal(
+    '🎮',
+    'KONAMI CODE ACTIVATED!',
+    '↑ ↑ ↓ ↓ ← → ← → B A — You actually know this? Respect. You\'re a true gamer AND a dev. Navneet is impressed. 🕹️'
+  );
 
   // Rainbow body flash
   document.body.style.transition = 'filter 0.3s';
