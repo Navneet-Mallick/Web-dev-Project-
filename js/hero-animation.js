@@ -4,20 +4,27 @@
  */
 
 (function () {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas || !window.THREE) {
-    // Fallback to simple particle system if Three.js failed to load
-    console.warn('Three.js not found, falling back to basic animation');
-    return;
-  }
+  const initHeroAnimation = () => {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas || !window.THREE) {
+      // Fallback to simple particle system if Three.js failed to load
+      console.warn('Three.js not found, falling back to basic animation');
+      return;
+    }
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    alpha: true,
-    antialias: true
-  });
+    let scene, camera, renderer;
+    try {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true
+      });
+    } catch (e) {
+      console.warn('WebGL initialization failed:', e);
+      return;
+    }
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   
@@ -97,4 +104,11 @@
   }
 
   animate();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroAnimation);
+  } else {
+    initHeroAnimation();
+  }
 })();
