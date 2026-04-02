@@ -280,14 +280,7 @@ if (cmd === 'sudo rm -rf /' || cmd === 'sudo rm -rf') {
 }
 
 // Separate sudo command handler
-if (cmd === 'sudo') {
-  printLines(
-    body,
-    [{ cls: '', text: '  Nice try. You are not in the sudoers file. This incident will be reported. 👀' }],
-    () => spawnInput(body)
-  );
-  return;
-}
+
 
       if (cmd === 'sudo') {
         printLines(body, [{ cls: '', text: '  Nice try. You are not in the sudoers file. This incident will be reported. 👀' }], () => spawnInput(body)); return;
@@ -439,72 +432,72 @@ if (cmd === 'sudo') {
   });
 
 })();
-  document.addEventListener('DOMContentLoaded', () => {
-    const body = document.getElementById('terminal-body');
-    const termEl = document.querySelector('.terminal');
-    const termCard = document.querySelector('.terminal-card');
-    if (!body || !termEl) return;
-    boot(body, termEl);
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   const body = document.getElementById('terminal-body');
+  //   const termEl = document.querySelector('.terminal');
+  //   const termCard = document.querySelector('.terminal-card');
+  //   if (!body || !termEl) return;
+  //   boot(body, termEl);
 
-    // ── THREE DOT BUTTONS ──────────────────────────────
-    const btnRed    = termEl.querySelector('.t-btn.t-red');
-    const btnYellow = termEl.querySelector('.t-btn.t-yellow');
-    const btnGreen  = termEl.querySelector('.t-btn.t-green');
+  //   // ── THREE DOT BUTTONS ──────────────────────────────
+  //   const btnRed    = termEl.querySelector('.t-btn.t-red');
+  //   const btnYellow = termEl.querySelector('.t-btn.t-yellow');
+  //   const btnGreen  = termEl.querySelector('.t-btn.t-green');
 
-    // Red — clear terminal
-    if (btnRed) {
-      btnRed.style.cursor = 'pointer';
-      btnRed.title = 'Clear';
-      btnRed.addEventListener('click', (e) => {
-        e.stopPropagation();
-        body.innerHTML = '';
-        spawnInput(body);
-        showToast && showToast('Terminal cleared 🗑️', 'info', 1500);
-      });
-    }
+  //   // Red — clear terminal
+  //   if (btnRed) {
+  //     btnRed.style.cursor = 'pointer';
+  //     btnRed.title = 'Clear';
+  //     btnRed.addEventListener('click', (e) => {
+  //       e.stopPropagation();
+  //       body.innerHTML = '';
+  //       spawnInput(body);
+  //       showToast && showToast('Terminal cleared 🗑️', 'info', 1500);
+  //     });
+  //   }
 
-    // Yellow — minimize/collapse terminal body
-    if (btnYellow) {
-      btnYellow.style.cursor = 'pointer';
-      btnYellow.title = 'Minimize';
-      let minimized = false;
-      btnYellow.addEventListener('click', (e) => {
-        e.stopPropagation();
-        minimized = !minimized;
-        body.style.transition = 'max-height 0.4s ease, opacity 0.3s ease';
-        body.style.maxHeight = minimized ? '0' : '420px';
-        body.style.opacity = minimized ? '0' : '1';
-        body.style.overflow = minimized ? 'hidden' : 'auto';
-        btnYellow.title = minimized ? 'Restore' : 'Minimize';
-      });
-    }
+  //   // Yellow — minimize/collapse terminal body
+  //   if (btnYellow) {
+  //     btnYellow.style.cursor = 'pointer';
+  //     btnYellow.title = 'Minimize';
+  //     let minimized = false;
+  //     btnYellow.addEventListener('click', (e) => {
+  //       e.stopPropagation();
+  //       minimized = !minimized;
+  //       body.style.transition = 'max-height 0.4s ease, opacity 0.3s ease';
+  //       body.style.maxHeight = minimized ? '0' : '420px';
+  //       body.style.opacity = minimized ? '0' : '1';
+  //       body.style.overflow = minimized ? 'hidden' : 'auto';
+  //       btnYellow.title = minimized ? 'Restore' : 'Minimize';
+  //     });
+  //   }
 
-    // Green — maximize (expand terminal height)
-    if (btnGreen) {
-      btnGreen.style.cursor = 'pointer';
-      btnGreen.title = 'Maximize';
-      let maximized = false;
-      btnGreen.addEventListener('click', (e) => {
-        e.stopPropagation();
-        maximized = !maximized;
-        body.style.transition = 'max-height 0.4s ease';
-        body.style.maxHeight = maximized ? '80vh' : '420px';
-        if (termCard) {
-          termCard.style.transition = 'transform 0.4s ease';
-          termCard.style.transform = maximized ? 'rotateY(0) rotateX(0) scale(1.03)' : '';
-        }
-        btnGreen.title = maximized ? 'Restore' : 'Maximize';
-      });
-    }
+  //   // Green — maximize (expand terminal height)
+  //   if (btnGreen) {
+  //     btnGreen.style.cursor = 'pointer';
+  //     btnGreen.title = 'Maximize';
+  //     let maximized = false;
+  //     btnGreen.addEventListener('click', (e) => {
+  //       e.stopPropagation();
+  //       maximized = !maximized;
+  //       body.style.transition = 'max-height 0.4s ease';
+  //       body.style.maxHeight = maximized ? '80vh' : '420px';
+  //       if (termCard) {
+  //         termCard.style.transition = 'transform 0.4s ease';
+  //         termCard.style.transform = maximized ? 'rotateY(0) rotateX(0) scale(1.03)' : '';
+  //       }
+  //       btnGreen.title = maximized ? 'Restore' : 'Maximize';
+  //     });
+  //   }
 
-    // Click anywhere in terminal to refocus input
-    termEl.addEventListener('click', () => {
-      const inp = termEl.querySelector('.t-input:not(:disabled)');
-      if (inp) inp.focus();
-    });
-    termEl.addEventListener('mouseenter', () => {
-      termEl.style.transform = 'translateY(-5px)';
-      termEl.style.boxShadow = '0 0 50px rgba(0,217,255,0.25),0 25px 70px rgba(0,0,0,0.6)';
-    });
-    termEl.addEventListener('mouseleave', () => { termEl.style.transform = ''; termEl.style.boxShadow = ''; });
-  });
+  //   // Click anywhere in terminal to refocus input
+  //   termEl.addEventListener('click', () => {
+  //     const inp = termEl.querySelector('.t-input:not(:disabled)');
+  //     if (inp) inp.focus();
+  //   });
+  //   termEl.addEventListener('mouseenter', () => {
+  //     termEl.style.transform = 'translateY(-5px)';
+  //     termEl.style.boxShadow = '0 0 50px rgba(0,217,255,0.25),0 25px 70px rgba(0,0,0,0.6)';
+  //   });
+  //   termEl.addEventListener('mouseleave', () => { termEl.style.transform = ''; termEl.style.boxShadow = ''; });
+  // });
