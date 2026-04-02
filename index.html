@@ -309,42 +309,41 @@
 
     <!-- Live Projects -->
     <div class="project-container" id="tab-live">
-
-
-       <div class="project-card">
+      <div class="project-card" onclick="openProjectModal('poke')">
         <img src="Assets/images/poke.jpg" alt="Pokedex">
         <div class="overlay">
           <h3>PokeDex - DB of Pokemon</h3>
           <p>JavaScript &middot; PokeAPI &middot; HTML &middot; CSS</p>
-          <a href="https://navneet-mallick.github.io/Pokedex_for_Pokemon/" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> See Pokemon??
-          </a>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
       
-      <div class="project-card">
+      <div class="project-card" onclick="openProjectModal('movie')">
         <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender System">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
-          <h3>Content Based Movie Recommender</h3>
-          <p>Python &middot; Scikit-learn &middot; Pandas &middot; Streamlit</p>
-          <a href="https://movie-recommender-navneet.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> Live Demo
-          </a>
+          <h3>Movie Recommender</h3>
+          <p>Python &middot; ML &middot; Streamlit</p>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
       
-         <div class="project-card">
+      <div class="project-card" onclick="openProjectModal('music')">
         <img src="Assets/images/music.jpg" alt="GrooveBox">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
           <h3>GrooveBox-Music Player</h3>
           <p>JavaScript &middot; HTML &middot; CSS</p>
-          <a href="https://navneet-mallick.github.io/GrooveBox-Music/" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> Listen ????
-          </a>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
+
       <div class="project-card">
         <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor">
         <span class="project-featured-badge">Featured</span>
@@ -527,57 +526,67 @@
 </section>
 
 <section id="skills" class="reveal">
-  <h2 class="section-title">My Skills</h2>
-  <div class="skills-grid-wrap">
-    
-    <div class="skill-category-card">
-      <div class="skill-category-header">
-        <i class="fas fa-laptop-code"></i> Frontend & UI
-      </div>
-      <div class="skill-chips">
-        <span class="chip pro" title="Pro"><i class="fab fa-html5"></i> HTML</span>
-        <span class="chip pro" title="Pro"><i class="fab fa-css3-alt"></i> CSS</span>
-        <span class="chip pro" title="Pro"><i class="fab fa-js"></i> JavaScript</span>
-        <span class="chip inter" title="Intermediate"><i class="fab fa-react"></i> React</span>
-      </div>
-    </div>
-
-    <div class="skill-category-card">
-      <div class="skill-category-header">
-        <i class="fas fa-server"></i> Backend & DB
-      </div>
-      <div class="skill-chips">
-        <span class="chip inter" title="Intermediate"><i class="fab fa-node-js"></i> Node.js</span>
-        <span class="chip inter" title="Intermediate"><i class="fab fa-php"></i> PHP</span>
-        <span class="chip inter" title="Intermediate"><i class="fas fa-database"></i> SQL</span>
-        <span class="chip beg" title="Beginner"><i class="fas fa-fire"></i> Django</span>
-      </div>
-    </div>
-
-    <div class="skill-category-card">
-      <div class="skill-category-header">
-        <i class="fas fa-brain"></i> ML & Data Science
-      </div>
-      <div class="skill-chips">
-        <span class="chip pro" title="Pro"><i class="fab fa-python"></i> Python</span>
-        <span class="chip inter" title="Intermediate"><i class="fas fa-chart-line"></i> Data Science</span>
-        <span class="chip inter" title="Intermediate"><i class="fas fa-robot"></i> Machine Learning</span>
-        <span class="chip beg" title="Beginner"><i class="fas fa-network-wired"></i> Deep Learning</span>
-      </div>
-    </div>
-
-    <div class="skill-category-card">
-      <div class="skill-category-header">
-        <i class="fas fa-tools"></i> Languages & Tools
-      </div>
-      <div class="skill-chips">
-        <span class="chip pro" title="Pro"><i class="fas fa-code"></i> C++</span>
-        <span class="chip inter" title="Intermediate"><i class="fas fa-code-branch"></i> Git</span>
-        <span class="chip inter" title="Intermediate"><i class="fab fa-linux"></i> Linux</span>
-        <span class="chip beg" title="Beginner"><i class="fab fa-docker"></i> Docker</span>
-      </div>
-    </div>
-
+  <h2 class="section-title">Technical Proficiency</h2>
+  <div class="skills-table-container">
+    <table class="skills-tabular">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Technologies</th>
+          <th>Proficiency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cat-cell"><i class="fas fa-laptop-code"></i> Frontend</td>
+          <td>
+            <div class="tech-icons">
+              <span class="tech-tag"><i class="fab fa-html5"></i> HTML5</span>
+              <span class="tech-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+              <span class="tech-tag"><i class="fab fa-js"></i> JavaScript</span>
+              <span class="tech-tag"><i class="fab fa-react"></i> React</span>
+            </div>
+          </td>
+          <td><div class="prof-bar"><div class="prof-fill" style="width: 90%;"></div></div></td>
+        </tr>
+        <tr>
+          <td class="cat-cell"><i class="fas fa-server"></i> Backend</td>
+          <td>
+            <div class="tech-icons">
+              <span class="tech-tag"><i class="fab fa-node-js"></i> Node.js</span>
+              <span class="tech-tag"><i class="fab fa-php"></i> PHP</span>
+              <span class="tech-tag"><i class="fas fa-database"></i> MySQL</span>
+              <span class="tech-tag"><i class="fas fa-fire"></i> Django</span>
+            </div>
+          </td>
+          <td><div class="prof-bar"><div class="prof-fill" style="width: 75%;"></div></div></td>
+        </tr>
+        <tr>
+          <td class="cat-cell"><i class="fas fa-brain"></i> ML & Data</td>
+          <td>
+            <div class="tech-icons">
+              <span class="tech-tag"><i class="fab fa-python"></i> Python</span>
+              <span class="tech-tag"><i class="fas fa-chart-line"></i> Pandas</span>
+              <span class="tech-tag"><i class="fas fa-robot"></i> Scikit-Learn</span>
+              <span class="tech-tag"><i class="fas fa-network-wired"></i> TensorFlow</span>
+            </div>
+          </td>
+          <td><div class="prof-bar"><div class="prof-fill" style="width: 85%;"></div></div></td>
+        </tr>
+        <tr>
+          <td class="cat-cell"><i class="fas fa-tools"></i> Tools</td>
+          <td>
+            <div class="tech-icons">
+              <span class="tech-tag"><i class="fas fa-code"></i> C++</span>
+              <span class="tech-tag"><i class="fas fa-code-branch"></i> Git</span>
+              <span class="tech-tag"><i class="fab fa-linux"></i> Linux</span>
+              <span class="tech-tag"><i class="fab fa-docker"></i> Docker</span>
+            </div>
+          </td>
+          <td><div class="prof-bar"><div class="prof-fill" style="width: 80%;"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
     <section id="location" class="terminal-map-section">
@@ -595,11 +604,20 @@
   <h2 class="section-title">Get In Touch</h2>
   <p class="contact-subtitle">Have a project in mind or just want to say hi? I'll get back within 24 hours.</p>
   <div class="contact-card">
-    <form class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" required>
-      <textarea name="message" placeholder="Your Message" aria-label="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
+    <form class="contact-form" id="contact-form">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" required>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" required>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-comment-alt"></i>
+        <textarea name="message" placeholder="Your Message" aria-label="Your Message" required></textarea>
+      </div>
+      <button type="submit" class="magnetic">Send Message <i class="fas fa-paper-plane"></i></button>
     </form>
   </div>
   <!-- <p>∩┐╜<span id="footer-year"></span> Navneet Mallick. All Rights Reserved.</p> -->
@@ -646,26 +664,129 @@
 <script src="js/crazy.js"></script>
 <script src="js/cherry.js"></script>
 <script src="js/game.js"></script>
-<script>
-  document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-  // Project tab switching
-  document.querySelectorAll('.project-tab').forEach(tab => {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      const target = this.dataset.tab;
-      document.getElementById('tab-live').style.display = target === 'live' ? 'grid' : 'none';
-      document.getElementById('tab-repo').style.display = target === 'repo' ? 'grid' : 'none';
-      // Re-trigger card reveal for newly shown cards
-      setTimeout(() => {
-        document.querySelectorAll('#tab-' + target + ' .project-card').forEach((card, i) => {
-          card.classList.remove('reveal-card');
-          setTimeout(() => card.classList.add('reveal-card'), i * 100);
+<script>
+  // Consolidated Helper & Interaction Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Update Footer Year
+    const yearEl = document.getElementById('footer-year');
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // 2. Project Tab Logic
+    document.querySelectorAll('.project-tab').forEach(tab => {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            const target = this.dataset.tab;
+            document.getElementById('tab-live').style.display = target === 'live' ? 'grid' : 'none';
+            document.getElementById('tab-repo').style.display = target === 'repo' ? 'grid' : 'none';
+            
+            setTimeout(() => {
+                document.querySelectorAll('#tab-' + target + ' .project-card').forEach((card, i) => {
+                    card.classList.remove('reveal-card');
+                    setTimeout(() => card.classList.add('reveal-card'), i * 100);
+                });
+            }, 50);
         });
-      }, 50);
     });
+
+    // 3. Achievement Footer Icon Injection
+    const footer = document.querySelector('footer');
+    if (footer) {
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'margin-top:15px; font-size:12px; color:rgba(255,255,255,0.4); display:flex; align-items:center; gap:8px; justify-content:center;';
+        wrap.innerHTML = `<i class="fas fa-trophy" style="color:var(--tertiary)"></i> Achievements Unlocked: <span id="achieve-badge" style="color:var(--accent); font-weight:700;">0</span>`;
+        footer.insertBefore(wrap, footer.lastElementChild);
+        updateAchievementsUI();
+    }
   });
+
+  // 4. Project Modal Data & Logic
+  const projectData = {
+    poke: {
+      title: "PokeDex - DB of Pokemon",
+      desc: "A fully functional Pokedex built with Vanilla JS and PokeAPI. Includes search fingering, type filtering, and dynamic stat visualization for all generations.",
+      tags: ["JavaScript", "PokeAPI", "HTML5", "CSS3"],
+      link: "https://navneet-mallick.github.io/Pokedex_for_Pokemon/"
+    },
+    movie: {
+      title: "Content Based Movie Recommender",
+      desc: "Machine Learning system that suggests similar movies based on content metadata using NLTK and Cosine Similarity. Built with a responsive Streamlit UI.",
+      tags: ["Python", "NLTK", "Scikit-learn", "Streamlit"],
+      link: "https://movie-recommender-navneet.streamlit.app/"
+    },
+    music: {
+      title: "GrooveBox Music Player",
+      desc: "A sleek, modern music player with visualizers, playlist management, and local storage persistence. Focused on high-fidelity animations.",
+      tags: ["JavaScript", "Web Audio API", "HTML5", "CSS3"],
+      link: "https://navneet-mallick.github.io/GrooveBox-Music/"
+    }
+  };
+
+  window.openProjectModal = function(id) {
+    const data = projectData[id];
+    if (!data) return;
+    
+    // Create modal if not exists
+    let modal = document.getElementById('project-detail-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'project-detail-modal';
+      modal.className = 'project-detail-overlay';
+      modal.onclick = (e) => { if(e.target === modal) closeProjectModal(); };
+      document.body.appendChild(modal);
+    }
+
+    modal.innerHTML = `
+      <div class="project-detail-box">
+        <button class="modal-close" onclick="closeProjectModal()">&times;</button>
+        <h2 class="section-title" style="margin-top:0; font-size:1.8rem; text-align:left; width:auto;">${data.title}</h2>
+        <p style="margin:20px 0; color:rgba(255,255,255,0.8); line-height:1.6;">${data.desc}</p>
+        <div class="about-tags" style="margin-bottom:30px;">
+          ${data.tags.map(t => `<span>${t}</span>`).join('')}
+        </div>
+        <a href="${data.link}" target="_blank" class="btn magnetic" style="display:inline-flex; width:auto;">
+          <i class="fas fa-external-link-alt"></i> View Live Project
+        </a>
+      </div>
+    `;
+    
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeProjectModal = function() {
+    const modal = document.getElementById('project-detail-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 400);
+    }
+  };
+
+  // 5. Achievement System
+  const checkAchievement = (id, msg) => {
+    const unlocked = JSON.parse(localStorage.getItem('nm_achievements') || '{}');
+    if (!unlocked[id]) {
+      unlocked[id] = true;
+      localStorage.setItem('nm_achievements', JSON.stringify(unlocked));
+      if (window.showToast) window.showToast(`Achievement Unlocked: ${msg}`, 'info');
+      updateAchievementsUI();
+    }
+  };
+
+  function updateAchievementsUI() {
+    const counts = Object.keys(JSON.parse(localStorage.getItem('nm_achievements') || '{}')).length;
+    const badge = document.getElementById('achieve-badge');
+    if (badge) badge.textContent = counts;
+  }
+
+  // Hook into systems
+  document.addEventListener('bootDismissed', () => checkAchievement('pioneer', 'First Boot'));
+  window.addEventListener('scroll', () => { if (window.scrollY > 2000) checkAchievement('explorer', 'Deep Diver'); });
 </script>
 
 <!-- Runner Game Modal -->
