@@ -30,8 +30,6 @@ function showEggModal(emoji, title, msg) {
   const span = document.querySelector('h1 span[data-text]');
   if (!span) return;
 
-  const text = span.getAttribute('data-text');
-
   // Build: before/after pseudo via a wrapper with CSS class
   span.classList.add('hero-glitch');
 
@@ -100,7 +98,10 @@ function showEggModal(emoji, title, msg) {
 
 // ── 4. LOGO SECRET EASTER EGG (click 5x) ─────────────────────────────────────
 (function setupLogoEgg() {
-  const logo = document.getElementById('nav-logo-img');
+  // Support both the old img logo and the new text logo
+  const logo = document.getElementById('nav-logo-img') ||
+               document.querySelector('.nav-logo-text') ||
+               document.querySelector('.logo-container a');
   if (!logo) return;
 
   let clicks = 0;
@@ -118,30 +119,42 @@ function showEggModal(emoji, title, msg) {
   });
 
   function triggerLogoEgg() {
-    // Confetti burst
-    const colors = ['#00d9ff','#7c3aed','#f59e0b','#ff00c1','#00fff9','#fff','#ff4500'];
-    for (let i = 0; i < 120; i++) {
+    // Burst confetti from the logo's actual position
+    const rect = logo.getBoundingClientRect();
+    const originX = rect.left + rect.width / 2;
+    const originY = rect.top + rect.height / 2;
+
+    const colors = ['#00d9ff','#7c3aed','#f59e0b','#ff00c1','#00fff9','#fff','#ff4500','#28c840'];
+    const shapes = ['50%', '2px', '0'];
+
+    for (let i = 0; i < 140; i++) {
       const c = document.createElement('div');
-      const size = 6 + Math.random() * 8;
+      const size = 5 + Math.random() * 9;
       const angle = Math.random() * 360;
-      const dist  = 100 + Math.random() * 300;
-      const tx = Math.cos(angle * Math.PI/180) * dist;
-      const ty = Math.sin(angle * Math.PI/180) * dist - 200;
+      const dist  = 80 + Math.random() * 340;
+      const tx = Math.cos(angle * Math.PI / 180) * dist;
+      const ty = Math.sin(angle * Math.PI / 180) * dist - 120;
+      const duration = 1.1 + Math.random() * 0.6;
+      const delay = Math.random() * 0.25;
       c.style.cssText = `
         position: fixed;
-        left: 50%; top: 10%;
-        width: ${size}px; height: ${size}px;
+        left: ${originX}px;
+        top: ${originY}px;
+        width: ${size}px;
+        height: ${size * (Math.random() > 0.5 ? 1 : 2.5)}px;
         background: ${colors[i % colors.length]};
-        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        border-radius: ${shapes[i % shapes.length]};
         pointer-events: none;
-        z-index: 99999;
+        z-index: 999999;
         transform: translate(-50%, -50%);
-        animation: confettiFly 1.4s cubic-bezier(0.25,0.46,0.45,0.94) ${Math.random()*0.3}s forwards;
-        --tx: ${tx}px; --ty: ${ty}px;
-        --rot: ${Math.random()*720}deg;
+        animation: confettiFly ${duration}s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}s forwards;
+        --tx: ${tx}px;
+        --ty: ${ty}px;
+        --rot: ${Math.random() * 900 - 450}deg;
+        opacity: 1;
       `;
       document.body.appendChild(c);
-      setTimeout(() => c.remove(), 1800);
+      setTimeout(() => c.remove(), (duration + delay) * 1000 + 100);
     }
 
     // Secret message
@@ -154,9 +167,7 @@ function showEggModal(emoji, title, msg) {
     // Logo spin
     logo.style.transition = 'transform 0.8s cubic-bezier(0.34,1.56,0.64,1)';
     logo.style.transform = 'rotate(720deg) scale(1.5)';
-    setTimeout(() => {
-      logo.style.transform = '';
-    }, 900);
+    setTimeout(() => { logo.style.transform = ''; }, 900);
   }
 })();
 

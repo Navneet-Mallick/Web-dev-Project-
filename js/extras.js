@@ -122,64 +122,144 @@ function initLazyImages() {
   imgs.forEach(img => observer.observe(img));
 }
 
-// ── 7. KONAMI CODE EASTER EGG ─────────────────────────────────────────────────
+// ── 7. "HACKER" KEYWORD EASTER EGG ───────────────────────────────────────────
 function initKonami() {
-  const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-  let idx = 0;
+  const secret = 'hacker';
+  let typed = '';
 
   document.addEventListener('keydown', e => {
-    if (e.key === code[idx]) {
-      idx++;
-      if (idx === code.length) {
-        idx = 0;
-        triggerEasterEgg();
-      }
-    } else {
-      idx = e.key === code[0] ? 1 : 0;
+    // Ignore if user is typing in an input/textarea
+    const tag = document.activeElement?.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+    typed += e.key.toLowerCase();
+    if (typed.length > secret.length) typed = typed.slice(-secret.length);
+    if (typed === secret) {
+      typed = '';
+      triggerEasterEgg();
     }
   });
 }
 
 function triggerEasterEgg() {
-  if (window.showToast) {
-    showToast('🎮 KONAMI CODE! You found the easter egg!', 'info', 4000);
+  // ── HACKER TERMINAL OVERLAY ──────────────────────────────────────────────
+  const overlay = document.createElement('div');
+  overlay.id = 'hacker-overlay';
+  overlay.style.cssText = `
+    position: fixed; inset: 0; z-index: 999999;
+    background: #000; color: #00ff41;
+    font-family: 'Courier New', monospace;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    overflow: hidden; cursor: default;
+  `;
+
+  // Matrix rain canvas
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;inset:0;opacity:0.18;pointer-events:none;';
+  overlay.appendChild(canvas);
+
+  // Terminal box
+  const term = document.createElement('div');
+  term.style.cssText = `
+    position: relative; z-index: 2;
+    border: 1px solid #00ff41;
+    box-shadow: 0 0 30px #00ff4166, inset 0 0 30px #00ff410a;
+    padding: 36px 48px; max-width: 620px; width: 90%;
+    background: rgba(0,0,0,0.85);
+  `;
+
+  const pre = document.createElement('pre');
+  pre.style.cssText = 'margin:0; font-size:clamp(11px,1.6vw,14px); line-height:1.7; color:#00ff41; white-space:pre-wrap;';
+  term.appendChild(pre);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '[ ESC / CLICK TO EXIT ]';
+  closeBtn.style.cssText = `
+    display:block; margin-top:28px; background:transparent;
+    border:1px solid #00ff41; color:#00ff41; padding:8px 24px;
+    font-family:inherit; font-size:12px; cursor:pointer; letter-spacing:2px;
+    transition: background 0.2s, color 0.2s;
+  `;
+  closeBtn.onmouseenter = () => { closeBtn.style.background='#00ff41'; closeBtn.style.color='#000'; };
+  closeBtn.onmouseleave = () => { closeBtn.style.background='transparent'; closeBtn.style.color='#00ff41'; };
+  term.appendChild(closeBtn);
+  overlay.appendChild(term);
+  document.body.appendChild(overlay);
+
+  // ── Matrix rain ──────────────────────────────────────────────────────────
+  const ctx = canvas.getContext('2d');
+  let rafId;
+  function resizeCanvas() {
+    canvas.width  = overlay.offsetWidth;
+    canvas.height = overlay.offsetHeight;
   }
+  resizeCanvas();
+  const cols = Math.floor(canvas.width / 16);
+  const drops = Array(cols).fill(1);
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = '14px monospace';
+    drops.forEach((y, i) => {
+      const ch = String.fromCharCode(0x30A0 + Math.random() * 96);
+      ctx.fillText(ch, i * 16, y * 16);
+      if (y * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+    rafId = requestAnimationFrame(drawMatrix);
+  }
+  drawMatrix();
 
-  showEggModal(
-    '🎮',
-    'KONAMI CODE ACTIVATED!',
-    '↑ ↑ ↓ ↓ ← → ← → B A — You actually know this? Respect. You\'re a true gamer AND a dev. Navneet is impressed. 🕹️'
-  );
+  // ── Typewriter lines ─────────────────────────────────────────────────────
+  const lines = [
+    '> SECRET KEYWORD DETECTED...',
+    '> INITIATING BACKDOOR ACCESS...',
+    '> BYPASSING FIREWALL [████████] 100%',
+    '> DECRYPTING PORTFOLIO DATA...',
+    '',
+    '  ACCESS GRANTED — WELCOME, HACKER.',
+    '',
+    '  You just unlocked the secret layer.',
+    '  You typed the magic word: "hacker"',
+    '',
+    '  Navneet hid this for people like you.',
+    '  The curious ones. The real ones. 🖤',
+    '',
+    '> CONNECTION SECURE. HAVE FUN. 🔓',
+  ];
 
-  // Rainbow body flash
-  document.body.style.transition = 'filter 0.3s';
-  let h = 0;
-  const flash = setInterval(() => {
-    document.body.style.filter = `hue-rotate(${h}deg) saturate(2)`;
-    h += 15;
-    if (h >= 360) {
-      clearInterval(flash);
-      document.body.style.filter = '';
+  let lineIdx = 0, charIdx = 0;
+  function typeNext() {
+    if (lineIdx >= lines.length) return;
+    const line = lines[lineIdx];
+    if (charIdx <= line.length) {
+      pre.textContent = lines.slice(0, lineIdx).join('\n') + '\n' + line.slice(0, charIdx) + (charIdx < line.length ? '█' : '');
+      charIdx++;
+      setTimeout(typeNext, charIdx === 1 ? 80 : 28);
+    } else {
+      lineIdx++; charIdx = 0;
+      setTimeout(typeNext, lineIdx < lines.length ? 120 : 0);
     }
-  }, 30);
-
-  // Burst 60 particles from center
-  for (let i = 0; i < 60; i++) {
-    const p = document.createElement('div');
-    p.className = 'explosion-particle';
-    const angle = (i / 60) * 360;
-    const dist = 80 + Math.random() * 120;
-    const tx = Math.cos(angle * Math.PI / 180) * dist;
-    const ty = Math.sin(angle * Math.PI / 180) * dist;
-    const colors = ['#00d9ff','#7c3aed','#f59e0b','#ff00c1','#00fff9','#fff'];
-    p.style.cssText = `
-      left:${window.innerWidth/2}px; top:${window.innerHeight/2}px;
-      background:${colors[i % colors.length]};
-      --tx:${tx}px; --ty:${ty}px;
-    `;
-    document.body.appendChild(p);
-    setTimeout(() => p.remove(), 900);
   }
+  setTimeout(typeNext, 200);
+
+  // ── Close logic ──────────────────────────────────────────────────────────
+  function closeOverlay() {
+    cancelAnimationFrame(rafId);
+    overlay.style.transition = 'opacity 0.4s ease';
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.remove(), 420);
+    document.removeEventListener('keydown', onKey);
+  }
+  function onKey(e) { if (e.key === 'Escape') closeOverlay(); }
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', onKey);
+
+  // Auto-close after 18s
+  setTimeout(closeOverlay, 18000);
 }
 
 // ── 8. SECTION CURSOR SHAPES ─────────────────────────────────────────────────

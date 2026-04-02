@@ -109,10 +109,10 @@
 
   document.querySelectorAll('.skills-table tbody tr').forEach(row => {
     row.style.transition = 'transform 0.2s ease';
-    row.addEventListener('mousemove', e => {
+    row.addEventListener('mousemove', ev => {
       const r = row.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width  - 0.5) * 4;
-      const y = ((e.clientY - r.top)  / r.height - 0.5) * 4;
+      const x = ((ev.clientX - r.left) / r.width  - 0.5) * 4;
+      const y = ((ev.clientY - r.top)  / r.height - 0.5) * 4;
       row.style.transform = `perspective(600px) rotateX(${-y}deg) rotateY(${x}deg)`;
     });
     row.addEventListener('mouseleave', () => {
