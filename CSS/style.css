@@ -325,7 +325,13 @@ header {
 }
 .nav-links a.active,
 .nav-links a:hover {
-  color: var(--accent)
+  color: var(--accent);
+}
+
+@media (max-width: 1100px) {
+  .nav-links {
+    display: none;
+  }
 }
 #nav-actions-box {
   display: flex;
@@ -568,14 +574,25 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  width: 380px;
-  height: 380px;
+  width: 110%;
+  height: 110%;
   border-radius: 50%;
-  background: conic-gradient(var(--accent),var(--secondary),var(--accent));
-  animation: 4s linear infinite rotate;
-  opacity: .6;
-  filter: blur(20px);
-  z-index: -1
+  background: conic-gradient(from 0deg, var(--accent), var(--secondary), var(--tertiary), var(--accent));
+  animation: 8s linear infinite rotate, 4s ease-in-out infinite auraPulse;
+  opacity: .5;
+  filter: blur(25px);
+  z-index: -1;
+  box-shadow: 0 0 40px var(--accent-glow), 0 0 80px var(--secondary-glow);
+}
+
+@keyframes auraPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 .pp-img:hover {
   transform: scale(1.05) translateY(-10px);
@@ -3113,7 +3130,7 @@ body.light-mode .contact-card:hover {
   line-height: 1.6;
   margin-bottom: 24px
 }
-.egg-close/* Tabular Skills Section */
+/* Tabular Skills Section */
 .skills-table-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -3205,12 +3222,12 @@ body.light-mode .contact-card:hover {
 
 .tech-tag:hover {
   background: var(--accent);
-  color: #000;
+  color: #000 !important;
   transform: translateY(-3px);
 }
 
 .tech-tag:hover i {
-  color: #000;
+  color: #000 !important;
 }
 
 .prof-bar {

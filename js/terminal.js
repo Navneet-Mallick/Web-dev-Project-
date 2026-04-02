@@ -357,6 +357,15 @@ if (cmd === 'sudo rm -rf /' || cmd === 'sudo rm -rf') {
         printLines(body, lines, () => spawnInput(body)); return;
       }
 
+      if (cmd === 'hacker' || cmd === './easter-egg.sh' || cmd === 'sh easter-egg.sh') {
+        if (window.triggerEasterEgg) {
+          printLines(body, [{ cls: 't-accent', text: '  🔓 Executing secret script...' }], () => {
+             window.triggerEasterEgg();
+          });
+          return;
+        }
+      }
+
       const res = CMDS[cmd];
       if (res) {
         printLines(body, res, () => spawnInput(body));

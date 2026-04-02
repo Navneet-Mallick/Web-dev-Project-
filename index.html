@@ -308,122 +308,53 @@
     </div>
 
     <!-- Live Projects -->
-    <div class="project-container" id="tab-live">
-      <div class="project-card" onclick="openProjectModal('poke')">
-        <img src="Assets/images/poke.jpg" alt="Pokedex">
-        <div class="overlay">
-          <h3>PokeDex - DB of Pokemon</h3>
-          <p>JavaScript &middot; PokeAPI &middot; HTML &middot; CSS</p>
-          <div class="btn">
-            <i class="fas fa-info-circle"></i> View Details
-          </div>
-        </div>
-      </div>
-      
-      <div class="project-card" onclick="openProjectModal('movie')">
-        <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender System">
-        <span class="project-featured-badge">Featured</span>
-        <div class="overlay">
-          <h3>Movie Recommender</h3>
-          <p>Python &middot; ML &middot; Streamlit</p>
-          <div class="btn">
-            <i class="fas fa-info-circle"></i> View Details
-          </div>
-        </div>
-      </div>
-      
-      <div class="project-card" onclick="openProjectModal('music')">
-        <img src="Assets/images/music.jpg" alt="GrooveBox">
-        <span class="project-featured-badge">Featured</span>
-        <div class="overlay">
-          <h3>GrooveBox-Music Player</h3>
-          <p>JavaScript &middot; HTML &middot; CSS</p>
-          <div class="btn">
-            <i class="fas fa-info-circle"></i> View Details
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor">
-        <span class="project-featured-badge">Featured</span>
-        <div class="overlay">
-          <h3>Car Price Predictor</h3>
-          <p>Python &middot; Linear Regression &middot; Pandas &middot; Streamlit</p>
-          <a href="https://carpredictor-navneet.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> Live Demo
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <img src="Assets/images/weather.png" alt="Weather App">
-        <div class="overlay">
-          <h3>Weather App</h3>
-          <p>JavaScript &middot; OpenWeather API &middot; HTML &middot; CSS</p>
-          <a href="https://navneet-mallick.github.io/Weather-App-/" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> Live Demo
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <img src="Assets/images/rock.png" alt="Rock Paper Scissors">
-        <div class="overlay">
-          <h3>Rock Paper Scissors</h3>
-          <p>JavaScript &middot; HTML &middot; CSS</p>
-          <a href="https://navneet-mallick.github.io/Rock-Paper-Scissors/" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> Live Demo
-          </a>
-        </div>
-      </div>
-
     </div>
 
     <!-- Repo Projects -->
     <div class="project-container" id="tab-repo" style="display:none;">
 
-<div class="project-card">
+      <div class="project-card" onclick="openProjectModal('vote')">
         <img src="Assets/images/developer.jpg" alt="voting">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
           <h3>VoteSecure Online</h3>
           <p>MySQL &middot; PHP &middot; HTML &middot; CSS</p>
-          <a href="https://github.com/Navneet-Mallick/VoteSecure-OnlineVoting.git" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fab fa-github"></i> View Repo
-          </a>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" onclick="openProjectModal('quiz')">
         <img src="Assets/images/quiz.png" alt="Quiz Game">
         <div class="overlay">
           <h3>Quiz Master Game</h3>
           <p>C++ &middot; OOP &middot; File I/O</p>
-          <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game.git" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fab fa-github"></i> View Repo
-          </a>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" onclick="openProjectModal('xenom')">
         <img src="Assets/images/developer.jpg" alt="Hackathon Project">
         <div class="overlay">
           <h3>Hackathon Project</h3>
           <p>HTML &middot; CSS &middot; JavaScript</p>
-          <a href="https://github.com/Navneet-Mallick/XENOM.git" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fab fa-github"></i> View Repo
-          </a>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
-         <div class="project-card">
+
+      <div class="project-card" onclick="openProjectModal('lms')">
         <img src="Assets/images/books.jpg" alt="LMS">
         <div class="overlay">
           <h3>Library Management System</h3>
           <p>C &middot; File Handling &middot; Structs</p>
-          <a href="https://github.com/Navneet-Mallick/Library-Management-System.git" target="_blank" rel="noopener noreferrer" class="btn">
-            <i class="fas fa-external-link-alt"></i> View Repo
-          </a>
+          <div class="btn">
+            <i class="fas fa-info-circle"></i> View Details
+          </div>
         </div>
       </div>
 
@@ -664,6 +595,8 @@
 <script src="js/crazy.js"></script>
 <script src="js/cherry.js"></script>
 <script src="js/game.js"></script>
+<script src="js/performance.js"></script>
+<script src="js/interactions.js"></script>
 
 <script>
   // Consolidated Helper & Interaction Logic
@@ -672,7 +605,40 @@
     const yearEl = document.getElementById('footer-year');
     if(yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // 2. Project Tab Logic
+    // 2. Load Projects from Data
+    const liveContainer = document.getElementById('tab-live');
+    const repoContainer = document.getElementById('tab-repo');
+    
+    if (liveContainer && repoContainer) {
+      // Define IDs for live vs repo (simplified mapping)
+      const liveIds = ['music', 'car', 'poke', 'movie'];
+      const repoIds = ['vote', 'quiz', 'xenom', 'lms'];
+      
+      const createCard = (id) => {
+        const data = projectData[id];
+        const isFeatured = ['music', 'car', 'vote', 'movie'].includes(id);
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.onclick = () => openProjectModal(id);
+        card.innerHTML = `
+          <img src="${data.img || 'Assets/images/developer.jpg'}" alt="${data.title}">
+          ${isFeatured ? '<span class="project-featured-badge">Featured</span>' : ''}
+          <div class="overlay">
+            <h3>${data.title}</h3>
+            <p>${data.tags.slice(0,3).join(' &middot; ')}</p>
+            <div class="btn">
+              <i class="fas fa-info-circle"></i> View Details
+            </div>
+          </div>
+        `;
+        return card;
+      };
+
+      liveIds.forEach(id => liveContainer.appendChild(createCard(id)));
+      repoIds.forEach(id => repoContainer.appendChild(createCard(id)));
+    }
+
+    // 3. Project Tab Logic
     document.querySelectorAll('.project-tab').forEach(tab => {
         tab.addEventListener('click', function () {
             document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
@@ -703,23 +669,61 @@
 
   // 4. Project Modal Data & Logic
   const projectData = {
-    poke: {
-      title: "PokeDex - DB of Pokemon",
-      desc: "A fully functional Pokedex built with Vanilla JS and PokeAPI. Includes search fingering, type filtering, and dynamic stat visualization for all generations.",
-      tags: ["JavaScript", "PokeAPI", "HTML5", "CSS3"],
-      link: "https://navneet-mallick.github.io/Pokedex_for_Pokemon/"
-    },
-    movie: {
-      title: "Content Based Movie Recommender",
-      desc: "Machine Learning system that suggests similar movies based on content metadata using NLTK and Cosine Similarity. Built with a responsive Streamlit UI.",
-      tags: ["Python", "NLTK", "Scikit-learn", "Streamlit"],
-      link: "https://movie-recommender-navneet.streamlit.app/"
-    },
     music: {
       title: "GrooveBox Music Player",
       desc: "A sleek, modern music player with visualizers, playlist management, and local storage persistence. Focused on high-fidelity animations.",
       tags: ["JavaScript", "Web Audio API", "HTML5", "CSS3"],
-      link: "https://navneet-mallick.github.io/GrooveBox-Music/"
+      link: "https://navneet-mallick.github.io/GrooveBox-Music/",
+      img: "Assets/images/music.jpg"
+    },
+    poke: {
+      title: "PokeDex - DB of Pokemon",
+      desc: "A fully functional Pokedex built with Vanilla JS and PokeAPI. Includes search, type filtering, and dynamic stat visualization.",
+      tags: ["JavaScript", "PokeAPI", "HTML5", "CSS3"],
+      link: "https://navneet-mallick.github.io/Pokedex_for_Pokemon/",
+      img: "Assets/images/poke.jpg"
+    },
+    movie: {
+      title: "Movie Recommender",
+      desc: "ML system that suggests similar movies based on content metadata using NLTK and Cosine Similarity.",
+      tags: ["Python", "ML", "Streamlit", "NLTK"],
+      link: "https://movie-recommender-navneet.streamlit.app/",
+      img: "https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg"
+    },
+    vote: {
+      title: "VoteSecure Online",
+      desc: "Secure online voting system built with PHP and MySQL. Features biometric simulation and real-time result tracking.",
+      tags: ["PHP", "MySQL", "JavaScript", "Secure Auth"],
+      link: "https://github.com/Navneet-Mallick/VoteSecure-OnlineVoting.git",
+      img: "Assets/images/developer.jpg"
+    },
+    quiz: {
+      title: "Quiz Master Game",
+      desc: "An OOP C++ application with file-based persistence and adaptive difficulty across multiple categories.",
+      tags: ["C++", "OOP", "File I/O", "Data Structures"],
+      link: "https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game.git",
+      img: "Assets/images/quiz.png"
+    },
+    xenom: {
+      title: "Project Xenom",
+      desc: "Award-winning hackathon project focused on resource optimization with a futuristic glassmorphic UI.",
+      tags: ["JS", "GSAP", "Three.js", "UI/UX"],
+      link: "https://github.com/Navneet-Mallick/XENOM.git",
+      img: "Assets/images/developer.jpg"
+    },
+    lms: {
+      title: "Library Manager",
+      desc: "Memory-managed library management system in C focusing on high-speed search and data persistence.",
+      tags: ["C", "Algos", "File Streams", "Structs"],
+      link: "https://github.com/Navneet-Mallick/Library-Management-System.git",
+      img: "Assets/images/books.jpg"
+    },
+    car: {
+      title: "Car Price Predictor",
+      desc: "ML model using Linear Regression to estimate used car prices with 92% accuracy based on market trends.",
+      tags: ["Python", "Pandas", "Scikit-Learn", "Streamlit"],
+      link: "https://carpredictor-navneet.streamlit.app/",
+      img: "https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg"
     }
   };
 

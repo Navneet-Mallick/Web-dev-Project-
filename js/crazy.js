@@ -56,8 +56,8 @@ function showEggModal(emoji, title, msg) {
     const r = img.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width  - 0.5;
     const y = (e.clientY - r.top)  / r.height - 0.5;
-    img.style.transform = `perspective(600px) rotateY(${x * 30}deg) rotateX(${-y * 30}deg) scale(1.08)`;
-    img.style.boxShadow = `${-x * 20}px ${-y * 20}px 40px rgba(0,217,255,0.5), 0 0 60px rgba(124,58,237,0.3)`;
+    img.style.transform = `perspective(1000px) rotateY(${x * 45}deg) rotateX(${-y * 45}deg) scale(1.2)`;
+    img.style.boxShadow = `${-x * 50}px ${-y * 50}px 70px rgba(0,217,255,0.8), 0 0 100px rgba(124,58,237,0.6)`;
   });
 
   img.addEventListener('mouseleave', () => {

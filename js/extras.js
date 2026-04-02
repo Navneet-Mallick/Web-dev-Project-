@@ -141,7 +141,7 @@ function initKonami() {
   });
 }
 
-function triggerEasterEgg() {
+window.triggerEasterEgg = function() {
   // ── HACKER TERMINAL OVERLAY ──────────────────────────────────────────────
   const overlay = document.createElement('div');
   overlay.id = 'hacker-overlay';

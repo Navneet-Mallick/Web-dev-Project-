@@ -17,12 +17,11 @@ const Animations = {
     this.createParticles();
     this.setupScrollReveal();
     this.setupProjectCardReveal();
-    this.setupSkillBars();
+    this.setupSkillTableAnimation();
     this.setupParallax();
     this.setupScrollProgress();
     this.setupCursorTrail();
     this.setupCardTilt();
-    this.setupSkillPopIn();
     this.setupMatrixRain();
     this.setupClickExplosions();
     this.setupMagneticButtons();
@@ -63,18 +62,23 @@ const Animations = {
     check();
   },
 
-  setupSkillBars() {
+  setupSkillTableAnimation() {
+    const bars = document.querySelectorAll('.prof-fill');
     const animate = () => {
-      document.querySelectorAll('.skill-fill').forEach(fill => {
-        const rect = fill.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom >= 0 && !fill.classList.contains('animated')) {
-          const target = fill.getAttribute('data-width') || fill.style.width;
-          setTimeout(() => { fill.style.width = target; fill.classList.add('animated'); }, 100);
+      bars.forEach(bar => {
+        const rect = bar.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50 && !bar.classList.contains('animated')) {
+          const targetWidth = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => {
+            bar.style.width = targetWidth;
+            bar.classList.add('animated');
+          }, 100);
         }
       });
     };
     window.addEventListener('scroll', animate);
-    setTimeout(animate, 500);
+    setTimeout(animate, 600);
   },
 
   setupParallax() {
@@ -137,17 +141,6 @@ const Animations = {
       });
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
-  },
-
-  setupSkillPopIn() {
-    const check = () => {
-      document.querySelectorAll('.skill').forEach((s, i) => {
-        if (s.getBoundingClientRect().top < window.innerHeight - 50 && !s.classList.contains('animated'))
-          setTimeout(() => s.classList.add('animated'), i * 60);
-      });
-    };
-    window.addEventListener('scroll', check);
-    setTimeout(check, 300);
   },
 
   // Matrix rain on canvas
