@@ -2618,7 +2618,6 @@ body.light-mode .contact-link-card:hover {
   box-shadow: 0 4px 20px rgba(0,102,255,.15)
 }
 body.light-mode .cert-card,
-body.light-mode .exp-card,
 body.light-mode .skill,
 body.light-mode .stat-card,
 body.light-mode .timeline-content {
@@ -2693,9 +2692,6 @@ body.light-mode .section-title {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text
-}
-body.light-mode .nav-links a {
-  color: #4a5568
 }
 body.light-mode .nav-links a.active,
 body.light-mode .nav-links a:hover {
@@ -3003,181 +2999,7 @@ body.light-mode .contact-card:hover {
     transform: translateX(-2px) skewX(0)
   }
 }
-.skills-table-wrap {
-  padding: 0 5%;
-  max-width: 1100px;
-  margin: 0 auto;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch
-}
-.skills-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow)
-}
-.skills-table thead tr {
-  background: linear-gradient(135deg,rgba(0,217,255,.08),rgba(124,58,237,.08))
-}
-.skills-table th {
-  padding: 16px 20px;
-  font-size: .85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  border-bottom: 2px solid var(--border-color)
-}
-.cat-col {
-  color: var(--text-color);
-  width: 180px;
-  min-width: 140px;
-  text-align: left;
-  white-space: nowrap
-}
-.pro-col {
-  color: #00d9ff;
-  text-align: center
-}
-.inter-col {
-  color: #7c3aed;
-  text-align: center
-}
-.beg-col {
-  color: #f59e0b;
-  text-align: center
-}
-.level-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: middle
-}
-.pro-dot {
-  background: #00d9ff;
-  box-shadow: 0 0 6px rgba(0,217,255,.8)
-}
-.inter-dot {
-  background: #7c3aed;
-  box-shadow: 0 0 6px rgba(124,58,237,.8)
-}
-.beg-dot {
-  background: #f59e0b;
-  box-shadow: 0 0 6px rgba(245,158,11,.8)
-}
-.skills-table tbody tr {
-  background: var(--card-bg);
-  transition: background .3s,opacity .5s,transform .5s cubic-bezier(.34,1.56,.64,1);
-  opacity: 0;
-  transform: translateY(16px)
-}
-.skills-table tbody tr.row-visible {
-  opacity: 1;
-  transform: translateY(0)
-}
-.skills-table tbody tr:first-child {
-  transition-delay: 50ms
-}
-.skills-table tbody tr:nth-child(2) {
-  transition-delay: 0.12s
-}
-.skills-table tbody tr:nth-child(3) {
-  transition-delay: 0.19s
-}
-.skills-table tbody tr:nth-child(4) {
-  transition-delay: 0.26s
-}
-.skills-table tbody tr:hover {
-  background: var(--card-hover)
-}
-.skills-table tbody tr:not(:last-child) td {
-  border-bottom: 1px solid var(--border-color)
-}
-.skills-table td {
-  padding: 18px 20px;
-  vertical-align: middle
-}
-.cat-label {
-  font-weight: 600;
-  font-size: .9rem;
-  color: var(--accent);
-  white-space: nowrap
-}
-.cat-label i {
-  margin-right: 8px;
-  opacity: .8
-}
-.skill-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center
-}
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: .8rem;
-  font-weight: 600;
-  border: 1px solid transparent;
-  transition: .3s;
-  cursor: default;
-  white-space: nowrap
-}
-.chip i {
-  font-size: 14px
-}
-.chip.pro {
-  background: rgba(0,217,255,.1);
-  border-color: rgba(0,217,255,.3);
-  color: #00d9ff
-}
-.chip.inter {
-  background: rgba(124,58,237,.1);
-  border-color: rgba(124,58,237,.3);
-  color: #a78bfa
-}
-.chip.beg {
-  background: rgba(245,158,11,.1);
-  border-color: rgba(245,158,11,.3);
-  color: #f59e0b
-}
-.chip.pro:hover {
-  background: rgba(0,217,255,.2);
-  box-shadow: 0 0 12px rgba(0,217,255,.3);
-  transform: translateY(-2px)
-}
-.chip.inter:hover {
-  background: rgba(124,58,237,.2);
-  box-shadow: 0 0 12px rgba(124,58,237,.3);
-  transform: translateY(-2px)
-}
-.chip.beg:hover {
-  background: rgba(245,158,11,.2);
-  box-shadow: 0 0 12px rgba(245,158,11,.3);
-  transform: translateY(-2px)
-}
-body.light-mode .chip.pro {
-  background: rgba(0,102,255,.08);
-  border-color: rgba(0,102,255,.25);
-  color: #06f
-}
-body.light-mode .chip.inter {
-  background: rgba(124,58,237,.08);
-  border-color: rgba(124,58,237,.25);
-  color: #7c3aed
-}
-body.light-mode .chip.beg {
-  background: rgba(245,158,11,.08);
-  border-color: rgba(245,158,11,.25);
-  color: #d97706
-}
+/* Obsolete Skills Table Styles Removed */
 #egg-modal {
   position: fixed;
   inset: 0;
@@ -3290,10 +3112,6 @@ body.light-mode .navbar {
 body.light-mode .navbar.scrolled {
   box-shadow: 0 8px 32px rgba(0,0,0,.12);
   border-bottom-color: var(--accent)
-}
-body.light-mode .nav-links a {
-  color: #374151;
-  font-weight: 600
 }
 body.light-mode .nav-links a.active,
 body.light-mode .nav-links a:hover {
