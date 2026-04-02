@@ -1,4 +1,4 @@
-﻿/* ===============================================
+/* ===============================================
    NAVNEET MALLICK - PORTFOLIO STYLESHEET
    Modern, Responsive Design with Animations
    =============================================== */
@@ -94,83 +94,10 @@ a {
 }
 
 /* Utility Classes */
-.dropdown-label {
-  font-size: 10px;
-  opacity: 0.6;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.dropdown-divider {
-  margin: 10px 0;
-  border: 0;
-  border-top: 1px solid var(--border-color);
-}
-
 .exp-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.skill-category-title {
-  color: orange;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0;
-}
-
-.skill-row-container {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  align-items: center;
-  gap: 15px;
-  border-bottom: 1px solid rgba(255, 165, 0, 0.1);
-  padding-bottom: 15px;
-}
-
-.skill-row-container:last-child {
-  border-bottom: none;
-}
-
-.skill-list-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skill-item {
-  margin: 0;
-  padding: 5px 10px;
-  min-width: 140px;
-}
-
-.skill-icon-text {
-  display: inline;
-  margin-left: 5px;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  margin: 10px 0;
-  height: 1.6em;
-}
-
-.resume-status {
-  font-size: 10px;
-  color: var(--accent);
-  opacity: 0;
-  margin-left: 10px;
-}
-
-/* Map Container */
-.map-container {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
 }
 
 /* ===============================================
@@ -846,7 +773,7 @@ header {
 .theme-wrapper-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
 .exp-card, .timeline-content {
@@ -926,7 +853,7 @@ header {
 #certifications {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
 .cert-grid {
@@ -1023,167 +950,11 @@ header {
   gap: 20px;
 }
 
-/* Skill row grid ? replaces inline styles */
-.skill-row-grid {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  align-items: center;
-  gap: 15px;
-  border-bottom: 1px solid rgba(255, 165, 0, 0.1);
-  padding-bottom: 15px;
-}
-
-.skill-row-last {
-  border-bottom: none;
-}
-
-.skill-cat-label {
-  color: var(--tertiary);
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0;
-}
-
-@media (max-width: 600px) {
-  .skill-row-grid {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-}
-
-.skill-row {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  align-items: center;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.skill-row h2 {
-  color: var(--tertiary);
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.skill-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skill {
-  background: var(--card-bg);
-  padding: 12px 18px;
-  border-radius: 12px;
-  min-width: 130px;
-  border: 2px solid var(--border-color);
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.skill:hover::before {
-  left: 100%;
-}
-
-.skill:hover {
-  transform: translateY(-5px) scale(1.05);
-  border-color: var(--accent);
-  box-shadow: 0 8px 25px var(--accent-glow), var(--glow-shadow);
-}
-
-.skill i {
-  font-size: 20px;
-  color: var(--accent);
-  margin-right: 8px;
-}
-
-.skill p {
-  display: inline;
-  font-weight: 500;
-}
-
-.skill-bar {
-  height: 6px;
-  background: rgba(128, 128, 128, 0.2);
-  border-radius: 10px;
-  margin-top: 8px;
-  overflow: hidden;
-  position: relative;
-}
-
-.skill-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--secondary));
-  border-radius: 10px;
-  transition: width 1.5s ease-out;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Animated shimmer effect on skill bars */
-.skill-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: shimmer 2s infinite;
-}
 
 /* ===============================================
    CONTACT & FOOTER
    =============================================== */
 
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 0 10%;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  background: var(--card-bg);
-  color: var(--text-color);
-  transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 10px rgba(0, 255, 231, 0.3);
-}
-
-.contact-form textarea {
-  min-height: 150px;
-  resize: vertical;
-}
-
-.contact-form button {
-  background: var(--accent);
-  color: #000;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
-}
 
 .contact-form button:hover {
   transform: translateY(-2px);
@@ -1578,57 +1349,7 @@ footer a:hover {
    EXTRA ANIMATIONS & DESIGN ENHANCEMENTS
    =============================================== */
 
-/* Scroll Progress Bar */
-#scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--accent), var(--secondary), var(--tertiary));
-  z-index: 99999;
-  transition: width 0.1s linear;
-  box-shadow: 0 0 10px var(--accent-glow);
-}
 
-/* Cursor Trail */
-.cursor-dot {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, opacity 0.3s ease;
-  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-glow);
-}
-
-.cursor-ring {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99997;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, opacity 0.3s ease;
-  opacity: 0.5;
-}
-
-.cursor-ring.hovered {
-  width: 56px;
-  height: 56px;
-  opacity: 0.8;
-  border-color: var(--secondary);
-}
-
-/* Section title glow pulse */
-.section-title {
-  animation: titleGlow 4s ease-in-out infinite;
-}
 
 @keyframes titleGlow {
   0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.3)); }
@@ -1726,11 +1447,6 @@ footer a:hover {
    TERMINAL WIDGET
    =============================================== */
 
-.terminal-wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 0 10% 60px;
-}
 
 .terminal {
   width: 100%;
@@ -1984,35 +1700,6 @@ footer a:hover {
   animation: audioBar 1.2s ease-in-out infinite alternate;
   box-shadow: 0 0 6px var(--accent-glow);
 }
-
-@keyframes audioBar {
-  from { height: 4px;  opacity: 0.5; }
-  to   { height: 36px; opacity: 1;   }
-}
-
-/* Neon glow on navbar when scrolled */
-.navbar.scrolled {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4),
-              0 0 20px var(--accent-glow),
-              0 0 60px rgba(124, 58, 237, 0.15);
-}
-
-/* Hover ripple on section titles */
-.section-title:hover {
-  animation: titleGlow 0.5s ease forwards, titleGlitch 0.3s steps(2) forwards;
-}
-
-@keyframes titleGlitch {
-  0%   { letter-spacing: 3px; }
-  50%  { letter-spacing: 6px; filter: hue-rotate(90deg); }
-  100% { letter-spacing: 3px; }
-}
-
-/* Floating badge on profile pic ? removed (unprofessional) */
-.hero-right::after {
-  display: none;
-}
-
 
 /* Neon border on exp/education cards on hover */
 .exp-card:hover,
@@ -3093,7 +2780,7 @@ body {
    =============================================== */
 
 .about-section {
-  padding: 80px 10%;
+  padding: 100px 10%;
 }
 
 .about-grid {
@@ -3334,14 +3021,6 @@ body.light-mode .nav-links a.active {
   color: var(--accent);
 }
 
-/* Fix light mode skill bars */
-body.light-mode .skill-bar {
-  background: rgba(0, 102, 255, 0.1);
-}
-
-/* Fix light mode hero bio */
-/* Fix light mode card borders being invisible */
-
 
 .skill-level-group:last-child {
   border-bottom: none;
@@ -3364,14 +3043,6 @@ body.light-mode .skill-bar {
 .skill-level-dot.expert       { background: #00d9ff; box-shadow: 0 0 8px rgba(0,217,255,0.6); }
 .skill-level-dot.intermediate { background: #7c3aed; box-shadow: 0 0 8px rgba(124,58,237,0.6); }
 .skill-level-dot.beginner     { background: #f59e0b; box-shadow: 0 0 8px rgba(245,158,11,0.6); }
-
-/* Fix light mode nav links */
-body.light-mode .nav-links a {
-  color: #4a5568;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0.5;
-}
 
 .skill-badges {
   display: flex;
