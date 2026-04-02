@@ -2160,7 +2160,7 @@ body.light-mode #music-player {
    =============================================== */
 
 .stats-section {
-  padding: 60px 10%;
+  padding: 70px 10%;
 }
 
 .stats-grid {
@@ -2712,7 +2712,6 @@ body {
 }
 
 /* ===============================================
-/* ===============================================
    AVAILABILITY BADGE
    =============================================== */
 
@@ -2998,9 +2997,85 @@ body.light-mode .overlay p {
   color: #fff;
 }
 
-/* Fix light mode hero badge */
-body.light-mode .hero-right::after {
-  background: linear-gradient(135deg, #0066ff, #7c3aed);
+/* Fix light mode skill bars */
+/* (skill-bar removed — skills use table layout) */
+
+/* Fix light mode hero badge — hidden, keep stub */
+body.light-mode .hero-right::after { display: none; }
+
+/* ---- TERMINAL LIGHT MODE ---- */
+body.light-mode .terminal {
+  background: #f3f4f6;
+  border-color: rgba(0, 102, 255, 0.15);
+  box-shadow: 0 0 30px rgba(0,0,0,0.08), 0 20px 60px rgba(0,0,0,0.1);
+}
+
+body.light-mode .terminal-header {
+  background: #e8edf8;
+  border-bottom-color: rgba(0, 102, 255, 0.1);
+}
+
+body.light-mode .terminal-body {
+  color: #334155;
+  scrollbar-color: #0066ff #e8edf8;
+}
+
+body.light-mode .terminal-body::-webkit-scrollbar-track {
+  background: #e8edf8;
+}
+
+body.light-mode .terminal-body::-webkit-scrollbar-thumb {
+  background: #0066ff;
+}
+
+body.light-mode .terminal-card {
+  box-shadow:
+    8px 16px 40px rgba(0, 102, 255, 0.12),
+    -4px -4px 20px rgba(124, 58, 237, 0.08),
+    0 0 60px rgba(0,0,0,0.06);
+}
+
+/* ---- SKILLS TABLE LIGHT MODE ---- */
+body.light-mode .skills-table {
+  border-color: rgba(0, 102, 255, 0.15);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+body.light-mode .skills-table thead tr {
+  background: linear-gradient(135deg, rgba(0,102,255,0.05), rgba(124,58,237,0.05));
+}
+
+body.light-mode .skills-table th {
+  border-bottom-color: rgba(0, 102, 255, 0.12);
+}
+
+body.light-mode .skills-table tbody tr {
+  background: #fff;
+}
+
+body.light-mode .skills-table tbody tr:hover {
+  background: #f0f7ff;
+}
+
+body.light-mode .skills-table tbody tr:not(:last-child) td {
+  border-bottom-color: rgba(0, 102, 255, 0.08);
+}
+
+body.light-mode .cat-label {
+  color: #0066ff;
+}
+
+/* ---- FOOTER LIGHT MODE ---- */
+body.light-mode footer {
+  color: #374151;
+}
+
+body.light-mode .social-icons a {
+  color: #4b5563;
+}
+
+body.light-mode .social-icons a:hover {
+  color: #0066ff;
 }
 
 /* Fix light mode section title gradient */
@@ -3326,7 +3401,7 @@ body.light-mode .contact-card:hover {
 .skills-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: var(--shadow); }
 .skills-table thead tr { background: linear-gradient(135deg, rgba(0,217,255,0.08), rgba(124,58,237,0.08)); }
 .skills-table th { padding: 16px 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid var(--border-color); }
-.cat-col { color: var(--text-color); width: 180px; text-align: left; }
+.cat-col { color: var(--text-color); width: 180px; min-width: 140px; text-align: left; white-space: nowrap; }
 .pro-col { color: #00d9ff; text-align: center; }
 .inter-col { color: #7c3aed; text-align: center; }
 .beg-col { color: #f59e0b; text-align: center; }
@@ -3342,7 +3417,7 @@ body.light-mode .contact-card:hover {
 .skills-table tbody tr:nth-child(4) { transition-delay: 0.26s; }
 .skills-table tbody tr:hover { background: var(--card-hover); }
 .skills-table tbody tr:not(:last-child) td { border-bottom: 1px solid var(--border-color); }
-.skills-table td { padding: 16px 20px; vertical-align: middle; }
+.skills-table td { padding: 18px 20px; vertical-align: middle; }
 .cat-label { font-weight: 600; font-size: 0.9rem; color: var(--accent); white-space: nowrap; }
 .cat-label i { margin-right: 8px; opacity: 0.8; }
 .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
