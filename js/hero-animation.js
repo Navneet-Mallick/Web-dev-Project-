@@ -5,7 +5,7 @@
 
 (function () {
   const canvas = document.getElementById('hero-canvas');
-  if (!canvas || !window.Three) {
+  if (!canvas || !window.THREE) {
     // Fallback to simple particle system if Three.js failed to load
     console.warn('Three.js not found, falling back to basic animation');
     return;

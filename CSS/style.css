@@ -336,14 +336,16 @@ header {
 #nav-actions-box {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 15px;
   background-color: var(--bg-gradient-1);
   background-image: var(--card-bg);
-  padding: 10px 20px;
+  padding: 8px 24px;
   border-radius: 50px;
   border: 2px solid var(--border-color);
   box-shadow: 0 4px 15px rgba(0,0,0,.2);
-  transition: .3s
+  transition: .3s;
+  height: 48px;
 }
 #nav-actions-box:hover {
   border-color: var(--accent);
@@ -355,16 +357,23 @@ header {
   font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 8px
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
 }
 .divider {
   width: 1px;
-  height: 18px;
+  height: 20px;
   background: var(--border-color)
 }
 #hamburger-wrap {
   cursor: pointer;
-  color: var(--secondary)
+  color: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 24px;
 }
 .nav-wrapper {
   position: relative
@@ -434,10 +443,13 @@ header {
   transition-delay: 0.28s
 }
 #nav-dropdown a i {
-  width: 18px;
+  width: 24px;
   text-align: center;
   color: var(--accent);
-  font-size: 13px
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #nav-dropdown a:hover {
   background: var(--card-hover);
@@ -2733,9 +2745,19 @@ body {
   color: var(--accent);
   opacity: 0.6;
   transition: 0.3s;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.input-group textarea + i {
+/* Use :has selector for modern browsers to handle textarea icon position */
+.input-group:has(textarea) i {
+  top: 25px;
+  transform: none;
+}
+
+/* Fallback for cases where :has is not supported or as a secondary check */
+.input-group textarea ~ i,
+.input-group i:has(+ textarea) {
   top: 25px;
   transform: none;
 }
@@ -2763,7 +2785,8 @@ body {
 .input-group textarea:focus {
   border-color: var(--accent);
   background: rgba(15, 23, 42, 0.8);
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.15), inset 0 0 10px rgba(0, 217, 255, 0.05);
+  transform: translateY(-2px);
 }
 
 .input-group input:focus + i,
