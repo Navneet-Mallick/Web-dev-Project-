@@ -3430,11 +3430,11 @@ body.light-mode .skill-category-header {
 
 /* Breathing Space Adjustments */
 section {
-  padding: 120px 5% !important;
+  padding: 150px 5% !important;
 }
-#home { padding: 0 5% !important; }
-#terminal-intro { padding: 80px 5% !important; }
-#location { padding: 80px 5% !important; }
+#home { padding: 180px 10% 100px !important; }
+#terminal-intro { padding: 120px 5% !important; }
+#location { padding: 120px 5% !important; }
 
 .section-title {
   margin-bottom: 60px !important;
