@@ -613,8 +613,26 @@
         <i class="fas fa-comment-alt"></i>
         <textarea name="message" placeholder="Your Message" aria-label="Your Message" required></textarea>
       </div>
-      <button type="submit" class="magnetic">Send Message <i class="fas fa-paper-plane"></i></button>
-    </form>
+<button type="submit" class="magnetic"
+style="
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+"
+onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.3)';"
+onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';"
+>
+  Send Message <i class="fas fa-paper-plane"></i>
+</button>    </form>
   </div>
   <!-- <p>∩┐╜<span id="footer-year"></span> Navneet Mallick. All Rights Reserved.</p> -->
 </section> 
