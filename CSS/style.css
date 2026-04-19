@@ -2827,22 +2827,22 @@ body {
 
 .contact-form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   position: relative;
   z-index: 1;
 }
 
 .contact-form .input-group:nth-child(3) {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 .contact-form button {
-  grid-column: span 2;
+  grid-column: span 1;
   justify-self: center;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 20px;
+  width: fit-content;
+  min-width: 220px;
+  margin-top: 12px;
 }
 
 .input-group {
