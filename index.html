@@ -853,26 +853,133 @@
   </div>
 </div>
 
-<!-- Runner Game Modal -->
+<!-- Runner + Snake Game Modal -->
 <div id="game-modal" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
-  <div id="game-box" style="position:relative;background:#0a0e27;border:2px solid var(--accent);border-radius:16px;padding:20px;box-shadow:0 0 40px rgba(0,217,255,0.3);max-width:640px;width:95%;">
+  <div id="game-box" style="position:relative;background:#0a0e27;border:2px solid var(--accent);border-radius:16px;padding:20px;box-shadow:0 0 40px rgba(0,217,255,0.3);max-width:660px;width:95%;">
+
+    <!-- Header row -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <span style="color:var(--accent);font-family:monospace;font-size:14px;letter-spacing:2px;font-weight:bold;">&#x1F3AE; RUNNER.EXE</span>
-      <div style="display:flex;gap:20px;align-items:center;">
-        <div id="game-scores-wrap" style="display:flex;gap:15px;font-family:monospace;font-size:13px;">
+      <div style="display:flex;gap:8px;">
+        <button id="game-tab-runner" onclick="switchGame('runner')" style="background:linear-gradient(135deg,var(--accent),var(--secondary));border:none;color:#fff;padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:opacity .2s;">&#x1F3C3; RUNNER</button>
+        <button id="game-tab-snake"  onclick="switchGame('snake')"  style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">&#x1F40D; SNAKE</button>
+      </div>
+      <button onclick="closeRunnerGame()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">&times;</button>
+    </div>
+
+    <!-- Runner game panel -->
+    <div id="game-panel-runner">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="color:var(--accent);font-family:monospace;font-size:13px;letter-spacing:2px;font-weight:bold;">RUNNER.EXE</span>
+        <div style="display:flex;gap:15px;font-family:monospace;font-size:13px;">
           <span id="game-score-display" style="color:#fff;opacity:0.9;">SCORE: 0</span>
-          <span id="game-hi-display" style="color:var(--accent);opacity:0.7;">HI: 0</span>
+          <span id="game-hi-display"    style="color:var(--accent);opacity:0.7;">HI: 0</span>
         </div>
-        <button onclick="closeRunnerGame()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">&times;</button>
+      </div>
+      <canvas id="game-canvas" width="620" height="160" style="width:100%;border-radius:8px;display:block;background:#05081a;border:1px solid rgba(255,255,255,0.05);"></canvas>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+        <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">SPACE / TAP to jump &middot; Double jump [ON]</p>
+        <span id="game-personality-msg" style="font-size:11px;color:var(--secondary);font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
       </div>
     </div>
-    <canvas id="game-canvas" width="600" height="160" style="width:100%;border-radius:8px;display:block;background:#05081a;border:1px solid rgba(255,255,255,0.05);"></canvas>
-    <div id="game-footer" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
-      <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">SPACE / TAP to jump &middot; Double jump [ON]</p>
-      <span id="game-personality-msg" style="font-size:11px;color:var(--secondary);font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
+
+    <!-- Snake game panel -->
+    <div id="game-panel-snake" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="color:#f59e0b;font-family:monospace;font-size:13px;letter-spacing:2px;font-weight:bold;">SNAKE.EXE</span>
+        <div style="display:flex;gap:15px;font-family:monospace;font-size:13px;">
+          <span id="snake-score-display" style="color:#fff;opacity:0.9;">SCORE: 0</span>
+          <span id="snake-hi-display"    style="color:#f59e0b;opacity:0.7;">HI: 0</span>
+        </div>
+      </div>
+      <canvas id="snake-canvas" width="620" height="320" style="width:100%;border-radius:8px;display:block;background:#05081a;border:1px solid rgba(255,255,255,0.05);"></canvas>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+        <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">Arrow keys / WASD to move &middot; Walls wrap around</p>
+        <span id="snake-personality-msg" style="font-size:11px;color:#f59e0b;font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
+      </div>
     </div>
+
   </div>
 </div>
+
+<script>
+// Game switcher - Enhanced version with proper modal handling
+let _activeGame = 'runner';
+
+function switchGame(game) {
+  // Stop both games
+  if (typeof stopRunnerGame === 'function') stopRunnerGame();
+  if (typeof stopSnakeGame  === 'function') stopSnakeGame();
+
+  _activeGame = game;
+
+  const runnerPanel = document.getElementById('game-panel-runner');
+  const snakePanel  = document.getElementById('game-panel-snake');
+  const tabRunner   = document.getElementById('game-tab-runner');
+  const tabSnake    = document.getElementById('game-tab-snake');
+
+  if (game === 'runner') {
+    runnerPanel.style.display = 'block';
+    snakePanel.style.display  = 'none';
+    tabRunner.style.background = 'linear-gradient(135deg,var(--accent),var(--secondary))';
+    tabRunner.style.border     = 'none';
+    tabRunner.style.color      = '#fff';
+    tabSnake.style.background  = 'transparent';
+    tabSnake.style.border      = '1px solid var(--border-color)';
+    tabSnake.style.color       = 'var(--text-color)';
+    // Start runner game after panel is visible
+    setTimeout(() => {
+      if (typeof startRunnerGame === 'function') startRunnerGame();
+    }, 50);
+  } else {
+    runnerPanel.style.display = 'none';
+    snakePanel.style.display  = 'block';
+    tabSnake.style.background  = 'linear-gradient(135deg,#f59e0b,#7c3aed)';
+    tabSnake.style.border      = 'none';
+    tabSnake.style.color       = '#fff';
+    tabRunner.style.background = 'transparent';
+    tabRunner.style.border     = '1px solid var(--border-color)';
+    tabRunner.style.color      = 'var(--text-color)';
+    // Start snake game after panel is visible
+    setTimeout(() => {
+      if (typeof startSnakeGame === 'function') startSnakeGame();
+    }, 50);
+  }
+}
+
+// Wait for game.js to load, then wrap the functions
+document.addEventListener('DOMContentLoaded', () => {
+  // Give game.js time to load
+  setTimeout(() => {
+    const origOpenRunner = window.openRunnerGame;
+    const origCloseRunner = window.closeRunnerGame;
+
+    // Enhanced openRunnerGame - opens modal and switches to runner
+    window.openRunnerGame = function() {
+      const modal = document.getElementById('game-modal');
+      if (!modal) {
+        console.error('Game modal not found');
+        return;
+      }
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      switchGame('runner');
+    };
+
+    // Enhanced closeRunnerGame - closes modal and stops both games
+    window.closeRunnerGame = function() {
+      if (typeof stopRunnerGame === 'function') stopRunnerGame();
+      if (typeof stopSnakeGame  === 'function') stopSnakeGame();
+      const modal = document.getElementById('game-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+      }
+      document.body.style.overflow = '';
+    };
+  }, 100);
+});
+</script>
 
 </body>
 </html>

@@ -327,3 +327,317 @@ function startRunnerGame() {
   gameRunning = true;
   gameRaf = requestAnimationFrame(loop);
 }
+
+// ═══════════════════════════════════════════════════════════════════
+//  SNAKE GAME
+// ═══════════════════════════════════════════════════════════════════
+
+let snakeRaf, snakeRunning = false;
+
+function stopSnakeGame() {
+  snakeRunning = false;
+  cancelAnimationFrame(snakeRaf);
+}
+
+function startSnakeGame() {
+  const canvas = document.getElementById('snake-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const CELL = 20;
+  const COLS = W / CELL, ROWS = H / CELL;
+
+  const CLR = {
+    bg:       '#0a0e27',
+    grid:     'rgba(0,217,255,0.04)',
+    snake:    '#00d9ff',
+    snakeHead:'#ffffff',
+    food:     '#f59e0b',
+    foodGlow: 'rgba(245,158,11,0.6)',
+    wall:     '#7c3aed',
+    text:     '#00d9ff',
+    dead:     '#ff4500',
+  };
+
+  // ── State ──
+  let snake, dir, nextDir, food, score, hiScore, dead, started, frame, foodPulse;
+  hiScore = parseInt(localStorage.getItem('nm_snake_hi') || '0');
+
+  const hiDisplay  = document.getElementById('snake-hi-display');
+  const scoreDisplay = document.getElementById('snake-score-display');
+  const msgDisplay = document.getElementById('snake-personality-msg');
+
+  function initState() {
+    const midX = Math.floor(COLS / 2), midY = Math.floor(ROWS / 2);
+    snake    = [
+      { x: midX,     y: midY },
+      { x: midX - 1, y: midY },
+      { x: midX - 2, y: midY },
+    ];
+    dir      = { x: 1, y: 0 };
+    nextDir  = { x: 1, y: 0 };
+    food     = spawnFood();
+    score    = 0;
+    dead     = false;
+    started  = false;
+    frame    = 0;
+    foodPulse = 0;
+    if (scoreDisplay) scoreDisplay.textContent = 'SCORE: 0';
+    if (hiDisplay)    hiDisplay.textContent    = `HI: ${hiScore}`;
+    if (msgDisplay)   msgDisplay.textContent   = '';
+  }
+
+  function spawnFood() {
+    let pos;
+    do {
+      pos = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
+    } while (snake.some(s => s.x === pos.x && s.y === pos.y));
+    return pos;
+  }
+
+  // ── Input ──
+  const DIRS = {
+    ArrowUp:    { x: 0, y: -1 }, w: { x: 0, y: -1 },
+    ArrowDown:  { x: 0, y:  1 }, s: { x: 0, y:  1 },
+    ArrowLeft:  { x: -1, y: 0 }, a: { x: -1, y: 0 },
+    ArrowRight: { x:  1, y: 0 }, d: { x:  1, y: 0 },
+  };
+
+  const keyHandler = e => {
+    const d = DIRS[e.key] || DIRS[e.key.toLowerCase()];
+    if (!d) return;
+    // Prevent reversing
+    if (d.x === -dir.x && d.y === -dir.y) return;
+    // Prevent default scroll on arrow keys
+    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
+    if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'SLITHERING...'; }
+    nextDir = d;
+  };
+
+  // Touch swipe support
+  let touchStartX = 0, touchStartY = 0;
+  const touchStart = e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; };
+  const touchEnd   = e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+    if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'SLITHERING...'; }
+    if (Math.abs(dx) > Math.abs(dy)) {
+      const d = dx > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+      if (d.x !== -dir.x) nextDir = d;
+    } else {
+      const d = dy > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+      if (d.y !== -dir.y) nextDir = d;
+    }
+  };
+
+  document.addEventListener('keydown', keyHandler);
+  canvas.addEventListener('touchstart', touchStart, { passive: true });
+  canvas.addEventListener('touchend',   touchEnd);
+
+  // ── Game speed (ms per tick) ──
+  function getSpeed() {
+    if (score < 5)  return 160;
+    if (score < 15) return 130;
+    if (score < 30) return 105;
+    if (score < 50) return 85;
+    return 70;
+  }
+
+  let lastTick = 0;
+
+  // ── Draw helpers ──
+  function drawGrid() {
+    ctx.strokeStyle = CLR.grid;
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x <= W; x += CELL) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let y = 0; y <= H; y += CELL) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+  }
+
+  function drawSnake() {
+    snake.forEach((seg, i) => {
+      const isHead = i === 0;
+      const t = 1 - i / snake.length;
+      ctx.shadowColor = CLR.snake;
+      ctx.shadowBlur  = isHead ? 18 : 8 * t;
+
+      // Gradient body: head is white, tail fades to accent
+      const r = isHead ? 255 : Math.round(0   + t * 0);
+      const g = isHead ? 255 : Math.round(217 * t);
+      const b = isHead ? 255 : Math.round(255 * t);
+      ctx.fillStyle = isHead ? CLR.snakeHead : `rgb(${r},${g},${b})`;
+
+      const pad = isHead ? 1 : 2;
+      ctx.beginPath();
+      ctx.roundRect(seg.x * CELL + pad, seg.y * CELL + pad, CELL - pad * 2, CELL - pad * 2, isHead ? 5 : 3);
+      ctx.fill();
+
+      // Eyes on head
+      if (isHead) {
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#0a0e27';
+        const ex = dir.x === 1 ? 13 : dir.x === -1 ? 4 : 6;
+        const ey = dir.y === 1 ? 13 : dir.y === -1 ? 4 : 6;
+        const ex2 = dir.x === 0 ? ex + 8 : ex;
+        const ey2 = dir.y === 0 ? ey + 8 : ey;
+        ctx.fillRect(seg.x * CELL + ex,  seg.y * CELL + ey,  3, 3);
+        ctx.fillRect(seg.x * CELL + ex2, seg.y * CELL + ey2, 3, 3);
+      }
+    });
+    ctx.shadowBlur = 0;
+  }
+
+  function drawFood() {
+    foodPulse += 0.08;
+    const pulse = Math.sin(foodPulse) * 0.15 + 0.85;
+    const cx = food.x * CELL + CELL / 2;
+    const cy = food.y * CELL + CELL / 2;
+    const r  = (CELL / 2 - 3) * pulse;
+
+    // Glow
+    ctx.shadowColor = CLR.foodGlow;
+    ctx.shadowBlur  = 16;
+
+    // Outer ring
+    ctx.strokeStyle = CLR.food;
+    ctx.lineWidth   = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 2, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Fill
+    ctx.fillStyle = CLR.food;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+  }
+
+  function drawHUD() {
+    // Score in canvas top-left
+    ctx.fillStyle = 'rgba(0,217,255,0.15)';
+    ctx.fillRect(4, 4, 90, 22);
+    ctx.fillStyle = CLR.text;
+    ctx.font = 'bold 12px monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(`SCORE: ${score}`, 10, 19);
+  }
+
+  // ── Main loop ──
+  function loop(timestamp) {
+    if (!snakeRunning) {
+      document.removeEventListener('keydown', keyHandler);
+      canvas.removeEventListener('touchstart', touchStart);
+      canvas.removeEventListener('touchend',   touchEnd);
+      return;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = CLR.bg;
+    ctx.fillRect(0, 0, W, H);
+    drawGrid();
+
+    if (!started) {
+      drawSnake();
+      drawFood();
+      ctx.fillStyle = CLR.text;
+      ctx.font = 'bold 15px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('USE ARROW KEYS / WASD / SWIPE', W / 2, H / 2 - 12);
+      ctx.font = '12px monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 10);
+      ctx.textAlign = 'left';
+      snakeRaf = requestAnimationFrame(loop);
+      return;
+    }
+
+    if (!dead && timestamp - lastTick >= getSpeed()) {
+      lastTick = timestamp;
+      dir = nextDir;
+
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+      // Wall collision (wrap-around mode)
+      head.x = (head.x + COLS) % COLS;
+      head.y = (head.y + ROWS) % ROWS;
+
+      // Self collision
+      if (snake.some(s => s.x === head.x && s.y === head.y)) {
+        dead = true;
+        if (msgDisplay) msgDisplay.textContent = 'SEGFAULT';
+        if (score > hiScore) {
+          hiScore = score;
+          localStorage.setItem('nm_snake_hi', hiScore);
+          if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
+        }
+      } else {
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+          score++;
+          food = spawnFood();
+          if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${score}`;
+          if (score > hiScore) {
+            hiScore = score;
+            localStorage.setItem('nm_snake_hi', hiScore);
+            if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
+          }
+          // Flavor messages
+          const msgs = { 5:'WARMING UP', 10:'GETTING GOOD', 20:'IMPRESSIVE', 35:'SNAKE GOD?', 50:'LEGENDARY' };
+          if (msgs[score] && msgDisplay) msgDisplay.textContent = msgs[score];
+        } else {
+          snake.pop();
+        }
+      }
+    }
+
+    drawFood();
+    drawSnake();
+    drawHUD();
+
+    if (dead) {
+      ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = CLR.dead;
+      ctx.font = 'bold 20px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('SEGMENTATION FAULT', W / 2, H / 2 - 18);
+      ctx.fillStyle = '#fff';
+      ctx.font = '13px monospace';
+      ctx.fillText(`SCORE: ${score}   HI: ${hiScore}`, W / 2, H / 2 + 6);
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.font = '11px monospace';
+      ctx.fillText('ARROW KEYS / WASD to restart', W / 2, H / 2 + 26);
+      ctx.textAlign = 'left';
+
+      // Restart on any direction key
+      const restartHandler = e => {
+        if (DIRS[e.key] || DIRS[e.key?.toLowerCase()]) {
+          document.removeEventListener('keydown', restartHandler);
+          initState();
+          started = true;
+          if (msgDisplay) msgDisplay.textContent = 'REBOOTING...';
+        }
+      };
+      document.addEventListener('keydown', restartHandler);
+    }
+
+    snakeRaf = requestAnimationFrame(loop);
+  }
+
+  initState();
+  snakeRunning = true;
+  snakeRaf = requestAnimationFrame(loop);
+}
+
+function openSnakeGame() {
+  const modal = document.getElementById('game-modal');
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  switchGame('snake');
+}
