@@ -983,21 +983,21 @@ footer p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--text-color);
-  border: 1px solid var(--border-color);
-  background: rgba(255,255,255,0.03);
-  transition: color .3s, transform .3s, border-color .3s, box-shadow .3s, background .3s;
+  border: 2px solid var(--border-color);
+  background: rgba(0,217,255,0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .social-icons a:hover {
   color: var(--accent);
   border-color: var(--accent);
-  background: rgba(0,217,255,0.08);
-  box-shadow: 0 0 16px var(--accent-glow);
-  transform: translateY(-4px) scale(1.1)
+  background: rgba(0,217,255,0.15);
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-6px) scale(1.15);
 }
 @media (max-width:900px) {
   .nav-links {
@@ -3491,10 +3491,12 @@ body.light-mode .input-group i {
 
 .tech-tag i {
   color: var(--accent);
-  font-size: 13px;
-  width: 14px;
+  font-size: 15px;
+  width: auto;
   text-align: center;
   flex-shrink: 0;
+  display: inline-block;
+  margin-right: 2px;
 }
 
 .tech-tag:hover {
