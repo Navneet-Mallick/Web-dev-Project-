@@ -2967,7 +2967,7 @@ body.light-mode .terminal-header {
   border-bottom-color: rgba(0,102,255,.1)
 }
 body.light-mode .terminal-body {
-  color: #334155;
+  color: #1e293b;
   scrollbar-color: #0066ff #e8edf8
 }
 body.light-mode .terminal-body::-webkit-scrollbar-track {
