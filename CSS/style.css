@@ -2043,12 +2043,13 @@ body.light-mode #music-player {
   flex: 1
 }
 #music-track-name {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
+  max-width: 140px;
 }
 .music-progress {
   height: 3px;
