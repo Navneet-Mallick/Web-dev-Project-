@@ -62,6 +62,14 @@
 
 <body>
 
+<noscript>
+  <div style="position:fixed;inset:0;background:#070b1f;color:#eaf2ff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:sans-serif;text-align:center;padding:20px;z-index:999999;">
+    <h1 style="color:#00e5ff;font-size:2rem;margin-bottom:16px;">Navneet Mallick — Portfolio</h1>
+    <p style="opacity:0.8;max-width:400px;line-height:1.6;">This portfolio requires JavaScript to run. Please enable JavaScript in your browser to view the full experience.</p>
+    <a href="mailto:navneetmallick092@gmail.com" style="margin-top:24px;color:#00e5ff;">navneetmallick092@gmail.com</a>
+  </div>
+</noscript>
+
 <!-- Scroll Progress Bar -->
 <div id="scroll-progress"></div>
 
@@ -205,7 +213,7 @@
   <div class="about-grid">
     <div class="about-text">
       <h2 class="section-title" style="text-align:left; width:auto; margin-top:0;">About Me</h2>
-      <p>I'm a 3rd-year Computer Engineering student at IOE Purwanchal Campus, Dharan. I build full-stack web apps and ML-powered tools ∩┐╜ things that actually work and look good doing it.</p>
+      <p>I'm a 3rd-year Computer Engineering student at IOE Purwanchal Campus, Dharan. I build full-stack web apps and ML-powered tools &mdash; things that actually work and look good doing it.</p>
       <div class="about-tags">
         <span>Open to Work</span>
         <span>Freelance</span>
@@ -601,36 +609,23 @@
   <p class="contact-subtitle">Have a project in mind or just want to say hi? I'll get back within 24 hours.</p>
   <div class="contact-card">
     <form class="contact-form" id="contact-form">
+      <!-- Honeypot anti-spam field (hidden from real users) -->
+      <div style="display:none;" aria-hidden="true">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off">
+      </div>
       <div class="input-group">
         <i class="fas fa-user"></i>
-        <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" required>
+        <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" maxlength="100" required>
       </div>
       <div class="input-group">
         <i class="fas fa-envelope"></i>
-        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" required>
+        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" maxlength="150" required>
       </div>
       <div class="input-group">
         <i class="fas fa-comment-alt"></i>
-        <textarea name="message" placeholder="Your Message" aria-label="Your Message" required></textarea>
+        <textarea name="message" placeholder="Your Message" aria-label="Your Message" maxlength="500" required></textarea>
       </div>
-<button type="submit" class="magnetic"
-style="
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 30px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-"
-onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.3)';"
-onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)';"
->
+<button type="submit" class="magnetic btn-submit">
   Send Message <i class="fas fa-paper-plane"></i>
 </button>    </form>
   </div>
@@ -641,7 +636,7 @@ onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow=
   <!-- Audio Visualizer -->
   <div id="audio-viz" style="display:flex;justify-content:center;align-items:flex-end;gap:3px;height:40px;margin-bottom:20px;"></div>
 
-  <p>&copy;2026 Navneet Mallick. All Rights Reserved.</p>
+  <p>&copy;<span id="footer-year">2026</span> Navneet Mallick. All Rights Reserved.</p>
   <div class="social-icons">
     <a href="https://github.com/Navneet-Mallick/" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
     <a href="https://www.linkedin.com/in/navneet-mallick-313829279" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -847,6 +842,16 @@ onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow=
   document.addEventListener('bootDismissed', () => checkAchievement('pioneer', 'First Boot'));
   window.addEventListener('scroll', () => { if (window.scrollY > 2000) checkAchievement('explorer', 'Deep Diver'); });
 </script>
+
+<!-- Easter Egg Modal -->
+<div id="egg-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="egg-title">
+  <div class="egg-box">
+    <span class="egg-emoji" id="egg-emoji">🥚</span>
+    <div class="egg-title" id="egg-title">Easter Egg!</div>
+    <p class="egg-msg" id="egg-msg"></p>
+    <button class="egg-close" id="egg-close">Close</button>
+  </div>
+</div>
 
 <!-- Runner Game Modal -->
 <div id="game-modal" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">

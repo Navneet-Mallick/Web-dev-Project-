@@ -107,7 +107,7 @@
 (function skillsRowTilt() {
   if (window.matchMedia('(hover: none)').matches) return;
 
-  document.querySelectorAll('.skills-table tbody tr').forEach(row => {
+  document.querySelectorAll('.skills-tabular tbody tr').forEach(row => {
     row.style.transition = 'transform 0.2s ease';
     row.addEventListener('mousemove', ev => {
       const r = row.getBoundingClientRect();

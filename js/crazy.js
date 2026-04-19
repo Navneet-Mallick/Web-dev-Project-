@@ -252,16 +252,13 @@ function showEggModal(emoji, title, msg) {
 
 // ── 7. SECTION SKEW WARP REVEAL ──────────────────────────────────────────────
 (function setupWarpReveal() {
+  // Subtle: sections start slightly scaled down, animate to full size
+  // Avoids the clip-path that was cutting off content before scroll
   const sections = document.querySelectorAll('section.reveal');
-  sections.forEach(s => {
-    s.style.clipPath = 'polygon(0 4%, 100% 0%, 100% 96%, 0 100%)';
-    s.style.transition = 'clip-path 0.8s cubic-bezier(0.4,0,0.2,1)';
-  });
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.clipPath = 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)';
         observer.unobserve(entry.target);
       }
     });

@@ -90,17 +90,20 @@
   window.addEventListener('resize', resize);
   resize();
 
+  let animRafId;
+
   function animate() {
-    requestAnimationFrame(animate);
+    if (!document.hidden) {
+      particles.rotation.y += 0.002;
+      particles.rotation.x += 0.001;
 
-    particles.rotation.y += 0.002;
-    particles.rotation.x += 0.001;
+      // Subtle mouse interaction
+      particles.rotation.y += mouseX * 0.05;
+      particles.rotation.x += mouseY * 0.05;
 
-    // Subtle mouse interaction
-    particles.rotation.y += mouseX * 0.05;
-    particles.rotation.x += mouseY * 0.05;
-
-    renderer.render(scene, camera);
+      renderer.render(scene, camera);
+    }
+    animRafId = requestAnimationFrame(animate);
   }
 
   animate();

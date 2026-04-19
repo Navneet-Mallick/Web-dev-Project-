@@ -24,17 +24,25 @@ const ContactForm = {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault();
 
+      // Honeypot check — bots fill hidden fields, humans don't
+      const honey = this.form.querySelector('input[name="_honey"]');
+      if (honey && honey.value.trim() !== '') {
+        // Silently reject — don't tell the bot it failed
+        this.form.reset();
+        return;
+      }
+
       const templateParams = {
-        name: this.form.name.value,
-        email: this.form.email.value,
-        message: this.form.message.value,
+        name: this.form.name.value.trim(),
+        email: this.form.email.value.trim(),
+        message: this.form.message.value.trim(),
         time: new Date().toLocaleString()
       };
 
       // Show loading state
       const submitBtn = this.form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
       submitBtn.disabled = true;
 
       emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, templateParams)
@@ -43,11 +51,11 @@ const ContactForm = {
           this.form.reset();
         })
         .catch((error) => {
-          console.error('Error:', error);
+          console.error('EmailJS error:', error);
           showToast('Failed to send. Please try again or email me directly.', 'error');
         })
         .finally(() => {
-          submitBtn.textContent = originalText;
+          submitBtn.innerHTML = originalHTML;
           submitBtn.disabled = false;
         });
     });

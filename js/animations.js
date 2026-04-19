@@ -150,35 +150,46 @@ const Animations = {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-    resize();
-    window.addEventListener('resize', resize);
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      cols = Math.floor(canvas.width / fontSize);
+      drops = Array(cols).fill(1);
+    };
 
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF</>{}[]';
     const fontSize = 14;
     let cols = Math.floor(canvas.width / fontSize);
     let drops = Array(cols).fill(1);
+    let lastTime = 0;
+    const interval = 50; // ms between frames (~20fps)
+    let rafId;
 
-    const draw = () => {
-      ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#00d9ff';
-      ctx.font = fontSize + 'px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillStyle = i % 3 === 0 ? '#7c3aed' : i % 3 === 1 ? '#00d9ff' : '#f59e0b';
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
+    const draw = (timestamp) => {
+      if (document.hidden) {
+        rafId = requestAnimationFrame(draw);
+        return;
       }
+      if (timestamp - lastTime >= interval) {
+        lastTime = timestamp;
+        ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const char = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillStyle = i % 3 === 0 ? '#7c3aed' : i % 3 === 1 ? '#00d9ff' : '#f59e0b';
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+          drops[i]++;
+        }
+      }
+      rafId = requestAnimationFrame(draw);
     };
 
-    setInterval(draw, 50);
-    window.addEventListener('resize', () => {
-      cols = Math.floor(canvas.width / fontSize);
-      drops = Array(cols).fill(1);
-    });
+    resize();
+    window.addEventListener('resize', resize);
+    rafId = requestAnimationFrame(draw);
   },
 
   // Click explosion burst
@@ -422,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 9. Skills table rows stagger in on scroll
 (function setupSkillsTableReveal() {
-  const rows = document.querySelectorAll('.skills-table tbody tr');
+  const rows = document.querySelectorAll('.skills-tabular tbody tr');
   if (!rows.length) return;
 
   const observer = new IntersectionObserver(entries => {

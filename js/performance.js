@@ -35,29 +35,34 @@ const Performance = {
   },
 
   setupScrollThrottling() {
+    // Centralized rAF-based scroll dispatcher — other modules can hook in if needed
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          // Global scroll-based triggers can be centralized here if needed
           ticking = false;
         });
         ticking = true;
       }
-    });
+    }, { passive: true });
   },
 
   setupViewStats() {
-    // Track how long users stay on specific sections (local only)
+    // Track section views locally — debounced to avoid excessive localStorage writes
     const sections = document.querySelectorAll('section');
     const viewLog = JSON.parse(localStorage.getItem('nm_view_log') || '{}');
-    
+    let saveTimer;
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
           viewLog[id] = (viewLog[id] || 0) + 1;
-          localStorage.setItem('nm_view_log', JSON.stringify(viewLog));
+          // Debounce: only write to localStorage after 1s of no new intersections
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(() => {
+            localStorage.setItem('nm_view_log', JSON.stringify(viewLog));
+          }, 1000);
         }
       });
     }, { threshold: 0.6 });
