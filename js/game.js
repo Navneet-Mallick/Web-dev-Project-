@@ -641,3 +641,318 @@ function openSnakeGame() {
   modal.setAttribute('aria-hidden', 'false');
   switchGame('snake');
 }
+
+// ═══════════════════════════════════════════════════════════════════
+//  ASTEROID SHOOTER GAME - A cooler game for developers
+// ═══════════════════════════════════════════════════════════════════
+
+let asteroidRaf, asteroidRunning = false;
+
+function stopAsteroidGame() {
+  asteroidRunning = false;
+  cancelAnimationFrame(asteroidRaf);
+}
+
+function startAsteroidGame() {
+  const canvas = document.getElementById('asteroid-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  const CLR = {
+    bg: '#0a0e27',
+    player: '#00d9ff',
+    bullet: '#f59e0b',
+    asteroid: '#7c3aed',
+    explosion: ['#ff00c1', '#00fff9', '#f59e0b'],
+    text: '#00d9ff',
+    dead: '#ff4500',
+  };
+
+  let player, bullets, asteroids, particles, score, hiScore, dead, started, frame;
+  hiScore = parseInt(localStorage.getItem('nm_asteroid_hi') || '0');
+
+  const hiDisplay = document.getElementById('asteroid-hi-display');
+  const scoreDisplay = document.getElementById('asteroid-score-display');
+  const msgDisplay = document.getElementById('asteroid-personality-msg');
+
+  function initState() {
+    player = { x: W / 2, y: H - 40, w: 20, h: 20, angle: 0, vel: 0 };
+    bullets = [];
+    asteroids = [];
+    particles = [];
+    score = 0;
+    dead = false;
+    started = false;
+    frame = 0;
+    
+    // Spawn initial asteroids
+    for (let i = 0; i < 3; i++) {
+      spawnAsteroid(Math.random() * W, Math.random() * (H / 3), 3);
+    }
+    
+    if (scoreDisplay) scoreDisplay.textContent = 'SCORE: 0';
+    if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
+    if (msgDisplay) msgDisplay.textContent = '';
+  }
+
+  function spawnAsteroid(x, y, size) {
+    asteroids.push({
+      x, y, size,
+      vx: (Math.random() - 0.5) * 3,
+      vy: Math.random() * 2 + 1,
+      angle: Math.random() * Math.PI * 2,
+      angVel: (Math.random() - 0.5) * 0.1,
+    });
+  }
+
+  function spawnExplosion(x, y) {
+    for (let i = 0; i < 12; i++) {
+      const angle = (i / 12) * Math.PI * 2;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * (2 + Math.random() * 4),
+        vy: Math.sin(angle) * (2 + Math.random() * 4),
+        life: 1,
+        decay: 0.04,
+        color: CLR.explosion[Math.floor(Math.random() * CLR.explosion.length)],
+        size: 3 + Math.random() * 3,
+      });
+    }
+  }
+
+  // Input
+  const keys = {};
+  const keyDown = e => { keys[e.key] = true; if (!started && e.key === ' ') { started = true; if (msgDisplay) msgDisplay.textContent = 'FIRING...'; } };
+  const keyUp = e => { keys[e.key] = false; };
+  document.addEventListener('keydown', keyDown);
+  document.addEventListener('keyup', keyUp);
+
+  // Main loop
+  function loop() {
+    if (!asteroidRunning) {
+      document.removeEventListener('keydown', keyDown);
+      document.removeEventListener('keyup', keyUp);
+      return;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = CLR.bg;
+    ctx.fillRect(0, 0, W, H);
+
+    if (!started) {
+      // Draw player
+      ctx.save();
+      ctx.translate(player.x, player.y);
+      ctx.rotate(player.angle);
+      ctx.fillStyle = CLR.player;
+      ctx.beginPath();
+      ctx.moveTo(0, -10);
+      ctx.lineTo(-8, 8);
+      ctx.lineTo(0, 4);
+      ctx.lineTo(8, 8);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      ctx.fillStyle = CLR.text;
+      ctx.font = 'bold 16px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('ASTEROID SHOOTER', W / 2, H / 2 - 20);
+      ctx.font = '12px monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.fillText('Arrow Keys to rotate • Space to shoot', W / 2, H / 2 + 5);
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 25);
+      ctx.textAlign = 'left';
+      asteroidRaf = requestAnimationFrame(loop);
+      return;
+    }
+
+    if (!dead) {
+      frame++;
+
+      // Player rotation
+      if (keys['ArrowLeft']) player.angle -= 0.15;
+      if (keys['ArrowRight']) player.angle += 0.15;
+      if (keys[' ']) {
+        bullets.push({
+          x: player.x + Math.cos(player.angle) * 12,
+          y: player.y + Math.sin(player.angle) * 12,
+          vx: Math.cos(player.angle) * 6,
+          vy: Math.sin(player.angle) * 6,
+          life: 60,
+        });
+        keys[' '] = false;
+      }
+
+      // Update bullets
+      bullets = bullets.filter(b => {
+        b.x += b.vx;
+        b.y += b.vy;
+        b.life--;
+        return b.life > 0 && b.x > 0 && b.x < W && b.y > 0 && b.y < H;
+      });
+
+      // Update asteroids
+      asteroids.forEach(a => {
+        a.x += a.vx;
+        a.y += a.vy;
+        a.angle += a.angVel;
+
+        // Wrap around
+        if (a.x < -30) a.x = W + 30;
+        if (a.x > W + 30) a.x = -30;
+        if (a.y < -30) a.y = H + 30;
+        if (a.y > H + 30) a.y = -30;
+      });
+
+      // Collision detection
+      bullets.forEach((b, bi) => {
+        asteroids.forEach((a, ai) => {
+          const dist = Math.hypot(b.x - a.x, b.y - a.y);
+          if (dist < a.size * 5) {
+            bullets.splice(bi, 1);
+            asteroids.splice(ai, 1);
+            spawnExplosion(a.x, a.y);
+            score += a.size * 10;
+            
+            // Split asteroid
+            if (a.size > 1) {
+              for (let i = 0; i < 2; i++) {
+                spawnAsteroid(a.x + (Math.random() - 0.5) * 20, a.y + (Math.random() - 0.5) * 20, a.size - 1);
+              }
+            }
+            
+            if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${score}`;
+            if (score > hiScore) {
+              hiScore = score;
+              localStorage.setItem('nm_asteroid_hi', hiScore);
+              if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
+            }
+          }
+        });
+      });
+
+      // Player collision with asteroids
+      asteroids.forEach(a => {
+        const dist = Math.hypot(player.x - a.x, player.y - a.y);
+        if (dist < a.size * 5 + 10) {
+          dead = true;
+          spawnExplosion(player.x, player.y);
+          if (msgDisplay) msgDisplay.textContent = 'DESTROYED';
+        }
+      });
+
+      // Spawn new asteroids if all destroyed
+      if (asteroids.length === 0) {
+        const level = Math.floor(score / 300) + 1;
+        for (let i = 0; i < 2 + level; i++) {
+          spawnAsteroid(Math.random() * W, Math.random() * (H / 3), 3);
+        }
+      }
+    }
+
+    // Draw asteroids
+    asteroids.forEach(a => {
+      ctx.save();
+      ctx.translate(a.x, a.y);
+      ctx.rotate(a.angle);
+      ctx.fillStyle = CLR.asteroid;
+      ctx.shadowColor = CLR.asteroid;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        const r = a.size * 5 * (0.8 + Math.random() * 0.2);
+        const x = Math.cos(angle) * r;
+        const y = Math.sin(angle) * r;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // Draw bullets
+    bullets.forEach(b => {
+      ctx.fillStyle = CLR.bullet;
+      ctx.shadowColor = CLR.bullet;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, 3, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Draw particles
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.1;
+      p.life -= p.decay;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+    });
+    ctx.globalAlpha = 1;
+    particles = particles.filter(p => p.life > 0);
+
+    // Draw player
+    ctx.save();
+    ctx.translate(player.x, player.y);
+    ctx.rotate(player.angle);
+    ctx.fillStyle = dead ? CLR.dead : CLR.player;
+    ctx.shadowColor = dead ? CLR.dead : CLR.player;
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.moveTo(0, -10);
+    ctx.lineTo(-8, 8);
+    ctx.lineTo(0, 4);
+    ctx.lineTo(8, 8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // HUD
+    ctx.fillStyle = CLR.text;
+    ctx.font = '12px monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(`SCORE: ${score}`, 10, 20);
+
+    if (dead) {
+      ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = CLR.dead;
+      ctx.font = 'bold 18px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('GAME OVER', W / 2, H / 2 - 10);
+      ctx.fillStyle = '#fff';
+      ctx.font = '12px monospace';
+      ctx.fillText(`SCORE: ${score}   HI: ${hiScore}`, W / 2, H / 2 + 15);
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.fillText('Space to restart', W / 2, H / 2 + 35);
+      ctx.textAlign = 'left';
+
+      if (keys[' ']) {
+        initState();
+        started = true;
+        if (msgDisplay) msgDisplay.textContent = 'REBOOTING...';
+      }
+    }
+
+    ctx.shadowBlur = 0;
+    asteroidRaf = requestAnimationFrame(loop);
+  }
+
+  initState();
+  asteroidRunning = true;
+  asteroidRaf = requestAnimationFrame(loop);
+}
+
+function openAsteroidGame() {
+  const modal = document.getElementById('game-modal');
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  switchGame('asteroid');
+}

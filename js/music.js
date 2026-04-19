@@ -19,7 +19,7 @@
     { id: 'eagles',       label: 'Hotel California — Eagles',  type: 'file',  src: 'Assets/eagles.mp3',       icon: 'fas fa-music' },
   ];
 
-  let modeIndex = 0; // Start on Interstellar
+  let modeIndex = 1; // Start on Lo-Fi Beats
   let isPlaying = false;
 
   // ── FILE AUDIO ─────────────────────────────────────────

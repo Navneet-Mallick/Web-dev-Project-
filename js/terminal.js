@@ -199,6 +199,12 @@
         else { histIdx = -1; inp.value = ''; }
         return;
       }
+      // Allow space and other characters to be typed normally
+      if (e.key === ' ') {
+        e.preventDefault();
+        inp.value += ' ';
+        return;
+      }
       if (e.key !== 'Enter') return;
 
       const val = inp.value.trim();

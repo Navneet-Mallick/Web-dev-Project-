@@ -862,6 +862,7 @@
       <div style="display:flex;gap:8px;">
         <button id="game-tab-runner" onclick="switchGame('runner')" style="background:linear-gradient(135deg,var(--accent),var(--secondary));border:none;color:#fff;padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:opacity .2s;">&#x1F3C3; RUNNER</button>
         <button id="game-tab-snake"  onclick="switchGame('snake')"  style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">&#x1F40D; SNAKE</button>
+        <button id="game-tab-asteroid" onclick="switchGame('asteroid')" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">💥 ASTEROIDS</button>
       </div>
       <button onclick="closeRunnerGame()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">&times;</button>
     </div>
@@ -898,6 +899,22 @@
       </div>
     </div>
 
+    <!-- Asteroid game panel -->
+    <div id="game-panel-asteroid" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="color:#ff00c1;font-family:monospace;font-size:13px;letter-spacing:2px;font-weight:bold;">ASTEROIDS.EXE</span>
+        <div style="display:flex;gap:15px;font-family:monospace;font-size:13px;">
+          <span id="asteroid-score-display" style="color:#fff;opacity:0.9;">SCORE: 0</span>
+          <span id="asteroid-hi-display"    style="color:#ff00c1;opacity:0.7;">HI: 0</span>
+        </div>
+      </div>
+      <canvas id="asteroid-canvas" width="620" height="320" style="width:100%;border-radius:8px;display:block;background:#05081a;border:1px solid rgba(255,255,255,0.05);"></canvas>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+        <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">Arrow keys to rotate &middot; Space to shoot</p>
+        <span id="asteroid-personality-msg" style="font-size:11px;color:#ff00c1;font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -906,43 +923,50 @@
 let _activeGame = 'runner';
 
 function switchGame(game) {
-  // Stop both games
+  // Stop all games
   if (typeof stopRunnerGame === 'function') stopRunnerGame();
   if (typeof stopSnakeGame  === 'function') stopSnakeGame();
+  if (typeof stopAsteroidGame === 'function') stopAsteroidGame();
 
   _activeGame = game;
 
   const runnerPanel = document.getElementById('game-panel-runner');
   const snakePanel  = document.getElementById('game-panel-snake');
+  const asteroidPanel = document.getElementById('game-panel-asteroid');
   const tabRunner   = document.getElementById('game-tab-runner');
   const tabSnake    = document.getElementById('game-tab-snake');
+  const tabAsteroid = document.getElementById('game-tab-asteroid');
+
+  // Hide all panels
+  runnerPanel.style.display = 'none';
+  snakePanel.style.display  = 'none';
+  asteroidPanel.style.display = 'none';
+
+  // Reset all tabs
+  [tabRunner, tabSnake, tabAsteroid].forEach(tab => {
+    tab.style.background = 'transparent';
+    tab.style.border = '1px solid var(--border-color)';
+    tab.style.color = 'var(--text-color)';
+  });
 
   if (game === 'runner') {
     runnerPanel.style.display = 'block';
-    snakePanel.style.display  = 'none';
     tabRunner.style.background = 'linear-gradient(135deg,var(--accent),var(--secondary))';
-    tabRunner.style.border     = 'none';
-    tabRunner.style.color      = '#fff';
-    tabSnake.style.background  = 'transparent';
-    tabSnake.style.border      = '1px solid var(--border-color)';
-    tabSnake.style.color       = 'var(--text-color)';
-    // Start runner game after panel is visible
-    setTimeout(() => {
-      if (typeof startRunnerGame === 'function') startRunnerGame();
-    }, 50);
-  } else {
-    runnerPanel.style.display = 'none';
-    snakePanel.style.display  = 'block';
-    tabSnake.style.background  = 'linear-gradient(135deg,#f59e0b,#7c3aed)';
-    tabSnake.style.border      = 'none';
-    tabSnake.style.color       = '#fff';
-    tabRunner.style.background = 'transparent';
-    tabRunner.style.border     = '1px solid var(--border-color)';
-    tabRunner.style.color      = 'var(--text-color)';
-    // Start snake game after panel is visible
-    setTimeout(() => {
-      if (typeof startSnakeGame === 'function') startSnakeGame();
-    }, 50);
+    tabRunner.style.border = 'none';
+    tabRunner.style.color = '#fff';
+    setTimeout(() => { if (typeof startRunnerGame === 'function') startRunnerGame(); }, 50);
+  } else if (game === 'snake') {
+    snakePanel.style.display = 'block';
+    tabSnake.style.background = 'linear-gradient(135deg,#f59e0b,#7c3aed)';
+    tabSnake.style.border = 'none';
+    tabSnake.style.color = '#fff';
+    setTimeout(() => { if (typeof startSnakeGame === 'function') startSnakeGame(); }, 50);
+  } else if (game === 'asteroid') {
+    asteroidPanel.style.display = 'block';
+    tabAsteroid.style.background = 'linear-gradient(135deg,#ff00c1,#00fff9)';
+    tabAsteroid.style.border = 'none';
+    tabAsteroid.style.color = '#fff';
+    setTimeout(() => { if (typeof startAsteroidGame === 'function') startAsteroidGame(); }, 50);
   }
 }
 
@@ -966,10 +990,11 @@ document.addEventListener('DOMContentLoaded', () => {
       switchGame('runner');
     };
 
-    // Enhanced closeRunnerGame - closes modal and stops both games
+    // Enhanced closeRunnerGame - closes modal and stops all games
     window.closeRunnerGame = function() {
       if (typeof stopRunnerGame === 'function') stopRunnerGame();
       if (typeof stopSnakeGame  === 'function') stopSnakeGame();
+      if (typeof stopAsteroidGame === 'function') stopAsteroidGame();
       const modal = document.getElementById('game-modal');
       if (modal) {
         modal.style.display = 'none';
