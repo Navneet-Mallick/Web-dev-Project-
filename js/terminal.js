@@ -164,13 +164,10 @@
   }
 
   function spawnHint(body) {
-    const hint = document.createElement('div');
-    hint.id = 't-hint-pulse';
-    hint.style.cssText = 'text-align:center;padding:10px 0 4px;font-size:12px;letter-spacing:2px;animation:hintPulse 1.8s ease-in-out infinite;';
-    hint.innerHTML = '<span style="color:#00d9ff;opacity:1">⌨  type \'help\' or \'hacker\' to see magic ✨</span>';
-    body.appendChild(hint);
-    body.scrollTop = body.scrollHeight;
-    document.addEventListener('keydown', (e) => { if (e.key !== 'Enter') hint.remove(); }, { once: true });
+    // Show hint as toast notification instead of in terminal
+    if (window.showToast) {
+      window.showToast('💡 Psst... try typing "hacker" in the terminal for a surprise! ✨', 'info', 5000);
+    }
   }
 
   function spawnInput(body) {
@@ -284,6 +281,8 @@
         if (window.triggerEasterEgg) {
           printLines(body, [{ cls: 't-accent', text: '  🔓 Executing secret script...' }], () => {
              window.triggerEasterEgg();
+             // Show hacker achievement notification
+             if (window.showToast) window.showToast('🔓 Hacker Mode Unlocked! You found the easter egg!', 'success', 4000);
              setTimeout(() => spawnInput(body), 500);
           });
           return;
