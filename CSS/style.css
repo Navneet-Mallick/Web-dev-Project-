@@ -3208,6 +3208,29 @@ body.light-mode .contact-card:hover {
   border-color: var(--accent);
   box-shadow: 0 20px 60px rgba(0,0,0,.1),0 0 30px var(--accent-glow)
 }
+
+body.light-mode .input-group input,
+body.light-mode .input-group textarea {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 102, 255, 0.2);
+  color: #1e293b;
+}
+
+body.light-mode .input-group input::placeholder,
+body.light-mode .input-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+body.light-mode .input-group input:focus,
+body.light-mode .input-group textarea:focus {
+  background: #fff;
+  border-color: #0066ff;
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.2), inset 0 0 10px rgba(0, 102, 255, 0.05);
+}
+
+body.light-mode .input-group i {
+  color: #0066ff;
+}
 @media (max-width:600px) {
   .contact-card {
     padding: 24px 20px;

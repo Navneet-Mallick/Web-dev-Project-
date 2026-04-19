@@ -167,7 +167,7 @@
     const hint = document.createElement('div');
     hint.id = 't-hint-pulse';
     hint.style.cssText = 'text-align:center;padding:10px 0 4px;font-size:12px;letter-spacing:2px;animation:hintPulse 1.8s ease-in-out infinite;';
-    hint.innerHTML = '<span style="color:#00d9ff;opacity:1">⌨  type something... try \'help\'</span>';
+    hint.innerHTML = '<span style="color:#00d9ff;opacity:1">⌨  type \'help\' or \'hacker\' to see magic ✨</span>';
     body.appendChild(hint);
     body.scrollTop = body.scrollHeight;
     document.addEventListener('keydown', (e) => { if (e.key !== 'Enter') hint.remove(); }, { once: true });
