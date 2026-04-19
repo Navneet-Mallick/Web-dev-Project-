@@ -3487,12 +3487,13 @@ body.light-mode .contact-card:hover {
 }
 
 .prof-bar {
-  width: 130px;
-  height: 6px;
+  width: 150px;
+  height: 8px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  border: 1px solid rgba(0,217,255,0.1);
 }
 
 .prof-fill {
@@ -3501,9 +3502,9 @@ body.light-mode .contact-card:hover {
   left: 0;
   height: 100%;
   background: linear-gradient(90deg, var(--accent), var(--secondary));
-  box-shadow: 0 0 10px var(--accent-glow);
+  box-shadow: 0 0 12px var(--accent-glow);
   border-radius: 10px;
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: 768px) {
