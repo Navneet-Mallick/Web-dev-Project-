@@ -30,13 +30,6 @@
   "Why do programmers prefer dark mode? Because light attracts bugs. 🐛",
   "A SQL query walks into a bar, walks up to two tables and asks... 'Can I join you?'",
   "Why did the developer go broke? Because he used up all his cache. 💸",
-  "I told my computer I needed a break. Now it won't stop sending me Kit-Kat ads.",
-  "There are 10 types of people: those who understand binary and those who don't.",
-  "Why do Java developers wear glasses? Because they don't see sharp. 👓",
-  "Debugging: Being the detective in a crime movie where you are also the murderer.",
-  "Why did the function return early? Because it had a timeout issue.",
-  "I would tell you a UDP joke, but you might not get it.",
-  "Why was the JavaScript developer sad? Because he didn't 'null' his feelings. 😄"
 ];
 
   const CMDS = {
@@ -49,15 +42,9 @@
       { cls: 't-green',  text: '  ls         — list everything' },
       { cls: 't-green',  text: '  neofetch   — system info' },
       { cls: 't-green',  text: '  date       — current date & time' },
-      { cls: 't-green',  text: '  joke       — random dev joke 😄' },
-      { cls: 't-green',  text: '  music      — now playing' },
       { cls: 't-green',  text: '  open <name>— open a project (try: movie)' },
       { cls: 't-green',  text: '  cv         — download my CV 📄' },
-      { cls: 't-green',  text: '  ping navneet — chat with me ..hey how are you?🟢' },
-      { cls: 't-green',  text: '  cat readme.md — about this portfolio' },
-      { cls: 't-green',  text: '  uptime     — how long I\'ve been running' },
-      { cls: 't-green',  text: '  uname      — system info' },
-      { cls: 't-green',  text: '  sudo rm -rf /  — hehe try it 😈' },
+      { cls: 't-green',  text: '  ping navneet — check connection 🟢' },
       { cls: 't-green',  text: '  clear      — clear terminal' },
       { cls: 't-accent', text: '└───────────────────────────────────────────┘' },
     ],
@@ -81,7 +68,6 @@
       { cls: 't-val',    text: '  🎵 GrooveBox          → navneet-mallick.github.io/GrooveBox-Music' },
       { cls: 't-green',  text: '  🚗 Car Price Predictor→ carpredictor-navneet.streamlit.app' },
       { cls: '',         text: '  🗳️  VoteSecure Online  → github.com/Navneet-Mallick' },
-      { cls: '',         text: '  🌦️  Weather App        → navneet-mallick.github.io/Weather-App-' },
     ],
     contact: [
       { cls: 't-green',  text: '  📧 navneetmallick092@gmail.com' },
@@ -232,56 +218,11 @@
         printLines(body, res, () => spawnInput(body)); return;
       }
 
-      if (cmd === 'joke') {
-        const j = JOKES[Math.floor(Math.random() * JOKES.length)];
-        printLines(body, [{ cls: 't-val', text: '  😂 ' + j }], () => spawnInput(body)); return;
-      }
-
       if (cmd === 'music') {
         const track = document.getElementById('music-track-name');
         const t = track ? track.textContent : 'Interstellar — Hans Zimmer';
         printLines(body, [{ cls: 't-accent', text: '  🎵 Now playing: ' + t }], () => spawnInput(body)); return;
       }
-if (cmd === 'sudo rm -rf /' || cmd === 'sudo rm -rf') {
-  // Dramatic slow deletion with suspense
-  const rmLines = [
-    { cls: '', text: '  [sudo] password for navneet: ••••••••' },
-    { cls: 't-val', text: '  WARNING: This will delete everything!' },
-    { cls: '', text: '  Are you sure? (y/N): y' },
-    { cls: 't-val', text: '  Initializing deletion sequence...' },
-    { cls: '', text: '  ██░░░░░░░░░░░░░░░░░░  10%  /home/navneet' },
-    { cls: '', text: '  ████░░░░░░░░░░░░░░░░  20%  /var/www' },
-    { cls: '', text: '  ██████░░░░░░░░░░░░░░  30%  /etc/nginx' },
-    { cls: '', text: '  ████████░░░░░░░░░░░░  40%  /usr/local' },
-    { cls: '', text: '  ██████████░░░░░░░░░░  50%  /opt/projects' },
-    { cls: '', text: '  ████████████░░░░░░░░  60%  /lib/system' },
-    { cls: '', text: '  ██████████████░░░░░░  70%  /boot' },
-    { cls: '', text: '  ████████████████░░░░  80%  /sys/kernel' },
-    { cls: '', text: '  ██████████████████░░  90%  /dev/null' },
-    { cls: 't-key', text: '  ████████████████████ 100% COMPLETE' },
-    { cls: 't-green', text: '  Just kidding 😈 Your files are safe. Nice try tho.' },
-  ];
-
-  // Print with longer delays for suspense
-  let d = 100;
-  rmLines.forEach((r, i) => {
-    const delay = i < 4 ? d : d + (i - 3) * 300; // slow down after warning
-    setTimeout(() => {
-      const el = outLine([r]);
-      body.appendChild(el);
-      show(el);
-      body.scrollTop = body.scrollHeight;
-    }, delay);
-    d = delay;
-  });
-
-  setTimeout(() => spawnInput(body), d + 200);
-  return;
-}
-
-// Separate sudo command handler
-
-
       if (cmd === 'sudo') {
         printLines(body, [{ cls: '', text: '  Nice try. You are not in the sudoers file. This incident will be reported. 👀' }], () => spawnInput(body)); return;
       }
@@ -322,20 +263,6 @@ if (cmd === 'sudo rm -rf /' || cmd === 'sudo rm -rf') {
         return;
       }
 
-      // whoami extended
-      if (cmd === 'pwd') {
-        printLines(body, [{ cls: 't-val', text: '  /home/navneet/portfolio' }], () => spawnInput(body)); return;
-      }
-
-      if (cmd === 'uname') {
-        printLines(body, [{ cls: 't-val', text: '  Portfolio-OS v2.0 (Navneet-Mallick) #1 SMP' }], () => spawnInput(body)); return;
-      }
-
-      if (cmd === 'uptime') {
-        const hrs = Math.floor(Math.random() * 12) + 1;
-        printLines(body, [{ cls: 't-green', text: `  up ${hrs} hours, 1 user, load average: 0.42, 0.69, 1.00` }], () => spawnInput(body)); return;
-      }
-
       if (cmd === 'ping navneet') {
         const lines = [
           { cls: 't-accent', text: '  PING navneet.dev (127.0.0.1)' },
@@ -347,20 +274,11 @@ if (cmd === 'sudo rm -rf /' || cmd === 'sudo rm -rf') {
         printLines(body, lines, () => spawnInput(body)); return;
       }
 
-      if (cmd === 'cat readme.md') {
-        const lines = [
-          { cls: 't-accent', text: '  # Navneet Mallick — Portfolio v2.0' },
-          { cls: '', text: '  Built with: HTML · CSS · Vanilla JS · Passion' },
-          { cls: 't-green', text: '  Features: Terminal · Music · Matrix Rain · Animations' },
-          { cls: 't-val',   text: '  Status: Always improving 🚀' },
-        ];
-        printLines(body, lines, () => spawnInput(body)); return;
-      }
-
       if (cmd === 'hacker' || cmd === './easter-egg.sh' || cmd === 'sh easter-egg.sh') {
         if (window.triggerEasterEgg) {
           printLines(body, [{ cls: 't-accent', text: '  🔓 Executing secret script...' }], () => {
              window.triggerEasterEgg();
+             setTimeout(() => spawnInput(body), 500);
           });
           return;
         }
