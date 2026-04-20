@@ -889,7 +889,7 @@
       <div style="display:flex;gap:8px;">
         <button id="game-tab-runner" onclick="switchGame('runner')" style="background:linear-gradient(135deg,var(--accent),var(--secondary));border:none;color:#fff;padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:opacity .2s;">&#x1F3C3; RUNNER</button>
         <button id="game-tab-snake"  onclick="switchGame('snake')"  style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">🐦 FLAPPY</button>
-        <button id="game-tab-asteroid" onclick="switchGame('asteroid')" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">💥 ASTEROIDS</button>
+        <button id="game-tab-asteroid" onclick="switchGame('asteroid')" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">🧩 TETRIS</button>
       </div>
       <button onclick="closeRunnerGame()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">&times;</button>
     </div>
@@ -926,19 +926,19 @@
       </div>
     </div>
 
-    <!-- Asteroid game panel -->
+    <!-- Tetris game panel -->
     <div id="game-panel-asteroid" style="display:none;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <span style="color:#ff00c1;font-family:monospace;font-size:13px;letter-spacing:2px;font-weight:bold;">ASTEROIDS.EXE</span>
+        <span style="color:#7c3aed;font-family:monospace;font-size:13px;letter-spacing:2px;font-weight:bold;">TETRIS.EXE</span>
         <div style="display:flex;gap:15px;font-family:monospace;font-size:13px;">
           <span id="asteroid-score-display" style="color:#fff;opacity:0.9;">SCORE: 0</span>
-          <span id="asteroid-hi-display"    style="color:#ff00c1;opacity:0.7;">HI: 0</span>
+          <span id="asteroid-hi-display"    style="color:#7c3aed;opacity:0.7;">HI: 0</span>
         </div>
       </div>
-      <canvas id="asteroid-canvas" width="620" height="320" style="width:100%;border-radius:8px;display:block;background:#05081a;border:1px solid rgba(255,255,255,0.05);"></canvas>
+      <canvas id="asteroid-canvas" style="display:block;margin:0 auto;border-radius:8px;background:#05081a;border:1px solid rgba(124,58,237,0.3);max-height:400px;"></canvas>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
-        <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">Arrow keys to rotate &middot; Space to shoot</p>
-        <span id="asteroid-personality-msg" style="font-size:11px;color:#ff00c1;font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
+        <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">← → move &middot; ↑ rotate &middot; Space hard drop &middot; Tap to rotate on mobile</p>
+        <span id="asteroid-personality-msg" style="font-size:11px;color:#7c3aed;font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
       </div>
     </div>
 

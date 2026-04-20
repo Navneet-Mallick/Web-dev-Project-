@@ -667,17 +667,316 @@ function openSnakeGame() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  ASTEROID SHOOTER GAME - A cooler game for developers
+//  TETRIS GAME
 // ═══════════════════════════════════════════════════════════════════
 
-let asteroidRaf, asteroidRunning = false;
+let tetrisRaf, tetrisRunning = false;
 
 function stopAsteroidGame() {
-  asteroidRunning = false;
-  cancelAnimationFrame(asteroidRaf);
+  tetrisRunning = false;
+  cancelAnimationFrame(tetrisRaf);
 }
 
-function startAsteroidGame() {
+function startAsteroidGame() { startTetrisGame(); }
+
+function startTetrisGame() {
+  const canvas = document.getElementById('asteroid-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const COLS = 10, ROWS = 20, BLOCK = 28;
+  const W = COLS * BLOCK, H = ROWS * BLOCK;
+  canvas.width  = W;
+  canvas.height = H;
+
+  const COLORS = {
+    I: '#00d9ff', O: '#f59e0b', T: '#7c3aed',
+    S: '#00ff88', Z: '#ff4500', J: '#0066ff', L: '#ff00c1',
+    ghost: 'rgba(255,255,255,0.12)', empty: '#05081a',
+    grid: 'rgba(255,255,255,0.04)',
+  };
+
+  const PIECES = {
+    I: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],
+    O: [[1,1],[1,1]],
+    T: [[0,1,0],[1,1,1],[0,0,0]],
+    S: [[0,1,1],[1,1,0],[0,0,0]],
+    Z: [[1,1,0],[0,1,1],[0,0,0]],
+    J: [[1,0,0],[1,1,1],[0,0,0]],
+    L: [[0,0,1],[1,1,1],[0,0,0]],
+  };
+
+  const KEYS = Object.keys(PIECES);
+
+  let board, piece, next, score, hiScore, lines, level, dead, started, dropTimer, dropInterval;
+  hiScore = parseInt(localStorage.getItem('nm_tetris_hi') || '0');
+
+  const hiDisplay    = document.getElementById('asteroid-hi-display');
+  const scoreDisplay = document.getElementById('asteroid-score-display');
+  const msgDisplay   = document.getElementById('asteroid-personality-msg');
+
+  function newBoard() {
+    return Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+  }
+
+  function randomPiece() {
+    const key = KEYS[Math.floor(Math.random() * KEYS.length)];
+    return { key, shape: PIECES[key].map(r => [...r]), x: Math.floor(COLS / 2) - 1, y: 0 };
+  }
+
+  function rotate(shape) {
+    const N = shape.length;
+    return shape[0].map((_, i) => shape.map(r => r[i]).reverse());
+  }
+
+  function valid(shape, ox, oy) {
+    for (let r = 0; r < shape.length; r++)
+      for (let c = 0; c < shape[r].length; c++)
+        if (shape[r][c]) {
+          const nx = ox + c, ny = oy + r;
+          if (nx < 0 || nx >= COLS || ny >= ROWS) return false;
+          if (ny >= 0 && board[ny][nx]) return false;
+        }
+    return true;
+  }
+
+  function place() {
+    piece.shape.forEach((r, ri) =>
+      r.forEach((v, ci) => {
+        if (v && piece.y + ri >= 0) board[piece.y + ri][piece.x + ci] = piece.key;
+      })
+    );
+    // Clear lines
+    let cleared = 0;
+    for (let r = ROWS - 1; r >= 0; r--) {
+      if (board[r].every(c => c)) {
+        board.splice(r, 1);
+        board.unshift(Array(COLS).fill(null));
+        cleared++; r++;
+      }
+    }
+    if (cleared) {
+      const pts = [0, 100, 300, 500, 800];
+      score += (pts[cleared] || 800) * level;
+      lines += cleared;
+      level = Math.floor(lines / 10) + 1;
+      dropInterval = Math.max(100, 800 - (level - 1) * 70);
+      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${score}`;
+      if (score > hiScore) {
+        hiScore = score;
+        localStorage.setItem('nm_tetris_hi', hiScore);
+        if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
+      }
+      const msgs = { 1:'NICE!', 2:'DOUBLE!', 3:'TRIPLE!', 4:'TETRIS!!' };
+      if (msgs[cleared] && msgDisplay) {
+        msgDisplay.textContent = msgs[cleared];
+        setTimeout(() => { if (msgDisplay) msgDisplay.textContent = `LVL ${level}`; }, 1000);
+      }
+    }
+    piece = next;
+    next  = randomPiece();
+    if (!valid(piece.shape, piece.x, piece.y)) {
+      dead = true;
+      if (msgDisplay) msgDisplay.textContent = 'GAME OVER';
+    }
+  }
+
+  function ghostY() {
+    let gy = piece.y;
+    while (valid(piece.shape, piece.x, gy + 1)) gy++;
+    return gy;
+  }
+
+  function initState() {
+    board = newBoard();
+    piece = randomPiece();
+    next  = randomPiece();
+    score = 0; lines = 0; level = 1;
+    dead = false; started = false;
+    dropTimer = 0; dropInterval = 800;
+    if (scoreDisplay) scoreDisplay.textContent = 'SCORE: 0';
+    if (hiDisplay)    hiDisplay.textContent    = `HI: ${hiScore}`;
+    if (msgDisplay)   msgDisplay.textContent   = '';
+  }
+
+  // ── Draw ──
+  function drawBlock(x, y, color, alpha = 1) {
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.fillRect(x * BLOCK + 1, y * BLOCK + 1, BLOCK - 2, BLOCK - 2);
+    // Shine
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.fillRect(x * BLOCK + 2, y * BLOCK + 2, BLOCK - 4, 4);
+    ctx.globalAlpha = 1;
+  }
+
+  function drawBoard() {
+    // Background
+    ctx.fillStyle = COLORS.empty;
+    ctx.fillRect(0, 0, W, H);
+    // Grid
+    ctx.strokeStyle = COLORS.grid;
+    ctx.lineWidth = 0.5;
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      ctx.strokeRect(c * BLOCK, r * BLOCK, BLOCK, BLOCK);
+    }
+    // Placed blocks
+    board.forEach((row, r) => row.forEach((v, c) => {
+      if (v) drawBlock(c, r, COLORS[v]);
+    }));
+  }
+
+  function drawPiece(p, alpha = 1) {
+    p.shape.forEach((row, r) => row.forEach((v, c) => {
+      if (v) drawBlock(p.x + c, p.y + r, COLORS[p.key], alpha);
+    }));
+  }
+
+  function drawGhost() {
+    const gy = ghostY();
+    piece.shape.forEach((row, r) => row.forEach((v, c) => {
+      if (v) {
+        ctx.globalAlpha = 0.18;
+        ctx.fillStyle = COLORS[piece.key];
+        ctx.fillRect((piece.x + c) * BLOCK + 1, (gy + r) * BLOCK + 1, BLOCK - 2, BLOCK - 2);
+        ctx.globalAlpha = 1;
+      }
+    }));
+  }
+
+  // ── Input ──
+  let lastMove = 0;
+  const keyHandler = e => {
+    if (!started || dead) {
+      if (e.code === 'Space' || e.key === 'Enter') {
+        if (dead) initState();
+        started = true;
+        if (msgDisplay) msgDisplay.textContent = `LVL ${level}`;
+      }
+      return;
+    }
+    switch (e.key) {
+      case 'ArrowLeft':  e.preventDefault(); if (valid(piece.shape, piece.x - 1, piece.y)) piece.x--; break;
+      case 'ArrowRight': e.preventDefault(); if (valid(piece.shape, piece.x + 1, piece.y)) piece.x++; break;
+      case 'ArrowDown':  e.preventDefault(); if (valid(piece.shape, piece.x, piece.y + 1)) piece.y++; else place(); break;
+      case 'ArrowUp': case 'x': case 'X': {
+        e.preventDefault();
+        const rot = rotate(piece.shape);
+        if (valid(rot, piece.x, piece.y)) piece.shape = rot;
+        else if (valid(rot, piece.x - 1, piece.y)) { piece.shape = rot; piece.x--; }
+        else if (valid(rot, piece.x + 1, piece.y)) { piece.shape = rot; piece.x++; }
+        break;
+      }
+      case ' ': {
+        e.preventDefault();
+        piece.y = ghostY();
+        place();
+        break;
+      }
+    }
+  };
+  document.addEventListener('keydown', keyHandler);
+
+  // Touch swipe for mobile
+  let tx0 = 0, ty0 = 0, tTime = 0;
+  const touchStart = e => { tx0 = e.touches[0].clientX; ty0 = e.touches[0].clientY; tTime = Date.now(); };
+  const touchEnd   = e => {
+    if (!started || dead) { started = true; if (dead) initState(); return; }
+    const dx = e.changedTouches[0].clientX - tx0;
+    const dy = e.changedTouches[0].clientY - ty0;
+    const dt = Date.now() - tTime;
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10 && dt < 200) {
+      // Tap = rotate
+      const rot = rotate(piece.shape);
+      if (valid(rot, piece.x, piece.y)) piece.shape = rot;
+    } else if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 20 && valid(piece.shape, piece.x + 1, piece.y)) piece.x++;
+      if (dx < -20 && valid(piece.shape, piece.x - 1, piece.y)) piece.x--;
+    } else {
+      if (dy > 20) { piece.y = ghostY(); place(); } // swipe down = hard drop
+    }
+  };
+  canvas.addEventListener('touchstart', touchStart, { passive: true });
+  canvas.addEventListener('touchend',   touchEnd);
+
+  // ── Loop ──
+  let last = 0;
+  function loop(ts) {
+    if (!tetrisRunning) {
+      document.removeEventListener('keydown', keyHandler);
+      canvas.removeEventListener('touchstart', touchStart);
+      canvas.removeEventListener('touchend',   touchEnd);
+      return;
+    }
+
+    const dt = ts - last; last = ts;
+    drawBoard();
+
+    if (!started) {
+      ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#00d9ff';
+      ctx.font = 'bold 20px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('🧩 TETRIS', W / 2, H / 2 - 30);
+      ctx.font = '12px monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.fillText('← → move  ↑ rotate', W / 2, H / 2);
+      ctx.fillText('↓ soft drop  Space hard drop', W / 2, H / 2 + 20);
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 45);
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = 'bold 13px monospace';
+      ctx.fillText('SPACE / TAP to start', W / 2, H / 2 + 70);
+      ctx.textAlign = 'left';
+      tetrisRaf = requestAnimationFrame(loop);
+      return;
+    }
+
+    if (!dead) {
+      dropTimer += dt;
+      if (dropTimer >= dropInterval) {
+        dropTimer = 0;
+        if (valid(piece.shape, piece.x, piece.y + 1)) piece.y++;
+        else place();
+      }
+      drawGhost();
+      drawPiece(piece);
+    }
+
+    if (dead) {
+      ctx.fillStyle = 'rgba(0,0,0,0.7)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#ff4500';
+      ctx.font = 'bold 22px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('GAME OVER', W / 2, H / 2 - 20);
+      ctx.fillStyle = '#fff';
+      ctx.font = '13px monospace';
+      ctx.fillText(`SCORE: ${score}`, W / 2, H / 2 + 8);
+      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 28);
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.font = '11px monospace';
+      ctx.fillText('SPACE / TAP to restart', W / 2, H / 2 + 52);
+      ctx.textAlign = 'left';
+    }
+
+    tetrisRaf = requestAnimationFrame(loop);
+  }
+
+  initState();
+  tetrisRunning = true;
+  tetrisRaf = requestAnimationFrame(loop);
+}
+
+function openAsteroidGame() {
+  const modal = document.getElementById('game-modal');
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  switchGame('asteroid');
+}
+
+
   const canvas = document.getElementById('asteroid-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -783,234 +1082,6 @@ function startAsteroidGame() {
 
   astLeft.addEventListener('touchstart',  e => { e.preventDefault(); touchLeft = true; if (!started) { started = true; } }, { passive: false });
   astLeft.addEventListener('touchend',    e => { e.preventDefault(); touchLeft = false; }, { passive: false });
-  astRight.addEventListener('touchstart', e => { e.preventDefault(); touchRight = true; if (!started) { started = true; } }, { passive: false });
-  astRight.addEventListener('touchend',   e => { e.preventDefault(); touchRight = false; }, { passive: false });
-  astShoot.addEventListener('touchstart', e => { e.preventDefault(); touchShoot = true; if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'FIRING...'; } }, { passive: false });
-  astShoot.addEventListener('touchend',   e => { e.preventDefault(); touchShoot = false; }, { passive: false });
-
-  // Main loop
-  function loop() {
-    if (!asteroidRunning) {
-      document.removeEventListener('keydown', keyDown);
-      document.removeEventListener('keyup', keyUp);
-      if (touchControls.parentElement) touchControls.remove();
-      return;
-    }
-
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = CLR.bg;
-    ctx.fillRect(0, 0, W, H);
-
-    if (!started) {
-      // Draw player
-      ctx.save();
-      ctx.translate(player.x, player.y);
-      ctx.rotate(player.angle);
-      ctx.fillStyle = CLR.player;
-      ctx.beginPath();
-      ctx.moveTo(0, -10);
-      ctx.lineTo(-8, 8);
-      ctx.lineTo(0, 4);
-      ctx.lineTo(8, 8);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
-      ctx.fillStyle = CLR.text;
-      ctx.font = 'bold 16px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('ASTEROID SHOOTER', W / 2, H / 2 - 20);
-      ctx.font = '12px monospace';
-      ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      ctx.fillText('Arrow Keys to rotate • Space to shoot', W / 2, H / 2 + 5);
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 25);
-      ctx.textAlign = 'left';
-      asteroidRaf = requestAnimationFrame(loop);
-      return;
-    }
-
-    if (!dead) {
-      frame++;
-
-      // Player rotation
-      if (keys['ArrowLeft']  || touchLeft)  player.angle -= 0.15;
-      if (keys['ArrowRight'] || touchRight) player.angle += 0.15;
-      if (keys[' '] || touchShoot) {
-        bullets.push({
-          x: player.x + Math.cos(player.angle) * 12,
-          y: player.y + Math.sin(player.angle) * 12,
-          vx: Math.cos(player.angle) * 6,
-          vy: Math.sin(player.angle) * 6,
-          life: 60,
-        });
-        keys[' '] = false;
-      }
-
-      // Update bullets
-      bullets = bullets.filter(b => {
-        b.x += b.vx;
-        b.y += b.vy;
-        b.life--;
-        return b.life > 0 && b.x > 0 && b.x < W && b.y > 0 && b.y < H;
-      });
-
-      // Update asteroids
-      asteroids.forEach(a => {
-        a.x += a.vx;
-        a.y += a.vy;
-        a.angle += a.angVel;
-
-        // Wrap around
-        if (a.x < -30) a.x = W + 30;
-        if (a.x > W + 30) a.x = -30;
-        if (a.y < -30) a.y = H + 30;
-        if (a.y > H + 30) a.y = -30;
-      });
-
-      // Collision detection
-      bullets.forEach((b, bi) => {
-        asteroids.forEach((a, ai) => {
-          const dist = Math.hypot(b.x - a.x, b.y - a.y);
-          if (dist < a.size * 5) {
-            bullets.splice(bi, 1);
-            asteroids.splice(ai, 1);
-            spawnExplosion(a.x, a.y);
-            score += a.size * 10;
-            
-            // Split asteroid
-            if (a.size > 1) {
-              for (let i = 0; i < 2; i++) {
-                spawnAsteroid(a.x + (Math.random() - 0.5) * 20, a.y + (Math.random() - 0.5) * 20, a.size - 1);
-              }
-            }
-            
-            if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${score}`;
-            if (score > hiScore) {
-              hiScore = score;
-              localStorage.setItem('nm_asteroid_hi', hiScore);
-              if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
-            }
-          }
-        });
-      });
-
-      // Player collision with asteroids
-      asteroids.forEach(a => {
-        const dist = Math.hypot(player.x - a.x, player.y - a.y);
-        if (dist < a.size * 5 + 10) {
-          dead = true;
-          spawnExplosion(player.x, player.y);
-          if (msgDisplay) msgDisplay.textContent = 'DESTROYED';
-        }
-      });
-
-      // Spawn new asteroids if all destroyed
-      if (asteroids.length === 0) {
-        const level = Math.floor(score / 300) + 1;
-        for (let i = 0; i < 2 + level; i++) {
-          spawnAsteroid(Math.random() * W, Math.random() * (H / 3), 3);
-        }
-      }
-    }
-
-    // Draw asteroids
-    asteroids.forEach(a => {
-      ctx.save();
-      ctx.translate(a.x, a.y);
-      ctx.rotate(a.angle);
-      ctx.fillStyle = CLR.asteroid;
-      ctx.shadowColor = CLR.asteroid;
-      ctx.shadowBlur = 10;
-      ctx.beginPath();
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2;
-        const r = a.size * 5 * (0.8 + Math.random() * 0.2);
-        const x = Math.cos(angle) * r;
-        const y = Math.sin(angle) * r;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-    });
-
-    // Draw bullets
-    bullets.forEach(b => {
-      ctx.fillStyle = CLR.bullet;
-      ctx.shadowColor = CLR.bullet;
-      ctx.shadowBlur = 8;
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, 3, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    // Draw particles
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.1;
-      p.life -= p.decay;
-      ctx.globalAlpha = Math.max(0, p.life);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
-    });
-    ctx.globalAlpha = 1;
-    particles = particles.filter(p => p.life > 0);
-
-    // Draw player
-    ctx.save();
-    ctx.translate(player.x, player.y);
-    ctx.rotate(player.angle);
-    ctx.fillStyle = dead ? CLR.dead : CLR.player;
-    ctx.shadowColor = dead ? CLR.dead : CLR.player;
-    ctx.shadowBlur = 12;
-    ctx.beginPath();
-    ctx.moveTo(0, -10);
-    ctx.lineTo(-8, 8);
-    ctx.lineTo(0, 4);
-    ctx.lineTo(8, 8);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-
-    // HUD
-    ctx.fillStyle = CLR.text;
-    ctx.font = '12px monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText(`SCORE: ${score}`, 10, 20);
-
-    if (dead) {
-      ctx.fillStyle = 'rgba(0,0,0,0.6)';
-      ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = CLR.dead;
-      ctx.font = 'bold 18px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText('GAME OVER', W / 2, H / 2 - 10);
-      ctx.fillStyle = '#fff';
-      ctx.font = '12px monospace';
-      ctx.fillText(`SCORE: ${score}   HI: ${hiScore}`, W / 2, H / 2 + 15);
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      ctx.fillText('Space to restart', W / 2, H / 2 + 35);
-      ctx.textAlign = 'left';
-
-      if (keys[' ']) {
-        initState();
-        started = true;
-        if (msgDisplay) msgDisplay.textContent = 'REBOOTING...';
-      }
-    }
-
-    ctx.shadowBlur = 0;
-    asteroidRaf = requestAnimationFrame(loop);
-  }
-
-  initState();
-  asteroidRunning = true;
-  asteroidRaf = requestAnimationFrame(loop);
-}
-
 function openAsteroidGame() {
   const modal = document.getElementById('game-modal');
   modal.style.display = 'flex';
