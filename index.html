@@ -895,7 +895,7 @@
     const footer = document.querySelector('footer');
     if (footer) {
         const wrap = document.createElement('div');
-        wrap.style.cssText = 'margin-top:15px; font-size:12px; color:rgba(255,255,255,0.4); display:flex; align-items:center; gap:8px; justify-content:center;';
+        wrap.style.cssText = 'margin-top:15px; font-size:12px; color:var(--text-color); opacity:0.7; display:flex; align-items:center; gap:8px; justify-content:center;';
         wrap.innerHTML = `<i class="fas fa-trophy" style="color:var(--tertiary)"></i> Achievements Unlocked: <span id="achieve-badge" style="color:var(--accent); font-weight:700;">0</span>`;
         footer.insertBefore(wrap, footer.lastElementChild);
         updateAchievementsUI();
