@@ -3108,6 +3108,17 @@ body.light-mode .terminal-body::-webkit-scrollbar-thumb {
 body.light-mode .terminal-card {
   box-shadow: 8px 16px 40px rgba(0,102,255,.12),-4px -4px 20px rgba(124,58,237,.08),0 0 60px rgba(0,0,0,.06)
 }
+
+/* Terminal text colors in light mode */
+body.light-mode .t-prompt  { color: #16a34a; text-shadow: none; }
+body.light-mode .t-cmd     { color: #1d4ed8; }
+body.light-mode .t-output  { color: #1e293b; }
+body.light-mode .t-key     { color: #dc2626; }
+body.light-mode .t-val     { color: #0369a1; }
+body.light-mode .t-accent  { color: #0066ff; text-shadow: none; }
+body.light-mode .t-green   { color: #15803d; }
+body.light-mode .t-input   { color: #1d4ed8 !important; caret-color: #0066ff; }
+body.light-mode .terminal-title { color: rgba(0,0,0,0.45); }
 body.light-mode .skills-table {
   border-color: rgba(0,102,255,.15);
   box-shadow: 0 2px 20px rgba(0,0,0,.06)
