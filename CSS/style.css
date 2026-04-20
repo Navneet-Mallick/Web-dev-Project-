@@ -1970,8 +1970,8 @@ body.boot-active {
   right: 24px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   background: rgba(10,14,39,.92);
   border: 1px solid var(--border-color);
   border-radius: 50px;
@@ -1979,7 +1979,7 @@ body.boot-active {
   backdrop-filter: blur(24px) saturate(180%);
   box-shadow: 0 8px 32px rgba(0,0,0,.4), 0 0 20px rgba(0,217,255,0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  max-width: 220px;
+  max-width: 160px;
 }
 body.light-mode #music-player {
   background: rgba(255,255,255,.88)
@@ -1994,13 +1994,13 @@ body.light-mode #music-player {
   box-shadow: 0 8px 32px rgba(0,0,0,.4),0 0 16px rgba(255,69,0,.35)
 }
 #music-toggle {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: none;
   background: linear-gradient(135deg,var(--accent),var(--secondary));
   color: #fff;
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
