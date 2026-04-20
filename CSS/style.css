@@ -2866,7 +2866,88 @@ body {
   z-index: 2;
 }
 
-/* Use :has selector for modern browsers to handle textarea icon position */
+/* ── BATCH 4: GLASSMORPHISM + GRADIENT TEXT + SCROLL COUNTER ── */
+
+/* Glassmorphism cards */
+.project-card,
+.cert-card,
+.exp-card,
+.stat-card,
+.timeline-content,
+.about-info,
+.contact-card {
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+
+.project-card {
+  background: rgba(13, 21, 53, 0.55) !important;
+  border: 1px solid rgba(0, 217, 255, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.cert-card {
+  background: rgba(13, 21, 53, 0.55) !important;
+  border: 1px solid rgba(124, 58, 237, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.stat-card {
+  background: rgba(13, 21, 53, 0.55) !important;
+  border: 1px solid rgba(0, 217, 255, 0.12) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.exp-card,
+.timeline-content {
+  background: rgba(13, 21, 53, 0.55) !important;
+  border: 1px solid rgba(0, 217, 255, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Gradient text on section titles */
+.section-title {
+  background: linear-gradient(135deg, #00d9ff 0%, #7c3aed 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* Stat counter pop animation */
+.stat-number.counting {
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--accent-glow);
+  transform: scale(1.1);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Light mode glassmorphism overrides */
+body.light-mode .project-card,
+body.light-mode .cert-card,
+body.light-mode .stat-card,
+body.light-mode .exp-card,
+body.light-mode .timeline-content {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(0, 102, 255, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+body.light-mode .section-title {
+  background: linear-gradient(135deg, #0066ff 0%, #7c3aed 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: gradientShift 4s ease infinite;
+}
 .input-group:has(textarea) i {
   top: 25px;
   transform: none;

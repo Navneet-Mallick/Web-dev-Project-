@@ -15,18 +15,27 @@ function initStats() {
       if (!entry.isIntersecting) return;
       const el = entry.target;
       const target = parseInt(el.dataset.target, 10);
-      const duration = 1800;
-      const step = target / (duration / 16);
-      let current = 0;
-      const timer = setInterval(() => {
-        current += step;
-        if (current >= target) {
-          el.textContent = target + (el.dataset.suffix || '');
-          clearInterval(timer);
+      const duration = 2000;
+      const startTime = performance.now();
+
+      el.classList.add('counting');
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current + (el.dataset.suffix || '');
+        if (progress < 1) {
+          requestAnimationFrame(update);
         } else {
-          el.textContent = Math.floor(current) + (el.dataset.suffix || '');
+          el.textContent = target + (el.dataset.suffix || '');
+          el.classList.remove('counting');
         }
-      }, 16);
+      }
+
+      requestAnimationFrame(update);
       observer.unobserve(el);
     });
   }, { threshold: 0.5 });
