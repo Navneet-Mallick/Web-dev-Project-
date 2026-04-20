@@ -332,273 +332,308 @@ function startRunnerGame() {
 //  SNAKE GAME
 // ═══════════════════════════════════════════════════════════════════
 
-let snakeRaf, snakeRunning = false;
+// ═══════════════════════════════════════════════════════════════════
+//  FLAPPY BIRD GAME (replaces Snake)
+// ═══════════════════════════════════════════════════════════════════
+
+let flappyRaf, flappyRunning = false;
 
 function stopSnakeGame() {
-  snakeRunning = false;
-  cancelAnimationFrame(snakeRaf);
+  flappyRunning = false;
+  cancelAnimationFrame(flappyRaf);
 }
 
-function startSnakeGame() {
+function startSnakeGame() { startFlappyGame(); }
+
+function startFlappyGame() {
   const canvas = document.getElementById('snake-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
-  const CELL = 20;
-  const COLS = W / CELL, ROWS = H / CELL;
 
   const CLR = {
-    bg:       '#0a0e27',
-    grid:     'rgba(0,217,255,0.04)',
-    snake:    '#00d9ff',
-    snakeHead:'#ffffff',
-    food:     '#f59e0b',
-    foodGlow: 'rgba(245,158,11,0.6)',
-    wall:     '#7c3aed',
-    text:     '#00d9ff',
-    dead:     '#ff4500',
+    bg1: '#0a0e27', bg2: '#0d1535',
+    bird: '#f59e0b', birdGlow: 'rgba(245,158,11,0.6)',
+    pipe: '#7c3aed', pipeGlow: 'rgba(124,58,237,0.5)',
+    ground: '#00d9ff', text: '#00d9ff', dead: '#ff4500',
+    star: 'rgba(255,255,255,0.6)',
   };
 
-  // ── State ──
-  let snake, dir, nextDir, food, score, hiScore, dead, started, frame, foodPulse;
-  hiScore = parseInt(localStorage.getItem('nm_snake_hi') || '0');
+  const GRAVITY   = 0.45;
+  const JUMP_V    = -8;
+  const PIPE_W    = 52;
+  const PIPE_GAP  = 130;
+  const PIPE_SPD  = 2.8;
+  const GROUND_H  = 30;
 
-  const hiDisplay  = document.getElementById('snake-hi-display');
+  let bird, pipes, particles, score, hiScore, dead, started, frame, stars;
+  hiScore = parseInt(localStorage.getItem('nm_flappy_hi') || '0');
+
+  const hiDisplay    = document.getElementById('snake-hi-display');
   const scoreDisplay = document.getElementById('snake-score-display');
-  const msgDisplay = document.getElementById('snake-personality-msg');
+  const msgDisplay   = document.getElementById('snake-personality-msg');
+
+  const MSGS = { 1:'FIRST PIPE!', 5:'GETTING GOOD', 10:'IMPRESSIVE', 20:'FLAPPY GOD?', 50:'LEGENDARY' };
 
   function initState() {
-    const midX = Math.floor(COLS / 2), midY = Math.floor(ROWS / 2);
-    snake    = [
-      { x: midX,     y: midY },
-      { x: midX - 1, y: midY },
-      { x: midX - 2, y: midY },
-    ];
-    dir      = { x: 1, y: 0 };
-    nextDir  = { x: 1, y: 0 };
-    food     = spawnFood();
-    score    = 0;
-    dead     = false;
-    started  = false;
-    frame    = 0;
-    foodPulse = 0;
+    bird = { x: 80, y: H / 2, vy: 0, r: 14, angle: 0, flap: 0 };
+    pipes = [];
+    particles = [];
+    score = 0;
+    dead = false;
+    started = false;
+    frame = 0;
+    stars = Array.from({ length: 40 }, () => ({
+      x: Math.random() * W, y: Math.random() * (H - GROUND_H),
+      s: Math.random() * 1.5 + 0.5, sp: Math.random() * 0.3 + 0.1,
+    }));
     if (scoreDisplay) scoreDisplay.textContent = 'SCORE: 0';
     if (hiDisplay)    hiDisplay.textContent    = `HI: ${hiScore}`;
     if (msgDisplay)   msgDisplay.textContent   = '';
   }
 
-  function spawnFood() {
-    let pos;
-    do {
-      pos = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
-    } while (snake.some(s => s.x === pos.x && s.y === pos.y));
-    return pos;
+  function spawnPipe() {
+    const minY = 50, maxY = H - GROUND_H - PIPE_GAP - 50;
+    const topH = Math.floor(Math.random() * (maxY - minY) + minY);
+    pipes.push({ x: W + 10, topH, passed: false });
   }
 
-  // ── Input ──
-  const DIRS = {
-    ArrowUp:    { x: 0, y: -1 }, w: { x: 0, y: -1 },
-    ArrowDown:  { x: 0, y:  1 }, s: { x: 0, y:  1 },
-    ArrowLeft:  { x: -1, y: 0 }, a: { x: -1, y: 0 },
-    ArrowRight: { x:  1, y: 0 }, d: { x:  1, y: 0 },
-  };
+  function flap() {
+    if (dead) { initState(); started = true; if (msgDisplay) msgDisplay.textContent = 'RETRY...'; return; }
+    if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'FLAPPING...'; }
+    bird.vy = JUMP_V;
+    bird.flap = 8;
+    spawnFeathers();
+  }
 
-  const keyHandler = e => {
-    const d = DIRS[e.key] || DIRS[e.key.toLowerCase()];
-    if (!d) return;
-    // Prevent reversing
-    if (d.x === -dir.x && d.y === -dir.y) return;
-    // Prevent default scroll on arrow keys
-    if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault();
-    if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'SLITHERING...'; }
-    nextDir = d;
-  };
-
-  // Touch swipe support
-  let touchStartX = 0, touchStartY = 0;
-  const touchStart = e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; };
-  const touchEnd   = e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    const dy = e.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
-    if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'SLITHERING...'; }
-    if (Math.abs(dx) > Math.abs(dy)) {
-      const d = dx > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
-      if (d.x !== -dir.x) nextDir = d;
-    } else {
-      const d = dy > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
-      if (d.y !== -dir.y) nextDir = d;
+  function spawnFeathers() {
+    for (let i = 0; i < 5; i++) {
+      particles.push({
+        x: bird.x, y: bird.y,
+        vx: (Math.random() - 0.5) * 3,
+        vy: Math.random() * 2 + 1,
+        life: 1, decay: 0.07,
+        color: CLR.birdGlow, size: 3 + Math.random() * 3,
+      });
     }
-  };
+  }
 
+  function spawnDeathParticles() {
+    for (let i = 0; i < 20; i++) {
+      const a = (i / 20) * Math.PI * 2;
+      particles.push({
+        x: bird.x, y: bird.y,
+        vx: Math.cos(a) * (2 + Math.random() * 4),
+        vy: Math.sin(a) * (2 + Math.random() * 4),
+        life: 1, decay: 0.03,
+        color: [CLR.bird, '#ff00c1', '#00fff9'][i % 3], size: 4 + Math.random() * 4,
+      });
+    }
+  }
+
+  // Input
+  const keyHandler = e => { if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); flap(); } };
+  const tapHandler = () => flap();
   document.addEventListener('keydown', keyHandler);
-  canvas.addEventListener('touchstart', touchStart, { passive: true });
-  canvas.addEventListener('touchend',   touchEnd);
+  canvas.addEventListener('pointerdown', tapHandler);
 
-  // ── Game speed (ms per tick) ──
-  function getSpeed() {
-    if (score < 5)  return 160;
-    if (score < 15) return 130;
-    if (score < 30) return 105;
-    if (score < 50) return 85;
-    return 70;
-  }
+  // Draw helpers
+  function drawBg() {
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, CLR.bg1);
+    grad.addColorStop(1, CLR.bg2);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
 
-  let lastTick = 0;
-
-  // ── Draw helpers ──
-  function drawGrid() {
-    ctx.strokeStyle = CLR.grid;
-    ctx.lineWidth = 0.5;
-    for (let x = 0; x <= W; x += CELL) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-    }
-    for (let y = 0; y <= H; y += CELL) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-    }
-  }
-
-  function drawSnake() {
-    snake.forEach((seg, i) => {
-      const isHead = i === 0;
-      const t = 1 - i / snake.length;
-      ctx.shadowColor = CLR.snake;
-      ctx.shadowBlur  = isHead ? 18 : 8 * t;
-
-      // Gradient body: head is white, tail fades to accent
-      const r = isHead ? 255 : Math.round(0   + t * 0);
-      const g = isHead ? 255 : Math.round(217 * t);
-      const b = isHead ? 255 : Math.round(255 * t);
-      ctx.fillStyle = isHead ? CLR.snakeHead : `rgb(${r},${g},${b})`;
-
-      const pad = isHead ? 1 : 2;
-      ctx.beginPath();
-      ctx.roundRect(seg.x * CELL + pad, seg.y * CELL + pad, CELL - pad * 2, CELL - pad * 2, isHead ? 5 : 3);
-      ctx.fill();
-
-      // Eyes on head
-      if (isHead) {
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = '#0a0e27';
-        const ex = dir.x === 1 ? 13 : dir.x === -1 ? 4 : 6;
-        const ey = dir.y === 1 ? 13 : dir.y === -1 ? 4 : 6;
-        const ex2 = dir.x === 0 ? ex + 8 : ex;
-        const ey2 = dir.y === 0 ? ey + 8 : ey;
-        ctx.fillRect(seg.x * CELL + ex,  seg.y * CELL + ey,  3, 3);
-        ctx.fillRect(seg.x * CELL + ex2, seg.y * CELL + ey2, 3, 3);
-      }
+    // Stars
+    stars.forEach(s => {
+      if (!dead) s.x -= s.sp;
+      if (s.x < 0) s.x = W;
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = CLR.star;
+      ctx.fillRect(s.x, s.y, s.s, s.s);
     });
-    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
   }
 
-  function drawFood() {
-    foodPulse += 0.08;
-    const pulse = Math.sin(foodPulse) * 0.15 + 0.85;
-    const cx = food.x * CELL + CELL / 2;
-    const cy = food.y * CELL + CELL / 2;
-    const r  = (CELL / 2 - 3) * pulse;
+  function drawGround() {
+    ctx.fillStyle = CLR.ground;
+    ctx.shadowColor = CLR.ground;
+    ctx.shadowBlur = 8;
+    ctx.fillRect(0, H - GROUND_H, W, GROUND_H);
+    ctx.shadowBlur = 0;
+    // Ground detail lines
+    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+    ctx.lineWidth = 1;
+    for (let x = (frame * PIPE_SPD) % 40; x < W; x += 40) {
+      ctx.beginPath(); ctx.moveTo(x, H - GROUND_H); ctx.lineTo(x, H); ctx.stroke();
+    }
+  }
+
+  function drawPipes() {
+    pipes.forEach(p => {
+      const botY = p.topH + PIPE_GAP;
+
+      // Top pipe
+      ctx.fillStyle = CLR.pipe;
+      ctx.shadowColor = CLR.pipeGlow;
+      ctx.shadowBlur = 12;
+      ctx.fillRect(p.x, 0, PIPE_W, p.topH);
+      // Cap
+      ctx.fillRect(p.x - 4, p.topH - 20, PIPE_W + 8, 20);
+
+      // Bottom pipe
+      ctx.fillRect(p.x, botY, PIPE_W, H - GROUND_H - botY);
+      // Cap
+      ctx.fillRect(p.x - 4, botY, PIPE_W + 8, 20);
+
+      // Highlight stripe
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.fillRect(p.x + 6, 0, 8, p.topH);
+      ctx.fillRect(p.x + 6, botY + 20, 8, H - GROUND_H - botY - 20);
+
+      ctx.shadowBlur = 0;
+    });
+  }
+
+  function drawBird() {
+    ctx.save();
+    ctx.translate(bird.x, bird.y);
+    // Tilt based on velocity
+    bird.angle = Math.min(Math.max(bird.vy * 3, -30), 70) * Math.PI / 180;
+    ctx.rotate(bird.angle);
 
     // Glow
-    ctx.shadowColor = CLR.foodGlow;
-    ctx.shadowBlur  = 16;
+    ctx.shadowColor = CLR.birdGlow;
+    ctx.shadowBlur = 16;
 
-    // Outer ring
-    ctx.strokeStyle = CLR.food;
-    ctx.lineWidth   = 2;
+    // Body
+    ctx.fillStyle = dead ? CLR.dead : CLR.bird;
     ctx.beginPath();
-    ctx.arc(cx, cy, r + 2, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Fill
-    ctx.fillStyle = CLR.food;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.ellipse(0, 0, bird.r, bird.r * 0.85, 0, 0, Math.PI * 2);
     ctx.fill();
 
+    // Wing flap
+    const wingY = Math.sin(bird.flap * 0.8) * 4;
+    ctx.fillStyle = dead ? '#cc3300' : '#e08800';
+    ctx.beginPath();
+    ctx.ellipse(-4, wingY, 8, 5, -0.3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Eye
     ctx.shadowBlur = 0;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(6, -3, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#000';
+    ctx.beginPath(); ctx.arc(7, -3, 2.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(8, -4, 1, 0, Math.PI * 2); ctx.fill();
+
+    // Beak
+    ctx.fillStyle = '#ff8c00';
+    ctx.beginPath();
+    ctx.moveTo(bird.r - 2, -2); ctx.lineTo(bird.r + 7, 0); ctx.lineTo(bird.r - 2, 3);
+    ctx.closePath(); ctx.fill();
+
+    ctx.restore();
+    if (bird.flap > 0) bird.flap--;
   }
 
-  function drawHUD() {
-    // Score in canvas top-left
-    ctx.fillStyle = 'rgba(0,217,255,0.15)';
-    ctx.fillRect(4, 4, 90, 22);
-    ctx.fillStyle = CLR.text;
-    ctx.font = 'bold 12px monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText(`SCORE: ${score}`, 10, 19);
+  function drawParticles() {
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.life -= p.decay;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    particles = particles.filter(p => p.life > 0);
   }
 
-  // ── Main loop ──
-  function loop(timestamp) {
-    if (!snakeRunning) {
+  // Main loop
+  let pipeTimer = 0;
+
+  function loop() {
+    if (!flappyRunning) {
       document.removeEventListener('keydown', keyHandler);
-      canvas.removeEventListener('touchstart', touchStart);
-      canvas.removeEventListener('touchend',   touchEnd);
+      canvas.removeEventListener('pointerdown', tapHandler);
       return;
     }
 
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = CLR.bg;
-    ctx.fillRect(0, 0, W, H);
-    drawGrid();
+    frame++;
+    drawBg();
+    drawPipes();
+    drawGround();
+    drawParticles();
 
     if (!started) {
-      drawSnake();
-      drawFood();
+      drawBird();
       ctx.fillStyle = CLR.text;
-      ctx.font = 'bold 15px monospace';
+      ctx.font = 'bold 16px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('USE ARROW KEYS / WASD / SWIPE', W / 2, H / 2 - 12);
+      ctx.fillText('🐦 FLAPPY BIRD', W / 2, H / 2 - 20);
       ctx.font = '12px monospace';
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 10);
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.fillText('SPACE / TAP to flap', W / 2, H / 2 + 5);
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillText(`HI: ${hiScore}`, W / 2, H / 2 + 25);
       ctx.textAlign = 'left';
-      snakeRaf = requestAnimationFrame(loop);
+      flappyRaf = requestAnimationFrame(loop);
       return;
     }
 
-    if (!dead && timestamp - lastTick >= getSpeed()) {
-      lastTick = timestamp;
-      dir = nextDir;
+    if (!dead) {
+      // Physics
+      bird.vy += GRAVITY;
+      bird.y  += bird.vy;
 
-      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      // Pipe spawning
+      pipeTimer++;
+      if (pipeTimer > 90) { spawnPipe(); pipeTimer = 0; }
 
-      // Wall collision (wrap-around mode)
-      head.x = (head.x + COLS) % COLS;
-      head.y = (head.y + ROWS) % ROWS;
-
-      // Self collision
-      if (snake.some(s => s.x === head.x && s.y === head.y)) {
-        dead = true;
-        if (msgDisplay) msgDisplay.textContent = 'SEGFAULT';
-        if (score > hiScore) {
-          hiScore = score;
-          localStorage.setItem('nm_snake_hi', hiScore);
-          if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
-        }
-      } else {
-        snake.unshift(head);
-        if (head.x === food.x && head.y === food.y) {
+      // Move pipes
+      pipes.forEach(p => {
+        p.x -= PIPE_SPD;
+        // Score
+        if (!p.passed && p.x + PIPE_W < bird.x) {
+          p.passed = true;
           score++;
-          food = spawnFood();
           if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${score}`;
           if (score > hiScore) {
             hiScore = score;
-            localStorage.setItem('nm_snake_hi', hiScore);
+            localStorage.setItem('nm_flappy_hi', hiScore);
             if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
           }
-          // Flavor messages
-          const msgs = { 5:'WARMING UP', 10:'GETTING GOOD', 20:'IMPRESSIVE', 35:'SNAKE GOD?', 50:'LEGENDARY' };
-          if (msgs[score] && msgDisplay) msgDisplay.textContent = msgs[score];
-        } else {
-          snake.pop();
+          if (MSGS[score] && msgDisplay) msgDisplay.textContent = MSGS[score];
         }
+        // Collision
+        const bx = bird.x, by = bird.y, br = bird.r - 3;
+        if (bx + br > p.x && bx - br < p.x + PIPE_W) {
+          if (by - br < p.topH || by + br > p.topH + PIPE_GAP) {
+            dead = true; spawnDeathParticles();
+            if (msgDisplay) msgDisplay.textContent = 'CRASHED!';
+          }
+        }
+      });
+      pipes = pipes.filter(p => p.x + PIPE_W > -10);
+
+      // Ground / ceiling collision
+      if (bird.y + bird.r >= H - GROUND_H || bird.y - bird.r <= 0) {
+        dead = true; spawnDeathParticles();
+        if (msgDisplay) msgDisplay.textContent = 'CRASHED!';
       }
     }
 
-    drawFood();
-    drawSnake();
-    drawHUD();
+    drawBird();
+
+    // HUD score
+    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+    ctx.fillRect(W / 2 - 35, 10, 70, 26);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 18px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(score, W / 2, 30);
+    ctx.textAlign = 'left';
 
     if (dead) {
       ctx.fillStyle = 'rgba(0,0,0,0.6)';
@@ -606,33 +641,22 @@ function startSnakeGame() {
       ctx.fillStyle = CLR.dead;
       ctx.font = 'bold 20px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('SEGMENTATION FAULT', W / 2, H / 2 - 18);
+      ctx.fillText('GAME OVER', W / 2, H / 2 - 20);
       ctx.fillStyle = '#fff';
       ctx.font = '13px monospace';
-      ctx.fillText(`SCORE: ${score}   HI: ${hiScore}`, W / 2, H / 2 + 6);
+      ctx.fillText(`SCORE: ${score}   HI: ${hiScore}`, W / 2, H / 2 + 5);
       ctx.fillStyle = 'rgba(255,255,255,0.4)';
       ctx.font = '11px monospace';
-      ctx.fillText('ARROW KEYS / WASD to restart', W / 2, H / 2 + 26);
+      ctx.fillText('SPACE / TAP to retry', W / 2, H / 2 + 25);
       ctx.textAlign = 'left';
-
-      // Restart on any direction key
-      const restartHandler = e => {
-        if (DIRS[e.key] || DIRS[e.key?.toLowerCase()]) {
-          document.removeEventListener('keydown', restartHandler);
-          initState();
-          started = true;
-          if (msgDisplay) msgDisplay.textContent = 'REBOOTING...';
-        }
-      };
-      document.addEventListener('keydown', restartHandler);
     }
 
-    snakeRaf = requestAnimationFrame(loop);
+    flappyRaf = requestAnimationFrame(loop);
   }
 
   initState();
-  snakeRunning = true;
-  snakeRaf = requestAnimationFrame(loop);
+  flappyRunning = true;
+  flappyRaf = requestAnimationFrame(loop);
 }
 
 function openSnakeGame() {
