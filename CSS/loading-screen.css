@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #1a1f3a 50%, #2d1b69 75%, #0f1428 100%);
   overflow: hidden;
 }
 
@@ -50,15 +50,21 @@
   position: relative;
   z-index: 10;
   text-align: center;
-  max-width: 500px;
+  max-width: 550px;
   width: 90%;
-  animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: slideUp 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(10px);
+  background: rgba(10, 14, 39, 0.4);
+  padding: 60px 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 217, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(60px);
   }
   to {
     opacity: 1;
@@ -68,14 +74,14 @@
 
 /* Logo Container */
 .boot-logo-container {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.5);
   }
   to {
     opacity: 1;
@@ -85,8 +91,8 @@
 
 .boot-logo {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -94,26 +100,29 @@
 }
 
 .boot-logo-text {
-  font-size: 48px;
-  font-weight: 700;
-  background: linear-gradient(135deg, #00d9ff 0%, #7c3aed 100%);
+  font-size: 52px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00d9ff 0%, #00f5ff 50%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
   z-index: 2;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
 }
 
 .boot-logo-ring {
   position: absolute;
   inset: 0;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   border-top-color: #00d9ff;
   border-right-color: #7c3aed;
+  border-bottom-color: rgba(0, 217, 255, 0.3);
   border-radius: 50%;
-  animation: spin 3s linear infinite;
-  box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.2), 0 0 20px rgba(124, 58, 237, 0.2);
+  animation: spin 4s linear infinite;
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.4), inset 0 0 30px rgba(124, 58, 237, 0.2);
 }
 
 @keyframes spin {
@@ -123,25 +132,26 @@
 
 /* Title */
 .boot-title {
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .boot-title h1 {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 36px;
+  font-weight: 800;
   color: #eaf2ff;
   margin: 0;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   animation: fadeInDown 0.8s ease 0.2s both;
+  text-shadow: 0 2px 10px rgba(0, 217, 255, 0.2);
 }
 
 .boot-subtitle {
-  font-size: 16px;
+  font-size: 18px;
   color: #00d9ff;
-  margin: 12px 0 0;
-  letter-spacing: 3px;
+  margin: 15px 0 0;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   animation: fadeInDown 0.8s ease 0.3s both;
   line-height: 1.4;
 }
@@ -159,25 +169,26 @@
 
 /* Loading Messages */
 .boot-messages {
-  height: 60px;
-  margin-bottom: 30px;
+  height: 70px;
+  margin-bottom: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .boot-text {
-  font-size: 14px;
-  color: #7c3aed;
+  font-size: 15px;
+  color: #00d9ff;
   font-family: 'Courier New', monospace;
-  letter-spacing: 0.5px;
-  min-height: 24px;
+  letter-spacing: 0.8px;
+  min-height: 28px;
   animation: fadeIn 0.6s ease;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-weight: 500;
 }
 
 .boot-text div {
-  margin: 4px 0;
+  margin: 5px 0;
   opacity: 0;
   animation: typeIn 0.5s ease forwards;
 }
@@ -185,7 +196,7 @@
 @keyframes typeIn {
   from {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(-15px);
   }
   to {
     opacity: 1;
@@ -200,26 +211,27 @@
 
 /* Progress Bar */
 .boot-progress-container {
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
 .boot-progress-bar {
   position: relative;
   width: 100%;
-  height: 4px;
+  height: 6px;
   background: rgba(0, 217, 255, 0.1);
-  border-radius: 2px;
+  border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .boot-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00d9ff 0%, #7c3aed 100%);
-  border-radius: 2px;
+  background: linear-gradient(90deg, #00d9ff 0%, #7c3aed 50%, #00d9ff 100%);
+  border-radius: 10px;
   width: 0%;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .boot-progress-glow {
@@ -228,7 +240,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   animation: shimmer 2s infinite;
 }
 
@@ -238,27 +250,28 @@
 }
 
 .boot-percent {
-  font-size: 12px;
+  font-size: 13px;
   color: #00d9ff;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   font-family: 'Courier New', monospace;
 }
 
 /* Status */
 .boot-status {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .boot-hint {
-  font-size: 12px;
-  color: rgba(234, 242, 255, 0.5);
-  letter-spacing: 0.5px;
-  animation: pulse 2s ease-in-out infinite;
+  font-size: 13px;
+  color: rgba(234, 242, 255, 0.6);
+  letter-spacing: 0.8px;
+  animation: pulse 2.5s ease-in-out infinite;
+  font-weight: 500;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
+  0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
 
@@ -272,51 +285,52 @@
 
 .boot-particle {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  width: 3px;
+  height: 3px;
   background: #00d9ff;
   border-radius: 50%;
-  opacity: 0.3;
-  animation: particleFloat 6s ease-in-out infinite;
+  opacity: 0.4;
+  animation: particleFloat 8s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
 }
 
 .boot-particle:nth-child(1) {
-  left: 20%;
-  top: 30%;
+  left: 15%;
+  top: 25%;
   animation-delay: 0s;
 }
 
 .boot-particle:nth-child(2) {
-  left: 80%;
-  top: 20%;
-  animation-delay: 1s;
+  left: 85%;
+  top: 15%;
+  animation-delay: 1.5s;
 }
 
 .boot-particle:nth-child(3) {
   left: 50%;
-  top: 70%;
-  animation-delay: 2s;
-}
-
-.boot-particle:nth-child(4) {
-  left: 10%;
-  top: 80%;
+  top: 75%;
   animation-delay: 3s;
 }
 
+.boot-particle:nth-child(4) {
+  left: 5%;
+  top: 85%;
+  animation-delay: 4.5s;
+}
+
 .boot-particle:nth-child(5) {
-  left: 90%;
-  top: 60%;
-  animation-delay: 4s;
+  left: 95%;
+  top: 65%;
+  animation-delay: 6s;
 }
 
 @keyframes particleFloat {
   0%, 100% {
-    transform: translate(0, 0);
-    opacity: 0.3;
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
   }
   50% {
-    transform: translate(20px, -20px);
+    transform: translate(30px, -30px) scale(1.3);
     opacity: 0.8;
   }
 }
@@ -341,51 +355,69 @@
 @media (max-width: 600px) {
   .boot-content {
     max-width: 90%;
+    padding: 50px 30px;
   }
 
   .boot-title h1 {
-    font-size: 24px;
+    font-size: 28px;
+    letter-spacing: 1px;
   }
 
   .boot-subtitle {
-    font-size: 12px;
+    font-size: 15px;
+    letter-spacing: 2px;
   }
 
   .boot-text {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .boot-logo {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
 
   .boot-logo-text {
-    font-size: 36px;
+    font-size: 44px;
   }
 
   .boot-gradient-1,
   .boot-gradient-2 {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
+  }
+
+  .boot-logo-container {
+    margin-bottom: 40px;
+  }
+
+  .boot-progress-bar {
+    height: 5px;
   }
 }
 
 /* Light Mode */
 body.light-mode #boot-overlay {
-  background: #eef3ff;
+  background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
 }
 
 body.light-mode .boot-gradient-1 {
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
 }
 
 body.light-mode .boot-gradient-2 {
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+}
+
+body.light-mode .boot-content {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 body.light-mode .boot-title h1 {
-  color: #111827;
+  color: #1a1f3a;
+  text-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
 }
 
 body.light-mode .boot-subtitle {
@@ -393,7 +425,7 @@ body.light-mode .boot-subtitle {
 }
 
 body.light-mode .boot-text {
-  color: #7c3aed;
+  color: #2563eb;
 }
 
 body.light-mode .boot-progress-bar {
@@ -401,8 +433,8 @@ body.light-mode .boot-progress-bar {
 }
 
 body.light-mode .boot-progress-fill {
-  background: linear-gradient(90deg, #2563eb 0%, #7c3aed 100%);
-  box-shadow: 0 0 10px rgba(37, 99, 235, 0.6);
+  background: linear-gradient(90deg, #2563eb 0%, #7c3aed 50%, #2563eb 100%);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 body.light-mode .boot-percent {
@@ -410,9 +442,10 @@ body.light-mode .boot-percent {
 }
 
 body.light-mode .boot-hint {
-  color: rgba(17, 24, 39, 0.5);
+  color: rgba(26, 31, 58, 0.6);
 }
 
 body.light-mode .boot-particle {
   background: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.6);
 }
