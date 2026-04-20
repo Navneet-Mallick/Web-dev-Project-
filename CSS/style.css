@@ -1970,8 +1970,8 @@ body.boot-active {
   right: 24px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
+  gap: 4px;
+  padding: 4px 8px;
   background: rgba(10,14,39,.92);
   border: 1px solid var(--border-color);
   border-radius: 50px;
@@ -1979,7 +1979,7 @@ body.boot-active {
   backdrop-filter: blur(24px) saturate(180%);
   box-shadow: 0 8px 32px rgba(0,0,0,.4), 0 0 20px rgba(0,217,255,0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  max-width: 160px;
+  max-width: 140px;
 }
 body.light-mode #music-player {
   background: rgba(255,255,255,.88)
@@ -2043,7 +2043,7 @@ body.light-mode #music-player {
 .music-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
   flex: 1;
 }
@@ -2059,21 +2059,21 @@ body.light-mode #music-player {
   display: flex;
 }
 #music-track-name {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 140px;
+  max-width: 120px;
 }
 
 /* Music visualizer bars */
 .music-bars {
   display: none;
   align-items: flex-end;
-  gap: 2px;
-  height: 16px;
+  gap: 1px;
+  height: 12px;
   flex-shrink: 0;
 }
 
@@ -2082,7 +2082,7 @@ body.light-mode #music-player {
 }
 
 .music-bar {
-  width: 3px;
+  width: 2px;
   background: var(--accent);
   border-radius: 2px;
   animation: musicBar 0.8s ease-in-out infinite;
@@ -2117,7 +2117,7 @@ body.light-mode #music-player {
 #music-volume {
   -webkit-appearance: none;
   appearance: none;
-  width: 60px;
+  width: 44px;
   height: 3px;
   border-radius: 4px;
   background: rgba(255,255,255,.15);
@@ -2141,13 +2141,13 @@ body.light-mode #music-player {
   background: #ff4500
 }
 #music-mode-btn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid var(--border-color);
   background: 0 0;
   color: var(--text-color);
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
