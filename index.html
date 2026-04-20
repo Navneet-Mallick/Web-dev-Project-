@@ -1060,9 +1060,11 @@
     </div>
 
     <!-- More Games Link -->
-    <div style="text-align:center;margin-bottom:12px;padding:8px;background:rgba(0,217,255,0.05);border-radius:8px;border:1px solid rgba(0,217,255,0.2);">
+    <div style="text-align:center;margin-bottom:12px;padding:8px;background:rgba(0,217,255,0.05);border-radius:8px;border:1px solid rgba(0,217,255,0.2);position:relative;">
+      <span class="game-notification-pulse"></span>
       <a href="https://game-center-nm.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;font-family:monospace;font-size:12px;font-weight:600;letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:8px;">
         <i class="fas fa-gamepad"></i> FOR MORE GAMES VISIT GAME CENTER <i class="fas fa-external-link-alt" style="font-size:10px;"></i>
+        <span class="game-notification-badge">7+ GAMES</span>
       </a>
     </div>
 
@@ -1221,6 +1223,82 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   };
 });
+</script>
+
+<!-- Notification Badge Enhancement Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if user has seen the notifications
+  const hasSeenGameNotif = localStorage.getItem('nm_seen_game_notif');
+  const hasSeenMusicNotif = localStorage.getItem('nm_seen_music_notif');
+
+  // Hide game notification badge if already seen
+  if (hasSeenGameNotif) {
+    const gameBadge = document.querySelector('.game-notification-badge');
+    const gamePulse = document.querySelector('.game-notification-pulse');
+    if (gameBadge) gameBadge.style.display = 'none';
+    if (gamePulse) gamePulse.style.display = 'none';
+  }
+
+  // Hide music notification badge if already seen
+  if (hasSeenMusicNotif) {
+    const musicBadge = document.querySelector('.music-notification-badge');
+    if (musicBadge) musicBadge.style.display = 'none';
+  }
+
+  // Mark game notification as seen when clicked
+  const gameLink = document.querySelector('a[href="https://game-center-nm.vercel.app/"]');
+  if (gameLink) {
+    gameLink.addEventListener('click', () => {
+      localStorage.setItem('nm_seen_game_notif', 'true');
+      const gameBadge = document.querySelector('.game-notification-badge');
+      const gamePulse = document.querySelector('.game-notification-pulse');
+      if (gameBadge) {
+        gameBadge.style.animation = 'fadeOut 0.3s ease-out forwards';
+        setTimeout(() => gameBadge.style.display = 'none', 300);
+      }
+      if (gamePulse) gamePulse.style.display = 'none';
+    });
+  }
+
+  // Mark music notification as seen when clicked
+  const musicLink = document.getElementById('music-external-link');
+  if (musicLink) {
+    musicLink.addEventListener('click', () => {
+      localStorage.setItem('nm_seen_music_notif', 'true');
+      const musicBadge = document.querySelector('.music-notification-badge');
+      if (musicBadge) {
+        musicBadge.style.animation = 'fadeOut 0.3s ease-out forwards';
+        setTimeout(() => musicBadge.style.display = 'none', 300);
+      }
+    });
+  }
+
+  // Add tooltip enhancement on hover
+  if (musicLink) {
+    musicLink.addEventListener('mouseenter', () => {
+      if (!hasSeenMusicNotif && window.showToast) {
+        // Only show once per session
+        if (!sessionStorage.getItem('nm_music_tooltip_shown')) {
+          sessionStorage.setItem('nm_music_tooltip_shown', 'true');
+          setTimeout(() => {
+            showToast('🎵 Check out the full GrooveBox Music Player!', 'info');
+          }, 200);
+        }
+      }
+    });
+  }
+});
+
+// Fade out animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.5); }
+  }
+`;
+document.head.appendChild(style);
 </script>
 
 </body>
