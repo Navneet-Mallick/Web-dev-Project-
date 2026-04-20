@@ -4070,3 +4070,128 @@ body.light-mode #mobile-bottom-nav a.active {
     bottom: 130px;
   }
 }
+
+
+/* ====== TESTIMONIALS SECTION ====== */
+#testimonials {
+  padding: 60px 5%;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: all var(--transition);
+  backdrop-filter: blur(5px);
+}
+
+.testimonial-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 25px var(--accent-glow);
+  transform: translateY(-4px);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.testimonial-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+.testimonial-role {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--secondary);
+  opacity: 0.8;
+}
+
+.testimonial-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.85;
+  margin: 16px 0;
+  font-style: italic;
+}
+
+.testimonial-rating {
+  display: flex;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.testimonial-rating i {
+  color: var(--tertiary);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  #testimonials {
+    padding: 40px 5%;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  #testimonials {
+    padding: 30px 4%;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .testimonial-card {
+    padding: 16px;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+  }
+
+  .testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .testimonial-info h3 {
+    font-size: 1rem;
+  }
+}
