@@ -4,14 +4,19 @@
  * 2. Intersection observer for view-time tracking
  * 3. Throttled scroll & resize listeners
  * 4. Resource prefetching
+ * 5. Mobile-specific optimizations (60fps scroll, touch handling)
  */
 
 const Performance = {
+  isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+  
   init() {
     this.setupLazyLoading();
     this.setupScrollThrottling();
     this.setupViewStats();
     this.prefetchLinks();
+    this.optimizeMobilePerformance();
+    this.setupAdaptiveRefreshRate();
   },
 
   setupLazyLoading() {
@@ -35,11 +40,22 @@ const Performance = {
   },
 
   setupScrollThrottling() {
-    // Centralized rAF-based scroll dispatcher — other modules can hook in if needed
+    // Centralized rAF-based scroll dispatcher — optimized for 60fps
     let ticking = false;
+    let lastScrollY = window.scrollY;
+    
     window.addEventListener('scroll', () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const delta = currentScrollY - lastScrollY;
+          
+          // Dispatch custom event for other modules
+          window.dispatchEvent(new CustomEvent('optimizedScroll', { 
+            detail: { scrollY: currentScrollY, delta } 
+          }));
+          
+          lastScrollY = currentScrollY;
           ticking = false;
         });
         ticking = true;
@@ -84,6 +100,89 @@ const Performance = {
         }
       }, { once: true });
     });
+  },
+
+  optimizeMobilePerformance() {
+    if (!this.isMobile) return;
+
+    // 1. Disable hover effects on mobile (they cause lag)
+    document.body.classList.add('mobile-device');
+    
+    // 2. Optimize touch event handling
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', (e) => {
+      touchEndY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    // 3. Reduce animation complexity on mobile
+    const style = document.createElement('style');
+    style.textContent = `
+      @media (max-width: 600px) {
+        * {
+          animation-timing-function: linear !important;
+        }
+        .project-card:hover,
+        .cert-card:hover,
+        .stat-card:hover {
+          transform: none !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // 4. Optimize scroll performance
+    this.enableMomentumScrolling();
+  },
+
+  enableMomentumScrolling() {
+    // Enable native momentum scrolling on iOS
+    const scrollableElements = document.querySelectorAll(
+      '.terminal-body, .project-tabs, .skills-table-container, #nav-dropdown'
+    );
+    
+    scrollableElements.forEach(el => {
+      el.style.webkitOverflowScrolling = 'touch';
+      el.style.overscrollBehavior = 'contain';
+    });
+  },
+
+  setupAdaptiveRefreshRate() {
+    // Detect and adapt to device refresh rate (60Hz, 90Hz, 120Hz)
+    let lastTime = performance.now();
+    let frameCount = 0;
+    let fps = 60;
+    
+    const measureFPS = () => {
+      const currentTime = performance.now();
+      frameCount++;
+      
+      if (currentTime >= lastTime + 1000) {
+        fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+        frameCount = 0;
+        lastTime = currentTime;
+        
+        // Adjust animation durations based on refresh rate
+        if (fps > 90) {
+          document.documentElement.style.setProperty('--animation-speed', '1.2');
+        } else if (fps < 50) {
+          document.documentElement.style.setProperty('--animation-speed', '0.8');
+        }
+      }
+      
+      requestAnimationFrame(measureFPS);
+    };
+    
+    // Measure for first 3 seconds
+    requestAnimationFrame(measureFPS);
+    setTimeout(() => {
+      console.log(`Detected refresh rate: ~${fps}Hz`);
+    }, 3000);
   }
 };
 
