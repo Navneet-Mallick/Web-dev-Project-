@@ -1,21 +1,31 @@
 /**
- * game.js — Navbar runner game
- * Space / tap to jump, double jump supported
+ * game.js — Runner, Flappy Bird, Tetris
  */
 
+// ── OPEN / CLOSE ──────────────────────────────────────────────────
 function openRunnerGame() {
   const modal = document.getElementById('game-modal');
+  if (!modal) return;
   modal.style.display = 'flex';
   modal.setAttribute('aria-hidden', 'false');
-  startRunnerGame();
+  document.body.style.overflow = 'hidden';
+  switchGame('runner');
 }
 
 function closeRunnerGame() {
-  const modal = document.getElementById('game-modal');
-  modal.style.display = 'none';
-  modal.setAttribute('aria-hidden', 'true');
   stopRunnerGame();
+  stopFlappyGame();
+  stopTetrisGame();
+  const modal = document.getElementById('game-modal');
+  if (modal) { modal.style.display = 'none'; modal.setAttribute('aria-hidden', 'true'); }
+  document.body.style.overflow = '';
 }
+
+// Aliases used by switchGame in index.html
+function stopSnakeGame()    { stopFlappyGame(); }
+function stopAsteroidGame() { stopTetrisGame(); }
+function startSnakeGame()    { startFlappyGame(); }
+function startAsteroidGame() { startTetrisGame(); }
 
 // ── GAME ENGINE ───────────────────────────────────────────────────────────────
 let gameRaf, gameRunning = false;
@@ -338,12 +348,10 @@ function startRunnerGame() {
 
 let flappyRaf, flappyRunning = false;
 
-function stopSnakeGame() {
+function stopFlappyGame() {
   flappyRunning = false;
   cancelAnimationFrame(flappyRaf);
 }
-
-function startSnakeGame() { startFlappyGame(); }
 
 function startFlappyGame() {
   const canvas = document.getElementById('snake-canvas');
@@ -659,7 +667,7 @@ function startFlappyGame() {
   flappyRaf = requestAnimationFrame(loop);
 }
 
-function openSnakeGame() {
+function openFlappyGame() {
   const modal = document.getElementById('game-modal');
   modal.style.display = 'flex';
   modal.setAttribute('aria-hidden', 'false');
@@ -672,12 +680,10 @@ function openSnakeGame() {
 
 let tetrisRaf, tetrisRunning = false;
 
-function stopAsteroidGame() {
+function stopTetrisGame() {
   tetrisRunning = false;
   cancelAnimationFrame(tetrisRaf);
 }
-
-function startAsteroidGame() { startTetrisGame(); }
 
 function startTetrisGame() {
   const canvas = document.getElementById('asteroid-canvas');
@@ -969,120 +975,7 @@ function startTetrisGame() {
   tetrisRaf = requestAnimationFrame(loop);
 }
 
-function openAsteroidGame() {
-  const modal = document.getElementById('game-modal');
-  modal.style.display = 'flex';
-  modal.setAttribute('aria-hidden', 'false');
-  switchGame('asteroid');
-}
-
-
-  const canvas = document.getElementById('asteroid-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-
-  const CLR = {
-    bg: '#0a0e27',
-    player: '#00d9ff',
-    bullet: '#f59e0b',
-    asteroid: '#7c3aed',
-    explosion: ['#ff00c1', '#00fff9', '#f59e0b'],
-    text: '#00d9ff',
-    dead: '#ff4500',
-  };
-
-  let player, bullets, asteroids, particles, score, hiScore, dead, started, frame;
-  hiScore = parseInt(localStorage.getItem('nm_asteroid_hi') || '0');
-
-  const hiDisplay = document.getElementById('asteroid-hi-display');
-  const scoreDisplay = document.getElementById('asteroid-score-display');
-  const msgDisplay = document.getElementById('asteroid-personality-msg');
-
-  function initState() {
-    player = { x: W / 2, y: H - 40, w: 20, h: 20, angle: 0, vel: 0 };
-    bullets = [];
-    asteroids = [];
-    particles = [];
-    score = 0;
-    dead = false;
-    started = false;
-    frame = 0;
-    
-    // Spawn initial asteroids
-    for (let i = 0; i < 3; i++) {
-      spawnAsteroid(Math.random() * W, Math.random() * (H / 3), 3);
-    }
-    
-    if (scoreDisplay) scoreDisplay.textContent = 'SCORE: 0';
-    if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
-    if (msgDisplay) msgDisplay.textContent = '';
-  }
-
-  function spawnAsteroid(x, y, size) {
-    asteroids.push({
-      x, y, size,
-      vx: (Math.random() - 0.5) * 3,
-      vy: Math.random() * 2 + 1,
-      angle: Math.random() * Math.PI * 2,
-      angVel: (Math.random() - 0.5) * 0.1,
-    });
-  }
-
-  function spawnExplosion(x, y) {
-    for (let i = 0; i < 12; i++) {
-      const angle = (i / 12) * Math.PI * 2;
-      particles.push({
-        x, y,
-        vx: Math.cos(angle) * (2 + Math.random() * 4),
-        vy: Math.sin(angle) * (2 + Math.random() * 4),
-        life: 1,
-        decay: 0.04,
-        color: CLR.explosion[Math.floor(Math.random() * CLR.explosion.length)],
-        size: 3 + Math.random() * 3,
-      });
-    }
-  }
-
-  // Input
-  const keys = {};
-  const keyDown = e => { keys[e.key] = true; if (!started && e.key === ' ') { started = true; if (msgDisplay) msgDisplay.textContent = 'FIRING...'; } };
-  const keyUp = e => { keys[e.key] = false; };
-  document.addEventListener('keydown', keyDown);
-  document.addEventListener('keyup', keyUp);
-
-  // Touch controls for mobile
-  let touchLeft = false, touchRight = false, touchShoot = false;
-
-  // Create mobile touch buttons
-  const touchControls = document.createElement('div');
-  touchControls.style.cssText = `
-    display: none; position: absolute; bottom: 10px; left: 0; right: 0;
-    justify-content: space-between; align-items: center; padding: 0 10px; z-index: 10;
-  `;
-  touchControls.innerHTML = `
-    <button id="ast-left"  style="width:60px;height:60px;border-radius:50%;background:rgba(0,217,255,0.2);border:2px solid rgba(0,217,255,0.5);color:#00d9ff;font-size:22px;cursor:pointer;touch-action:none;">◀</button>
-    <button id="ast-shoot" style="width:70px;height:70px;border-radius:50%;background:rgba(245,158,11,0.2);border:2px solid rgba(245,158,11,0.5);color:#f59e0b;font-size:18px;cursor:pointer;touch-action:none;">🔥</button>
-    <button id="ast-right" style="width:60px;height:60px;border-radius:50%;background:rgba(0,217,255,0.2);border:2px solid rgba(0,217,255,0.5);color:#00d9ff;font-size:22px;cursor:pointer;touch-action:none;">▶</button>
-  `;
-
-  if (canvas.parentElement) {
-    canvas.parentElement.style.position = 'relative';
-    canvas.parentElement.appendChild(touchControls);
-  }
-
-  // Show touch controls on mobile
-  if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) {
-    touchControls.style.display = 'flex';
-  }
-
-  const astLeft  = touchControls.querySelector('#ast-left');
-  const astRight = touchControls.querySelector('#ast-right');
-  const astShoot = touchControls.querySelector('#ast-shoot');
-
-  astLeft.addEventListener('touchstart',  e => { e.preventDefault(); touchLeft = true; if (!started) { started = true; } }, { passive: false });
-  astLeft.addEventListener('touchend',    e => { e.preventDefault(); touchLeft = false; }, { passive: false });
-function openAsteroidGame() {
+function openTetrisGame() {
   const modal = document.getElementById('game-modal');
   modal.style.display = 'flex';
   modal.setAttribute('aria-hidden', 'false');
