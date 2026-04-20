@@ -211,35 +211,39 @@ function showEggModal(emoji, title, msg) {
 
 // ── 6. CURSOR TRAIL PARTICLES ─────────────────────────────────────────────────
 (function setupCursorTrail() {
+  // Disabled on mobile/touch devices - causes lag
   if (window.matchMedia('(hover: none)').matches) return;
+  if (window.innerWidth < 768) return;
 
   let lastX = 0, lastY = 0, ticking = false;
+  let trailCount = 0;
+  const MAX_TRAILS = 8; // limit concurrent trail elements
 
   document.addEventListener('mousemove', e => {
-    if (ticking) return;
+    if (ticking || trailCount >= MAX_TRAILS) return;
     ticking = true;
     requestAnimationFrame(() => {
       const dx = e.clientX - lastX;
       const dy = e.clientY - lastY;
       const speed = Math.sqrt(dx*dx + dy*dy);
 
-      if (speed > 8) {
+      if (speed > 12) {
         const trail = document.createElement('div');
-        const size = Math.min(speed * 0.4, 10);
+        const size = Math.min(speed * 0.3, 8);
         trail.style.cssText = `
           position: fixed;
           left: ${e.clientX}px; top: ${e.clientY}px;
           width: ${size}px; height: ${size}px;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(0,217,255,0.8), rgba(124,58,237,0.4));
-          box-shadow: 0 0 ${size*2}px rgba(0,217,255,0.6);
+          background: radial-gradient(circle, rgba(0,217,255,0.7), rgba(124,58,237,0.3));
           pointer-events: none;
           z-index: 99998;
           transform: translate(-50%, -50%);
-          animation: trailFade 0.6s ease-out forwards;
+          animation: trailFade 0.5s ease-out forwards;
         `;
         document.body.appendChild(trail);
-        setTimeout(() => trail.remove(), 650);
+        trailCount++;
+        setTimeout(() => { trail.remove(); trailCount--; }, 550);
       }
 
       lastX = e.clientX;

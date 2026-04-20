@@ -999,37 +999,28 @@ function switchGame(game) {
 
 // Wait for game.js to load, then wrap the functions
 document.addEventListener('DOMContentLoaded', () => {
-  // Give game.js time to load
-  setTimeout(() => {
-    const origOpenRunner = window.openRunnerGame;
-    const origCloseRunner = window.closeRunnerGame;
+  // Enhanced openRunnerGame - opens modal and switches to runner
+  window.openRunnerGame = function() {
+    const modal = document.getElementById('game-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    switchGame('runner');
+  };
 
-    // Enhanced openRunnerGame - opens modal and switches to runner
-    window.openRunnerGame = function() {
-      const modal = document.getElementById('game-modal');
-      if (!modal) {
-        console.error('Game modal not found');
-        return;
-      }
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      switchGame('runner');
-    };
-
-    // Enhanced closeRunnerGame - closes modal and stops all games
-    window.closeRunnerGame = function() {
-      if (typeof stopRunnerGame === 'function') stopRunnerGame();
-      if (typeof stopSnakeGame  === 'function') stopSnakeGame();
-      if (typeof stopAsteroidGame === 'function') stopAsteroidGame();
-      const modal = document.getElementById('game-modal');
-      if (modal) {
-        modal.style.display = 'none';
-        modal.setAttribute('aria-hidden', 'true');
-      }
-      document.body.style.overflow = '';
-    };
-  }, 100);
+  // Enhanced closeRunnerGame - closes modal and stops all games
+  window.closeRunnerGame = function() {
+    if (typeof stopRunnerGame   === 'function') stopRunnerGame();
+    if (typeof stopSnakeGame    === 'function') stopSnakeGame();
+    if (typeof stopAsteroidGame === 'function') stopAsteroidGame();
+    const modal = document.getElementById('game-modal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    document.body.style.overflow = '';
+  };
 });
 </script>
 
