@@ -146,6 +146,11 @@
   <i class="fas fa-arrow-up"></i>
 </button>
 
+<!-- Mobile Shortcuts Button (visible only on mobile) -->
+<button id="mobile-shortcuts-btn" onclick="window.showShortcuts && window.showShortcuts()" aria-label="Show shortcuts" title="Shortcuts">
+  <i class="fas fa-keyboard"></i>
+</button>
+
 <header>
     <nav class="navbar">
         <div class="logo-container">
@@ -173,7 +178,7 @@
                 <div id="hamburger-wrap">
                     <i class="fas fa-bars"></i>
                 </div>
-                <button id="shortcuts-hint" onclick="window.showShortcuts && window.showShortcuts()" title="Keyboard shortcuts" aria-label="Keyboard shortcuts" style="background:none;border:1px solid var(--border-color);color:var(--text-color);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all 0.2s;opacity:0.6;">?</button>
+                <button id="shortcuts-hint" onclick="window.showShortcuts && window.showShortcuts()" title="Keyboard shortcuts" aria-label="Keyboard shortcuts" style="background:none;border:1px solid var(--border-color);color:var(--text-color);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;opacity:0.7;"><i class="fas fa-keyboard"></i></button>
             </div>
 
             <div id="nav-dropdown">
@@ -887,8 +892,8 @@
 </div>
 
 <!-- Runner + Snake Game Modal -->
-<div id="game-modal" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;">
-  <div id="game-box" style="position:relative;background:#0a0e27;border:2px solid var(--accent);border-radius:16px;padding:20px;box-shadow:0 0 40px rgba(0,217,255,0.3);max-width:660px;width:95%;">
+<div id="game-modal" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:12px;">
+  <div id="game-box" style="position:relative;background:#0a0e27;border:2px solid var(--accent);border-radius:16px;padding:16px 20px;box-shadow:0 0 50px rgba(0,217,255,0.25);max-width:700px;width:100%;max-height:95vh;overflow-y:auto;overflow-x:hidden;">
 
     <!-- Header row -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
@@ -896,6 +901,7 @@
         <button id="game-tab-runner" onclick="switchGame('runner')" style="background:linear-gradient(135deg,var(--accent),var(--secondary));border:none;color:#fff;padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:opacity .2s;">&#x1F3C3; RUNNER</button>
         <button id="game-tab-snake"  onclick="switchGame('snake')"  style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">🐦 FLAPPY</button>
         <button id="game-tab-asteroid" onclick="switchGame('asteroid')" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">🧩 TETRIS</button>
+        <button id="game-tab-mine" onclick="switchGame('mine')" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">💣 MINE</button>
       </div>
       <button onclick="closeRunnerGame()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">&times;</button>
     </div>
@@ -948,6 +954,28 @@
       </div>
     </div>
 
+    <!-- Minesweeper panel -->
+    <div id="game-panel-mine" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="color:#22c55e;font-family:monospace;font-size:13px;letter-spacing:2px;font-weight:bold;">MINESWEEPER.EXE</span>
+        <div style="display:flex;gap:12px;font-family:monospace;font-size:13px;align-items:center;">
+          <span id="mine-flag-display" style="color:#ef4444;opacity:0.9;">💣 0</span>
+          <span id="mine-time-display" style="color:#f59e0b;opacity:0.9;">⏱ 0</span>
+          <span id="mine-hi-display"   style="color:#22c55e;opacity:0.7;">BEST: --</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+        <button onclick="startMineGame('easy')"   id="mine-btn-easy"   style="background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.5);color:#22c55e;padding:4px 12px;border-radius:20px;font-family:monospace;font-size:11px;cursor:pointer;">Easy 9×9</button>
+        <button onclick="startMineGame('medium')" id="mine-btn-medium" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:4px 12px;border-radius:20px;font-family:monospace;font-size:11px;cursor:pointer;">Medium 16×16</button>
+        <button onclick="startMineGame('hard')"   id="mine-btn-hard"   style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:4px 12px;border-radius:20px;font-family:monospace;font-size:11px;cursor:pointer;">Hard 16×30</button>
+      </div>
+      <canvas id="mine-canvas" style="display:block;margin:0 auto;border-radius:8px;background:#05081a;border:1px solid rgba(34,197,94,0.2);max-width:100%;cursor:pointer;"></canvas>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+        <p style="font-size:11px;opacity:0.45;font-family:monospace;margin:0;">Left click reveal &middot; Right click / Long press flag</p>
+        <span id="mine-msg" style="font-size:11px;color:#22c55e;font-family:monospace;font-weight:600;text-transform:uppercase;letter-spacing:1px;"></span>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -957,49 +985,51 @@ let _activeGame = 'runner';
 
 function switchGame(game) {
   // Stop all games
-  if (typeof stopRunnerGame === 'function') stopRunnerGame();
-  if (typeof stopSnakeGame  === 'function') stopSnakeGame();
+  if (typeof stopRunnerGame   === 'function') stopRunnerGame();
+  if (typeof stopSnakeGame    === 'function') stopSnakeGame();
   if (typeof stopAsteroidGame === 'function') stopAsteroidGame();
+  if (typeof stopMineGame     === 'function') stopMineGame();
 
   _activeGame = game;
 
-  const runnerPanel = document.getElementById('game-panel-runner');
-  const snakePanel  = document.getElementById('game-panel-snake');
+  const runnerPanel   = document.getElementById('game-panel-runner');
+  const snakePanel    = document.getElementById('game-panel-snake');
   const asteroidPanel = document.getElementById('game-panel-asteroid');
-  const tabRunner   = document.getElementById('game-tab-runner');
-  const tabSnake    = document.getElementById('game-tab-snake');
-  const tabAsteroid = document.getElementById('game-tab-asteroid');
+  const minePanel     = document.getElementById('game-panel-mine');
+  const tabRunner     = document.getElementById('game-tab-runner');
+  const tabSnake      = document.getElementById('game-tab-snake');
+  const tabAsteroid   = document.getElementById('game-tab-asteroid');
+  const tabMine       = document.getElementById('game-tab-mine');
 
-  // Hide all panels
-  runnerPanel.style.display = 'none';
-  snakePanel.style.display  = 'none';
-  asteroidPanel.style.display = 'none';
-
-  // Reset all tabs
-  [tabRunner, tabSnake, tabAsteroid].forEach(tab => {
-    tab.style.background = 'transparent';
-    tab.style.border = '1px solid var(--border-color)';
-    tab.style.color = 'var(--text-color)';
+  // Hide all panels & reset tabs
+  [runnerPanel, snakePanel, asteroidPanel, minePanel].forEach(p => { if(p) p.style.display = 'none'; });
+  [tabRunner, tabSnake, tabAsteroid, tabMine].forEach(t => {
+    if (!t) return;
+    t.style.background = 'transparent';
+    t.style.border = '1px solid var(--border-color)';
+    t.style.color = 'var(--text-color)';
   });
 
   if (game === 'runner') {
     runnerPanel.style.display = 'block';
     tabRunner.style.background = 'linear-gradient(135deg,var(--accent),var(--secondary))';
-    tabRunner.style.border = 'none';
-    tabRunner.style.color = '#fff';
+    tabRunner.style.border = 'none'; tabRunner.style.color = '#fff';
     setTimeout(() => { if (typeof startRunnerGame === 'function') startRunnerGame(); }, 50);
   } else if (game === 'snake') {
     snakePanel.style.display = 'block';
     tabSnake.style.background = 'linear-gradient(135deg,#f59e0b,#7c3aed)';
-    tabSnake.style.border = 'none';
-    tabSnake.style.color = '#fff';
+    tabSnake.style.border = 'none'; tabSnake.style.color = '#fff';
     setTimeout(() => { if (typeof startSnakeGame === 'function') startSnakeGame(); }, 50);
   } else if (game === 'asteroid') {
     asteroidPanel.style.display = 'block';
-    tabAsteroid.style.background = 'linear-gradient(135deg,#ff00c1,#00fff9)';
-    tabAsteroid.style.border = 'none';
-    tabAsteroid.style.color = '#fff';
+    tabAsteroid.style.background = 'linear-gradient(135deg,#a855f7,#3b82f6)';
+    tabAsteroid.style.border = 'none'; tabAsteroid.style.color = '#fff';
     setTimeout(() => { if (typeof startAsteroidGame === 'function') startAsteroidGame(); }, 50);
+  } else if (game === 'mine') {
+    minePanel.style.display = 'block';
+    tabMine.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+    tabMine.style.border = 'none'; tabMine.style.color = '#fff';
+    setTimeout(() => { if (typeof startMineGame === 'function') startMineGame('easy'); }, 50);
   }
 }
 
@@ -1020,6 +1050,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof stopRunnerGame   === 'function') stopRunnerGame();
     if (typeof stopSnakeGame    === 'function') stopSnakeGame();
     if (typeof stopAsteroidGame === 'function') stopAsteroidGame();
+    if (typeof stopMineGame     === 'function') stopMineGame();
     const modal = document.getElementById('game-modal');
     if (modal) {
       modal.style.display = 'none';

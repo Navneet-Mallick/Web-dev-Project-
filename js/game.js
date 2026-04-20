@@ -1373,3 +1373,280 @@ function openTetrisGame() {
   modal.setAttribute('aria-hidden', 'false');
   switchGame('asteroid');
 }
+
+// ═══════════════════════════════════════════════════════════════════
+//  MINESWEEPER GAME
+// ═══════════════════════════════════════════════════════════════════
+
+let mineRunning = false, mineTimer = null;
+
+function stopMineGame() {
+  mineRunning = false;
+  if (mineTimer) { clearInterval(mineTimer); mineTimer = null; }
+}
+
+function startMineGame(difficulty = 'easy') {
+  stopMineGame();
+  const canvas = document.getElementById('mine-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const CONFIGS = {
+    easy:   { cols: 9,  rows: 9,  mines: 10 },
+    medium: { cols: 16, rows: 16, mines: 40 },
+    hard:   { cols: 30, rows: 16, mines: 99 },
+  };
+
+  const cfg = CONFIGS[difficulty] || CONFIGS.easy;
+  const { cols, rows, mines } = cfg;
+
+  // Highlight active difficulty button
+  ['easy','medium','hard'].forEach(d => {
+    const btn = document.getElementById(`mine-btn-${d}`);
+    if (!btn) return;
+    if (d === difficulty) {
+      btn.style.background = 'rgba(34,197,94,0.25)';
+      btn.style.borderColor = 'rgba(34,197,94,0.7)';
+      btn.style.color = '#22c55e';
+    } else {
+      btn.style.background = 'transparent';
+      btn.style.borderColor = 'var(--border-color)';
+      btn.style.color = 'var(--text-color)';
+    }
+  });
+
+  // Fit canvas to modal width
+  const maxW = Math.min(660, (canvas.parentElement?.clientWidth || 620) - 4);
+  const B = Math.max(18, Math.min(32, Math.floor(maxW / cols)));
+  const W = cols * B, H = rows * B;
+  canvas.width = W; canvas.height = H;
+
+  const CLR = {
+    hidden:  '#0d1535',
+    hiddenB: '#1a2550',
+    revealed:'#05081a',
+    revealedB:'#0a0e27',
+    mine:    '#ef4444',
+    flag:    '#f59e0b',
+    text:    ['','#3b82f6','#22c55e','#ef4444','#7c3aed','#dc2626','#06b6d4','#000','#6b7280'],
+    win:     '#22c55e',
+    lose:    '#ef4444',
+  };
+
+  let board, revealed, flagged, gameOver, gameWon, started, elapsed, firstClick;
+  const flagDisplay = document.getElementById('mine-flag-display');
+  const timeDisplay = document.getElementById('mine-time-display');
+  const hiDisplay   = document.getElementById('mine-hi-display');
+  const msgDisplay  = document.getElementById('mine-msg');
+  const hiKey = `nm_mine_hi_${difficulty}`;
+  let hiScore = parseInt(localStorage.getItem(hiKey) || '0') || null;
+  if (hiDisplay) hiDisplay.textContent = hiScore ? `BEST: ${hiScore}s` : 'BEST: --';
+
+  function initBoard() {
+    board    = Array.from({length:rows}, ()=>Array(cols).fill(0));
+    revealed = Array.from({length:rows}, ()=>Array(cols).fill(false));
+    flagged  = Array.from({length:rows}, ()=>Array(cols).fill(false));
+    gameOver = false; gameWon = false; started = false; elapsed = 0; firstClick = true;
+    if (flagDisplay) flagDisplay.textContent = `💣 ${mines}`;
+    if (timeDisplay) timeDisplay.textContent = `⏱ 0`;
+    if (msgDisplay)  msgDisplay.textContent  = '';
+    if (mineTimer) { clearInterval(mineTimer); mineTimer = null; }
+  }
+
+  function placeMines(safeR, safeC) {
+    let placed = 0;
+    while (placed < mines) {
+      const r = Math.floor(Math.random() * rows);
+      const c = Math.floor(Math.random() * cols);
+      if (board[r][c] === -1) continue;
+      if (Math.abs(r-safeR)<=1 && Math.abs(c-safeC)<=1) continue;
+      board[r][c] = -1; placed++;
+    }
+    // Count neighbors
+    for (let r=0; r<rows; r++) for (let c=0; c<cols; c++) {
+      if (board[r][c]===-1) continue;
+      let count=0;
+      for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) {
+        const nr=r+dr, nc=c+dc;
+        if (nr>=0&&nr<rows&&nc>=0&&nc<cols&&board[nr][nc]===-1) count++;
+      }
+      board[r][c]=count;
+    }
+  }
+
+  function flood(r, c) {
+    if (r<0||r>=rows||c<0||c>=cols) return;
+    if (revealed[r][c]||flagged[r][c]) return;
+    revealed[r][c]=true;
+    if (board[r][c]===0) {
+      for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) flood(r+dr,c+dc);
+    }
+  }
+
+  function checkWin() {
+    let unrevealed=0;
+    for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) if (!revealed[r][c]) unrevealed++;
+    return unrevealed===mines;
+  }
+
+  function reveal(r, c) {
+    if (r<0||r>=rows||c<0||c>=cols||revealed[r][c]||flagged[r][c]) return;
+    if (firstClick) {
+      firstClick=false;
+      placeMines(r,c);
+      started=true;
+      mineTimer=setInterval(()=>{
+        elapsed++;
+        if (timeDisplay) timeDisplay.textContent=`⏱ ${elapsed}`;
+      },1000);
+    }
+    if (board[r][c]===-1) {
+      // Hit mine
+      revealed[r][c]=true;
+      gameOver=true;
+      clearInterval(mineTimer);
+      // Reveal all mines
+      for (let rr=0;rr<rows;rr++) for (let cc=0;cc<cols;cc++) {
+        if (board[rr][cc]===-1) revealed[rr][cc]=true;
+      }
+      if (msgDisplay) msgDisplay.textContent='💥 BOOM!';
+      draw(); return;
+    }
+    flood(r,c);
+    if (checkWin()) {
+      gameWon=true;
+      clearInterval(mineTimer);
+      if (!hiScore||elapsed<hiScore) {
+        hiScore=elapsed;
+        localStorage.setItem(hiKey,hiScore);
+        if (hiDisplay) hiDisplay.textContent=`BEST: ${hiScore}s`;
+      }
+      if (msgDisplay) msgDisplay.textContent=`✅ WIN! ${elapsed}s`;
+    }
+    draw();
+  }
+
+  function toggleFlag(r, c) {
+    if (revealed[r][c]||gameOver||gameWon) return;
+    flagged[r][c]=!flagged[r][c];
+    const flagCount=flagged.flat().filter(Boolean).length;
+    if (flagDisplay) flagDisplay.textContent=`💣 ${mines-flagCount}`;
+    draw();
+  }
+
+  function chordReveal(r, c) {
+    if (!revealed[r][c]||board[r][c]<=0) return;
+    let adjFlags=0;
+    for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) {
+      const nr=r+dr,nc=c+dc;
+      if (nr>=0&&nr<rows&&nc>=0&&nc<cols&&flagged[nr][nc]) adjFlags++;
+    }
+    if (adjFlags===board[r][c]) {
+      for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) {
+        reveal(r+dr,c+dc);
+      }
+    }
+  }
+
+  // ── Draw ──
+  function drawCell(r, c) {
+    const x=c*B, y=r*B;
+    if (revealed[r][c]) {
+      // Revealed cell
+      ctx.fillStyle = CLR.revealed;
+      ctx.fillRect(x,y,B,B);
+      ctx.strokeStyle = CLR.revealedB;
+      ctx.lineWidth=0.5;
+      ctx.strokeRect(x+0.5,y+0.5,B-1,B-1);
+      if (board[r][c]===-1) {
+        // Mine
+        ctx.fillStyle = gameOver ? CLR.mine : '#22c55e';
+        ctx.font = `${Math.floor(B*0.6)}px serif`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText('💣',x+B/2,y+B/2+1);
+      } else if (board[r][c]>0) {
+        ctx.fillStyle = CLR.text[board[r][c]];
+        ctx.font = `bold ${Math.floor(B*0.55)}px monospace`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(board[r][c],x+B/2,y+B/2);
+      }
+    } else {
+      // Hidden cell - 3D look
+      ctx.fillStyle = CLR.hidden;
+      ctx.fillRect(x,y,B,B);
+      // Highlight top/left
+      ctx.fillStyle='rgba(255,255,255,0.08)';
+      ctx.fillRect(x,y,B,2);
+      ctx.fillRect(x,y,2,B);
+      // Shadow bottom/right
+      ctx.fillStyle='rgba(0,0,0,0.3)';
+      ctx.fillRect(x,y+B-2,B,2);
+      ctx.fillRect(x+B-2,y,2,B);
+      // Border
+      ctx.strokeStyle=CLR.hiddenB;
+      ctx.lineWidth=0.5;
+      ctx.strokeRect(x+0.5,y+0.5,B-1,B-1);
+      if (flagged[r][c]) {
+        ctx.font=`${Math.floor(B*0.6)}px serif`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillStyle=CLR.flag;
+        ctx.fillText('🚩',x+B/2,y+B/2+1);
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) drawCell(r,c);
+    // Win/lose overlay
+    if (gameOver||gameWon) {
+      ctx.fillStyle=gameWon?'rgba(34,197,94,0.15)':'rgba(239,68,68,0.15)';
+      ctx.fillRect(0,0,W,H);
+    }
+  }
+
+  // ── Input ──
+  function getCellFromEvent(e) {
+    const rect=canvas.getBoundingClientRect();
+    const scaleX=W/rect.width, scaleY=H/rect.height;
+    const x=(e.clientX-rect.left)*scaleX;
+    const y=(e.clientY-rect.top)*scaleY;
+    return { r:Math.floor(y/B), c:Math.floor(x/B) };
+  }
+
+  canvas.addEventListener('click', e => {
+    if (gameOver||gameWon) { initBoard(); draw(); return; }
+    const {r,c}=getCellFromEvent(e);
+    if (r<0||r>=rows||c<0||c>=cols) return;
+    if (revealed[r][c]) chordReveal(r,c);
+    else reveal(r,c);
+  });
+
+  canvas.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    if (gameOver||gameWon) return;
+    const {r,c}=getCellFromEvent(e);
+    if (r>=0&&r<rows&&c>=0&&c<cols) toggleFlag(r,c);
+  });
+
+  // Long press for mobile flagging
+  let longPressTimer=null;
+  canvas.addEventListener('touchstart', e => {
+    const touch=e.touches[0];
+    longPressTimer=setTimeout(()=>{
+      const rect=canvas.getBoundingClientRect();
+      const scaleX=W/rect.width, scaleY=H/rect.height;
+      const r=Math.floor((touch.clientY-rect.top)*scaleY/B);
+      const c=Math.floor((touch.clientX-rect.left)*scaleX/B);
+      if (r>=0&&r<rows&&c>=0&&c<cols) toggleFlag(r,c);
+    },400);
+  },{passive:true});
+
+  canvas.addEventListener('touchend', ()=>{
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer=null; }
+  });
+
+  mineRunning=true;
+  initBoard();
+  draw();
+}

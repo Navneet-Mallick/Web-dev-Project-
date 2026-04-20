@@ -4029,3 +4029,39 @@ body.light-mode #mobile-bottom-nav a.active {
     display: none !important;
   }
 }
+
+/* ── MOBILE SHORTCUTS BUTTON ── */
+#mobile-shortcuts-btn {
+  display: none; /* hidden by default, shown on mobile via media query */
+  position: fixed;
+  bottom: 90px;
+  left: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,217,255,0.3);
+  background: rgba(10,14,39,0.9);
+  color: var(--accent);
+  font-size: 16px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 9997;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+#mobile-shortcuts-btn:hover,
+#mobile-shortcuts-btn:active {
+  background: var(--accent);
+  color: #000;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  #mobile-shortcuts-btn {
+    display: flex;
+    bottom: 130px;
+  }
+}

@@ -30,17 +30,18 @@
     <div style="
       background: var(--card-bg, rgba(13,21,53,0.98));
       border: 1px solid rgba(0,217,255,0.25);
-      border-radius: 16px; padding: 32px 36px;
-      min-width: 340px; max-width: 480px; width: 90%;
+      border-radius: 16px; padding: 24px 28px;
+      min-width: 300px; max-width: 440px; width: 90%;
       box-shadow: 0 0 40px rgba(0,217,255,0.15);
-      font-family: 'Courier New', monospace;
+      font-family: 'Poppins', sans-serif;
+      max-height: 85vh; overflow-y: auto;
     ">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <span style="color:#00d9ff; font-size:1rem; font-weight:700; letter-spacing:2px;">⌨ KEYBOARD SHORTCUTS</span>
-        <button id="shortcuts-close" style="background:none;border:none;color:rgba(255,255,255,0.5);font-size:20px;cursor:pointer;line-height:1;">&times;</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+        <span style="color:#00d9ff; font-size:0.95rem; font-weight:700; letter-spacing:1px;"><i class="fas fa-keyboard" style="margin-right:8px;"></i>SHORTCUTS</span>
+        <button id="shortcuts-close" style="background:none;border:none;color:rgba(255,255,255,0.5);font-size:20px;cursor:pointer;line-height:1;padding:4px 8px;">&times;</button>
       </div>
       <div id="shortcuts-list"></div>
-      <p style="margin-top:18px; font-size:11px; color:rgba(255,255,255,0.3); text-align:center;">Press <kbd style="background:rgba(0,217,255,0.15);border:1px solid rgba(0,217,255,0.3);border-radius:4px;padding:1px 6px;color:#00d9ff;">?</kbd> or <kbd style="background:rgba(0,217,255,0.15);border:1px solid rgba(0,217,255,0.3);border-radius:4px;padding:1px 6px;color:#00d9ff;">Esc</kbd> to close</p>
+      <p style="margin-top:16px; font-size:11px; color:rgba(255,255,255,0.3); text-align:center;">Press <kbd style="background:rgba(0,217,255,0.15);border:1px solid rgba(0,217,255,0.3);border-radius:4px;padding:1px 6px;color:#00d9ff;">?</kbd> or tap <i class="fas fa-keyboard" style="color:#00d9ff;"></i> to toggle</p>
     </div>
   `;
 
