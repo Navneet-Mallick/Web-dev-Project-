@@ -443,6 +443,10 @@ html[data-low-end="true"] #matrix-canvas {
   display: none;
 }
 
+#matrix-canvas {
+  display: none;
+}
+
 html[data-low-end="true"] #spotlight {
   display: none;
 }

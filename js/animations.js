@@ -30,7 +30,8 @@ const Animations = {
       this.setupParallax();
       this.setupCursorTrail();
       this.setupCardTilt();
-      this.setupMatrixRain();
+      // Matrix rain disabled for better performance
+      // this.setupMatrixRain();
       this.setupClickExplosions();
     }
   },
