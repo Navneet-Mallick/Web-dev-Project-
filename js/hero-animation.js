@@ -29,7 +29,7 @@
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   
   const particlesGeometry = new THREE.BufferGeometry();
-  const count = 3000;
+  const count = 1500; // reduced from 3000 to 1500
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
 
@@ -91,9 +91,18 @@
   resize();
 
   let animRafId;
+  let isHeroVisible = true;
+  
+  // Stop animation when hero section is out of view
+  const heroObserver = new IntersectionObserver(entries => {
+    isHeroVisible = entries[0].isIntersecting;
+  }, { threshold: 0 });
+  
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) heroObserver.observe(heroSection);
 
   function animate() {
-    if (!document.hidden) {
+    if (!document.hidden && isHeroVisible) {
       particles.rotation.y += 0.002;
       particles.rotation.x += 0.001;
 

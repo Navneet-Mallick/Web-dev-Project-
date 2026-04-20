@@ -10,7 +10,7 @@ const Animations = {
       // Still run reveals and skill bars, skip heavy animations
       this.setupScrollReveal();
       this.setupProjectCardReveal();
-      this.setupSkillBars();
+      this.setupSkillTableAnimation();
       this.setupScrollProgress();
       return;
     }
@@ -50,11 +50,20 @@ const Animations = {
 
   setupScrollReveal() {
     const reveals = document.querySelectorAll('.reveal');
-    const check = () => reveals.forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 100)
-        el.classList.add('active');
-    });
-    window.addEventListener('scroll', check);
+    let ticking = false;
+    const check = () => {
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 100)
+          el.classList.add('active');
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(check);
+        ticking = true;
+      }
+    }, { passive: true });
     check();
   },
 
@@ -62,15 +71,22 @@ const Animations = {
     const check = () => {
       document.querySelectorAll('.project-card').forEach((card, i) => {
         if (card.getBoundingClientRect().top < window.innerHeight - 100 && !card.classList.contains('reveal-card'))
-          setTimeout(() => card.classList.add('reveal-card'), i * 100);
+          setTimeout(() => card.classList.add('reveal-card'), i * 50); // reduced delay from 100 to 50
       });
     };
-    window.addEventListener('scroll', check);
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(check);
+        ticking = true;
+      }
+    }, { passive: true });
     check();
   },
 
   setupSkillTableAnimation() {
     const bars = document.querySelectorAll('.prof-fill');
+    let ticking = false;
     const animate = () => {
       bars.forEach(bar => {
         const rect = bar.getBoundingClientRect();
@@ -83,8 +99,14 @@ const Animations = {
           }, 100);
         }
       });
+      ticking = false;
     };
-    window.addEventListener('scroll', animate);
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(animate);
+        ticking = true;
+      }
+    }, { passive: true });
     setTimeout(animate, 600);
   },
 
@@ -101,10 +123,17 @@ const Animations = {
   setupScrollProgress() {
     const bar = document.getElementById('scroll-progress');
     if (!bar) return;
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-      bar.style.width = pct + '%';
-    });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+          bar.style.width = pct + '%';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
   },
 
   setupCursorTrail() {
@@ -169,7 +198,7 @@ const Animations = {
     let cols = Math.floor(canvas.width / fontSize);
     let drops = Array(cols).fill(1);
     let lastTime = 0;
-    const interval = 50; // ms between frames (~20fps)
+    const interval = 80; // reduced from 50ms to 80ms (~12fps instead of 20fps)
     let rafId;
 
     const draw = (timestamp) => {
@@ -202,12 +231,17 @@ const Animations = {
   // Click explosion burst
   setupClickExplosions() {
     const colors = ['#00d9ff', '#7c3aed', '#f59e0b', '#ff00c1', '#00fff9', '#ffffff'];
+    let lastClickTime = 0;
 
     document.addEventListener('click', e => {
-      for (let i = 0; i < 12; i++) {
+      const now = Date.now();
+      if (now - lastClickTime < 100) return; // throttle to prevent spam
+      lastClickTime = now;
+
+      for (let i = 0; i < 6; i++) { // reduced from 12 to 6
         const p = document.createElement('div');
         p.className = 'explosion-particle';
-        const angle = (i / 12) * 360;
+        const angle = (i / 6) * 360;
         const dist  = 40 + Math.random() * 60;
         const tx = Math.cos(angle * Math.PI / 180) * dist;
         const ty = Math.sin(angle * Math.PI / 180) * dist;
@@ -216,9 +250,10 @@ const Animations = {
           background: ${colors[Math.floor(Math.random() * colors.length)]};
           box-shadow: 0 0 6px ${colors[0]};
           --tx: ${tx}px; --ty: ${ty}px;
+          will-change: transform, opacity;
         `;
         document.body.appendChild(p);
-        setTimeout(() => p.remove(), 800);
+        setTimeout(() => p.remove(), 600); // reduced from 800 to 600
       }
     });
   },
@@ -271,9 +306,16 @@ document.addEventListener('DOMContentLoaded', () => Animations.init());
     transition: background 0.1s ease;
   `;
   document.body.appendChild(spotlight);
+  let ticking = false;
   document.addEventListener('mousemove', e => {
-    spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(0,217,255,0.05), transparent 70%)`;
-  });
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(0,217,255,0.05), transparent 70%)`;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 })();
 
 // 2. Section title typewriter on scroll into view

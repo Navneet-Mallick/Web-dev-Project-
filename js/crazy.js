@@ -127,7 +127,7 @@ function showEggModal(emoji, title, msg) {
     const colors = ['#00d9ff','#7c3aed','#f59e0b','#ff00c1','#00fff9','#fff','#ff4500','#28c840'];
     const shapes = ['50%', '2px', '0'];
 
-    for (let i = 0; i < 140; i++) {
+    for (let i = 0; i < 60; i++) { // reduced from 140 to 60
       const c = document.createElement('div');
       const size = 5 + Math.random() * 9;
       const angle = Math.random() * 360;
@@ -152,6 +152,7 @@ function showEggModal(emoji, title, msg) {
         --ty: ${ty}px;
         --rot: ${Math.random() * 900 - 450}deg;
         opacity: 1;
+        will-change: transform, opacity;
       `;
       document.body.appendChild(c);
       setTimeout(() => c.remove(), (duration + delay) * 1000 + 100);
@@ -217,7 +218,7 @@ function showEggModal(emoji, title, msg) {
 
   let lastX = 0, lastY = 0, ticking = false;
   let trailCount = 0;
-  const MAX_TRAILS = 8; // limit concurrent trail elements
+  const MAX_TRAILS = 3; // reduced from 8 to 3 for better performance
 
   document.addEventListener('mousemove', e => {
     if (ticking || trailCount >= MAX_TRAILS) return;
@@ -227,9 +228,9 @@ function showEggModal(emoji, title, msg) {
       const dy = e.clientY - lastY;
       const speed = Math.sqrt(dx*dx + dy*dy);
 
-      if (speed > 12) {
+      if (speed > 20) { // increased threshold from 12 to 20 to reduce trail frequency
         const trail = document.createElement('div');
-        const size = Math.min(speed * 0.3, 8);
+        const size = Math.min(speed * 0.2, 6); // reduced max size
         trail.style.cssText = `
           position: fixed;
           left: ${e.clientX}px; top: ${e.clientY}px;
@@ -239,11 +240,12 @@ function showEggModal(emoji, title, msg) {
           pointer-events: none;
           z-index: 99998;
           transform: translate(-50%, -50%);
-          animation: trailFade 0.5s ease-out forwards;
+          animation: trailFade 0.4s ease-out forwards;
+          will-change: opacity, transform;
         `;
         document.body.appendChild(trail);
         trailCount++;
-        setTimeout(() => { trail.remove(); trailCount--; }, 550);
+        setTimeout(() => { trail.remove(); trailCount--; }, 450);
       }
 
       lastX = e.clientX;

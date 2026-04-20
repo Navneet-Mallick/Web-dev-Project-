@@ -5,7 +5,7 @@
 
 /* ====== GLASSMORPHISM EFFECTS ====== */
 .project-card {
-  backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(5px) !important;
   background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -13,20 +13,20 @@
 }
 
 .project-card:hover {
-  backdrop-filter: blur(20px) !important;
+  backdrop-filter: blur(10px) !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(0, 217, 255, 0.3) !important;
 }
 
 .skill {
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
   background: rgba(255, 255, 255, 0.03) !important;
   border: 1px solid rgba(124, 58, 237, 0.2) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skill:hover {
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(8px);
   background: rgba(124, 58, 237, 0.1) !important;
   border: 1px solid rgba(124, 58, 237, 0.5) !important;
   transform: translateY(-8px) scale(1.05) !important;
@@ -417,4 +417,42 @@ html.scroll-snap section {
   .skill:hover {
     transform: none !important;
   }
+}
+
+/* ====== LOW-END DEVICE OPTIMIZATIONS ====== */
+html[data-low-end="true"] .project-card {
+  backdrop-filter: blur(2px) !important;
+  transition: all 0.2s ease !important;
+}
+
+html[data-low-end="true"] .project-card:hover {
+  backdrop-filter: blur(3px) !important;
+}
+
+html[data-low-end="true"] .skill {
+  backdrop-filter: blur(1px);
+  transition: all 0.15s ease;
+}
+
+html[data-low-end="true"] .skill:hover {
+  backdrop-filter: blur(2px);
+  transform: none !important;
+}
+
+html[data-low-end="true"] #matrix-canvas {
+  display: none;
+}
+
+html[data-low-end="true"] #spotlight {
+  display: none;
+}
+
+html[data-low-end="true"] .cursor-dot,
+html[data-low-end="true"] .cursor-ring {
+  display: none;
+}
+
+html[data-low-end="true"] .beam-effect::before,
+html[data-low-end="true"] .beam-glow::after {
+  display: none;
 }

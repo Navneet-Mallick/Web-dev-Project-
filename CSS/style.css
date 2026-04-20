@@ -2345,7 +2345,7 @@ body.light-mode #music-player {
     display: flex
   }
   footer {
-    padding-bottom: 80px
+    padding-bottom: 24px
   }
   #music-player {
     bottom: 72px

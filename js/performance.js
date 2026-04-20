@@ -11,12 +11,24 @@ const Performance = {
   isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
   
   init() {
+    this.detectLowEndDevice();
     this.setupLazyLoading();
     this.setupScrollThrottling();
     this.setupViewStats();
     this.prefetchLinks();
     this.optimizeMobilePerformance();
     this.setupAdaptiveRefreshRate();
+  },
+
+  detectLowEndDevice() {
+    // Disable heavy animations on low-end devices
+    const cores = navigator.hardwareConcurrency || 1;
+    const memory = navigator.deviceMemory || 4;
+    const connection = navigator.connection?.effectiveType || '4g';
+    
+    if (cores <= 2 || memory <= 2 || connection === '3g' || connection === '4g') {
+      document.documentElement.setAttribute('data-low-end', 'true');
+    }
   },
 
   setupLazyLoading() {
