@@ -7,8 +7,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #0a1628 0%, #0d2a47 25%, #0f3a5f 50%, #0a2a4a 75%, #051a2f 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
 }
 
 /* Animated Background Gradients */
@@ -22,7 +24,7 @@
   position: absolute;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(0, 217, 255, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
   top: -150px;
   left: -150px;
   animation: float 12s ease-in-out infinite;
@@ -33,7 +35,7 @@
   position: absolute;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
   bottom: -150px;
   right: -150px;
   animation: float 14s ease-in-out infinite reverse;
@@ -54,11 +56,11 @@
   width: 90%;
   animation: slideUp 1s cubic-bezier(0.34, 1.56, 0.64, 1);
   backdrop-filter: blur(10px);
-  background: rgba(10, 14, 39, 0.4);
+  background: rgba(255, 255, 255, 0.15);
   padding: 60px 40px;
   border-radius: 20px;
-  border: 1px solid rgba(0, 217, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes slideUp {
@@ -102,27 +104,27 @@
 .boot-logo-text {
   font-size: 52px;
   font-weight: 800;
-  background: linear-gradient(135deg, #00d9ff 0%, #00f5ff 50%, #7c3aed 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
   z-index: 2;
   letter-spacing: 3px;
-  text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
-  filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.3));
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
 }
 
 .boot-logo-ring {
   position: absolute;
   inset: 0;
   border: 3px solid transparent;
-  border-top-color: #00d9ff;
-  border-right-color: #7c3aed;
-  border-bottom-color: rgba(0, 217, 255, 0.3);
+  border-top-color: #ffffff;
+  border-right-color: #f0f0f0;
+  border-bottom-color: rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   animation: spin 4s linear infinite;
-  box-shadow: 0 0 30px rgba(0, 217, 255, 0.4), inset 0 0 30px rgba(124, 58, 237, 0.2);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), inset 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 @keyframes spin {
@@ -138,16 +140,16 @@
 .boot-title h1 {
   font-size: 36px;
   font-weight: 800;
-  color: #eaf2ff;
+  color: #ffffff;
   margin: 0;
   letter-spacing: 1.5px;
   animation: fadeInDown 0.8s ease 0.2s both;
-  text-shadow: 0 2px 10px rgba(0, 217, 255, 0.2);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .boot-subtitle {
   font-size: 18px;
-  color: #00d9ff;
+  color: #ffffff;
   margin: 15px 0 0;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -178,7 +180,7 @@
 
 .boot-text {
   font-size: 15px;
-  color: #00d9ff;
+  color: #ffffff;
   font-family: 'Courier New', monospace;
   letter-spacing: 0.8px;
   min-height: 28px;
@@ -218,20 +220,20 @@
   position: relative;
   width: 100%;
   height: 6px;
-  background: rgba(0, 217, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 15px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .boot-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00d9ff 0%, #7c3aed 50%, #00d9ff 100%);
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 50%, #ffffff 100%);
   border-radius: 10px;
   width: 0%;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 15px rgba(0, 217, 255, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .boot-progress-glow {
@@ -251,7 +253,7 @@
 
 .boot-percent {
   font-size: 13px;
-  color: #00d9ff;
+  color: #ffffff;
   font-weight: 700;
   letter-spacing: 1.5px;
   font-family: 'Courier New', monospace;
@@ -264,14 +266,14 @@
 
 .boot-hint {
   font-size: 13px;
-  color: rgba(234, 242, 255, 0.6);
+  color: rgba(255, 255, 255, 0.8);
   letter-spacing: 0.8px;
   animation: pulse 2.5s ease-in-out infinite;
   font-weight: 500;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.6; }
+  0%, 100% { opacity: 0.8; }
   50% { opacity: 1; }
 }
 
@@ -287,11 +289,11 @@
   position: absolute;
   width: 3px;
   height: 3px;
-  background: #00d9ff;
+  background: #ffffff;
   border-radius: 50%;
   opacity: 0.4;
   animation: particleFloat 8s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
 .boot-particle:nth-child(1) {
