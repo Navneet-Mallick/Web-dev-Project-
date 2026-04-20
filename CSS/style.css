@@ -1302,9 +1302,6 @@ footer p {
   background-color: var(--bg-gradient-1);
   background-image: var(--card-bg)
 }
-.social-icons a:hover {
-  animation: .4s iconBounce
-}
 @keyframes iconBounce {
   0% {
     transform: translateY(0)

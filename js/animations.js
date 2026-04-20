@@ -14,18 +14,25 @@ const Animations = {
       this.setupScrollProgress();
       return;
     }
+
+    const isMobile = window.innerWidth < 768 || window.matchMedia('(hover: none)').matches;
+
     this.createParticles();
     this.setupScrollReveal();
     this.setupProjectCardReveal();
     this.setupSkillTableAnimation();
-    this.setupParallax();
     this.setupScrollProgress();
-    this.setupCursorTrail();
-    this.setupCardTilt();
-    this.setupMatrixRain();
-    this.setupClickExplosions();
     this.setupMagneticButtons();
     this.setupAudioVisualizer();
+
+    // Skip heavy effects on mobile
+    if (!isMobile) {
+      this.setupParallax();
+      this.setupCursorTrail();
+      this.setupCardTilt();
+      this.setupMatrixRain();
+      this.setupClickExplosions();
+    }
   },
 
   createParticles() {
@@ -394,7 +401,8 @@ document.addEventListener('DOMContentLoaded', function () {
 (function setupFooterSocials() {
   const footer = document.querySelector('footer');
   if (!footer) return;
-  const links = footer.querySelectorAll('a');
+  // Only target actual social icon links, not all footer links
+  const links = footer.querySelectorAll('.social-icons a');
   let triggered = false;
 
   const observer = new IntersectionObserver(entries => {
@@ -402,8 +410,8 @@ document.addEventListener('DOMContentLoaded', function () {
     triggered = true;
     links.forEach((a, i) => {
       setTimeout(() => {
-        a.style.animation = 'socialBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) both';
-      }, i * 120);
+        a.style.animation = 'socialBounce 0.4s cubic-bezier(0.34,1.56,0.64,1) both';
+      }, i * 100);
     });
   }, { threshold: 0.5 });
 
