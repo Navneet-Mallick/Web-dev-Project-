@@ -492,17 +492,33 @@
 
 <!-- GitHub Stats Section -->
 <section id="github-stats" class="reveal">
-  <h2 class="section-title">GitHub Analytics</h2>
+  <h2 class="section-title">GitHub Stats</h2>
 
-  <div class="github-activity-graph">
+  <!-- GitHub Stats Cards -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 0 10%; margin-bottom: 40px;">
+    <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; text-align: center; box-shadow: var(--shadow); transition: 0.4s;">
+      <img src="https://github-readme-stats.vercel.app/api?username=Navneet-Mallick&show_icons=true&theme=tokyonight&count_private=true&cache_seconds=86400" alt="GitHub Stats" style="width: 100%; border-radius: 10px;">
+    </div>
+    <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; text-align: center; box-shadow: var(--shadow); transition: 0.4s;">
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Navneet-Mallick&layout=compact&theme=tokyonight&cache_seconds=86400" alt="Top Languages" style="width: 100%; border-radius: 10px;">
+    </div>
+  </div>
+
+  <!-- Activity Graph -->
+  <div class="github-activity-graph" style="padding: 0 10%; margin-bottom: 40px;">
     <img
       src="https://github-readme-activity-graph.vercel.app/graph?username=Navneet-Mallick&theme=tokyo-night&hide_border=true&bg_color=0d1117&color=00d9ff&line=7c3aed&point=f59e0b"
       alt="Navneet's GitHub Activity Graph"
       loading="lazy"
+      style="width: 100%; border-radius: 14px;"
     >
   </div>
 
- 
+  <!-- Contribution Snake -->
+  <div style="text-align: center; padding: 0 10%;">
+    <h3 style="color: var(--accent); margin-bottom: 20px;">Contribution Snake</h3>
+    <img src="https://github.com/Platane/snk/raw/output/github-contribution-grid-snake.svg" alt="Snake animation" style="width: 100%; border-radius: 14px;">
+  </div>
 </section>
 
 <div class="theme-wrapper-container">
