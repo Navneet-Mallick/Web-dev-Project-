@@ -62,6 +62,7 @@
   <link rel="stylesheet" href="CSS/style.css">
   <link rel="stylesheet" href="CSS/advanced-effects.css">
   <link rel="stylesheet" href="CSS/mobile.css">
+  <link rel="stylesheet" href="CSS/loading-screen.css">
   <link rel="stylesheet" href="CSS/mobile-performance.css">
 </head>
 
@@ -84,23 +85,55 @@
 <!-- Scanlines overlay -->
 <div class="scanlines"></div>
 
-<!-- Boot Overlay -->
+<!-- Boot Overlay - Professional Loading Screen -->
 <div id="boot-overlay">
-  <div class="boot-corner tl"></div>
-  <div class="boot-corner tr"></div>
-  <div class="boot-corner bl"></div>
-  <div class="boot-corner br"></div>
+  <div class="boot-background">
+    <div class="boot-gradient-1"></div>
+    <div class="boot-gradient-2"></div>
+  </div>
+  
   <div class="boot-content">
-    <div class="boot-logo">NM</div>
-    <div class="boot-tagline">Navneet Mallick &mdash; Portfolio</div>
-    <div class="boot-text" id="boot-text"></div>
-    <div class="boot-bar-wrap">
-      <div class="boot-bar" id="boot-bar"></div>
+    <!-- Animated Logo -->
+    <div class="boot-logo-container">
+      <div class="boot-logo">
+        <span class="boot-logo-text">NM</span>
+        <div class="boot-logo-ring"></div>
+      </div>
     </div>
-    <div class="boot-status-row">
+    
+    <!-- Title -->
+    <div class="boot-title">
+      <h1>Navneet Mallick</h1>
+      <p class="boot-subtitle">Portfolio</p>
+    </div>
+    
+    <!-- Loading Messages -->
+    <div class="boot-messages">
+      <div class="boot-text" id="boot-text"></div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="boot-progress-container">
+      <div class="boot-progress-bar">
+        <div class="boot-progress-fill" id="boot-bar"></div>
+        <div class="boot-progress-glow"></div>
+      </div>
       <div class="boot-percent" id="boot-percent">0%</div>
-      <div class="boot-hint">click anywhere to enter</div>
     </div>
+    
+    <!-- Status -->
+    <div class="boot-status">
+      <p class="boot-hint">Loading your experience...</p>
+    </div>
+  </div>
+  
+  <!-- Animated Particles Background -->
+  <div class="boot-particles">
+    <div class="boot-particle"></div>
+    <div class="boot-particle"></div>
+    <div class="boot-particle"></div>
+    <div class="boot-particle"></div>
+    <div class="boot-particle"></div>
   </div>
 </div>
 
