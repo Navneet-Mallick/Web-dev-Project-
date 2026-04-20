@@ -1967,7 +1967,7 @@ body.boot-active {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 7px 12px;
   background: rgba(10,14,39,.92);
   border: 1px solid var(--border-color);
   border-radius: 50px;
@@ -1975,7 +1975,7 @@ body.boot-active {
   backdrop-filter: blur(24px) saturate(180%);
   box-shadow: 0 8px 32px rgba(0,0,0,.4), 0 0 20px rgba(0,217,255,0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  max-width: 240px;
+  max-width: 220px;
 }
 body.light-mode #music-player {
   background: rgba(255,255,255,.88)
@@ -2041,7 +2041,18 @@ body.light-mode #music-player {
   flex-direction: column;
   gap: 4px;
   min-width: 0;
-  flex: 1
+  flex: 1;
+}
+
+/* Hide volume + mode by default, show on hover */
+#music-volume,
+#music-mode-btn {
+  display: none;
+}
+
+#music-player:hover #music-volume,
+#music-player:hover #music-mode-btn {
+  display: flex;
 }
 #music-track-name {
   font-size: 10px;
@@ -3569,19 +3580,14 @@ body.light-mode .input-group i {
 .cat-cell {
   font-weight: 700;
   color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 150px;
+  min-width: 140px;
   white-space: nowrap;
 }
 
 .cat-cell i {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--secondary);
-  width: 20px;
-  text-align: center;
-  flex-shrink: 0;
+  margin-right: 8px;
 }
 
 .tech-icons {
