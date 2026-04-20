@@ -752,11 +752,48 @@ function startAsteroidGame() {
   document.addEventListener('keydown', keyDown);
   document.addEventListener('keyup', keyUp);
 
+  // Touch controls for mobile
+  let touchLeft = false, touchRight = false, touchShoot = false;
+
+  // Create mobile touch buttons
+  const touchControls = document.createElement('div');
+  touchControls.style.cssText = `
+    display: none; position: absolute; bottom: 10px; left: 0; right: 0;
+    justify-content: space-between; align-items: center; padding: 0 10px; z-index: 10;
+  `;
+  touchControls.innerHTML = `
+    <button id="ast-left"  style="width:60px;height:60px;border-radius:50%;background:rgba(0,217,255,0.2);border:2px solid rgba(0,217,255,0.5);color:#00d9ff;font-size:22px;cursor:pointer;touch-action:none;">◀</button>
+    <button id="ast-shoot" style="width:70px;height:70px;border-radius:50%;background:rgba(245,158,11,0.2);border:2px solid rgba(245,158,11,0.5);color:#f59e0b;font-size:18px;cursor:pointer;touch-action:none;">🔥</button>
+    <button id="ast-right" style="width:60px;height:60px;border-radius:50%;background:rgba(0,217,255,0.2);border:2px solid rgba(0,217,255,0.5);color:#00d9ff;font-size:22px;cursor:pointer;touch-action:none;">▶</button>
+  `;
+
+  if (canvas.parentElement) {
+    canvas.parentElement.style.position = 'relative';
+    canvas.parentElement.appendChild(touchControls);
+  }
+
+  // Show touch controls on mobile
+  if (window.matchMedia('(hover: none)').matches || window.innerWidth < 768) {
+    touchControls.style.display = 'flex';
+  }
+
+  const astLeft  = touchControls.querySelector('#ast-left');
+  const astRight = touchControls.querySelector('#ast-right');
+  const astShoot = touchControls.querySelector('#ast-shoot');
+
+  astLeft.addEventListener('touchstart',  e => { e.preventDefault(); touchLeft = true; if (!started) { started = true; } }, { passive: false });
+  astLeft.addEventListener('touchend',    e => { e.preventDefault(); touchLeft = false; }, { passive: false });
+  astRight.addEventListener('touchstart', e => { e.preventDefault(); touchRight = true; if (!started) { started = true; } }, { passive: false });
+  astRight.addEventListener('touchend',   e => { e.preventDefault(); touchRight = false; }, { passive: false });
+  astShoot.addEventListener('touchstart', e => { e.preventDefault(); touchShoot = true; if (!started) { started = true; if (msgDisplay) msgDisplay.textContent = 'FIRING...'; } }, { passive: false });
+  astShoot.addEventListener('touchend',   e => { e.preventDefault(); touchShoot = false; }, { passive: false });
+
   // Main loop
   function loop() {
     if (!asteroidRunning) {
       document.removeEventListener('keydown', keyDown);
       document.removeEventListener('keyup', keyUp);
+      if (touchControls.parentElement) touchControls.remove();
       return;
     }
 
@@ -797,9 +834,9 @@ function startAsteroidGame() {
       frame++;
 
       // Player rotation
-      if (keys['ArrowLeft']) player.angle -= 0.15;
-      if (keys['ArrowRight']) player.angle += 0.15;
-      if (keys[' ']) {
+      if (keys['ArrowLeft']  || touchLeft)  player.angle -= 0.15;
+      if (keys['ArrowRight'] || touchRight) player.angle += 0.15;
+      if (keys[' '] || touchShoot) {
         bullets.push({
           x: player.x + Math.cos(player.angle) * 12,
           y: player.y + Math.sin(player.angle) * 12,
