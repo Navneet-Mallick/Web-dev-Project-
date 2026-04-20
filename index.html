@@ -53,8 +53,12 @@
   </script>
 
   <!-- External Styles & Fonts -->
+  <!-- Font preloading for faster render -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS/style.css">
   <link rel="stylesheet" href="CSS/advanced-effects.css">
   <link rel="stylesheet" href="CSS/mobile.css">
@@ -109,9 +113,17 @@
     <i class="fas fa-play" id="music-icon"></i>
   </button>
 
+  <!-- Animated bars (visible when playing) -->
+  <div class="music-bars" aria-hidden="true">
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+    <div class="music-bar"></div>
+  </div>
+
   <!-- Track info + progress -->
   <div class="music-info">
-    <span id="music-track-name">Interstellar</span>
+    <span id="music-track-name">Lo-Fi Beats</span>
     <div class="music-progress">
       <div id="music-progress-bar"></div>
     </div>
@@ -138,7 +150,7 @@
     <nav class="navbar">
         <div class="logo-container">
             <a href="#home" >
-                <img src="Assets/images/image.png" alt="Navneet Mallick Logo" id="nav-logo-img">
+                <img src="Assets/images/image.png" alt="Navneet Mallick Logo" id="nav-logo-img" loading="lazy">
             </a>
         </div>
 
