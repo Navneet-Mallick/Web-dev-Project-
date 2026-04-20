@@ -305,21 +305,28 @@
 
     <h2 class="section-title">Projects</h2>
 
-    <!-- Project Tabs -->
+    <!-- Project Filter Tabs -->
     <div class="project-tabs">
-      <button class="project-tab active" data-tab="live">
-        <i class="fas fa-rocket"></i> Live Projects
+      <button class="project-tab active" data-filter="all">
+        <i class="fas fa-th"></i> All
       </button>
-      <button class="project-tab" data-tab="repo">
-        <i class="fab fa-github"></i> Repo Projects
+      <button class="project-tab" data-filter="web">
+        <i class="fas fa-globe"></i> Web
+      </button>
+      <button class="project-tab" data-filter="ml">
+        <i class="fas fa-brain"></i> ML / DS
+      </button>
+      <button class="project-tab" data-filter="cpp">
+        <i class="fas fa-code"></i> C / C++
       </button>
     </div>
 
-    <!-- Live Projects -->
-    <div class="project-container" id="tab-live">
+    <!-- All Projects in one container -->
+    <div class="project-container" id="projects-grid">
 
-      <div class="project-card">
-        <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender">
+      <!-- ML/DS -->
+      <div class="project-card" data-category="ml">
+        <img src="https://img.freepik.com/premium-vector/movie-theater-signboard-blue_34230-295.jpg" alt="Movie Recommender" loading="lazy">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
           <h3>Movie Recommender</h3>
@@ -331,8 +338,8 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor">
+      <div class="project-card" data-category="ml">
+        <img src="https://storage.googleapis.com/kaggle-datasets-images/4210881/7265027/7dd70275b71ef22623be2a72c655675a/dataset-cover.jpg" alt="Car Price Predictor" loading="lazy">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
           <h3>Car Price Predictor</h3>
@@ -344,8 +351,21 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <img src="Assets/images/music.jpg" alt="GrooveBox" onerror="this.src='Assets/images/developer.jpg'">
+      <div class="project-card" data-category="ml">
+        <img src="Assets/images/developer.jpg" alt="ETL Pipeline" loading="lazy">
+        <span class="project-featured-badge">Featured</span>
+        <div class="overlay">
+          <h3>Retail ETL Pipeline</h3>
+          <p>Python &middot; Pandas &middot; SQL &middot; Data Engineering</p>
+          <div class="overlay-btns">
+            <a href="https://github.com/Navneet-Mallick/Retail-ETL-Pipeline" target="_blank" rel="noopener noreferrer" class="btn"><i class="fab fa-github"></i> View Repo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Web -->
+      <div class="project-card" data-category="web">
+        <img src="Assets/images/music.jpg" alt="GrooveBox" loading="lazy" onerror="this.src='Assets/images/developer.jpg'">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
           <h3>GrooveBox &mdash; Music Player</h3>
@@ -357,8 +377,8 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <img src="Assets/images/poke.jpg" alt="Pokedex" onerror="this.src='Assets/images/quiz.png'">
+      <div class="project-card" data-category="web">
+        <img src="Assets/images/poke.jpg" alt="Pokedex" loading="lazy" onerror="this.src='Assets/images/quiz.png'">
         <div class="overlay">
           <h3>PokeDex</h3>
           <p>JavaScript &middot; PokeAPI &middot; HTML &middot; CSS</p>
@@ -369,13 +389,8 @@
         </div>
       </div>
 
-    </div>
-
-    <!-- Repo Only Projects -->
-    <div class="project-container" id="tab-repo" style="display:none;">
-
-      <div class="project-card">
-        <img src="Assets/images/developer.jpg" alt="VoteSecure">
+      <div class="project-card" data-category="web">
+        <img src="Assets/images/developer.jpg" alt="VoteSecure" loading="lazy">
         <span class="project-featured-badge">Featured</span>
         <div class="overlay">
           <h3>VoteSecure Online</h3>
@@ -386,31 +401,8 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <img src="Assets/images/developer.jpg" alt="ETL Pipeline">
-        <span class="project-featured-badge">Featured</span>
-        <div class="overlay">
-          <h3>Retail ETL Pipeline</h3>
-          <p>Python &middot; Pandas &middot; SQL &middot; Data Engineering</p>
-          <div class="overlay-btns">
-            <a href="https://github.com/Navneet-Mallick/Retail-ETL-Pipeline" target="_blank" rel="noopener noreferrer" class="btn"><i class="fab fa-github"></i> View Repo</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="project-card">
-        <img src="Assets/images/quiz.png" alt="Quiz Game">
-        <div class="overlay">
-          <h3>Quiz Master Game</h3>
-          <p>C++ &middot; OOP &middot; File I/O</p>
-          <div class="overlay-btns">
-            <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game" target="_blank" rel="noopener noreferrer" class="btn"><i class="fab fa-github"></i> View Repo</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <img src="Assets/images/developer.jpg" alt="Hackathon Project">
+      <div class="project-card" data-category="web">
+        <img src="Assets/images/developer.jpg" alt="Hackathon Project" loading="lazy">
         <div class="overlay">
           <h3>Hackathon Project</h3>
           <p>HTML &middot; CSS &middot; JavaScript</p>
@@ -420,8 +412,20 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <img src="Assets/images/books.jpg" alt="LMS">
+      <!-- C/C++ -->
+      <div class="project-card" data-category="cpp">
+        <img src="Assets/images/quiz.png" alt="Quiz Game" loading="lazy">
+        <div class="overlay">
+          <h3>Quiz Master Game</h3>
+          <p>C++ &middot; OOP &middot; File I/O</p>
+          <div class="overlay-btns">
+            <a href="https://github.com/Navneet-Mallick/CPP-Project-Quiz-Master-Game" target="_blank" rel="noopener noreferrer" class="btn"><i class="fab fa-github"></i> View Repo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-category="cpp">
+        <img src="Assets/images/books.jpg" alt="LMS" loading="lazy">
         <div class="overlay">
           <h3>Library Management System</h3>
           <p>C &middot; File Handling &middot; Structs</p>
@@ -688,21 +692,30 @@
     const liveContainer = document.getElementById('tab-live');
     const repoContainer = document.getElementById('tab-repo');
 
-    // 3. Project Tab Logic
+    // 3. Project Filter Logic
     document.querySelectorAll('.project-tab').forEach(tab => {
         tab.addEventListener('click', function () {
             document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            const target = this.dataset.tab;
-            document.getElementById('tab-live').style.display = target === 'live' ? 'grid' : 'none';
-            document.getElementById('tab-repo').style.display = target === 'repo' ? 'grid' : 'none';
-            
-            setTimeout(() => {
-                document.querySelectorAll('#tab-' + target + ' .project-card').forEach((card, i) => {
-                    card.classList.remove('reveal-card');
-                    setTimeout(() => card.classList.add('reveal-card'), i * 100);
-                });
-            }, 50);
+            const filter = this.dataset.filter;
+            const cards = document.querySelectorAll('#projects-grid .project-card');
+
+            cards.forEach((card, i) => {
+                const match = filter === 'all' || card.dataset.category === filter;
+                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                if (match) {
+                    card.style.display = '';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = '';
+                        card.classList.add('reveal-card');
+                    }, i * 60);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => card.style.display = 'none', 300);
+                }
+            });
         });
     });
 
