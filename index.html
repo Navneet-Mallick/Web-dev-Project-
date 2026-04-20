@@ -170,6 +170,12 @@
   <button id="music-mode-btn" aria-label="Switch music mode" title="Switch mode">
     <i class="fas fa-moon" id="music-mode-icon"></i>
   </button>
+
+  <!-- External Music Link -->
+  <a href="https://groove-box-three.vercel.app/" target="_blank" rel="noopener noreferrer" id="music-external-link" aria-label="Open full music player" title="Open GrooveBox Music Player">
+    <i class="fas fa-external-link-alt"></i>
+    <span class="music-notification-badge">NEW</span>
+  </a>
 </div>
 
 <!-- Toast Notifications -->
@@ -1051,6 +1057,13 @@
         <button id="game-tab-mine" onclick="switchGame('mine')" style="background:transparent;border:1px solid var(--border-color);color:var(--text-color);padding:6px 16px;border-radius:50px;font-family:monospace;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;">💣 MINE</button>
       </div>
       <button onclick="closeRunnerGame()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;">&times;</button>
+    </div>
+
+    <!-- More Games Link -->
+    <div style="text-align:center;margin-bottom:12px;padding:8px;background:rgba(0,217,255,0.05);border-radius:8px;border:1px solid rgba(0,217,255,0.2);">
+      <a href="https://game-center-nm.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;font-family:monospace;font-size:12px;font-weight:600;letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <i class="fas fa-gamepad"></i> FOR MORE GAMES VISIT GAME CENTER <i class="fas fa-external-link-alt" style="font-size:10px;"></i>
+      </a>
     </div>
 
     <!-- Runner game panel -->

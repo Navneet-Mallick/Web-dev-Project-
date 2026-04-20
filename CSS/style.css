@@ -2068,12 +2068,14 @@ body.light-mode #music-player {
 
 /* Hide volume + mode by default, show on hover */
 #music-volume,
-#music-mode-btn {
+#music-mode-btn,
+#music-external-link {
   display: none;
 }
 
 #music-player:hover #music-volume,
-#music-player:hover #music-mode-btn {
+#music-player:hover #music-mode-btn,
+#music-player:hover #music-external-link {
   display: flex;
 }
 #music-track-name {
@@ -2178,6 +2180,28 @@ body.light-mode #music-player {
   color: var(--accent);
   background: var(--accent-glow);
   transform: rotate(20deg)
+}
+#music-external-link {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: 0 0;
+  color: var(--text-color);
+  font-size: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: .2s;
+  text-decoration: none;
+}
+#music-external-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+  transform: scale(1.15);
 }
 .stats-section {
   padding: 70px 10%
