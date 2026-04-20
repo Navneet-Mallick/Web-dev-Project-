@@ -367,11 +367,11 @@ function startFlappyGame() {
     star: 'rgba(255,255,255,0.6)',
   };
 
-  const GRAVITY   = 0.45;
-  const JUMP_V    = -8;
-  const PIPE_W    = 52;
-  const PIPE_GAP  = 130;
-  const PIPE_SPD  = 2.8;
+  const GRAVITY   = 0.35;   // less gravity = floatier, easier
+  const JUMP_V    = -7;     // softer jump
+  const PIPE_W    = 48;
+  const PIPE_GAP  = 165;    // wider gap = easier
+  const PIPE_SPD  = 2.2;    // slower pipes
   const GROUND_H  = 30;
 
   let bird, pipes, particles, score, hiScore, dead, started, frame, stars;
@@ -597,7 +597,7 @@ function startFlappyGame() {
 
       // Pipe spawning
       pipeTimer++;
-      if (pipeTimer > 90) { spawnPipe(); pipeTimer = 0; }
+      if (pipeTimer > 110) { spawnPipe(); pipeTimer = 0; }
 
       // Move pipes
       pipes.forEach(p => {
