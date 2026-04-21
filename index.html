@@ -64,6 +64,44 @@
   <link rel="stylesheet" href="CSS/mobile.css">
   <link rel="stylesheet" href="CSS/loading-screen.css">
   <link rel="stylesheet" href="CSS/mobile-performance.css">
+
+  <!-- Ensure boot overlay is visible on mobile - inline critical CSS -->
+  <style>
+    #boot-overlay {
+      display: flex !important;
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 999999 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    
+    /* Prevent body scroll during boot */
+    body.boot-active {
+      overflow: hidden !important;
+      height: 100vh !important;
+      position: fixed !important;
+      width: 100% !important;
+    }
+  </style>
+
+  <!-- Immediate boot overlay initialization -->
+  <script>
+    // Add boot-active class immediately to prevent flash
+    document.documentElement.classList.add('boot-active');
+    
+    // Ensure boot overlay is visible as soon as DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        const overlay = document.getElementById('boot-overlay');
+        if (overlay) {
+          overlay.style.display = 'flex';
+          overlay.style.opacity = '1';
+          document.body.classList.add('boot-active');
+        }
+      });
+    }
+  </script>
 </head>
 
 <body>

@@ -355,6 +355,15 @@
 
 /* Responsive */
 @media (max-width: 600px) {
+  /* Ensure boot overlay is visible on mobile */
+  #boot-overlay {
+    display: flex !important;
+    position: fixed !important;
+    z-index: 999999 !important;
+    min-height: 100vh !important;
+    min-height: -webkit-fill-available !important;
+  }
+
   .boot-content {
     max-width: 90%;
     padding: 50px 30px;
@@ -395,6 +404,16 @@
 
   .boot-progress-bar {
     height: 5px;
+  }
+
+  /* Simplify animations on mobile for better performance */
+  .boot-gradient-1,
+  .boot-gradient-2 {
+    animation-duration: 20s;
+  }
+
+  .boot-particle {
+    animation-duration: 12s;
   }
 }
 

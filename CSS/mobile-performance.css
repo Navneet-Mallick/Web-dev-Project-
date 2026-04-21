@@ -126,6 +126,20 @@
     display: none !important;
   }
 
+  /* IMPORTANT: Keep boot overlay visible and functional on mobile */
+  #boot-overlay,
+  #boot-overlay * {
+    display: revert !important;
+  }
+
+  #boot-overlay {
+    display: flex !important;
+  }
+
+  #boot-overlay.boot-exit {
+    display: flex !important;
+  }
+
   /* Optimize hover states (convert to active states) */
   .mobile-device .project-card:hover,
   .mobile-device .cert-card:hover,

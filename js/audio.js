@@ -137,6 +137,12 @@
   // --- Init ---
   document.body.classList.add('boot-active');
 
+  // Ensure overlay is visible (especially on mobile)
+  if (overlay) {
+    overlay.style.display = 'flex';
+    overlay.style.opacity = '1';
+  }
+
   // Start typing after short delay
   setTimeout(() => {
     typeMessages(0, () => {
@@ -153,6 +159,12 @@
     clearTimeout(autoDismissTimer);
     dismissOverlay();
   }, { once: true });
+
+  // Add touch event for mobile devices
+  document.addEventListener('touchstart', () => {
+    clearTimeout(autoDismissTimer);
+    dismissOverlay();
+  }, { once: true, passive: true });
 
   document.addEventListener('keydown', () => {
     clearTimeout(autoDismissTimer);
