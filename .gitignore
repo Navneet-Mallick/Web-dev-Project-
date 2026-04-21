@@ -28,4 +28,9 @@ Desktop.ini
 *.bak
 *.backup
 
+# Testimonial images (keep folder structure but exclude images)
+Testimonials/*.jpeg
+Testimonials/*.jpg
+Testimonials/*.png
+
 
