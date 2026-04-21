@@ -128,7 +128,8 @@
         <div class="wc-body">
           <p class="wc-greeting">Welcome back 👋</p>
           <h2 class="wc-name">Navneet Mallick</h2>
-          <p class="wc-sub">Web Developer &amp; ML Engineer</p>
+          <p class="wc-sub">Web Developer</p>
+          // <p class="wc-sub">Web Developer &amp;</p>
           <div class="wc-dots">
             <span></span><span></span><span></span>
           </div>
