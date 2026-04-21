@@ -54,7 +54,7 @@
   }
 
   /* ── Restore saved theme immediately (no flash) ─── */
-  const saved = localStorage.getItem('theme') || 'dark';
+  const saved = localStorage.getItem('theme') || 'neon';
   // Apply body class right away before DOMContentLoaded
   if (saved === 'light') document.body.classList.add('light-mode');
   if (saved === 'neon')  document.body.classList.add('neon-mode');
