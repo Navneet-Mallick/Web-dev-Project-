@@ -623,9 +623,12 @@ header {
   border-radius: 50%;
   border: 5px solid var(--accent);
   box-shadow: 0 0 40px var(--accent-glow), 0 20px 60px rgba(0,0,0,.4), inset 0 0 30px rgba(0,217,255,.1);
-  transition: .5s cubic-bezier(.34, 1.56, .64, 1);
+  transition: transform .5s cubic-bezier(.34, 1.56, .64, 1),
+              box-shadow .5s ease,
+              border-color .5s ease,
+              filter .5s ease;
   position: relative;
-  animation: 6s ease-in-out infinite float;
+  animation: 6s ease-in-out infinite float, 4s ease-in-out infinite profileGlow;
   filter: brightness(1.05) contrast(1.1);
 }
 .hero-right::before {
@@ -1222,18 +1225,7 @@ footer p {
     display: flex;
     justify-content: center
   }
-  .pp-img {
-    max-width: 240px;
-  }
-  .hero-right::before {
-    width: 280px;
-    height: 280px;
-  }
-  .hero-right::after {
-    font-size: 10px;
-    padding: 4px 10px;
-    right: 0
-  }
+  /* pp-img sizing handled in mobile.css */
   .section-title {
     font-size: clamp(1.5rem, 5vw, 2rem);
     letter-spacing: 2px;
@@ -1322,19 +1314,7 @@ footer p {
     text-align: center;
     padding: 12px 24px
   }
-  .pp-img {
-    max-width: 200px;
-  }
-  .hero-right::before {
-    width: 240px;
-    height: 240px;
-  }
-  .hero-right::after {
-    font-size: 9px;
-    padding: 3px 8px;
-    bottom: 4px;
-    right: 4px
-  }
+  /* pp-img sizing handled in mobile.css */
   .section-title {
     font-size: clamp(1.3rem, 6vw, 1.7rem);
     letter-spacing: 1px;
@@ -2943,12 +2923,9 @@ body {
     height: 100%
   }
 }
-.pp-img {
-  animation: 6s ease-in-out infinite float,4s ease-in-out infinite profileGlow
-}
+/* profileGlow keyframe — used by pp-img on desktop */
 @keyframes profileGlow {
-  0%,
-  100% {
+  0%, 100% {
     border-color: var(--accent);
     box-shadow: 0 0 20px rgba(0,217,255,.3)
   }

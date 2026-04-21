@@ -140,6 +140,14 @@
     display: flex !important;
   }
 
+  /* Calm the profile image on mobile:
+     - kill profileGlow (border colour flash)
+     - floatMobile is applied via mobile.css instead */
+  .pp-img {
+    animation: 8s ease-in-out infinite floatMobile !important;
+    border-color: var(--accent) !important;
+  }
+
   /* Optimize hover states (convert to active states) */
   .mobile-device .project-card:hover,
   .mobile-device .cert-card:hover,
