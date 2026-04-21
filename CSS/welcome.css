@@ -9,6 +9,7 @@
   bottom: 32px;
   right:  32px;
   z-index: 999989;
+  /* z-index: 343; */
 
   /* Start off-screen below */
   transform: translateY(120px) scale(0.92);

@@ -8,6 +8,7 @@
  * 6. Cursor trail particles
  * 7. Section skew warp reveal
  */
+// 
 
 // ── EASTER EGG MODAL HELPER ───────────────────────────────────────────────────
 function showEggModal(emoji, title, msg) {

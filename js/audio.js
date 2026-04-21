@@ -154,21 +154,24 @@
   const autoDismissTimer = setTimeout(dismissOverlay, 5000);
 
   // Dismiss on click anywhere OR any keypress — immediately
-  document.addEventListener('click', () => {
+  const handleDismiss = () => {
     clearTimeout(autoDismissTimer);
     dismissOverlay();
-  }, { once: true });
+  };
 
-  // Add touch event for mobile devices
-  document.addEventListener('touchstart', () => {
-    clearTimeout(autoDismissTimer);
-    dismissOverlay();
-  }, { once: true, passive: true });
+  document.addEventListener('click', handleDismiss, { once: true });
 
-  document.addEventListener('keydown', () => {
-    clearTimeout(autoDismissTimer);
-    dismissOverlay();
-  }, { once: true });
+  // Add touch event for mobile devices (more reliable than click on touch)
+  document.addEventListener('touchstart', handleDismiss, { once: true, passive: true });
+
+  document.addEventListener('keydown', handleDismiss, { once: true });
+
+  // Fallback: Force dismiss after 6 seconds if nothing worked
+  setTimeout(() => {
+    if (!overlay.classList.contains('boot-exit')) {
+      dismissOverlay();
+    }
+  }, 6000);
 
   // --- Global click sound ---
   document.addEventListener('click', (e) => {
