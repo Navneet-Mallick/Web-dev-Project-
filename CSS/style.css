@@ -4647,6 +4647,7 @@ body.neon-mode .sc-close:hover {
   transform: scale(1.05) rotate(2deg);
   box-shadow: 0 15px 60px var(--accent-glow);
   border-color: transparent;
+  background: rgba(102, 126, 234, 0.12); /* soft purple tint — not too bright */
 }
 
 /* Avatar */
