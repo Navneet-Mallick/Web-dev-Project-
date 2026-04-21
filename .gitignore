@@ -27,3 +27,6 @@ Desktop.ini
 # Backup files
 *.bak
 *.backup
+
+# Personal photos (colleagues' testimonial photos)
+Testimonials/
