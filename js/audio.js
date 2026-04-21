@@ -124,6 +124,9 @@
   function dismissOverlay() {
     if (overlay.classList.contains('boot-exit')) return;
     playBootSound();
+    // Remove inline display so CSS animation can take over
+    overlay.style.display = '';
+    overlay.style.opacity = '';
     overlay.classList.add('boot-exit');
     setTimeout(() => {
       overlay.style.display = 'none';
@@ -131,17 +134,13 @@
       // Signal music player to start Eagles
       window._bootDismissed = true;
       document.dispatchEvent(new CustomEvent('bootDismissed'));
-    }, 800);
+    }, 850);
   }
 
   // --- Init ---
   document.body.classList.add('boot-active');
-
-  // Ensure overlay is visible (especially on mobile)
-  if (overlay) {
-    overlay.style.display = 'flex';
-    overlay.style.opacity = '1';
-  }
+  // Show overlay via inline style so it's guaranteed visible before CSS loads
+  overlay.style.display = 'flex';
 
   // Start typing after short delay
   setTimeout(() => {
