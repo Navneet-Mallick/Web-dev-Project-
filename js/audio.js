@@ -130,6 +130,8 @@
     overlay.classList.add('boot-exit');
     setTimeout(() => {
       overlay.style.display = 'none';
+      overlay.style.visibility = 'hidden';
+      overlay.style.pointerEvents = 'none';
       document.body.classList.remove('boot-active');
       // Signal music player to start Eagles
       window._bootDismissed = true;

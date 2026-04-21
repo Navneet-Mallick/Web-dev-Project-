@@ -67,12 +67,17 @@
     // Sync icon/label with current state (no animation)
     applyTheme(saved, false);
 
-    btn.addEventListener('click', function () {
+    const handleThemeChange = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       const current = localStorage.getItem('theme') || 'dark';
       const next    = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
       applyTheme(next, true);
       localStorage.setItem('theme', next);
-    });
+    };
+
+    btn.addEventListener('click', handleThemeChange);
+    btn.addEventListener('touchend', handleThemeChange, { passive: false });
   });
 
   // Expose for shortcuts.js (T key still works — just cycles)

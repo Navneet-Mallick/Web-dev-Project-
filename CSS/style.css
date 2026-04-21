@@ -432,6 +432,8 @@ header {
   justify-content: center;
   gap: 8px;
   height: 100%;
+  position: relative;
+  z-index: 1001;
 }
 .divider {
   width: 1px;
@@ -772,7 +774,9 @@ header {
   transition: opacity .4s;
   color: #fff;
   text-align: center;
-  padding: 20px
+  padding: 20px;
+  z-index: 10;
+  pointer-events: auto;
 }
 body.light-mode .overlay {
   background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.75) 40%, rgba(15, 23, 42, 0.3) 100%);
@@ -2973,12 +2977,18 @@ body {
   margin-top: 15px;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
+  z-index: 11;
+  pointer-events: auto;
 }
 .overlay-btns .btn, .overlay-btns .btn-cv {
   padding: 10px 20px;
   font-size: 0.9rem;
   margin-top: 0;
   width: auto;
+  position: relative;
+  z-index: 12;
+  pointer-events: auto;
 }
 
 .contact-card {
