@@ -9,7 +9,7 @@
 
   const SHORTCUTS = [
     { key: '?',   desc: 'Show / hide this help',   icon: 'fa-keyboard'       },
-    { key: 'T',   desc: 'Toggle dark / light mode', icon: 'fa-circle-half-stroke' },
+    { key: 'T',   desc: 'Cycle theme (Dark/Light/Neon)', icon: 'fa-circle-half-stroke' },
     { key: 'G',   desc: 'Open games',               icon: 'fa-gamepad'        },
     { key: 'M',   desc: 'Toggle music',             icon: 'fa-music'          },
     { key: '1',   desc: 'Go to Home',               icon: 'fa-house'          },
