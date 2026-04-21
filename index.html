@@ -69,13 +69,12 @@
 
   <!-- Ensure boot overlay is visible on mobile - inline critical CSS -->
   <style>
-    #boot-overlay {
+    /* Show overlay only when NOT exiting */
+    #boot-overlay:not(.boot-exit) {
       display: flex !important;
       position: fixed !important;
       inset: 0 !important;
       z-index: 999999 !important;
-      opacity: 1 !important;
-      visibility: visible !important;
     }
     body.boot-active {
       overflow: hidden !important;

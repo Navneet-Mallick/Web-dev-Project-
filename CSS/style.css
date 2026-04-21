@@ -1914,15 +1914,7 @@ body.boot-active {
   /* No position:fixed — that shifts scroll position on dismiss */
 }
 
-/* Boot overlay — defined fully in loading-screen.css.
-   Only the exit transition is kept here. */
-#boot-overlay.boot-exit {
-  opacity: 0;
-  transform: scale(1.04);
-  filter: blur(8px);
-  pointer-events: none;
-  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
-}
+/* Boot overlay — defined fully in loading-screen.css. */
 
 .project-tabs {
   display: flex;
