@@ -2,6 +2,8 @@
  * game.js — Runner, Flappy Bird, Tetris
  */
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 // ── OPEN / CLOSE ──────────────────────────────────────────────────
 function openRunnerGame() {
   const modal = document.getElementById('game-modal');
@@ -39,6 +41,7 @@ function startRunnerGame() {
   const canvas = document.getElementById('game-canvas');
   const ctx    = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
+  canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   // ── Theme colors ──
   const CLR = {
@@ -114,7 +117,7 @@ function startRunnerGame() {
       // Body — pixel-art style character
       ctx.fillStyle = dead ? CLR.dead : CLR.player;
       ctx.shadowColor = dead ? CLR.dead : CLR.player;
-      ctx.shadowBlur  = 10;
+      ctx.shadowBlur  = isMobile ? 0 : 10;
 
       // legs (animated)
       const legOff = dead ? 0 : Math.sin(frame * 0.3) * 5;
@@ -234,7 +237,7 @@ function startRunnerGame() {
     ctx.strokeStyle = CLR.ground;
     ctx.lineWidth   = 2;
     ctx.shadowColor = CLR.ground;
-    ctx.shadowBlur  = 8;
+    ctx.shadowBlur  = isMobile ? 0 : 8;
     ctx.beginPath();
     ctx.moveTo(0, GROUND_Y + player.h + 2);
     ctx.lineTo(W, GROUND_Y + player.h + 2);
@@ -294,7 +297,7 @@ function startRunnerGame() {
     obstacles.forEach(o => {
       ctx.fillStyle = CLR.obstacle;
       ctx.shadowColor = CLR.obstacle;
-      ctx.shadowBlur  = 12;
+      ctx.shadowBlur  = isMobile ? 0 : 12;
       ctx.fillRect(o.x, o.y, o.w, o.h);
       // top glow cap
       ctx.fillStyle = '#ff00c1';
@@ -358,6 +361,7 @@ function startFlappyGame() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
+  canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   const CLR = {
     bg1: '#0a0e27', bg2: '#0d1535',
@@ -467,7 +471,7 @@ function startFlappyGame() {
   function drawGround() {
     ctx.fillStyle = CLR.ground;
     ctx.shadowColor = CLR.ground;
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = isMobile ? 0 : 8;
     ctx.fillRect(0, H - GROUND_H, W, GROUND_H);
     ctx.shadowBlur = 0;
     // Ground detail lines
@@ -485,7 +489,7 @@ function startFlappyGame() {
       // Top pipe
       ctx.fillStyle = CLR.pipe;
       ctx.shadowColor = CLR.pipeGlow;
-      ctx.shadowBlur = 12;
+      ctx.shadowBlur = isMobile ? 0 : 12;
       ctx.fillRect(p.x, 0, PIPE_W, p.topH);
       // Cap
       ctx.fillRect(p.x - 4, p.topH - 20, PIPE_W + 8, 20);
@@ -1420,6 +1424,7 @@ function startMineGame(difficulty = 'easy') {
   const B = Math.max(18, Math.min(32, Math.floor(maxW / cols)));
   const W = cols * B, H = rows * B;
   canvas.width = W; canvas.height = H;
+  canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   const CLR = {
     hidden:  '#0d1535',
@@ -1614,7 +1619,52 @@ function startMineGame(difficulty = 'easy') {
     return { r:Math.floor(y/B), c:Math.floor(x/B) };
   }
 
+  canvas.addEventListener('touchend', e => {
+    if (gameOver||gameWon) { initBoard(); draw(); return; }
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+    
+    // If it was a long press, it already handled flagging, so don't reveal
+    // But we need a way to distinguish. Let's use a flag.
+  });
+
+  // Let's refine the Minesweeper touch logic to be more robust
+  let isLongPress = false;
+  canvas.addEventListener('touchstart', e => {
+    const touch=e.touches[0];
+    isLongPress = false;
+    longPressTimer=setTimeout(()=>{
+      isLongPress = true;
+      const rect=canvas.getBoundingClientRect();
+      const scaleX=W/rect.width, scaleY=H/rect.height;
+      const r=Math.floor((touch.clientY-rect.top)*scaleY/B);
+      const c=Math.floor((touch.clientX-rect.left)*scaleX/B);
+      if (r>=0&&r<rows&&c>=0&&c<cols) toggleFlag(r,c);
+    },400);
+  },{passive:true});
+
+  canvas.addEventListener('touchend', e => {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer=null; }
+    if (isLongPress) { e.preventDefault(); return; }
+    
+    if (gameOver||gameWon) { initBoard(); draw(); return; }
+    
+    const touch = e.changedTouches[0];
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W/rect.width, scaleY = H/rect.height;
+    const r = Math.floor((touch.clientY-rect.top)*scaleY/B);
+    const c = Math.floor((touch.clientX-rect.left)*scaleX/B);
+    
+    if (r<0||r>=rows||c<0||c>=cols) return;
+    if (revealed[r][c]) chordReveal(r,c);
+    else reveal(r,c);
+    
+    e.preventDefault();
+  });
+
   canvas.addEventListener('click', e => {
+    // Prevent double handling on mobile
+    if (e.pointerType === 'touch' || (window.TouchEvent && e instanceof TouchEvent)) return;
+    
     if (gameOver||gameWon) { initBoard(); draw(); return; }
     const {r,c}=getCellFromEvent(e);
     if (r<0||r>=rows||c<0||c>=cols) return;

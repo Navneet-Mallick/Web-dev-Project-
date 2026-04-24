@@ -51,44 +51,30 @@ const Animations = {
 
   setupScrollReveal() {
     const reveals = document.querySelectorAll('.reveal');
-    let ticking = false;
-    const check = () => {
+    const onScroll = () => {
       reveals.forEach(el => {
         if (el.getBoundingClientRect().top < window.innerHeight - 100)
           el.classList.add('active');
       });
-      ticking = false;
     };
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(check);
-        ticking = true;
-      }
-    }, { passive: true });
-    check();
+    window.addEventListener('optimizedScroll', onScroll);
+    onScroll();
   },
 
   setupProjectCardReveal() {
-    const check = () => {
+    const onScroll = () => {
       document.querySelectorAll('.project-card').forEach((card, i) => {
         if (card.getBoundingClientRect().top < window.innerHeight - 100 && !card.classList.contains('reveal-card'))
-          setTimeout(() => card.classList.add('reveal-card'), i * 50); // reduced delay from 100 to 50
+          setTimeout(() => card.classList.add('reveal-card'), i * 50);
       });
     };
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(check);
-        ticking = true;
-      }
-    }, { passive: true });
-    check();
+    window.addEventListener('optimizedScroll', onScroll);
+    onScroll();
   },
 
   setupSkillTableAnimation() {
     const bars = document.querySelectorAll('.prof-fill');
-    let ticking = false;
-    const animate = () => {
+    const onScroll = () => {
       bars.forEach(bar => {
         const rect = bar.getBoundingClientRect();
         if (rect.top < window.innerHeight - 50 && !bar.classList.contains('animated')) {
@@ -100,15 +86,9 @@ const Animations = {
           }, 100);
         }
       });
-      ticking = false;
     };
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(animate);
-        ticking = true;
-      }
-    }, { passive: true });
-    setTimeout(animate, 600);
+    window.addEventListener('optimizedScroll', onScroll);
+    setTimeout(onScroll, 600);
   },
 
   setupParallax() {
@@ -124,17 +104,10 @@ const Animations = {
   setupScrollProgress() {
     const bar = document.getElementById('scroll-progress');
     if (!bar) return;
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-          bar.style.width = pct + '%';
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
+    window.addEventListener('optimizedScroll', (e) => {
+      const pct = (e.detail?.scrollY || window.scrollY) / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = pct + '%';
+    });
   },
 
   setupCursorTrail() {

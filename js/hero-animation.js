@@ -102,7 +102,8 @@
   if (heroSection) heroObserver.observe(heroSection);
 
   function animate() {
-    if (!document.hidden && isHeroVisible) {
+    const isLowEnd = document.documentElement.getAttribute('data-low-end') === 'true';
+    if (!document.hidden && isHeroVisible && !isLowEnd) {
       particles.rotation.y += 0.002;
       particles.rotation.x += 0.001;
 

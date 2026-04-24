@@ -182,6 +182,10 @@ const Performance = {
         // Adjust animation durations based on refresh rate
         if (fps > 90) {
           document.documentElement.style.setProperty('--animation-speed', '1.2');
+        } else if (fps < 30) {
+          // Low performance detected - trigger low-end mode
+          document.documentElement.setAttribute('data-low-end', 'true');
+          console.warn("Low performance detected, disabling heavy effects.");
         } else if (fps < 50) {
           document.documentElement.style.setProperty('--animation-speed', '0.8');
         }
