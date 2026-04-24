@@ -237,9 +237,9 @@
             <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
             <li><a href="#projects"><i class="fas fa-code"></i> Projects</a></li>
+            <li><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
             <li><a href="#skills"><i class="fas fa-brain"></i> Skills</a></li>
             <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li><a href="#" onclick="openRunnerGame();return false;"><i class="fas fa-gamepad"></i> Play</a></li>
         </ul>
 
         <div class="nav-wrapper">
@@ -258,6 +258,7 @@
             <div id="nav-dropdown">
                 <div class="dropdown-header">NAVIGATE</div>
                 <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+                <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a>
                 <a href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
                 <a href="#testimonials"><i class="fas fa-quote-left"></i> Testimonials</a>
                 <a href="#github-stats"><i class="fab fa-github"></i> GitHub Stats</a>
@@ -887,24 +888,28 @@
   <div class="contact-card">
     <form class="contact-form" id="contact-form">
       <!-- Honeypot anti-spam field (hidden from real users) -->
-      <div style="display:none;" aria-hidden="true">
+      <div style="visibility:hidden;position:absolute;left:-9999px;height:0;width:0;" aria-hidden="true">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off">
       </div>
       <div class="input-group">
         <i class="fas fa-user"></i>
         <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" maxlength="100" required>
+        <span class="error-message" id="name-error"></span>
       </div>
       <div class="input-group">
         <i class="fas fa-envelope"></i>
-        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" maxlength="150" required>
+        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" maxlength="150" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+        <span class="error-message" id="email-error"></span>
       </div>
       <div class="input-group">
         <i class="fas fa-comment-alt"></i>
-        <textarea name="message" placeholder="Your Message" aria-label="Your Message" maxlength="500" required></textarea>
+        <textarea name="message" placeholder="Your Message" aria-label="Your Message" maxlength="500" required minlength="10"></textarea>
+        <span class="error-message" id="message-error"></span>
       </div>
-<button type="submit" class="magnetic btn-submit">
-  Send Message <i class="fas fa-paper-plane"></i>
-</button>    </form>
+      <button type="submit" class="magnetic btn-submit">
+        Send Message <i class="fas fa-paper-plane"></i>
+      </button>    
+    </form>
   </div>
 </section> 
 
@@ -956,8 +961,8 @@
 <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="#home" class="active"><i class="fas fa-home"></i><span>Home</span></a>
   <a href="#projects"><i class="fas fa-code"></i><span>Projects</span></a>
+  <a href="#education"><i class="fas fa-graduation-cap"></i><span>Edu</span></a>
   <a href="#skills"><i class="fas fa-brain"></i><span>Skills</span></a>
-  <a href="#experience"><i class="fas fa-briefcase"></i><span>Exp</span></a>
   <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
 </nav>
 

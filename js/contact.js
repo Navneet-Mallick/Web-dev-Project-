@@ -32,10 +32,39 @@ const ContactForm = {
         return;
       }
 
+      // Validate inputs
+      const name = this.form.name.value.trim();
+      const email = this.form.email.value.trim();
+      const message = this.form.message.value.trim();
+
+      // Clear previous errors
+      this.clearErrors();
+
+      // Validation checks
+      let isValid = true;
+
+      if (!name || name.length < 2) {
+        this.showError('name', 'Name must be at least 2 characters');
+        isValid = false;
+      }
+
+      if (!email || !this.validateEmail(email)) {
+        this.showError('email', 'Please enter a valid email address');
+        isValid = false;
+      }
+
+      if (!message || message.length < 10) {
+        this.showError('message', 'Message must be at least 10 characters');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Sanitize inputs
       const templateParams = {
-        name: this.form.name.value.trim(),
-        email: this.form.email.value.trim(),
-        message: this.form.message.value.trim(),
+        name: this.sanitize(name),
+        email: this.sanitize(email),
+        message: this.sanitize(message),
         time: new Date().toLocaleString()
       };
 
@@ -49,6 +78,7 @@ const ContactForm = {
         .then(() => {
           showToast('Message sent! I\'ll get back to you soon. 🚀', 'success');
           this.form.reset();
+          this.clearErrors();
         })
         .catch((error) => {
           console.error('EmailJS error:', error);
@@ -60,6 +90,29 @@ const ContactForm = {
         });
     });
   },
+
+  validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  },
+
+  sanitize(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  },
+
+  showError(fieldName, message) {
+    const input = this.form.querySelector(`input[name="${fieldName}"], textarea[name="${fieldName}"]`);
+    const errorSpan = this.form.querySelector(`#${fieldName}-error`);
+    if (input) input.classList.add('error');
+    if (errorSpan) errorSpan.textContent = message;
+  },
+
+  clearErrors() {
+    this.form.querySelectorAll('input, textarea').forEach(el => el.classList.remove('error'));
+    this.form.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+  }
 
   setupCVDownload() {
     document.querySelectorAll('.download-cv-btn').forEach(button => {

@@ -380,30 +380,53 @@ header {
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 25px;
+  gap: 30px;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%)
+  transform: translateX(-50%);
+  align-items: center;
 }
+
 .nav-links a {
   color: var(--secondary);
   font-weight: 500;
   font-size: 15px;
-  transition: .3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   white-space: nowrap;
+  position: relative;
+  padding: 8px 0;
 }
+
 .nav-links a i {
   font-size: 14px;
   width: 16px;
   text-align: center;
   flex-shrink: 0;
+  transition: all 0.3s ease;
 }
+
 .nav-links a.active,
 .nav-links a:hover {
   color: var(--accent);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--secondary));
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a.active::after,
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 @media (max-width: 1100px) {
@@ -415,20 +438,23 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 16px;
   background-color: var(--bg-gradient-1);
   background-image: var(--card-bg);
-  padding: 8px 24px;
+  padding: 10px 28px;
   border-radius: 50px;
   border: 2px solid var(--border-color);
   box-shadow: 0 4px 15px rgba(0,0,0,.2);
-  transition: .3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   height: 48px;
 }
+
 #nav-actions-box:hover {
   border-color: var(--accent);
-  box-shadow: 0 4px 20px var(--accent-glow)
+  box-shadow: 0 4px 20px var(--accent-glow);
+  background-image: linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(124, 58, 237, 0.05));
 }
+
 #theme-btn {
   cursor: pointer;
   color: var(--secondary);
@@ -440,12 +466,21 @@ header {
   height: 100%;
   position: relative;
   z-index: 1001;
+  transition: all 0.3s ease;
+  padding: 0 8px;
 }
+
+#theme-btn:hover {
+  color: var(--accent);
+}
+
 .divider {
   width: 1px;
-  height: 20px;
-  background: var(--border-color)
+  height: 24px;
+  background: var(--border-color);
+  opacity: 0.5;
 }
+
 #hamburger-wrap {
   cursor: pointer;
   color: var(--secondary);
@@ -454,6 +489,11 @@ header {
   justify-content: center;
   height: 100%;
   width: 24px;
+  transition: all 0.3s ease;
+}
+
+#hamburger-wrap:hover {
+  color: var(--accent);
 }
 .nav-wrapper {
   position: relative
@@ -466,62 +506,75 @@ header {
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 12px;
-  min-width: 230px;
+  min-width: 260px;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   z-index: 10001;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4),0 0 30px var(--accent-glow);
+  box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 30px var(--accent-glow);
   backdrop-filter: blur(20px) saturate(180%);
   display: flex;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-10px) scale(.97);
   transform-origin: top right;
-  transition: opacity .25s cubic-bezier(.4, 0, .2, 1),transform .25s cubic-bezier(.34, 1.56, .64, 1)
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 #nav-dropdown.active {
   opacity: 1;
   pointer-events: all;
-  transform: translateY(0) scale(1)
+  transform: translateY(0) scale(1);
 }
+
 #nav-dropdown a {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 10px;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-color);
-  transition: background .2s,color .2s,transform .2s,padding-left .2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
-  transform: translateX(-8px)
+  transform: translateX(-8px);
+  position: relative;
+  overflow: hidden;
 }
+
 #nav-dropdown.active a {
   opacity: 1;
-  transform: translateX(0)
+  transform: translateX(0);
 }
+
 #nav-dropdown.active a:first-child {
-  transition-delay: 40ms
+  transition-delay: 40ms;
 }
+
 #nav-dropdown.active a:nth-child(2) {
-  transition-delay: 80ms
+  transition-delay: 80ms;
 }
+
 #nav-dropdown.active a:nth-child(3) {
-  transition-delay: 0.12s
+  transition-delay: 0.12s;
 }
+
 #nav-dropdown.active a:nth-child(4) {
-  transition-delay: 0.16s
+  transition-delay: 0.16s;
 }
+
 #nav-dropdown.active a:nth-child(5) {
-  transition-delay: 0.20s
+  transition-delay: 0.20s;
 }
+
 #nav-dropdown.active a:nth-child(6) {
-  transition-delay: 0.24s
+  transition-delay: 0.24s;
 }
+
 #nav-dropdown.active a:nth-child(7) {
-  transition-delay: 0.28s
+  transition-delay: 0.28s;
 }
+
 #nav-dropdown a i {
   width: 20px;
   height: 20px;
@@ -533,30 +586,44 @@ header {
   justify-content: center;
   flex-shrink: 0;
 }
+
 #nav-dropdown a:hover {
   background: var(--card-hover);
   color: var(--accent);
-  padding-left: 20px
+  padding-left: 20px;
+  transform: translateX(4px);
 }
+
 .dropdown-header {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.5px;
-  opacity: .45;
-  padding: 6px 14px 4px;
-  color: var(--accent)
+  opacity: 0.6;
+  padding: 8px 16px 6px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-top: 4px;
 }
+
+.dropdown-header:first-child {
+  margin-top: 0;
+}
+
 .dropdown-divider {
   height: 1px;
   background: var(--border-color);
-  margin: 6px 8px
+  margin: 6px 0;
+  opacity: 0.5;
 }
+
 #hamburger-wrap i {
-  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1)
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
 #hamburger-wrap.open i {
-  transform: rotate(90deg)
+  transform: rotate(90deg);
 }
+
 .hero {
   padding: 150px 10% 80px;
   display: flex;
@@ -3206,6 +3273,28 @@ body.light-mode .section-title {
   opacity: 1;
   color: var(--accent);
   text-shadow: 0 0 10px var(--accent);
+}
+
+/* Error message styling */
+.error-message {
+  display: none;
+  font-size: 12px;
+  color: #ff4444;
+  margin-top: 4px;
+  position: absolute;
+  left: 55px;
+  top: 100%;
+}
+
+.input-group input.error,
+.input-group textarea.error {
+  border-color: #ff4444 !important;
+  background: rgba(255, 68, 68, 0.05) !important;
+}
+
+.input-group input.error ~ .error-message,
+.input-group textarea.error ~ .error-message {
+  display: block;
 }
 
 @media (max-width: 768px) {
