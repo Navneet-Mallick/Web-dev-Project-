@@ -64,6 +64,9 @@ const Navigation = {
   },
 
   setupActiveLinks() {
+    const mobileNav = document.getElementById('mobile-bottom-nav');
+    const mobileLinks = mobileNav?.querySelectorAll('a') || [];
+
     window.addEventListener('scroll', () => {
       let current = '';
 
@@ -74,13 +77,27 @@ const Navigation = {
         }
       });
 
+      // Update desktop nav links
       this.navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === '#' + current) {
           link.classList.add('active');
         }
       });
+
+      // Update mobile bottom nav links
+      mobileLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
     });
+
+    // Set initial active state
+    if (mobileLinks.length > 0) {
+      mobileLinks[0].classList.add('active');
+    }
   }
 };
 

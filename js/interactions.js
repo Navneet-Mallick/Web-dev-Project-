@@ -53,11 +53,12 @@ const Interactions = {
 
   setupHapticSimulation() {
     document.querySelectorAll('.btn, .project-card, .magnetic, .nav-links a').forEach(el => {
-      el.addEventListener('mousedown', () => {
+      // Support both mouse and touch events
+      el.addEventListener('pointerdown', () => {
         if (window.navigator.vibrate) {
            window.navigator.vibrate(10); // Subtle 10ms click vibration on supported mobile devices
         }
-      });
+      }, { passive: true });
     });
   },
 
@@ -71,12 +72,12 @@ const Interactions = {
 
     document.addEventListener('touchstart', e => {
       touchstartX = e.changedTouches[0].screenX;
-    }, false);
+    }, { passive: true });
 
     document.addEventListener('touchend', e => {
       touchendX = e.changedTouches[0].screenX;
       this.handleGesture(touchstartX, touchendX);
-    }, false);
+    }, { passive: true });
   },
 
   handleGesture(start, end) {

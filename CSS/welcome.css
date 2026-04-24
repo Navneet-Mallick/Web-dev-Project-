@@ -191,6 +191,8 @@ body.light-mode .wc-name {
     bottom: 80px;   /* clear the mobile bottom nav */
     right:  50%;
     transform: translateX(50%) translateY(120px) scale(0.92);
+    right: max(50%, calc(50% - env(safe-area-inset-right)));
+    bottom: max(80px, calc(80px + env(safe-area-inset-bottom)));
   }
 
   #welcome-card.wc-enter {

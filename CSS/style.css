@@ -97,6 +97,12 @@ html {
   scroll-padding-top: 80px;
 }
 
+@media (max-width: 600px) {
+  html {
+    scroll-padding-top: 64px;
+  }
+}
+
 body {
   background: radial-gradient(circle at top, var(--bg-gradient-1), var(--bg-gradient-2));
   color: var(--text-color);

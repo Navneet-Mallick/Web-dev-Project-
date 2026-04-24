@@ -387,10 +387,34 @@ html.scroll-snap section {
 
   .project-card {
     transform: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .project-card:hover {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .skill {
+    backdrop-filter: none !important;
+  }
+
+  .skill:hover {
+    backdrop-filter: none !important;
   }
 
   .beam-effect::before {
     animation: none;
+    display: none;
+  }
+
+  .beam-glow::after {
+    display: none;
+  }
+
+  .glow-on-hover::before {
+    display: none;
   }
 
   .fab {
