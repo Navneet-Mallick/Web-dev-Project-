@@ -776,29 +776,29 @@ input, textarea, select {
   #game-canvas { 
     width: 100% !important; 
     height: auto !important;
+    min-height: 160px; /* Prevent collapse */
     max-height: 60vh;
     display: block;
+    background: #05081a;
   }
   #snake-canvas,
   #asteroid-canvas,
   #mine-canvas { 
     width: 100% !important; 
     height: auto !important;
+    min-height: 280px; /* Prevent collapse */
     max-height: 60vh;
     display: block;
-    image-rendering: pixelated; /* Sharper for retro games */
+    image-rendering: pixelated; 
+    background: #05081a;
   }
   
-  #game-score-display,
-  #game-hi-display,
-  #game-personality-msg,
-  #snake-score-display,
-  #snake-hi-display,
-  #snake-personality-msg,
-  #asteroid-score-display,
-  #asteroid-hi-display,
-  #asteroid-personality-msg {
     font-size: 12px;
+  }
+
+  /* Disable scanlines on all mobile devices for performance */
+  .scanlines {
+    display: none !important;
   }
 }
 
