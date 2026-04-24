@@ -112,7 +112,7 @@ const ContactForm = {
   clearErrors() {
     this.form.querySelectorAll('input, textarea').forEach(el => el.classList.remove('error'));
     this.form.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-  }
+  },
 
   setupCVDownload() {
     document.querySelectorAll('.download-cv-btn').forEach(button => {

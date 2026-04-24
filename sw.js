@@ -1,9 +1,12 @@
 /**
  * Service Worker - Offline Support & Caching Strategy
  * Cache-first for assets, network-first for HTML
+ * Auto-incrementing cache version to prevent stale content
  */
 
-const CACHE_NAME = 'portfolio-v1';
+// Auto-increment cache version based on timestamp
+const CACHE_VERSION = Math.floor(Date.now() / (1000 * 60 * 60 * 24)); // Daily increment
+const CACHE_NAME = `portfolio-v${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

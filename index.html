@@ -60,12 +60,15 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="CSS/style.css">
-  <link rel="stylesheet" href="CSS/advanced-effects.css">
   <link rel="stylesheet" href="CSS/mobile.css">
   <link rel="stylesheet" href="CSS/loading-screen.css">
   <link rel="stylesheet" href="CSS/mobile-performance.css">
-  <link rel="stylesheet" href="CSS/welcome.css">
   <link rel="stylesheet" href="CSS/shortcuts.css">
+
+  <!-- Lazy-loaded CSS (will be loaded on demand):
+       - CSS/advanced-effects.css
+       - CSS/welcome.css
+  -->
 
   <!-- Ensure boot overlay is visible on mobile - inline critical CSS -->
   <style>
@@ -593,11 +596,13 @@
             <span class="timeline-date">2021 - 2023</span>
             <h3>+2 Science (NEB)</h3>
             <p class="inst"><i class="fas fa-school"></i> DAV College, Lalitpur</p>
-            <p class="timeline-desc">Completed Higher Secondary Education with major in Science stream, focusing on Physics, Chemistry, and Mathematics.</p>
+            <p class="timeline-desc">Completed Higher Secondary Education with major in Science stream, focusing on Physics, Chemistry,Mathematics and Computer Science.</p>
             <div class="timeline-tags">
               <span class="tag">Physics</span>
               <span class="tag">Chemistry</span>
               <span class="tag">Mathematics</span>
+              <span class="tag">Computer Science</span>
+
             </div>
           </div>
         </div>
@@ -607,15 +612,11 @@
             <div class="timeline-icon">
               <i class="fas fa-school-flag"></i>
             </div>
-            <span class="timeline-date">2009 - 2021</span>
+            <span class="timeline-date">2021 (2077 B.S.)</span>
             <h3>SEE (Secondary Education Examination)</h3>
             <p class="inst"><i class="fas fa-building"></i> MIT English Boarding School, Janakpur</p>
-            <p class="timeline-desc">Completed secondary education with strong foundation in Science, Mathematics, and English.</p>
-            <div class="timeline-tags">
-              <span class="tag">Science</span>
-              <span class="tag">Mathematics</span>
-              <span class="tag">English</span>
-            </div>
+            <p class="timeline-desc">Completed secondary education (Class 10)</p>
+           
           </div>
         </div>
       </div>
@@ -968,7 +969,10 @@
 
 <!-- External Scripts -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Three.js will be loaded lazily when hero section is visible -->
+
+<!-- Lazy Loader (loads heavy assets on demand) -->
+<script src="js/lazy-loader.js"></script>
 
 <!-- Application Scripts (Load in order) -->
 <script src="js/resource-hints.js"></script>
@@ -977,6 +981,7 @@
 <script src="js/audio.js"></script>
 <script src="js/main.js"></script>
 <script src="js/theme.js"></script>
+<script src="js/analytics.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/typing.js"></script>
 <script src="js/terminal.js"></script>
