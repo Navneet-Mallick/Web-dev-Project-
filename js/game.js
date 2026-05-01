@@ -55,10 +55,14 @@ function startRunnerGame() {
   if (!canvas) return;
   
   // ── MOBILE CANVAS OPTIMIZATION ──
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR for performance
   const rect = canvas.getBoundingClientRect();
-  const displayWidth = Math.floor(rect.width);
-  const displayHeight = Math.floor(rect.height);
+  let displayWidth = Math.floor(rect.width);
+  let displayHeight = Math.floor(rect.height);
+  
+  // Fallback if rect is 0 (e.g. modal not fully open)
+  if (displayWidth <= 0) displayWidth = 620;
+  if (displayHeight <= 0) displayHeight = 160;
   
   // Set canvas internal resolution for sharp rendering
   canvas.width = displayWidth * dpr;
@@ -392,10 +396,13 @@ function startFlappyGame() {
   if (!canvas) return;
   
   // ── MOBILE CANVAS OPTIMIZATION ──
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const rect = canvas.getBoundingClientRect();
-  const displayWidth = Math.floor(rect.width);
-  const displayHeight = Math.floor(rect.height);
+  let displayWidth = Math.floor(rect.width);
+  let displayHeight = Math.floor(rect.height);
+  
+  if (displayWidth <= 0) displayWidth = 620;
+  if (displayHeight <= 0) displayHeight = 320;
   
   // Set canvas internal resolution for sharp rendering
   canvas.width = displayWidth * dpr;
@@ -742,17 +749,25 @@ function startTetrisGame() {
   if (!canvas) return;
 
   // ── MOBILE CANVAS OPTIMIZATION ──
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const rect = canvas.getBoundingClientRect();
   let displayWidth = Math.floor(rect.width);
   let displayHeight = Math.floor(rect.height);
   
+  if (displayWidth <= 0) displayWidth = 320;
+  if (displayHeight <= 0) displayHeight = 450;
+  
   // Adjust dimensions for mobile
-  const COLS = 10, ROWS = 20, B = Math.max(20, Math.min(26, displayWidth / (COLS + 4.2)));
+  const COLS = 10, ROWS = 20;
+  const B = Math.max(16, Math.min(26, displayWidth / (COLS + 4.2)));
   const BOARD_W = COLS * B;
   const PANEL_W = B * 4.2;
   const W = BOARD_W + PANEL_W;
-  const H = Math.min(ROWS * B, displayHeight);
+  const H = ROWS * B;
+  
+  // Update display size to match calculated grid
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
   
   // Set canvas internal resolution for sharp rendering
   canvas.width = W * dpr;
@@ -1265,27 +1280,6 @@ function startMineGame(difficulty = 'easy') {
   const canvas = document.getElementById('mine-canvas');
   if (!canvas) return;
   
-  // ── MOBILE CANVAS OPTIMIZATION ──
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.getBoundingClientRect();
-  let displayWidth = Math.floor(rect.width);
-  let displayHeight = displayWidth; // Make it square
-  
-  // Adjust for viewport height on mobile
-  const maxHeight = Math.min(displayHeight, window.innerHeight * 0.6);
-  displayHeight = Math.min(displayHeight, maxHeight);
-  
-  // Set canvas internal resolution for sharp rendering
-  canvas.width = displayWidth * dpr;
-  canvas.height = displayHeight * dpr;
-  
-  // Scale context to match device pixel ratio
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
-  
-  const W = displayWidth;
-  const H = displayHeight;
-
   const CONFIGS = {
     easy:   { cols: 9,  rows: 9,  mines: 10 },
     medium: { cols: 16, rows: 16, mines: 40 },
@@ -1294,6 +1288,28 @@ function startMineGame(difficulty = 'easy') {
 
   const cfg = CONFIGS[difficulty] || CONFIGS.easy;
   const { cols, rows, mines } = cfg;
+
+  // ── MOBILE CANVAS OPTIMIZATION ──
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const rect = canvas.getBoundingClientRect();
+  let displayWidth = Math.floor(rect.width);
+  if (displayWidth <= 0) displayWidth = 320;
+  
+  // Calculate cell size based on available width
+  const B = Math.max(18, Math.min(32, Math.floor((displayWidth - 10) / cols)));
+  const W = cols * B;
+  const H = rows * B;
+
+  // Set display size and internal resolution
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  
+  canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   // Highlight active difficulty button
   ['easy','medium','hard'].forEach(d => {
@@ -1309,13 +1325,6 @@ function startMineGame(difficulty = 'easy') {
       btn.style.color = 'var(--text-color)';
     }
   });
-
-  // Fit canvas to modal width
-  const maxW = Math.min(660, (canvas.parentElement?.clientWidth || 620) - 4);
-  const B = Math.max(18, Math.min(32, Math.floor(maxW / cols)));
-  const W = cols * B, H = rows * B;
-  canvas.width = W; canvas.height = H;
-  canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   const CLR = {
     hidden:  '#0d1535',

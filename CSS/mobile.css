@@ -764,18 +764,6 @@ input, textarea, select {
     background: rgba(0,0,0,0.92) !important;
   }
 
-  /* Main game container wrapper */
-  #game-modal > div { 
-    padding: 0 !important;
-    z-index: 9999999 !important;
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-  }
-
   /* Game box styling - optimized for mobile */
   #game-box { 
     padding: 16px !important; 
@@ -785,6 +773,8 @@ input, textarea, select {
     width: 100% !important;
     max-width: 600px !important;
     margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
     overflow-y: visible !important;
     overflow-x: hidden;
     border-radius: 12px;
@@ -843,12 +833,13 @@ input, textarea, select {
     flex-wrap: wrap;
   }
 
-  /* Game panels - full width and responsive */
   #game-panel-runner,
   #game-panel-snake,
   #game-panel-mine,
   #game-panel-asteroid {
     width: 100%;
+    display: block !important;
+    overflow: visible !important;
   }
 
   /* Title styling in game panels */
@@ -889,8 +880,8 @@ input, textarea, select {
     width: 100% !important; 
     height: auto !important;
     aspect-ratio: 620 / 160;
-    min-height: 120px;
-    max-height: 45vh;
+    min-height: 80px;
+    max-height: 60vh;
     display: block;
     background: #05081a;
     border-radius: 6px;
@@ -904,8 +895,8 @@ input, textarea, select {
     width: 100% !important; 
     height: auto !important;
     aspect-ratio: 620 / 320;
-    min-height: 140px;
-    max-height: 50vh;
+    min-height: 100px;
+    max-height: 60vh;
     display: block;
     background: #05081a;
     border-radius: 6px;
@@ -928,16 +919,22 @@ input, textarea, select {
   }
 
   #asteroid-canvas {
-    aspect-ratio: 620 / 320;
-    min-height: 140px;
-    max-height: 50vh;
+    aspect-ratio: 14.2 / 20;
+    min-height: 280px;
+    max-height: 70vh;
+    width: auto !important;
+    max-width: 100%;
+    margin: 0 auto;
     border: 1px solid rgba(168, 85, 247, 0.1);
   }
 
   #mine-canvas {
     aspect-ratio: 1;
-    min-height: 140px;
-    max-height: 60vh;
+    min-height: 100px;
+    max-height: 70vh;
+    width: auto !important;
+    max-width: 100%;
+    margin: 0 auto;
     border: 1px solid rgba(34, 197, 94, 0.1);
   }
 
