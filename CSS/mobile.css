@@ -747,74 +747,371 @@ input, textarea, select {
   .stat-number { font-size: 1.4rem; }
 }
 
-/* ── GAME MODAL MOBILE ──────────────────────────── */
+/* ── GAME MODAL MOBILE (optimized for all screen sizes) ──────────────────────────── */
 @media (max-width: 700px) {
   #game-modal { 
     z-index: 9999999 !important;
     position: fixed !important;
     inset: 0 !important;
-    padding: 0 !important;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left) !important;
     display: none;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
+  /* Main game container wrapper */
   #game-modal > div { 
-    padding: 0; 
+    padding: 0 !important;
     z-index: 9999999 !important;
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
   }
+
+  /* Game box styling - optimized for mobile */
   #game-box { 
     padding: 12px !important; 
     z-index: 9999999 !important;
-    max-height: 98vh;
-    width: 96vw;
+    max-height: none !important;
+    width: calc(100% - 24px);
     max-width: 100%;
-    margin: auto;
+    margin: 12px auto;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    border-radius: 12px;
+  }
+
+  /* Header row with game tabs - horizontal scroll on small screens */
+  #game-box > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Game tab buttons - responsive sizing */
+  #game-tab-runner,
+  #game-tab-snake,
+  #game-tab-mine,
+  #game-tab-asteroid {
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.5px !important;
+    min-height: 40px;
+    min-width: 72px;
+    flex: 1;
+    min-flex: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Close button - always accessible */
+  #game-box button[onclick="closeRunnerGame()"] {
+    min-height: 40px;
+    min-width: 40px;
+    flex-shrink: 0;
+  }
+
+  /* Notification/More games section */
+  #game-box > div:nth-child(2) {
+    margin-bottom: 12px !important;
+    padding: 8px !important;
+    border-radius: 8px;
+    font-size: 11px !important;
+  }
+
+  #game-box > div:nth-child(2) a {
+    font-size: 10px !important;
+    gap: 4px !important;
+    flex-wrap: wrap;
+  }
+
+  /* Game panels - full width and responsive */
+  #game-panel-runner,
+  #game-panel-snake,
+  #game-panel-mine,
+  #game-panel-asteroid {
+    width: 100%;
+  }
+
+  /* Title styling in game panels */
+  #game-panel-runner > div:first-child,
+  #game-panel-snake > div:first-child,
+  #game-panel-mine > div:first-child,
+  #game-panel-asteroid > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  #game-panel-runner > div:first-child > span:first-child,
+  #game-panel-snake > div:first-child > span:first-child,
+  #game-panel-mine > div:first-child > span:first-child,
+  #game-panel-asteroid > div:first-child > span:first-child {
+    font-size: 12px !important;
+  }
+
+  #game-panel-runner > div:first-child > div,
+  #game-panel-snake > div:first-child > div,
+  #game-panel-mine > div:first-child > div,
+  #game-panel-asteroid > div:first-child > div {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #game-panel-runner > div:first-child > div > span,
+  #game-panel-snake > div:first-child > div > span,
+  #game-panel-mine > div:first-child > div > span,
+  #game-panel-asteroid > div:first-child > div > span {
+    font-size: 12px !important;
+  }
+
+  /* Canvas scaling - proper aspect ratio maintenance */
+  #game-canvas { 
+    width: 100% !important; 
+    height: auto !important;
+    aspect-ratio: 620 / 160;
+    min-height: 120px;
+    max-height: 45vh;
+    display: block;
+    background: #05081a;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  #snake-canvas { 
+    width: 100% !important; 
+    height: auto !important;
+    aspect-ratio: 620 / 320;
+    min-height: 140px;
+    max-height: 50vh;
+    display: block;
+    background: #05081a;
+    border-radius: 6px;
+    border: 1px solid rgba(245, 158, 11, 0.1);
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  #asteroid-canvas,
+  #mine-canvas { 
+    width: 100% !important; 
+    height: auto !important;
+    display: block;
+    background: #05081a;
+    border-radius: 6px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  #asteroid-canvas {
+    aspect-ratio: 620 / 320;
+    min-height: 140px;
+    max-height: 50vh;
+    border: 1px solid rgba(168, 85, 247, 0.1);
+  }
+
+  #mine-canvas {
+    aspect-ratio: 1;
+    min-height: 140px;
+    max-height: 60vh;
+    border: 1px solid rgba(34, 197, 94, 0.1);
+  }
+
+  /* Controls info text - responsive sizing */
+  #game-panel-runner > div:last-child,
+  #game-panel-snake > div:last-child,
+  #game-panel-mine > div:last-child,
+  #game-panel-asteroid > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  #game-panel-runner > div:last-child > p,
+  #game-panel-snake > div:last-child > p,
+  #game-panel-mine > div:last-child > p,
+  #game-panel-asteroid > div:last-child > p {
+    font-size: 10px !important;
+    opacity: 0.4 !important;
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+
+  #game-panel-runner > div:last-child > span,
+  #game-panel-snake > div:last-child > span,
+  #game-panel-mine > div:last-child > span,
+  #game-panel-asteroid > div:last-child > span {
+    font-size: 10px !important;
+    text-align: right;
+  }
+
+  /* Mine difficulty buttons - responsive grid */
+  #game-panel-mine > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 6px;
+    margin-bottom: 8px !important;
+  }
+
+  #game-panel-mine > div:nth-child(2) button {
+    padding: 6px 8px !important;
+    font-size: 10px !important;
+    min-height: 36px;
+  }
+
+  /* Disable scanlines and heavy effects on mobile */
+  .scanlines {
+    display: none !important;
+  }
+
+  /* Ensure proper scrolling area */
+  #game-box {
+    max-height: calc(100vh - 120px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  /* Prevent body scroll when game is open */
+  body:has(#game-modal[aria-hidden="false"]) {
+    overflow: hidden;
+  }
+}
+
+/* ── SMALLER PHONES (max-width: 480px) ────────────────────────── */
+@media (max-width: 480px) {
+  #game-box {
+    padding: 10px !important;
+    width: calc(100% - 20px);
+    margin: 10px auto;
   }
 
   #game-tab-runner,
   #game-tab-snake,
   #game-tab-mine,
   #game-tab-asteroid {
-    padding: 10px 16px !important;
-    font-size: 12px !important;
-    letter-spacing: 0.5px !important;
-    min-height: 44px;
-    min-width: 80px;
-    display: flex;
-    align-items: center;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
+    min-height: 36px;
+    min-width: 60px;
+  }
+
+  #game-canvas {
+    min-height: 100px;
+    max-height: 40vh;
+  }
+
+  #snake-canvas,
+  #asteroid-canvas {
+    min-height: 120px;
+    max-height: 45vh;
+  }
+
+  #mine-canvas {
+    min-height: 120px;
+    max-height: 50vh;
+  }
+
+  #game-panel-runner > div:first-child,
+  #game-panel-snake > div:first-child,
+  #game-panel-mine > div:first-child,
+  #game-panel-asteroid > div:first-child {
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  #game-panel-runner > div:last-child,
+  #game-panel-snake > div:last-child,
+  #game-panel-mine > div:last-child,
+  #game-panel-asteroid > div:last-child {
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  #game-panel-runner > div:last-child > p,
+  #game-panel-snake > div:last-child > p,
+  #game-panel-mine > div:last-child > p,
+  #game-panel-asteroid > div:last-child > p {
+    font-size: 9px !important;
+  }
+}
+
+/* ── LARGE TABLETS (768px - 900px) ────────────────────────── */
+@media (min-width: 701px) and (max-width: 900px) {
+  #game-modal {
     justify-content: center;
   }
 
-  #game-canvas { 
-    width: 100% !important; 
-    height: auto !important;
-    min-height: 140px;
-    max-height: 50vh;
-    display: block;
-    background: #05081a;
-    border-radius: 8px;
-  }
-  #snake-canvas,
-  #asteroid-canvas,
-  #mine-canvas { 
-    width: 100% !important; 
-    height: auto !important;
-    min-height: 240px;
-    max-height: 55vh;
-    display: block;
-    image-rendering: pixelated; 
-    background: #05081a;
+  #game-box {
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
-  /* Disable scanlines on all mobile devices for performance */
-  .scanlines {
-    display: none !important;
+  #game-canvas {
+    max-height: 60vh;
+  }
+
+  #snake-canvas,
+  #asteroid-canvas {
+    max-height: 65vh;
+  }
+
+  #mine-canvas {
+    max-height: 70vh;
+  }
+}
+
+/* ── ENHANCED MOBILE GAME CONTROLS ────────────────────────────── */
+@media (max-width: 700px) {
+  /* Touch-friendly active states */
+  #game-tab-runner:active,
+  #game-tab-snake:active,
+  #game-tab-mine:active,
+  #game-tab-asteroid:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  #game-panel-mine > div:nth-child(2) button:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* Improve canvas touch responsiveness */
+  canvas {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Better button feedback on mobile */
+  button[onclick*="Game"],
+  #game-tab-runner,
+  #game-tab-snake,
+  #game-tab-mine,
+  #game-tab-asteroid {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
   }
 }
 

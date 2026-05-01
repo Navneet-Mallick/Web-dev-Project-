@@ -11,6 +11,12 @@ function openRunnerGame() {
   modal.style.display = 'flex';
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+  document.documentElement.style.overflow = 'hidden';
+  // Prevent scrolling on iOS
+  if (isMobile) {
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+  }
   switchGame('runner');
 }
 
@@ -18,9 +24,15 @@ function closeRunnerGame() {
   stopRunnerGame();
   stopFlappyGame();
   stopTetrisGame();
+  stopMineGame();
   const modal = document.getElementById('game-modal');
   if (modal) { modal.style.display = 'none'; modal.setAttribute('aria-hidden', 'true'); }
   document.body.style.overflow = '';
+  document.documentElement.style.overflow = '';
+  if (isMobile) {
+    document.body.style.position = '';
+    document.body.style.width = '';
+  }
 }
 
 // Aliases used by switchGame in index.html
@@ -41,8 +53,24 @@ function startRunnerGame() {
   stopRunnerGame();
   const canvas = document.getElementById('game-canvas');
   if (!canvas) return;
-  const ctx    = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
+  
+  // ── MOBILE CANVAS OPTIMIZATION ──
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const displayWidth = Math.floor(rect.width);
+  const displayHeight = Math.floor(rect.height);
+  
+  // Set canvas internal resolution for sharp rendering
+  canvas.width = displayWidth * dpr;
+  canvas.height = displayHeight * dpr;
+  
+  // Scale context to match device pixel ratio
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  
+  const W = displayWidth;
+  const H = displayHeight;
+  
   canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   // ── Theme colors ──
@@ -362,8 +390,24 @@ function startFlappyGame() {
   stopFlappyGame();
   const canvas = document.getElementById('snake-canvas');
   if (!canvas) return;
+  
+  // ── MOBILE CANVAS OPTIMIZATION ──
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const displayWidth = Math.floor(rect.width);
+  const displayHeight = Math.floor(rect.height);
+  
+  // Set canvas internal resolution for sharp rendering
+  canvas.width = displayWidth * dpr;
+  canvas.height = displayHeight * dpr;
+  
+  // Scale context to match device pixel ratio
   const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
+  ctx.scale(dpr, dpr);
+  
+  const W = displayWidth;
+  const H = displayHeight;
+  
   canvas.style.touchAction = 'none'; // Prevent scrolling while playing
 
   const CLR = {
@@ -697,15 +741,26 @@ function startTetrisGame() {
   const canvas = document.getElementById('asteroid-canvas');
   if (!canvas) return;
 
-  // Use a wider canvas: board + side panel
-  const COLS = 10, ROWS = 20, B = 26;
+  // ── MOBILE CANVAS OPTIMIZATION ──
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  let displayWidth = Math.floor(rect.width);
+  let displayHeight = Math.floor(rect.height);
+  
+  // Adjust dimensions for mobile
+  const COLS = 10, ROWS = 20, B = Math.max(20, Math.min(26, displayWidth / (COLS + 4.2)));
   const BOARD_W = COLS * B;
-  const PANEL_W = 110;
+  const PANEL_W = B * 4.2;
   const W = BOARD_W + PANEL_W;
-  const H = ROWS * B;
-  canvas.width  = W;
-  canvas.height = H;
+  const H = Math.min(ROWS * B, displayHeight);
+  
+  // Set canvas internal resolution for sharp rendering
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  
+  // Scale context to match device pixel ratio
   const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
 
   const COLORS = {
     I:'#00d9ff', O:'#f59e0b', T:'#a855f7',
@@ -1209,7 +1264,27 @@ function startMineGame(difficulty = 'easy') {
   stopMineGame();
   const canvas = document.getElementById('mine-canvas');
   if (!canvas) return;
+  
+  // ── MOBILE CANVAS OPTIMIZATION ──
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  let displayWidth = Math.floor(rect.width);
+  let displayHeight = displayWidth; // Make it square
+  
+  // Adjust for viewport height on mobile
+  const maxHeight = Math.min(displayHeight, window.innerHeight * 0.6);
+  displayHeight = Math.min(displayHeight, maxHeight);
+  
+  // Set canvas internal resolution for sharp rendering
+  canvas.width = displayWidth * dpr;
+  canvas.height = displayHeight * dpr;
+  
+  // Scale context to match device pixel ratio
   const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  
+  const W = displayWidth;
+  const H = displayHeight;
 
   const CONFIGS = {
     easy:   { cols: 9,  rows: 9,  mines: 10 },
