@@ -21,17 +21,26 @@
     contact:      '📬 Contact',
   };
 
+  // Cache sections once
+  const sections = Array.from(document.querySelectorAll('section[id]'));
   let lastId = '';
+  let ticking = false;
+
   window.addEventListener('scroll', () => {
-    let current = 'home';
-    document.querySelectorAll('section[id]').forEach(s => {
-      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      let current = 'home';
+      for (const s of sections) {
+        if (window.scrollY >= s.offsetTop - 200) current = s.id;
+      }
+      if (current !== lastId) {
+        lastId = current;
+        document.title = labels[current] ? `${labels[current]} — Portfolio` : base;
+      }
+      ticking = false;
     });
-    if (current !== lastId) {
-      lastId = current;
-      document.title = labels[current] ? `${labels[current]} — Portfolio` : base;
-    }
-  });
+  }, { passive: true });
 })();
 
 

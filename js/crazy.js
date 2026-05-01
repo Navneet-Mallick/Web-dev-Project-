@@ -1,14 +1,9 @@
 /**
- * crazy.js — Extra wild effects
- * 1. Glitch effect on hero name
- * 2. 3D tilt on profile picture
- * 3. Hire Me button neon ripple
- * 4. Logo secret easter egg (click 5x)
- * 5. Skill badge spark burst on hover
- * 6. Cursor trail particles
- * 7. Section skew warp reveal
+ * crazy.js — Extra wild effects (desktop only)
  */
-// 
+
+// Skip ALL crazy effects on mobile — they cause lag
+const _isMobileCrazy = window.innerWidth < 900 || window.matchMedia('(hover: none)').matches;
 
 // ── EASTER EGG MODAL HELPER ───────────────────────────────────────────────────
 function showEggModal(emoji, title, msg) {
@@ -28,6 +23,7 @@ function showEggModal(emoji, title, msg) {
 
 // ── 1. GLITCH EFFECT ON HERO NAME ────────────────────────────────────────────
 (function setupHeroGlitch() {
+  if (_isMobileCrazy) return;
   const span = document.querySelector('h1 span[data-text]');
   if (!span) return;
 
@@ -70,6 +66,7 @@ function showEggModal(emoji, title, msg) {
 
 // ── 3. HIRE ME BUTTON NEON RIPPLE ────────────────────────────────────────────
 (function setupRipple() {
+  if (_isMobileCrazy) return;
   document.querySelectorAll('.btn').forEach(btn => {
     btn.style.position = 'relative';
     btn.style.overflow = 'hidden';
@@ -99,6 +96,7 @@ function showEggModal(emoji, title, msg) {
 
 // ── 4. LOGO SECRET EASTER EGG (click 5x) ─────────────────────────────────────
 (function setupLogoEgg() {
+  // Keep on mobile — it's just a click counter, no animation overhead
   // Support both the old img logo and the new text logo
   const logo = document.getElementById('nav-logo-img') ||
                document.querySelector('.nav-logo-text') ||
@@ -176,7 +174,7 @@ function showEggModal(emoji, title, msg) {
 
 // ── 5. SKILL BADGE SPARK ON HOVER ────────────────────────────────────────────
 (function setupSkillSparks() {
-  if (window.matchMedia('(hover: none)').matches) return;
+  if (_isMobileCrazy) return;
 
   document.querySelectorAll('.skill-badge, .chip').forEach(badge => {
     badge.addEventListener('mouseenter', function() {
@@ -259,6 +257,7 @@ function showEggModal(emoji, title, msg) {
 
 // ── 7. SECTION SKEW WARP REVEAL ──────────────────────────────────────────────
 (function setupWarpReveal() {
+  if (_isMobileCrazy) return;
   // Subtle: sections start slightly scaled down, animate to full size
   // Avoids the clip-path that was cutting off content before scroll
   const sections = document.querySelectorAll('section.reveal');

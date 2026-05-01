@@ -6,8 +6,9 @@
 
 const Animations = {
   init() {
+    const isMobile = window.innerWidth < 900 || window.matchMedia('(hover: none)').matches;
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      // Still run reveals and skill bars, skip heavy animations
       this.setupScrollReveal();
       this.setupProjectCardReveal();
       this.setupSkillTableAnimation();
@@ -15,8 +16,15 @@ const Animations = {
       return;
     }
 
-    const isMobile = window.innerWidth < 768 || window.matchMedia('(hover: none)').matches;
+    // On mobile: only run lightweight essentials
+    if (isMobile) {
+      this.setupScrollReveal();
+      this.setupProjectCardReveal();
+      this.setupScrollProgress();
+      return;
+    }
 
+    // Desktop only: all effects
     this.createParticles();
     this.setupScrollReveal();
     this.setupProjectCardReveal();
@@ -24,16 +32,10 @@ const Animations = {
     this.setupScrollProgress();
     this.setupMagneticButtons();
     this.setupAudioVisualizer();
-
-    // Skip heavy effects on mobile
-    if (!isMobile) {
-      this.setupParallax();
-      this.setupCursorTrail();
-      this.setupCardTilt();
-      // Matrix rain disabled for better performance
-      // this.setupMatrixRain();
-      this.setupClickExplosions();
-    }
+    this.setupParallax();
+    this.setupCursorTrail();
+    this.setupCardTilt();
+    this.setupClickExplosions();
   },
 
   createParticles() {
@@ -267,11 +269,12 @@ const Animations = {
 document.addEventListener('DOMContentLoaded', () => Animations.init());
 
 
-// ── EXTRA PASSION ANIMATIONS ──────────────────────────────────────────────────
+// ── EXTRA PASSION ANIMATIONS (desktop only) ───────────────────────────────────
+const _isMobileAnim = window.innerWidth < 900 || window.matchMedia('(hover: none)').matches;
 
-// 1. Mouse spotlight — subtle radial glow follows cursor across page
+// 1. Mouse spotlight
 (function setupSpotlight() {
-  if (window.matchMedia('(hover: none)').matches) return;
+  if (_isMobileAnim) return;
   const spotlight = document.createElement('div');
   spotlight.id = 'spotlight';
   spotlight.style.cssText = `
@@ -294,6 +297,7 @@ document.addEventListener('DOMContentLoaded', () => Animations.init());
 
 // 2. Section title typewriter on scroll into view
 document.addEventListener('DOMContentLoaded', function () {
+  if (_isMobileAnim) return; // skip on mobile — causes layout shifts and lag
   const titles = document.querySelectorAll('.section-title');
   const seen = new Set();
 
@@ -322,8 +326,9 @@ document.addEventListener('DOMContentLoaded', function () {
   titles.forEach(t => observer.observe(t));
 });
 
-// 3. Skill bar tooltip — show % on hover
+// 3. Skill bar tooltip
 (function setupSkillTooltips() {
+  if (_isMobileAnim) return;
   document.querySelectorAll('.skill').forEach(skill => {
     const fill = skill.querySelector('.skill-fill');
     if (!fill) return;
@@ -347,6 +352,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 4. Timeline items slide in from alternating sides
 (function setupTimelineReveal() {
+  if (_isMobileAnim) return;
   const items = document.querySelectorAll('.timeline-item');
   items.forEach((item, i) => {
     item.style.opacity = '0';
@@ -380,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 5. Cert cards 3D flip on hover
 (function setupCertFlip() {
+  if (_isMobileAnim) return;
   document.querySelectorAll('.cert-card').forEach(card => {
     card.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s ease';
     card.style.transformStyle = 'preserve-3d';
@@ -394,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 6. Exp cards slide in from left on scroll
 (function setupExpReveal() {
+  if (_isMobileAnim) return;
   const cards = document.querySelectorAll('.exp-card');
   cards.forEach((card, i) => {
     card.style.opacity = '0';
@@ -415,6 +423,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 7. Footer social icons stagger bounce on scroll into view
 (function setupFooterSocials() {
+  if (_isMobileAnim) return;
   const footer = document.querySelector('footer');
   if (!footer) return;
   // Only target actual social icon links, not all footer links
@@ -436,6 +445,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 8. Stat cards pop in with scale on scroll
 (function setupStatReveal() {
+  if (_isMobileAnim) return;
   const cards = document.querySelectorAll('.stat-card');
   cards.forEach((card, i) => {
     card.style.opacity = '0';
@@ -457,6 +467,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 9. Skills table rows stagger in on scroll
 (function setupSkillsTableReveal() {
+  if (_isMobileAnim) return;
   const rows = document.querySelectorAll('.skills-tabular tbody tr');
   if (!rows.length) return;
 

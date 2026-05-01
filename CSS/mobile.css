@@ -819,3 +819,45 @@ input, textarea, select {
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
 }
+
+/* ── MOBILE PERFORMANCE: Kill expensive CSS animations ── */
+@media (max-width: 900px) {
+  /* Kill infinite background animations */
+  body::before { animation: none !important; }
+  body::after  { animation: none !important; }
+
+  /* Kill particle floats */
+  .particle { display: none !important; }
+
+  /* Kill cert ring pulse */
+  .cert-icon::after { animation: none !important; }
+
+  /* Kill timeline dot pulse */
+  .timeline-item::before { animation: none !important; }
+
+  /* Kill hero gradient text animation — static gradient is fine */
+  .hero-left h1 span {
+    animation: none !important;
+    background-position: 0% center !important;
+  }
+
+  /* Kill scroll progress gradient animation */
+  #scroll-progress { animation: none !important; }
+
+  /* Kill audio visualizer bars */
+  .audio-bar, .viz-bar { animation: none !important; }
+
+  /* Kill hero profile float — replaced by floatMobile */
+  .pp-img { animation: 8s ease-in-out infinite floatMobile !important; }
+
+  /* Kill hero right ring rotation */
+  .hero-right::before { animation: 20s linear infinite rotate !important; }
+
+  /* Kill glitch pseudo-elements */
+  .hero-glitch::before,
+  .hero-glitch::after { display: none !important; }
+
+  /* Simplify will-change to reduce GPU layers */
+  * { will-change: auto !important; }
+  .pp-img, .terminal-card, .project-card { will-change: transform !important; }
+}
