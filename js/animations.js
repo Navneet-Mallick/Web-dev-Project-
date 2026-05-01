@@ -94,8 +94,9 @@ const Animations = {
   },
 
   setupParallax() {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
+    if (window.innerWidth < 900) return;
+    window.addEventListener('optimizedScroll', (e) => {
+      const scrolled = e.detail.scrollY;
       const hero = document.querySelector('.hero');
       if (hero && scrolled < window.innerHeight) {
         hero.style.transform = `translateY(${scrolled * 0.2}px)`;

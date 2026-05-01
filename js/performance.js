@@ -26,8 +26,9 @@ const Performance = {
     const memory = navigator.deviceMemory || 4;
     const connection = navigator.connection?.effectiveType || '4g';
     
-    if (cores <= 2 || memory <= 2 || connection === '2g' || connection === 'slow-2g') {
+    if (this.isMobile || cores <= 2 || memory <= 2 || connection === '2g' || connection === 'slow-2g') {
       document.documentElement.setAttribute('data-low-end', 'true');
+      document.body.classList.add('low-end-device');
     }
   },
 
@@ -132,18 +133,12 @@ const Performance = {
       touchEndY = e.touches[0].clientY;
     }, { passive: true });
     
-    // 3. Reduce animation complexity on mobile
+    // 3. Performance Overrides for Mobile
     const style = document.createElement('style');
     style.textContent = `
-      @media (max-width: 600px) {
-        * {
-          animation-timing-function: linear !important;
-        }
-        .project-card:hover,
-        .cert-card:hover,
-        .stat-card:hover {
-          transform: none !important;
-        }
+      @media (max-width: 900px) {
+        .project-card:hover, .cert-card:hover, .stat-card:hover { transform: none !important; }
+        .hero-canvas, #particles, .scanlines { display: none !important; }
       }
     `;
     document.head.appendChild(style);
