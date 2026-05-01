@@ -124,25 +124,25 @@
   function dismissOverlay() {
     if (overlay.classList.contains('boot-exit')) return;
     playBootSound();
-    // On mobile, skip CSS animation (may be killed by data-low-end) — just hide directly
+    // Add boot-exit FIRST so CSS :not(.boot-exit) rule stops applying
+    overlay.classList.add('boot-exit');
     const isMobile = window.innerWidth <= 900;
     if (isMobile) {
+      // Mobile: fade out via inline transition, then hide
       overlay.style.transition = 'opacity 0.5s ease';
       overlay.style.opacity = '0';
       setTimeout(() => {
         overlay.style.display = 'none';
         overlay.style.visibility = 'hidden';
         overlay.style.pointerEvents = 'none';
-        overlay.classList.add('boot-exit');
         document.body.classList.remove('boot-active');
         window._bootDismissed = true;
         document.dispatchEvent(new CustomEvent('bootDismissed'));
       }, 520);
     } else {
-      // Desktop: use CSS animation
+      // Desktop: CSS fadeOutUp animation handles it
       overlay.style.display = '';
       overlay.style.opacity = '';
-      overlay.classList.add('boot-exit');
       setTimeout(() => {
         overlay.style.display = 'none';
         overlay.style.visibility = 'hidden';

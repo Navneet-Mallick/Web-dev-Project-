@@ -2593,12 +2593,12 @@ body.light-mode #music-player {
   opacity: 1;
   color: var(--accent)
 }
-@media (max-width:768px) {
+@media (max-width:900px) {
   #mobile-bottom-nav {
     display: flex
   }
   footer {
-    padding-bottom: 24px
+    padding-bottom: 80px
   }
   #music-player {
     bottom: 72px

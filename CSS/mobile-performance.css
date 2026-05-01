@@ -120,9 +120,7 @@
   .scanlines,
   #matrix-canvas,
   .cursor-dot,
-  .cursor-ring,
-  body::before,
-  body::after {
+  .cursor-ring {
     display: none !important;
   }
 
