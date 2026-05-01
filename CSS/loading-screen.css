@@ -356,9 +356,8 @@
 
 /* Responsive */
 @media (max-width: 600px) {
-  /* Ensure boot overlay is visible on mobile */
+  /* Boot overlay sizing on mobile — JS controls display */
   #boot-overlay {
-    display: flex !important;
     position: fixed !important;
     z-index: 999999 !important;
     min-height: 100vh !important;

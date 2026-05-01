@@ -72,15 +72,18 @@
 
   <!-- Ensure boot overlay is visible on mobile - inline critical CSS -->
   <style>
-    /* Show overlay only when NOT exiting */
-    #boot-overlay:not(.boot-exit) {
-      display: flex !important;
-      position: fixed !important;
-      inset: 0 !important;
-      z-index: 999999 !important;
+    /* Boot overlay — JS controls visibility, CSS just sets initial state */
+    #boot-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+    }
+    #boot-overlay.boot-exit {
+      pointer-events: none;
     }
     body.boot-active {
-      overflow: hidden !important;
+      overflow: hidden;
     }
   </style>
 
@@ -88,6 +91,7 @@
   <script>
     // Add boot-active class immediately to prevent flash
     document.documentElement.classList.add('boot-active');
+    document.body.classList.add('boot-active');
     
     // Ensure boot overlay is visible as soon as DOM is ready
     if (document.readyState === 'loading') {

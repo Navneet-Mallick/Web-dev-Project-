@@ -42,6 +42,14 @@ input, textarea, select {
 @media (max-width: 900px) {
   .nav-links { display: none; }
 
+  /* Always show terminal section on all mobile/tablet — no reveal fade */
+  #terminal-intro.reveal,
+  #terminal-intro.reveal.active {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
   /* ── Bottom nav visible on all mobile/tablet sizes ── */
   #mobile-bottom-nav { 
     display: flex;
@@ -503,10 +511,12 @@ input, textarea, select {
   .terminal-card { transform: none !important; animation: none !important; }
   .t-input { font-size: 11px !important; width: 55% !important; }
 
-  /* Always show terminal section on mobile — no reveal fade needed */
-  #terminal-intro.reveal {
+  /* Always show terminal section — no reveal fade on mobile */
+  #terminal-intro.reveal,
+  #terminal-intro.reveal.active {
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
   }
 
   /* Show hacker button on mobile */

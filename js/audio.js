@@ -136,6 +136,7 @@
         overlay.style.visibility = 'hidden';
         overlay.style.pointerEvents = 'none';
         document.body.classList.remove('boot-active');
+        document.documentElement.classList.remove('boot-active');
         window._bootDismissed = true;
         document.dispatchEvent(new CustomEvent('bootDismissed'));
       }, 520);
@@ -148,6 +149,7 @@
         overlay.style.visibility = 'hidden';
         overlay.style.pointerEvents = 'none';
         document.body.classList.remove('boot-active');
+        document.documentElement.classList.remove('boot-active');
         window._bootDismissed = true;
         document.dispatchEvent(new CustomEvent('bootDismissed'));
       }, 850);
@@ -156,6 +158,7 @@
 
   // --- Init ---
   document.body.classList.add('boot-active');
+  document.documentElement.classList.add('boot-active');
   // Show overlay via inline style so it's guaranteed visible before CSS loads
   overlay.style.display = 'flex';
 

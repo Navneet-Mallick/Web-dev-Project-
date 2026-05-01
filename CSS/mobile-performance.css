@@ -124,12 +124,6 @@
     display: none !important;
   }
 
-  /* IMPORTANT: Keep boot overlay visible and functional on mobile */
-  #boot-overlay:not(.boot-exit) {
-    display: flex !important;
-    position: fixed !important;
-  }
-
   /* Calm the profile image on mobile:
      - kill profileGlow (border colour flash)
      - floatMobile is applied via mobile.css instead */
