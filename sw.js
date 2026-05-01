@@ -5,7 +5,7 @@
  */
 
 // Auto-increment cache version based on timestamp
-const CACHE_VERSION = Math.floor(Date.now() / (1000 * 60 * 60 * 24)); // Daily increment
+const CACHE_VERSION = Math.floor(Date.now() / (1000 * 60 * 60 * 24)) + '-r2'; // Daily increment + manual bust
 const CACHE_NAME = `portfolio-v${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   '/',

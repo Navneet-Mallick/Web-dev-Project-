@@ -42,6 +42,88 @@ input, textarea, select {
 @media (max-width: 900px) {
   .nav-links { display: none; }
 
+  /* ── Bottom nav visible on all mobile/tablet sizes ── */
+  #mobile-bottom-nav { 
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(7, 11, 31, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0, 229, 255, 0.15);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    height: 64px;
+    padding-bottom: env(safe-area-inset-bottom);
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #mobile-bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 16px;
+    min-width: 56px;
+    min-height: 52px;
+    color: rgba(234, 242, 255, 0.55);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    letter-spacing: 0.5px;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #mobile-bottom-nav a i {
+    font-size: 21px;
+    transition: all 0.25s ease;
+  }
+
+  #mobile-bottom-nav a span {
+    font-size: 10px;
+    opacity: 0.8;
+    transition: all 0.25s ease;
+  }
+
+  #mobile-bottom-nav a.active {
+    color: var(--accent);
+    background: rgba(0, 229, 255, 0.1);
+  }
+
+  #mobile-bottom-nav a.active i {
+    font-size: 23px;
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+  }
+
+  #mobile-bottom-nav a.active span {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  #mobile-bottom-nav a:not(.active):active {
+    background: rgba(0, 229, 255, 0.08);
+    color: var(--accent);
+    transform: scale(0.95);
+  }
+
+  /* Ensure page content doesn't hide behind bottom nav */
+  body {
+    padding-bottom: 64px;
+  }
+
+  footer {
+    margin-bottom: 0;
+  }
+
   .hero {
     text-align: center;
     justify-content: center;
@@ -421,6 +503,17 @@ input, textarea, select {
   .terminal-card { transform: none !important; animation: none !important; }
   .t-input { font-size: 11px !important; width: 55% !important; }
 
+  /* Always show terminal section on mobile — no reveal fade needed */
+  #terminal-intro.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Show hacker button on mobile */
+  #mobile-hacker-btn-wrap {
+    display: flex !important;
+  }
+
   /* About */
   .about-section { padding: 40px 5%; }
   .about-grid { gap: 24px; }
@@ -524,110 +617,7 @@ input, textarea, select {
     justify-content: center;
   }
 
-  /* Mobile bottom nav */
-  #mobile-bottom-nav { 
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background: rgba(7, 11, 31, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(0, 229, 255, 0.15);
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-    height: 60px;
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  #mobile-bottom-nav a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 8px 12px;
-    min-width: 50px;
-    min-height: 50px;
-    color: rgba(234, 242, 255, 0.6);
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 600;
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    letter-spacing: 0.5px;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  #mobile-bottom-nav a i {
-    font-size: 20px;
-    transition: all 0.3s ease;
-  }
-
-  #mobile-bottom-nav a span {
-    font-size: 10px;
-    opacity: 0.8;
-    transition: all 0.3s ease;
-  }
-
-  /* Active state */
-  #mobile-bottom-nav a.active {
-    color: var(--accent);
-    background: rgba(0, 229, 255, 0.1);
-  }
-
-  #mobile-bottom-nav a.active i {
-    font-size: 22px;
-    color: var(--accent);
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
-  }
-
-  #mobile-bottom-nav a.active span {
-    opacity: 1;
-    color: var(--accent);
-  }
-
-  /* Tap state */
-  #mobile-bottom-nav a:not(.active):active {
-    background: rgba(0, 229, 255, 0.08);
-    color: var(--accent);
-    transform: scale(0.95);
-  }
-
-  #mobile-bottom-nav a:not(.active):active i {
-    color: var(--accent);
-  }
-
-  /* Ripple effect on tap */
-  #mobile-bottom-nav a::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.3) 0%, transparent 70%);
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  #mobile-bottom-nav a:active::after {
-    animation: navRipple 0.6s ease-out;
-  }
-
-  @keyframes navRipple {
-    0% {
-      opacity: 1;
-      transform: scale(0.5);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(2);
-    }
-  }
+  /* Mobile bottom nav — base styles in 900px block above */
 
   /* Skills table */
   .skills-table-container { padding: 8px 10px 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; }

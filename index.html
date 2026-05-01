@@ -228,6 +228,11 @@
   <i class="fas fa-keyboard"></i>
 </button>
 
+<!-- Mobile Game Button (visible only on mobile) -->
+<button id="mobile-game-btn" onclick="window.openRunnerGame && window.openRunnerGame()" aria-label="Play a game" title="Play a Game">
+  <i class="fas fa-gamepad"></i>
+</button>
+
 <header>
     <nav class="navbar">
         <div class="logo-container">
@@ -260,6 +265,13 @@
 
             <div id="nav-dropdown">
                 <div class="dropdown-header">NAVIGATE</div>
+                <a href="#home"><i class="fas fa-home"></i> Home</a>
+                <a href="#about"><i class="fas fa-user"></i> About</a>
+                <a href="#projects"><i class="fas fa-code"></i> Projects</a>
+                <a href="#skills"><i class="fas fa-brain"></i> Skills</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-header">MORE</div>
                 <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
                 <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a>
                 <a href="#certifications"><i class="fas fa-certificate"></i> Certifications</a>
@@ -370,6 +382,12 @@
         <div class="terminal-body" id="terminal-body"></div>
       </div>
     </div>
+  </div>
+  <!-- Mobile hacker easter egg button (hidden on desktop) -->
+  <div id="mobile-hacker-btn-wrap" style="display:none;justify-content:center;margin-top:16px;">
+    <button onclick="window.triggerEasterEgg && window.triggerEasterEgg()" style="background:transparent;border:1px solid #00ff41;color:#00ff41;font-family:'Courier New',monospace;font-size:12px;padding:8px 20px;border-radius:6px;cursor:pointer;letter-spacing:2px;">
+      &gt; HACK THIS TERMINAL
+    </button>
   </div>
 </section>
 <!-- Stats Counter -->
@@ -961,8 +979,8 @@
 <!-- Mobile Bottom Nav -->
 <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
   <a href="#home" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="#about"><i class="fas fa-user"></i><span>About</span></a>
   <a href="#projects"><i class="fas fa-code"></i><span>Projects</span></a>
-  <a href="#education"><i class="fas fa-graduation-cap"></i><span>Edu</span></a>
   <a href="#skills"><i class="fas fa-brain"></i><span>Skills</span></a>
   <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
 </nav>

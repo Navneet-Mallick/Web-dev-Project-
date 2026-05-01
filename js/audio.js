@@ -124,19 +124,34 @@
   function dismissOverlay() {
     if (overlay.classList.contains('boot-exit')) return;
     playBootSound();
-    // Remove inline display so CSS animation can take over
-    overlay.style.display = '';
-    overlay.style.opacity = '';
-    overlay.classList.add('boot-exit');
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      overlay.style.visibility = 'hidden';
-      overlay.style.pointerEvents = 'none';
-      document.body.classList.remove('boot-active');
-      // Signal music player to start Eagles
-      window._bootDismissed = true;
-      document.dispatchEvent(new CustomEvent('bootDismissed'));
-    }, 850);
+    // On mobile, skip CSS animation (may be killed by data-low-end) — just hide directly
+    const isMobile = window.innerWidth <= 900;
+    if (isMobile) {
+      overlay.style.transition = 'opacity 0.5s ease';
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        overlay.style.visibility = 'hidden';
+        overlay.style.pointerEvents = 'none';
+        overlay.classList.add('boot-exit');
+        document.body.classList.remove('boot-active');
+        window._bootDismissed = true;
+        document.dispatchEvent(new CustomEvent('bootDismissed'));
+      }, 520);
+    } else {
+      // Desktop: use CSS animation
+      overlay.style.display = '';
+      overlay.style.opacity = '';
+      overlay.classList.add('boot-exit');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        overlay.style.visibility = 'hidden';
+        overlay.style.pointerEvents = 'none';
+        document.body.classList.remove('boot-active');
+        window._bootDismissed = true;
+        document.dispatchEvent(new CustomEvent('bootDismissed'));
+      }, 850);
+    }
   }
 
   // --- Init ---
@@ -169,9 +184,10 @@
   const handleTouchDismiss = () => {
     if (!touchDismissEnabled) return;
     clearTimeout(autoDismissTimer);
+    document.removeEventListener('touchstart', handleTouchDismiss);
     dismissOverlay();
   };
-  document.addEventListener('touchstart', handleTouchDismiss, { once: false, passive: true });
+  document.addEventListener('touchstart', handleTouchDismiss, { passive: true });
 
   document.addEventListener('keydown', handleDismiss, { once: true });
 

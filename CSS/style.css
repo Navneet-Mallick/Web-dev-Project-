@@ -4640,6 +4640,41 @@ body.neon-mode .sc-close:hover {
   }
 }
 
+/* ── MOBILE GAME BUTTON ── */
+#mobile-game-btn {
+  display: none; /* hidden by default, shown on mobile via media query */
+  position: fixed;
+  bottom: 90px;
+  left: 68px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(124,58,237,0.4);
+  background: rgba(10,14,39,0.9);
+  color: var(--secondary);
+  font-size: 16px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 9997;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+#mobile-game-btn:hover,
+#mobile-game-btn:active {
+  background: var(--secondary);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  #mobile-game-btn {
+    display: flex;
+  }
+}
+
 
 /* ====== TESTIMONIALS SECTION - CIRCULAR DESIGN ====== */
 #testimonials {
