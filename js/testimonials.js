@@ -15,6 +15,7 @@
   let currentIndex = 0;
   let isScrolling = false;
   let autoScrollInterval;
+  let isInView = true;
 
   // Create dot indicators
   function createDots() {
@@ -101,6 +102,7 @@
 
   // Auto-scroll functionality
   function startAutoScroll() {
+    if (document.hidden || !isInView) return;
     autoScrollInterval = setInterval(() => {
       scrollNext();
     }, 5000); // Change card every 5 seconds
@@ -159,6 +161,11 @@
   function setupIntersectionObserver() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        if (entry.target === scrollContainer) {
+          isInView = entry.isIntersecting;
+          if (!isInView) stopAutoScroll();
+          else startAutoScroll();
+        }
         if (entry.isIntersecting) {
           entry.target.style.animationPlayState = 'running';
         }
@@ -170,6 +177,7 @@
     cards.forEach(card => {
       observer.observe(card);
     });
+    observer.observe(scrollContainer);
   }
 
   // Mouse wheel horizontal scroll
@@ -206,6 +214,12 @@
     // Pause auto-scroll on hover
     scrollContainer.addEventListener('mouseenter', stopAutoScroll);
     scrollContainer.addEventListener('mouseleave', startAutoScroll);
+
+    // Pause timers when tab is hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoScroll();
+      else startAutoScroll();
+    });
 
     // Start auto-scroll
     startAutoScroll();

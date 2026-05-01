@@ -8,21 +8,11 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-  /* Force GPU acceleration for smooth scrolling */
+  /* Keep font rendering tweaks, avoid forced transforms on root
+     because they can break fixed/sticky overlays on some mobiles. */
   html {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
   }
 
   /* Optimize animated elements */
@@ -94,11 +84,6 @@
     scroll-behavior: smooth;
   }
 
-  /* Prevent layout shifts during scroll */
-  section {
-    contain: layout style paint;
-  }
-
   /* Optimize images for scroll performance */
   img {
     content-visibility: auto;
@@ -152,12 +137,6 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 @media (min-resolution: 90dpi) and (max-width: 900px) {
-  /* Smoother animations for high refresh rate displays */
-  * {
-    animation-duration: calc(var(--animation-speed, 1) * 1s);
-    transition-duration: calc(var(--animation-speed, 1) * 0.3s);
-  }
-
   .btn,
   .project-card,
   .cert-card {
@@ -199,24 +178,15 @@
     contain: layout style paint;
   }
 
-  /* Extreme Paint Optimization for Mobile */
-  * {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    text-shadow: none !important;
-  }
-
   /* Simplify shadows globally on mobile to reduce GPU paint cost */
   .project-card, .cert-card, .stat-card, .exp-card, .skill, .btn, .navbar {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
     backdrop-filter: none !important;
   }
 
-  /* Prevent any horizontal layout jitter */
+  /* Prevent horizontal layout jitter without viewport lock */
   body, html {
     overflow-x: hidden !important;
-    width: 100vw;
-    position: relative;
   }
 }
 

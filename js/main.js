@@ -34,13 +34,19 @@ const App = {
     const backToTop = document.getElementById('back-to-top');
     if (!backToTop) return;
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
+    const updateVisibility = (scrollY) => {
+      if (scrollY > 300) {
         backToTop.classList.add('show');
       } else {
         backToTop.classList.remove('show');
       }
-    }, { passive: true });
+    };
+
+    // Prefer centralized throttled scroll event when available
+    window.addEventListener('optimizedScroll', (e) => {
+      updateVisibility(e.detail?.scrollY ?? window.scrollY);
+    });
+    updateVisibility(window.scrollY);
 
     backToTop.addEventListener('click', () => {
       window.scrollTo({

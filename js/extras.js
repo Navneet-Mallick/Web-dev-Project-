@@ -47,10 +47,18 @@ function initStats() {
 function initBackToTop() {
   const btn = document.getElementById('back-to-top');
   if (!btn) return;
+  if (btn.dataset.scrollBound === 'true') return;
+  btn.dataset.scrollBound = 'true';
 
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
+  const updateVisibility = (scrollY) => {
+    btn.classList.toggle('visible', scrollY > 400);
+  };
+
+  // Use throttled global scroll bus to avoid duplicate heavy listeners
+  window.addEventListener('optimizedScroll', (e) => {
+    updateVisibility(e.detail?.scrollY ?? window.scrollY);
   });
+  updateVisibility(window.scrollY);
 
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -102,15 +110,21 @@ function initMobileNav() {
   const links = nav.querySelectorAll('a');
   const sections = document.querySelectorAll('section[id]');
 
-  window.addEventListener('scroll', () => {
+  const updateActiveLink = (scrollY) => {
     let current = '';
     sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      if (scrollY >= s.offsetTop - 120) current = s.id;
     });
     links.forEach(a => {
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
+  };
+
+  // Use centralized throttled scroll event
+  window.addEventListener('optimizedScroll', (e) => {
+    updateActiveLink(e.detail?.scrollY ?? window.scrollY);
   });
+  updateActiveLink(window.scrollY);
 }
 
 // ── 6. LAZY LOAD IMAGES WITH BLUR-UP ─────────────────────────────────────────

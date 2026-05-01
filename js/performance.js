@@ -120,20 +120,8 @@ const Performance = {
 
     // 1. Disable hover effects on mobile (they cause lag)
     document.body.classList.add('mobile-device');
-    
-    // 2. Optimize touch event handling
-    let touchStartY = 0;
-    let touchEndY = 0;
-    
-    document.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    
-    document.addEventListener('touchmove', (e) => {
-      touchEndY = e.touches[0].clientY;
-    }, { passive: true });
-    
-    // 3. Performance Overrides for Mobile
+
+    // 2. Performance Overrides for Mobile
     const style = document.createElement('style');
     style.textContent = `
       @media (max-width: 900px) {
@@ -143,7 +131,7 @@ const Performance = {
     `;
     document.head.appendChild(style);
 
-    // 4. Optimize scroll performance
+    // 3. Optimize scroll performance
     this.enableMomentumScrolling();
   },
 
@@ -164,8 +152,11 @@ const Performance = {
     let lastTime = performance.now();
     let frameCount = 0;
     let fps = 60;
-    
+    let rafId;
+    let isMeasuring = true;
+
     const measureFPS = () => {
+      if (!isMeasuring) return;
       const currentTime = performance.now();
       frameCount++;
       
@@ -186,13 +177,14 @@ const Performance = {
         }
       }
       
-      requestAnimationFrame(measureFPS);
+      rafId = requestAnimationFrame(measureFPS);
     };
     
     // Measure for first 3 seconds
-    requestAnimationFrame(measureFPS);
+    rafId = requestAnimationFrame(measureFPS);
     setTimeout(() => {
-      console.log(`Detected refresh rate: ~${fps}Hz`);
+      isMeasuring = false;
+      if (rafId) cancelAnimationFrame(rafId);
     }, 3000);
   }
 };
