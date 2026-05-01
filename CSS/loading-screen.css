@@ -417,6 +417,32 @@
   }
 }
 
+/* ── LANDSCAPE MOBILE / SHORT SCREENS ──────────────────── */
+@media (max-height: 500px) {
+  .boot-content {
+    padding: 20px 30px;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+  .boot-logo-container {
+    margin-bottom: 20px;
+  }
+  .boot-logo {
+    width: 60px;
+    height: 60px;
+  }
+  .boot-logo-text {
+    font-size: 32px;
+  }
+  .boot-title h1 {
+    font-size: 24px;
+  }
+  .boot-messages {
+    height: 40px;
+    margin-bottom: 20px;
+  }
+}
+
 /* Light Mode */
 body.light-mode #boot-overlay {
   background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 50%, #f0f4ff 100%);
