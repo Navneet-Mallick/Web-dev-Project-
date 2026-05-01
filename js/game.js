@@ -38,7 +38,9 @@ function stopRunnerGame() {
 }
 
 function startRunnerGame() {
+  stopRunnerGame();
   const canvas = document.getElementById('game-canvas');
+  if (!canvas) return;
   const ctx    = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
   canvas.style.touchAction = 'none'; // Prevent scrolling while playing
@@ -357,6 +359,7 @@ function stopFlappyGame() {
 }
 
 function startFlappyGame() {
+  stopFlappyGame();
   const canvas = document.getElementById('snake-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -690,6 +693,7 @@ function stopTetrisGame() {
 }
 
 function startTetrisGame() {
+  stopTetrisGame();
   const canvas = document.getElementById('asteroid-canvas');
   if (!canvas) return;
 
@@ -1182,197 +1186,9 @@ function startTetrisGame() {
   tetrisRunning=true;
   tetrisRaf=requestAnimationFrame(loop);
 }
-
-  const COLORS = {
-    I: '#00d9ff', O: '#f59e0b', T: '#7c3aed',
-    S: '#00ff88', Z: '#ff4500', J: '#0066ff', L: '#ff00c1',
-    ghost: 'rgba(255,255,255,0.12)', empty: '#05081a',
-    grid: 'rgba(255,255,255,0.04)',
-  };
-
-  const PIECES = {
-    I: [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],
-    O: [[1,1],[1,1]],
-    T: [[0,1,0],[1,1,1],[0,0,0]],
-    S: [[0,1,1],[1,1,0],[0,0,0]],
-    Z: [[1,1,0],[0,1,1],[0,0,0]],
-    J: [[1,0,0],[1,1,1],[0,0,0]],
-    L: [[0,0,1],[1,1,1],[0,0,0]],
-  };
-
-  const KEYS = Object.keys(PIECES);
-
-  let board, piece, next, score, hiScore, lines, level, dead, started, dropTimer, dropInterval;
-  hiScore = parseInt(localStorage.getItem('nm_tetris_hi') || '0');
-
-  const hiDisplay    = document.getElementById('asteroid-hi-display');
-  const scoreDisplay = document.getElementById('asteroid-score-display');
-  const msgDisplay   = document.getElementById('asteroid-personality-msg');
-
-  function newBoard() {
-    return Array.from({ length: ROWS }, () => Array(COLS).fill(null));
-  }
-
-  function randomPiece() {
-    const key = KEYS[Math.floor(Math.random() * KEYS.length)];
-    return { key, shape: PIECES[key].map(r => [...r]), x: Math.floor(COLS / 2) - 1, y: 0 };
-  }
-
-  function rotate(shape) {
-    const N = shape.length;
-    return shape[0].map((_, i) => shape.map(r => r[i]).reverse());
-  }
-
-  function valid(shape, ox, oy) {
-    for (let r = 0; r < shape.length; r++)
-      for (let c = 0; c < shape[r].length; c++)
-        if (shape[r][c]) {
-          const nx = ox + c, ny = oy + r;
-          if (nx < 0 || nx >= COLS || ny >= ROWS) return false;
-          if (ny >= 0 && board[ny][nx]) return false;
-        }
-    return true;
-  }
-
-  function place() {
-    piece.shape.forEach((r, ri) =>
-      r.forEach((v, ci) => {
-        if (v && piece.y + ri >= 0) board[piece.y + ri][piece.x + ci] = piece.key;
-      })
-    );
-    // Clear lines
-    let cleared = 0;
-    for (let r = ROWS - 1; r >= 0; r--) {
-      if (board[r].every(c => c)) {
-        board.splice(r, 1);
-        board.unshift(Array(COLS).fill(null));
-        cleared++; r++;
-      }
-    }
-    if (cleared) {
-      const pts = [0, 100, 300, 500, 800];
-      score += (pts[cleared] || 800) * level;
-      lines += cleared;
-      level = Math.floor(lines / 10) + 1;
-      dropInterval = Math.max(100, 800 - (level - 1) * 70);
-      if (scoreDisplay) scoreDisplay.textContent = `SCORE: ${score}`;
-      if (score > hiScore) {
-        hiScore = score;
-        localStorage.setItem('nm_tetris_hi', hiScore);
-        if (hiDisplay) hiDisplay.textContent = `HI: ${hiScore}`;
-      }
-      const msgs = { 1:'NICE!', 2:'DOUBLE!', 3:'TRIPLE!', 4:'TETRIS!!' };
-      if (msgs[cleared] && msgDisplay) {
-        msgDisplay.textContent = msgs[cleared];
-        setTimeout(() => { if (msgDisplay) msgDisplay.textContent = `LVL ${level}`; }, 1000);
-      }
-    }
-    piece = next;
-    next  = randomPiece();
-    if (!valid(piece.shape, piece.x, piece.y)) {
-      dead = true;
-      if (msgDisplay) msgDisplay.textContent = 'GAME OVER';
-    }
-  }
-
-  function ghostY() {
-    let gy = piece.y;
-    while (valid(piece.shape, piece.x, gy + 1)) gy++;
-    return gy;
-  }
-
-  function initState() {
-    board = newBoard();
-    piece = randomPiece();
-    next  = randomPiece();
-    score = 0; lines = 0; level = 1;
-    dead = false; started = false;
-    dropTimer = 0; dropInterval = 800;
-    if (scoreDisplay) scoreDisplay.textContent = 'SCORE: 0';
-    if (hiDisplay)    hiDisplay.textContent    = `HI: ${hiScore}`;
-    if (msgDisplay)   msgDisplay.textContent   = '';
-  }
-
-  // ── Draw ──
-  function drawBlock(x, y, color, alpha = 1) {
-    ctx.globalAlpha = alpha;
-    ctx.fillStyle = color;
-    ctx.fillRect(x * BLOCK + 1, y * BLOCK + 1, BLOCK - 2, BLOCK - 2);
-    // Shine
-    ctx.fillStyle = 'rgba(255,255,255,0.15)';
-    ctx.fillRect(x * BLOCK + 2, y * BLOCK + 2, BLOCK - 4, 4);
-    ctx.globalAlpha = 1;
-  }
-
-  function drawBoard() {
-    // Background
-    ctx.fillStyle = COLORS.empty;
-    ctx.fillRect(0, 0, W, H);
-    // Grid
-    ctx.strokeStyle = COLORS.grid;
-    ctx.lineWidth = 0.5;
-    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
-      ctx.strokeRect(c * BLOCK, r * BLOCK, BLOCK, BLOCK);
-    }
-    // Placed blocks
-    board.forEach((row, r) => row.forEach((v, c) => {
-      if (v) drawBlock(c, r, COLORS[v]);
-    }));
-  }
-
-  function drawPiece(p, alpha = 1) {
-    p.shape.forEach((row, r) => row.forEach((v, c) => {
-      if (v) drawBlock(p.x + c, p.y + r, COLORS[p.key], alpha);
-    }));
-  }
-
-  function drawGhost() {
-    const gy = ghostY();
-    piece.shape.forEach((row, r) => row.forEach((v, c) => {
-      if (v) {
-        ctx.globalAlpha = 0.18;
-        ctx.fillStyle = COLORS[piece.key];
-        ctx.fillRect((piece.x + c) * BLOCK + 1, (gy + r) * BLOCK + 1, BLOCK - 2, BLOCK - 2);
-        ctx.globalAlpha = 1;
-      }
-    }));
-  }
-
-  // ── Input ──
-  let lastMove = 0;
-  const keyHandler = e => {
-    if (!started || dead) {
-      if (e.code === 'Space' || e.key === 'Enter') {
-        if (dead) initState();
-        started = true;
-        if (msgDisplay) msgDisplay.textContent = `LVL ${level}`;
-      }
-      return;
-    }
-    switch (e.key) {
-      case 'ArrowLeft':  e.preventDefault(); if (valid(piece.shape, piece.x - 1, piece.y)) piece.x--; break;
-      case 'ArrowRight': e.preventDefault(); if (valid(piece.shape, piece.x + 1, piece.y)) piece.x++; break;
-      case 'ArrowDown':  e.preventDefault(); if (valid(piece.shape, piece.x, piece.y + 1)) piece.y++; else place(); break;
-      case 'ArrowUp': case 'x': case 'X': {
-        e.preventDefault();
-        const rot = rotate(piece.shape);
-        if (valid(rot, piece.x, piece.y)) piece.shape = rot;
-        else if (valid(rot, piece.x - 1, piece.y)) { piece.shape = rot; piece.x--; }
-        else if (valid(rot, piece.x + 1, piece.y)) { piece.shape = rot; piece.x++; }
-        break;
-      }
-      case ' ': {
-        e.preventDefault();
-        piece.y = ghostY();
-        place();
-        break;
-      }
-    }
-  };
-  document.addEventListener('keydown', keyHandler);
-
 function openTetrisGame() {
   const modal = document.getElementById('game-modal');
+  if (!modal) return;
   modal.style.display = 'flex';
   modal.setAttribute('aria-hidden', 'false');
   switchGame('asteroid');
@@ -1619,52 +1435,40 @@ function startMineGame(difficulty = 'easy') {
     return { r:Math.floor(y/B), c:Math.floor(x/B) };
   }
 
-  canvas.addEventListener('touchend', e => {
-    if (gameOver||gameWon) { initBoard(); draw(); return; }
-    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
-    
-    // If it was a long press, it already handled flagging, so don't reveal
-    // But we need a way to distinguish. Let's use a flag.
-  });
-
-  // Let's refine the Minesweeper touch logic to be more robust
+  // Touch interaction (tap to reveal, long-press to flag)
+  let longPressTimer = null;
   let isLongPress = false;
   canvas.addEventListener('touchstart', e => {
-    const touch=e.touches[0];
+    const touch = e.touches[0];
     isLongPress = false;
-    longPressTimer=setTimeout(()=>{
+    longPressTimer = setTimeout(() => {
       isLongPress = true;
-      const rect=canvas.getBoundingClientRect();
-      const scaleX=W/rect.width, scaleY=H/rect.height;
-      const r=Math.floor((touch.clientY-rect.top)*scaleY/B);
-      const c=Math.floor((touch.clientX-rect.left)*scaleX/B);
-      if (r>=0&&r<rows&&c>=0&&c<cols) toggleFlag(r,c);
-    },400);
-  },{passive:true});
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = W / rect.width, scaleY = H / rect.height;
+      const r = Math.floor((touch.clientY - rect.top) * scaleY / B);
+      const c = Math.floor((touch.clientX - rect.left) * scaleX / B);
+      if (r >= 0 && r < rows && c >= 0 && c < cols) toggleFlag(r, c);
+    }, 400);
+  }, { passive: true });
 
   canvas.addEventListener('touchend', e => {
-    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer=null; }
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
     if (isLongPress) { e.preventDefault(); return; }
-    
     if (gameOver||gameWon) { initBoard(); draw(); return; }
-    
     const touch = e.changedTouches[0];
     const rect = canvas.getBoundingClientRect();
-    const scaleX = W/rect.width, scaleY = H/rect.height;
-    const r = Math.floor((touch.clientY-rect.top)*scaleY/B);
-    const c = Math.floor((touch.clientX-rect.left)*scaleX/B);
-    
-    if (r<0||r>=rows||c<0||c>=cols) return;
-    if (revealed[r][c]) chordReveal(r,c);
-    else reveal(r,c);
-    
+    const scaleX = W / rect.width, scaleY = H / rect.height;
+    const r = Math.floor((touch.clientY - rect.top) * scaleY / B);
+    const c = Math.floor((touch.clientX - rect.left) * scaleX / B);
+    if (r >= 0 && r < rows && c >= 0 && c < cols) {
+      if (revealed[r][c]) chordReveal(r, c);
+      else reveal(r, c);
+    }
     e.preventDefault();
   });
 
   canvas.addEventListener('click', e => {
-    // Prevent double handling on mobile
-    if (e.pointerType === 'touch' || (window.TouchEvent && e instanceof TouchEvent)) return;
-    
+    if (isMobile) return; // avoid duplicate tap+click handling on phones
     if (gameOver||gameWon) { initBoard(); draw(); return; }
     const {r,c}=getCellFromEvent(e);
     if (r<0||r>=rows||c<0||c>=cols) return;
@@ -1677,23 +1481,6 @@ function startMineGame(difficulty = 'easy') {
     if (gameOver||gameWon) return;
     const {r,c}=getCellFromEvent(e);
     if (r>=0&&r<rows&&c>=0&&c<cols) toggleFlag(r,c);
-  });
-
-  // Long press for mobile flagging
-  let longPressTimer=null;
-  canvas.addEventListener('touchstart', e => {
-    const touch=e.touches[0];
-    longPressTimer=setTimeout(()=>{
-      const rect=canvas.getBoundingClientRect();
-      const scaleX=W/rect.width, scaleY=H/rect.height;
-      const r=Math.floor((touch.clientY-rect.top)*scaleY/B);
-      const c=Math.floor((touch.clientX-rect.left)*scaleX/B);
-      if (r>=0&&r<rows&&c>=0&&c<cols) toggleFlag(r,c);
-    },400);
-  },{passive:true});
-
-  canvas.addEventListener('touchend', ()=>{
-    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer=null; }
   });
 
   mineRunning=true;

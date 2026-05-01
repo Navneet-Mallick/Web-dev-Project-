@@ -50,6 +50,11 @@ input, textarea, select {
     transition: none !important;
   }
 
+  /* Show hacker button on all mobile/tablet sizes */
+  #mobile-hacker-btn-wrap {
+    display: flex !important;
+  }
+
   /* ── Bottom nav visible on all mobile/tablet sizes ── */
   #mobile-bottom-nav { 
     display: flex;
@@ -706,19 +711,6 @@ input, textarea, select {
   #music-player { max-width: 160px; }
   .navbar { padding: 0 12px; }
   #nav-actions-box { padding: 6px 10px; gap: 6px; }
-}
-
-/* ── MOBILE LANDSCAPE (max-width: 900px, orientation: landscape) ───────────────────────────── */
-@media (max-width: 900px) and (orientation: landscape) {
-  .hero {
-    flex-direction: row;
-    padding: 60px 6% 30px;
-    min-height: auto;
-    gap: 20px;
-  }
-  .pp-img { max-width: 160px; animation-duration: 10s; }
-  .hero-right::before { width: 190px; height: 190px; }
-  .hero-left h1 { font-size: 1.6rem; }
 }
 
 /* ── SMALL MOBILE LANDSCAPE (max-width: 600px, orientation: landscape) ───────────────────────────── */

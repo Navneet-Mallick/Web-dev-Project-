@@ -91,7 +91,13 @@
   <script>
     // Add boot-active class immediately to prevent flash
     document.documentElement.classList.add('boot-active');
-    document.body.classList.add('boot-active');
+    if (document.body) {
+      document.body.classList.add('boot-active');
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        if (document.body) document.body.classList.add('boot-active');
+      }, { once: true });
+    }
     
     // Ensure boot overlay is visible as soon as DOM is ready
     if (document.readyState === 'loading') {
