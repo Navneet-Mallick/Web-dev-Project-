@@ -4,13 +4,26 @@
  */
 
 (function () {
+  if (window.__nmHeroAnimScriptLoaded) return;
+  window.__nmHeroAnimScriptLoaded = true;
+
+  let started = false;
+
   const initHeroAnimation = () => {
+    if (started) return;
     const canvas = document.getElementById('hero-canvas');
     if (!canvas || !window.THREE) {
       // Fallback to simple particle system if Three.js failed to load
-      console.warn('Three.js not found, falling back to basic animation');
       return;
     }
+    started = true;
+
+    if (canvas.dataset.animReady === 'true') return;
+    canvas.dataset.animReady = 'true';
+
+    const isMobile = window.innerWidth < 900 || window.matchMedia('(hover: none)').matches;
+    const isLowEnd = document.documentElement.getAttribute('data-low-end') === 'true';
+    const particleCount = (isMobile || isLowEnd) ? 900 : 1500;
 
     let scene, camera, renderer;
     try {
@@ -19,17 +32,17 @@
       renderer = new THREE.WebGLRenderer({
         canvas: canvas,
         alpha: true,
-        antialias: true
+        antialias: !(isMobile || isLowEnd),
+        powerPreference: (isMobile || isLowEnd) ? 'low-power' : 'high-performance'
       });
     } catch (e) {
-      console.warn('WebGL initialization failed:', e);
       return;
     }
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   
   const particlesGeometry = new THREE.BufferGeometry();
-  const count = 1500; // reduced from 3000 to 1500
+  const count = particleCount;
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
 
@@ -102,7 +115,6 @@
   if (heroSection) heroObserver.observe(heroSection);
 
   function animate() {
-    const isLowEnd = document.documentElement.getAttribute('data-low-end') === 'true';
     if (!document.hidden && isHeroVisible && !isLowEnd) {
       particles.rotation.y += 0.002;
       particles.rotation.x += 0.001;
@@ -117,6 +129,16 @@
   }
 
   animate();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && animRafId) {
+      cancelAnimationFrame(animRafId);
+      animRafId = null;
+      return;
+    }
+    if (!document.hidden && !animRafId) {
+      animate();
+    }
+  });
   };
 
   if (document.readyState === 'loading') {
@@ -124,4 +146,5 @@
   } else {
     initHeroAnimation();
   }
+  document.addEventListener('threeJsReady', initHeroAnimation);
 })();

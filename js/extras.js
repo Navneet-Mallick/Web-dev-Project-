@@ -299,17 +299,22 @@ function initSectionCursor() {
     'contact':    { color: '#ff4500', size: '10px' },
   };
 
-  window.addEventListener('scroll', () => {
+  const updateCursor = (scrollY) => {
     let current = 'home';
     document.querySelectorAll('section[id]').forEach(s => {
-      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+      if (scrollY >= s.offsetTop - 200) current = s.id;
     });
     const cfg = sectionCursors[current] || sectionCursors['home'];
     dot.style.background = cfg.color;
     dot.style.width = cfg.size;
     dot.style.height = cfg.size;
     dot.style.boxShadow = `0 0 10px ${cfg.color}, 0 0 20px ${cfg.color}40`;
+  };
+
+  window.addEventListener('optimizedScroll', (e) => {
+    updateCursor(e.detail?.scrollY ?? window.scrollY);
   });
+  updateCursor(window.scrollY);
 }
 
 // ── INIT ALL ──────────────────────────────────────────────────────────────────

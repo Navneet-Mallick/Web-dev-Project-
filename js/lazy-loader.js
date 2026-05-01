@@ -61,8 +61,7 @@ const LazyLoader = {
    */
   loadThreeJs() {
     if (this.loaded.threeJs) return;
-
-    console.log('📦 Loading Three.js library...');
+    if (document.documentElement.getAttribute('data-low-end') === 'true') return;
 
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
@@ -70,15 +69,13 @@ const LazyLoader = {
     script.defer = true;
 
     script.onload = () => {
-      console.log('✅ Three.js loaded successfully');
       this.loaded.threeJs = true;
-      
-      // Load hero animation script after Three.js is ready
-      this.loadScript('js/hero-animation.js');
+      // Notify modules that Three.js is ready without injecting duplicate scripts
+      document.dispatchEvent(new CustomEvent('threeJsReady'));
     };
 
     script.onerror = () => {
-      console.warn('⚠️ Failed to load Three.js');
+      // Silent fail: page has graceful fallback behavior
     };
 
     document.head.appendChild(script);
@@ -90,20 +87,15 @@ const LazyLoader = {
   loadAdvancedEffectsCSS() {
     if (this.loaded.advancedEffects) return;
 
-    console.log('📦 Loading advanced effects CSS...');
-
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'CSS/advanced-effects.css';
 
     link.onload = () => {
-      console.log('✅ Advanced effects CSS loaded');
       this.loaded.advancedEffects = true;
     };
 
-    link.onerror = () => {
-      console.warn('⚠️ Failed to load advanced effects CSS');
-    };
+    link.onerror = () => {};
 
     document.head.appendChild(link);
   },
@@ -114,20 +106,15 @@ const LazyLoader = {
   loadWelcomeScreenCSS() {
     if (this.loaded.welcomeScreen) return;
 
-    console.log('📦 Loading welcome screen CSS...');
-
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'CSS/welcome.css';
 
     link.onload = () => {
-      console.log('✅ Welcome screen CSS loaded');
       this.loaded.welcomeScreen = true;
     };
 
-    link.onerror = () => {
-      console.warn('⚠️ Failed to load welcome screen CSS');
-    };
+    link.onerror = () => {};
 
     document.head.appendChild(link);
   },
@@ -150,7 +137,6 @@ const LazyLoader = {
   preloadNonCriticalAssets() {
     if ('requestIdleCallback' in window) {
       requestIdleCallback(() => {
-        console.log('🔄 Preloading non-critical assets...');
         this.loadAdvancedEffectsCSS();
         this.loadWelcomeScreenCSS();
       });

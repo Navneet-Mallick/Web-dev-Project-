@@ -24,23 +24,22 @@
   // Cache sections once
   const sections = Array.from(document.querySelectorAll('section[id]'));
   let lastId = '';
-  let ticking = false;
 
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      let current = 'home';
-      for (const s of sections) {
-        if (window.scrollY >= s.offsetTop - 200) current = s.id;
-      }
-      if (current !== lastId) {
-        lastId = current;
-        document.title = labels[current] ? `${labels[current]} — Portfolio` : base;
-      }
-      ticking = false;
-    });
-  }, { passive: true });
+  const updateTitle = (scrollY) => {
+    let current = 'home';
+    for (const s of sections) {
+      if (scrollY >= s.offsetTop - 200) current = s.id;
+    }
+    if (current !== lastId) {
+      lastId = current;
+      document.title = labels[current] ? `${labels[current]} — Portfolio` : base;
+    }
+  };
+
+  window.addEventListener('optimizedScroll', (e) => {
+    updateTitle(e.detail?.scrollY ?? window.scrollY);
+  });
+  updateTitle(window.scrollY);
 })();
 
 
