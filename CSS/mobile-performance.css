@@ -112,7 +112,7 @@
 
 @media (max-width: 900px) {
   /* Simplify animations on mobile */
-  * {
+  *:not(#boot-overlay):not(#boot-overlay *) {
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
 

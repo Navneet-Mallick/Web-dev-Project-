@@ -29,7 +29,9 @@ input, textarea, select {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *:not(#boot-overlay):not(#boot-overlay *):not(.t-line):not(.t-output),
+  *:not(#boot-overlay):not(#boot-overlay *)::before,
+  *:not(#boot-overlay):not(#boot-overlay *)::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -776,29 +778,26 @@ input, textarea, select {
   #game-canvas { 
     width: 100% !important; 
     height: auto !important;
+    min-height: 160px; /* Prevent collapse */
     max-height: 60vh;
     display: block;
+    background: #05081a;
   }
   #snake-canvas,
   #asteroid-canvas,
   #mine-canvas { 
     width: 100% !important; 
     height: auto !important;
+    min-height: 280px; /* Prevent collapse */
     max-height: 60vh;
     display: block;
-    image-rendering: pixelated; /* Sharper for retro games */
+    image-rendering: pixelated; 
+    background: #05081a;
   }
-  
-  #game-score-display,
-  #game-hi-display,
-  #game-personality-msg,
-  #snake-score-display,
-  #snake-hi-display,
-  #snake-personality-msg,
-  #asteroid-score-display,
-  #asteroid-hi-display,
-  #asteroid-personality-msg {
-    font-size: 12px;
+
+  /* Disable scanlines on all mobile devices for performance */
+  .scanlines {
+    display: none !important;
   }
 }
 
@@ -825,7 +824,7 @@ input, textarea, select {
   background: var(--card-bg-fallback, #121836) !important;
 }
 
-[data-low-end="true"] * {
+[data-low-end="true"] *:not(#boot-overlay):not(#boot-overlay *):not(.t-line):not(.t-output):not(.t-cursor) {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;

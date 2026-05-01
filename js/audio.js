@@ -163,8 +163,15 @@
 
   document.addEventListener('click', handleDismiss, { once: true });
 
-  // Add touch event for mobile devices (more reliable than click on touch)
-  document.addEventListener('touchstart', handleDismiss, { once: true, passive: true });
+  // Add touch event for mobile devices — only after 1.5s so user can see the screen
+  let touchDismissEnabled = false;
+  setTimeout(() => { touchDismissEnabled = true; }, 1500);
+  const handleTouchDismiss = () => {
+    if (!touchDismissEnabled) return;
+    clearTimeout(autoDismissTimer);
+    dismissOverlay();
+  };
+  document.addEventListener('touchstart', handleTouchDismiss, { once: false, passive: true });
 
   document.addEventListener('keydown', handleDismiss, { once: true });
 

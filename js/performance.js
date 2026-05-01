@@ -26,7 +26,7 @@ const Performance = {
     const memory = navigator.deviceMemory || 4;
     const connection = navigator.connection?.effectiveType || '4g';
     
-    if (cores <= 2 || memory <= 2 || connection === '3g' || connection === '4g') {
+    if (cores <= 2 || memory <= 2 || connection === '2g' || connection === 'slow-2g') {
       document.documentElement.setAttribute('data-low-end', 'true');
     }
   },
