@@ -80,7 +80,7 @@
 @media (max-width: 900px) {
   /* Optimize scroll containers */
   body {
-    overscroll-behavior-y: contain;
+    overscroll-behavior-y: auto;
     scroll-behavior: smooth;
   }
 

@@ -82,8 +82,9 @@
     #boot-overlay.boot-exit {
       pointer-events: none;
     }
-    body.boot-active {
-      overflow: hidden;
+    body.boot-active, html.boot-active {
+      overflow: hidden !important;
+      height: 100vh !important;
     }
   </style>
 
@@ -1213,7 +1214,7 @@
 </div>
 
 <!-- Runner + Snake Game Modal -->
-<div id="game-modal" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.88);align-items:center;justify-content:center;padding:12px;">
+<div id="game-modal" aria-hidden="true" style="display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;padding:20px;overflow-y:auto;">
   <div id="game-box" style="position:relative;background:#0a0e27;border:2px solid var(--accent);border-radius:16px;padding:16px 20px;box-shadow:0 0 50px rgba(0,217,255,0.25);max-width:700px;width:100%;max-height:95vh;overflow-y:auto;overflow-x:hidden;">
 
     <!-- Header row -->

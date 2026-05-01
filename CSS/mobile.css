@@ -225,7 +225,8 @@ input, textarea, select {
   }
 
   body {
-    overscroll-behavior-y: contain;
+    overscroll-behavior-y: auto;
+    scroll-behavior: smooth;
   }
 
   /* Navbar - Fixed z-index to ensure visibility */
@@ -753,13 +754,14 @@ input, textarea, select {
     z-index: 9999999 !important;
     position: fixed !important;
     inset: 0 !important;
-    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left) !important;
+    padding: max(20px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(80px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)) !important;
     display: none;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start !important;
     flex-direction: column;
-    overflow-y: auto;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
+    background: rgba(0,0,0,0.92) !important;
   }
 
   /* Main game container wrapper */
@@ -776,16 +778,17 @@ input, textarea, select {
 
   /* Game box styling - optimized for mobile */
   #game-box { 
-    padding: 12px !important; 
+    padding: 16px !important; 
     z-index: 9999999 !important;
+    height: auto !important;
     max-height: none !important;
-    width: calc(100% - 24px);
-    max-width: 100%;
-    margin: 12px auto;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    width: 100% !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    overflow-y: visible !important;
     overflow-x: hidden;
     border-radius: 12px;
+    background: #0a0e27 !important;
   }
 
   /* Header row with game tabs - horizontal scroll on small screens */
