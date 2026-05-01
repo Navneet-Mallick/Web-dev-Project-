@@ -181,7 +181,11 @@
     inp.setAttribute('aria-label', 'Terminal input');
     wrap.appendChild(inp); body.appendChild(wrap);
     body.scrollTop = body.scrollHeight;
-    setTimeout(() => inp.focus(), 150);
+    setTimeout(() => {
+      inp.focus();
+      // Double focus for mobile reliability
+      if (window.innerWidth < 900) inp.focus();
+    }, 150);
 
     inp.addEventListener('keydown', e => {
       // Arrow key history
@@ -341,7 +345,10 @@
     .t-input {
       background:transparent; border:none; outline:none;
       color:#79c0ff; font-family:'Courier New',monospace;
-      font-size:14px; caret-color:#00d9ff; width:65%;
+      font-size:16px; caret-color:#00d9ff; width:75%;
+    }
+    @media (max-width: 600px) {
+      .t-input { width: 85%; font-size: 16px !important; }
     }
   `;
   document.head.appendChild(st);
@@ -351,11 +358,19 @@
     const termEl = document.querySelector('.terminal');
     if (!body || !termEl) return;
     boot(body, termEl);
-    // Click anywhere in terminal to refocus input
-    termEl.addEventListener('click', () => {
+    // Click/Touch anywhere in terminal to refocus input
+    const handleFocus = (e) => {
       const inp = termEl.querySelector('.t-input:not(:disabled)');
-      if (inp) inp.focus();
-    });
+      if (inp) {
+        inp.focus();
+        // Prevent scroll-jump on mobile
+        if (e.type === 'touchstart') {
+          setTimeout(() => inp.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+        }
+      }
+    };
+    termEl.addEventListener('click', handleFocus);
+    termEl.addEventListener('touchstart', handleFocus, { passive: true });
     termEl.addEventListener('mouseenter', () => {
       termEl.style.transform = 'translateY(-5px)';
       termEl.style.boxShadow = '0 0 50px rgba(0,217,255,0.25),0 25px 70px rgba(0,0,0,0.6)';

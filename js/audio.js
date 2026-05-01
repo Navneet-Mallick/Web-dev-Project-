@@ -122,7 +122,9 @@
   }
 
   function dismissOverlay() {
-    if (overlay.classList.contains('boot-exit')) return;
+    if (!overlay || overlay.classList.contains('boot-exit')) return;
+    if (typeof globalSafetyTimer !== 'undefined') clearTimeout(globalSafetyTimer);
+    if (typeof autoDismissTimer !== 'undefined') clearTimeout(autoDismissTimer);
     playBootSound();
     // Add boot-exit FIRST so CSS :not(.boot-exit) rule stops applying
     overlay.classList.add('boot-exit');
@@ -195,11 +197,15 @@
   document.addEventListener('keydown', handleDismiss, { once: true });
 
   // Fallback: Force dismiss after 6 seconds if nothing worked
-  setTimeout(() => {
-    if (!overlay.classList.contains('boot-exit')) {
+  const globalSafetyTimer = setTimeout(() => {
+    if (overlay && !overlay.classList.contains('boot-exit')) {
+      console.warn("Safety fallback: forcing overlay dismissal.");
       dismissOverlay();
     }
   }, 6000);
+
+  // Expose dismissOverlay for manual use if needed
+  window._dismissBoot = dismissOverlay;
 
   // --- Global click sound ---
   document.addEventListener('click', (e) => {

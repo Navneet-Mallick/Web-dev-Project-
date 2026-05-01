@@ -519,6 +519,15 @@ input, textarea, select {
     transform: none !important;
     transition: none !important;
   }
+  
+  /* Lenient reveal for other sections on mobile */
+  .reveal {
+    transition-duration: 0.4s !important; /* Faster transition */
+    transform: translateY(15px); /* Less distance to travel */
+  }
+  .reveal.active {
+    transform: translateY(0);
+  }
 
   /* Show hacker button on mobile */
   #mobile-hacker-btn-wrap {
@@ -778,12 +787,16 @@ input, textarea, select {
 
   #game-tab-runner,
   #game-tab-snake,
+  #game-tab-mine,
   #game-tab-asteroid {
-    padding: 8px 12px !important;
-    font-size: 11px !important;
-    letter-spacing: 0 !important;
-    min-height: 40px;
-    min-width: 60px;
+    padding: 10px 16px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.5px !important;
+    min-height: 44px;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   #game-canvas { 
